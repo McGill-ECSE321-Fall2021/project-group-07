@@ -28,7 +28,7 @@ public class Event
 
   public Event(Timeslot aTimeslot)
   {
-    if (aTimeslot == null || aTimeslot.getEvent() != null)
+    if (aTimeslot == null)
     {
       throw new RuntimeException("Unable to create Event due to aTimeslot. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
@@ -38,7 +38,7 @@ public class Event
 
   public Event(Time aStartTimeForTimeslot, Time aEndTimeForTimeslot, Date aStartDateForTimeslot, Date aEndDateForTimeslot, DayoftheWeek aDayOfTheWeekForTimeslot, HeadLibrarian aHeadLibrarianForTimeslot)
   {
-    timeslot = new Timeslot(aStartTimeForTimeslot, aEndTimeForTimeslot, aStartDateForTimeslot, aEndDateForTimeslot, aDayOfTheWeekForTimeslot, aHeadLibrarianForTimeslot, this);
+    timeslot = new Timeslot(aStartTimeForTimeslot, aEndTimeForTimeslot, aStartDateForTimeslot, aEndDateForTimeslot, aDayOfTheWeekForTimeslot);
     visitors = new ArrayList<Visitor>();
   }
 
@@ -167,10 +167,6 @@ public class Event
   {
     Timeslot existingTimeslot = timeslot;
     timeslot = null;
-    if (existingTimeslot != null)
-    {
-      existingTimeslot.delete();
-    }
     ArrayList<Visitor> copyOfVisitors = new ArrayList<Visitor>(visitors);
     visitors.clear();
     for(Visitor aVisitor : copyOfVisitors)

@@ -2,6 +2,7 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
+import ca.mcgill.ecse321.librarysystem07.dao.TimeslotRepository;
 import java.sql.Time;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class HeadLibrarian extends UserRole
   {
     super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
     hours = aHours;
-    if (aTimeslot == null || aTimeslot.getHeadLibrarian() != null)
+    if (aTimeslot == null)
     {
       throw new RuntimeException("Unable to create HeadLibrarian due to aTimeslot. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
@@ -44,7 +45,7 @@ public class HeadLibrarian extends UserRole
   {
     super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
     hours = aHours;
-    timeslot = new Timeslot(aStartTimeForTimeslot, aEndTimeForTimeslot, aStartDateForTimeslot, aEndDateForTimeslot, aDayOfTheWeekForTimeslot, this, aEventForTimeslot);
+    timeslot = new Timeslot(aStartTimeForTimeslot, aEndTimeForTimeslot, aStartDateForTimeslot, aEndDateForTimeslot, aDayOfTheWeekForTimeslot);
   }
 
   //------------------------
@@ -69,13 +70,14 @@ public class HeadLibrarian extends UserRole
     return timeslot;
   }
 
+  //how
   public void delete()
   {
     Timeslot existingTimeslot = timeslot;
     timeslot = null;
     if (existingTimeslot != null)
     {
-      existingTimeslot.delete();
+   //   TimeslotRepository.delete(existingTimeslot);
     }
     super.delete();
   }

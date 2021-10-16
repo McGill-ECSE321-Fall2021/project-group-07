@@ -105,14 +105,6 @@ public class Reservation
     {
       return wasSet;
     }
-
-    Timeslot existingTimeslot = timeslot;
-    timeslot = aTimeslot;
-    if (existingTimeslot != null && !existingTimeslot.equals(aTimeslot))
-    {
-      existingTimeslot.removeReservation(this);
-    }
-    timeslot.addReservation(this);
     wasSet = true;
     return wasSet;
   }
@@ -212,10 +204,6 @@ public class Reservation
   {
     Timeslot placeholderTimeslot = timeslot;
     this.timeslot = null;
-    if(placeholderTimeslot != null)
-    {
-      placeholderTimeslot.removeReservation(this);
-    }
     Visitor placeholderVisitor = visitor;
     this.visitor = null;
     if(placeholderVisitor != null)

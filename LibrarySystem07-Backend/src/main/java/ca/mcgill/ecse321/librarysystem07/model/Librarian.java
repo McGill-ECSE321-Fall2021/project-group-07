@@ -91,18 +91,6 @@ public class Librarian extends UserRole
     boolean wasAdded = false;
     if (timeslots.contains(aTimeslot)) { return false; }
     timeslots.add(aTimeslot);
-    if (aTimeslot.indexOfLibrarian(this) != -1)
-    {
-      wasAdded = true;
-    }
-    else
-    {
-      wasAdded = aTimeslot.addLibrarian(this);
-      if (!wasAdded)
-      {
-        timeslots.remove(aTimeslot);
-      }
-    }
     return wasAdded;
   }
   /* Code from template association_RemoveMany */
@@ -116,18 +104,6 @@ public class Librarian extends UserRole
 
     int oldIndex = timeslots.indexOf(aTimeslot);
     timeslots.remove(oldIndex);
-    if (aTimeslot.indexOfLibrarian(this) == -1)
-    {
-      wasRemoved = true;
-    }
-    else
-    {
-      wasRemoved = aTimeslot.removeLibrarian(this);
-      if (!wasRemoved)
-      {
-        timeslots.add(oldIndex,aTimeslot);
-      }
-    }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
@@ -167,10 +143,6 @@ public class Librarian extends UserRole
   {
     ArrayList<Timeslot> copyOfTimeslots = new ArrayList<Timeslot>(timeslots);
     timeslots.clear();
-    for(Timeslot aTimeslot : copyOfTimeslots)
-    {
-      aTimeslot.removeLibrarian(this);
-    }
     super.delete();
   }
 
