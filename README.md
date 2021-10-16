@@ -1,5 +1,5 @@
 # Project Management and Report
-project-group-07 created by GitHub Classroom
+
 
 **DELIVERABLE 1**
 
