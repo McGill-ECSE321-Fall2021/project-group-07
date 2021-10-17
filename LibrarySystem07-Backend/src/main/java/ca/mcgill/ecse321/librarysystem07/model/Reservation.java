@@ -158,9 +158,10 @@ public class Reservation
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public ReservableItem addReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, TypeOfReservableItem aReservableItem)
+
+  public ReservableItem addReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, ReservableItem.TypeOfReservableItem aReservableItem)
   {
-    return new ReservableItem(aId, aLibrary, aDuplicates, aName, aAuthor, aStatus, aReservableItem, this);
+    return new ReservableItem(aId, aLibrary, aDuplicates, aName, aAuthor, aStatus, aReservableItem);
   }
 
   public boolean addReservableItem(ReservableItem aReservableItem)
