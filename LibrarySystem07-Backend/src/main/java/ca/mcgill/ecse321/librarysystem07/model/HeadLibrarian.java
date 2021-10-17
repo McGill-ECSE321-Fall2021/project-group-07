@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import ca.mcgill.ecse321.librarysystem07.Timeslot.DayoftheWeek;
+
 
 
 // line 24 "model.ump"
