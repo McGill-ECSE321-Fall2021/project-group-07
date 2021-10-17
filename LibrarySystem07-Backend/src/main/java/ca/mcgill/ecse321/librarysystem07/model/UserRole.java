@@ -3,9 +3,12 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
+import javax.persistence.*;
 
 // line 2 "model.ump"
 // line 97 "model.ump"
+
+@MappedSuperclass
 public abstract class UserRole
 {
 
