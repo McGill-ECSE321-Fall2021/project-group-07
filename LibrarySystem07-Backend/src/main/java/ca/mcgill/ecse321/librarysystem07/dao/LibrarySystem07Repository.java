@@ -24,18 +24,17 @@ public class LibrarySystem07Repository {
 	@Autowired
 	EntityManager entityManager;
 
-	/*Visitor*/
+	/*Visitor - SH*/
 	@Transactional
-	public Visitor createVisitor(String name) {
-		Visitor v = new Visitor(name, name, name, 0, null, 0);
-		v.setName(name);
+	public Visitor createVisitor(String aName, String aUsername, String aAddress, int aLibraryCardID, Library aLibrary, int aDemeritPoints) {
+		Visitor v = new Visitor(aName, aUsername, aAddress, aLibraryCardID, aLibrary, aDemeritPoints);
 		entityManager.persist(v);
 		return v;
 	}
 
 	@Transactional
-	public Visitor getVisitor(String name) {
-		Visitor v = entityManager.find(Visitor.class, name);
+	public Visitor getVisitor(int aLibraryCardID) {
+		Visitor v = entityManager.find(Visitor.class, aLibraryCardID);
 		return v;
 	}
 
