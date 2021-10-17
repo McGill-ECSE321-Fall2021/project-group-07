@@ -4,8 +4,16 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 // line 29 "model.ump"
 // line 117 "model.ump"
+
+@Entity
 public class Library
 {
 
@@ -82,7 +90,8 @@ public class Library
     wasSet = true;
     return wasSet;
   }
-
+  
+  @Id
   public String getName()
   {
     return name;
@@ -138,6 +147,7 @@ public class Library
     return index;
   }
   /* Code from template association_GetMany */
+  @ManyToOne(cascade=CascadeType.ALL)
   public InventoryItem getInventoryItem(int index)
   {
     InventoryItem aInventoryItem = inventoryItems.get(index);
@@ -174,7 +184,7 @@ public class Library
   }
   /* Code from template association_AddManyToOne */
 
-
+  @ManyToOne(optional=false)
   public boolean addUserRole(UserRole aUserRole)
   {
     boolean wasAdded = false;
@@ -242,6 +252,7 @@ public class Library
     return 0;
   }
   /* Code from template association_AddManyToOne */
+  @ManyToOne(optional=false)
   public InventoryItem addInventoryItem(int aId)
   {
     return new InventoryItem(aId, this);
