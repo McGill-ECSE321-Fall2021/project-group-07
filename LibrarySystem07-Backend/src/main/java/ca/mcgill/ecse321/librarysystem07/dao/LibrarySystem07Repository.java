@@ -39,7 +39,7 @@ public class LibrarySystem07Repository {
 	}
 
 	
-	/*TimeSlot*/
+	/*TimeSlot - RM*/
 	@Transactional
 	public TimeSlot createTimeSlot(Time startTime, Time endTime, Date date, DayOfTheWeek dayoftheWeek) {
 		TimeSlot ts;
@@ -74,7 +74,14 @@ public class LibrarySystem07Repository {
 		return listOfTimeSlots;
 	}
 	
-	/*Reservation*/
+	/*Reservation - RM*/
+	@Transactional
+	public Reservation createReservation(int id, TimeSlot ts, Visitor v) {
+		Reservation r = new Reservation(id, ts, v);
+		entityManager.persist(r);
+		return r;
+	}
+	
 	@Transactional
 	public Reservation findReservationByVisitor(Visitor v) {
 		Reservation r = entityManager.find(Reservation.class, v);
@@ -91,5 +98,24 @@ public class LibrarySystem07Repository {
 	public Reservation findReservationById(Integer ID) {
 		Reservation r = entityManager.find(Reservation.class, ID);
 		return r;	
-		}
+	}
+	
+	/*Librarian - RM*/
+	@Transactional
+	public Librarian createLibrarian(String aName, String aUsername, String aAddress, int aLibraryCardID, Library aLibrary, List<TimeSlot> aSchedule) {
+		Librarian l = new Librarian(aName, aUsername, aAddress, aLibraryCardID, aLibrary, aSchedule);
+		entityManager.persist(l);
+		return l;
+	}
+	
+	public Librarian findLibrarian(String name) {
+		return entityManager.find(Librarian.class, name);
+	}
+	
+	public Librarian findLibrarian(Integer id) {
+		return entityManager.find(Librarian.class, id);
+	}
+	
+	/*Non-Reservable Item*/
+
 }
