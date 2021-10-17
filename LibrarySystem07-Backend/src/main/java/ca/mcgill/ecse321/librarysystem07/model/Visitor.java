@@ -3,7 +3,6 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
-
 import javax.persistence.*;
 
 // line 11 "model.ump"

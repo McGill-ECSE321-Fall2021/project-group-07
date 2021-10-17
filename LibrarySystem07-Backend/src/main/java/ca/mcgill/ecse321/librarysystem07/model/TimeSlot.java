@@ -5,9 +5,15 @@ package ca.mcgill.ecse321.librarysystem07.model;
 import java.sql.Time;
 import java.sql.Date;
 import java.util.*;
+import java.util.Map.Entry;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 // line 39 "model.ump"
 // line 152 "model.ump"
+@Entity
 public class TimeSlot
 {
 
@@ -48,6 +54,20 @@ public class TimeSlot
     {
       throw new RuntimeException("Cannot create due to duplicate timeSlotID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
+  }
+  
+  public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
+  {
+    startTime = aStartTime;
+    endTime = aEndTime;
+    date = aDate;
+    dayOfTheWeek = aDayOfTheWeek;
+    int anId = 0;
+    for (Entry<Integer, TimeSlot> e : timeslotsByTimeSlotID.entrySet()) {
+    	if (e.getKey() > anId) anId = e.getKey();
+    }
+    if (anId == 0) timeSlotID = anId;
+    else timeSlotID = anId + 1;
   }
 
   //------------------------
@@ -125,6 +145,8 @@ public class TimeSlot
     return dayOfTheWeek;
   }
 
+  @Id
+  @OneToOne(optional=false)
   public int getTimeSlotID()
   {
     return timeSlotID;
@@ -144,7 +166,6 @@ public class TimeSlot
   {
     timeslotsByTimeSlotID.remove(getTimeSlotID());
   }
-
 
   public String toString()
   {
