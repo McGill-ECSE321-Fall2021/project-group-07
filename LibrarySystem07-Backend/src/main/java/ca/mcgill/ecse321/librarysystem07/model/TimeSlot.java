@@ -145,7 +145,6 @@ public class TimeSlot
     timeslotsByTimeSlotID.remove(getTimeSlotID());
   }
 
-
   public String toString()
   {
     return super.toString() + "["+

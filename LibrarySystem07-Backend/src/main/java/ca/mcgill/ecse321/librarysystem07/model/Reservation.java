@@ -158,11 +158,8 @@ public class Reservation
     return 0;
   }
   /* Code from template association_AddManyToOne */
-<<<<<<< HEAD
-  public ReservableItem addReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, TypeOfReservableItem aReservableItem)
-=======
+
   public ReservableItem addReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, ReservableItem.TypeOfReservableItem aReservableItem)
->>>>>>> c8fd1e5e350fd0c0879845d5486c4ea61dc37698
   {
     return new ReservableItem(aId, aLibrary, aDuplicates, aName, aAuthor, aStatus, aReservableItem, this);
   }

@@ -4,16 +4,11 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
-<<<<<<< HEAD
 import javax.persistence.*;
 
 // line 17 "model.ump"
 // line 107 "model.ump"
 @Entity
-=======
-// line 17 "model.ump"
-// line 107 "model.ump"
->>>>>>> c8fd1e5e350fd0c0879845d5486c4ea61dc37698
 public class Librarian extends UserRole
 {
 
@@ -49,14 +44,11 @@ public class Librarian extends UserRole
   public List<TimeSlot> getSchedule()
   {
     return schedule;
-<<<<<<< HEAD
   }
   
   @Id
   public Integer getLibrarianCardID(HeadLibrarian hl) {
 	  return getLibraryCardID();
-=======
->>>>>>> c8fd1e5e350fd0c0879845d5486c4ea61dc37698
   }
 
   public void delete()

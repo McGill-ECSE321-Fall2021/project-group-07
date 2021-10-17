@@ -3,17 +3,11 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
-
-<<<<<<< HEAD
 import javax.persistence.*;
 
 // line 11 "model.ump"
 // line 102 "model.ump"
 @Entity
-=======
-// line 11 "model.ump"
-// line 102 "model.ump"
->>>>>>> c8fd1e5e350fd0c0879845d5486c4ea61dc37698
 public class Visitor extends UserRole
 {
 

@@ -1,13 +1,10 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
-<<<<<<< HEAD
-=======
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.List;
 
->>>>>>> c8fd1e5e350fd0c0879845d5486c4ea61dc37698
 // line 52 "model.ump"
 // line 123 "model.ump"
 public class Event
@@ -40,7 +37,6 @@ public class Event
   //------------------------
   // INTERFACE
   //------------------------
-<<<<<<< HEAD
 
   public boolean setSchedule(List<TimeSlot> aSchedule)
   {
@@ -50,17 +46,6 @@ public class Event
     return wasSet;
   }
 
-=======
-
-  public boolean setSchedule(List<TimeSlot> aSchedule)
-  {
-    boolean wasSet = false;
-    schedule = aSchedule;
-    wasSet = true;
-    return wasSet;
-  }
-
->>>>>>> c8fd1e5e350fd0c0879845d5486c4ea61dc37698
   public List<TimeSlot> getSchedule()
   {
     return schedule;

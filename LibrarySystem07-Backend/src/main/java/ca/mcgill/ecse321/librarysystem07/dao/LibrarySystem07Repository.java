@@ -19,7 +19,7 @@ import ca.mcgill.ecse321.librarysystem07.model.TimeSlot.DayOfTheWeek;
 
 @Repository
 public class LibrarySystem07Repository {
-	
+
 	@Autowired
 	EntityManager entityManager;
 
@@ -39,17 +39,28 @@ public class LibrarySystem07Repository {
 
 	@Transactional
 	public TimeSlot createTimeSlot(Time startTime, Time endTime, Date date, DayOfTheWeek dayoftheWeek) {
-		TimeSlot ts = new TimeSlot(startTime, endTime, date, dayoftheWeek);
+		TimeSlot ts;
+
+		List<TimeSlot> allSlots = findAllTimeSlots();
+		Integer id = 0;
+		if (allSlots.isEmpty()) ts = new TimeSlot(startTime, endTime, date, dayoftheWeek, id);
+		else {
+			for (TimeSlot t : allSlots) {
+
+				if (t.getTimeSlotID() > id) id = t.getTimeSlotID();
+			}
+			ts = new TimeSlot(startTime, endTime, date, dayoftheWeek, (id+1));
+		}
 		entityManager.persist(ts);
 		return ts;
 	}
-	
+
 	@Transactional
 	public TimeSlot getTimeSlot(String id) {
 		TimeSlot t = entityManager.find(TimeSlot.class, id);
 		return t;
 	}
-	
+
 	@Transactional
 	public List<TimeSlot> findAllTimeSlots() {
 		Query query = entityManager.createQuery("SELECT e FROM Professor e");
