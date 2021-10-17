@@ -147,7 +147,7 @@ public class Library
     return index;
   }
   /* Code from template association_GetMany */
-  @ManyToOne(cascade=CascadeType.ALL)
+  @OneToMany(cascade=CascadeType.ALL)
   public InventoryItem getInventoryItem(int index)
   {
     InventoryItem aInventoryItem = inventoryItems.get(index);
@@ -184,7 +184,7 @@ public class Library
   }
   /* Code from template association_AddManyToOne */
 
-  @ManyToOne(optional=false)
+  @OneToMany
   public boolean addUserRole(UserRole aUserRole)
   {
     boolean wasAdded = false;
@@ -252,7 +252,6 @@ public class Library
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  @ManyToOne(optional=false)
   public InventoryItem addInventoryItem(int aId)
   {
     return new InventoryItem(aId, this);
