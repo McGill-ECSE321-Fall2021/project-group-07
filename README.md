@@ -13,3 +13,34 @@ Our team decided to focus most of our attention on the design of our project, to
 | Samantha Handal    | Developer and Designer  | 10 hours     |
 | Basel Elaghoury    | Developer and Designer  | 10 hours     |
 | Amelie Barsoum     | Developer and Designer  | 10 hours     |
+
+**DELIVERABLE 2**
+
+| Members            | Roles                   | Effort       |
+| ------------------ |:-----------------------:| ------------:|
+| Rebecca Mizrahi    | Developer and Designer  |              |
+| Liamo Pennimpede   | Developer and Designer  |              |
+| Samantha Handal    | Developer and Designer  |              |
+| Basel Elaghoury    | Developer and Designer  |              |
+| Amelie Barsoum     | Developer and Designer  |              |
+
+**DELIVERABLE 3**
+
+| Members            | Roles                   | Effort       |
+| ------------------ |:-----------------------:| ------------:|
+| Rebecca Mizrahi    | Developer and Designer  |              |
+| Liamo Pennimpede   | Developer and Designer  |              |
+| Samantha Handal    | Developer and Designer  |              |
+| Basel Elaghoury    | Developer and Designer  |              |
+| Amelie Barsoum     | Developer and Designer  |              |
+
+**DELIVERABLE 4**
+
+| Members            | Roles                   | Effort       |
+| ------------------ |:-----------------------:| ------------:|
+| Rebecca Mizrahi    | Developer and Designer  |              |
+| Liamo Pennimpede   | Developer and Designer  |              |
+| Samantha Handal    | Developer and Designer  |              |
+| Basel Elaghoury    | Developer and Designer  |              |
+| Amelie Barsoum     | Developer and Designer  |              |
+
