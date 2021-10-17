@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.librarysystem07.model.*;
+import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.Status;
 import ca.mcgill.ecse321.librarysystem07.model.TimeSlot.DayOfTheWeek;
 
 @Repository
@@ -42,20 +43,7 @@ public class LibrarySystem07Repository {
 	/*TimeSlot - RM*/
 	@Transactional
 	public TimeSlot createTimeSlot(Time startTime, Time endTime, Date date, DayOfTheWeek dayoftheWeek) {
-		TimeSlot ts;
-
-		List<TimeSlot> allSlots = findAllTimeSlots();
-		Integer id = 0;
-		//if no timeslots, make ID 0
-		if (allSlots.isEmpty()) ts = new TimeSlot(startTime, endTime, date, dayoftheWeek, id);
-		else {
-			//find highest ID and add 1 to it to get next ID
-			for (TimeSlot t : allSlots) {
-
-				if (t.getTimeSlotID() > id) id = t.getTimeSlotID();
-			}
-			ts = new TimeSlot(startTime, endTime, date, dayoftheWeek, (id+1));
-		}
+		TimeSlot ts = new TimeSlot(startTime, endTime, date, dayoftheWeek);
 		entityManager.persist(ts);
 		return ts;
 	}
@@ -108,14 +96,39 @@ public class LibrarySystem07Repository {
 		return l;
 	}
 	
+	@Transactional
 	public Librarian findLibrarian(String name) {
 		return entityManager.find(Librarian.class, name);
 	}
 	
+	@Transactional
 	public Librarian findLibrarian(Integer id) {
 		return entityManager.find(Librarian.class, id);
 	}
 	
-	/*Non-Reservable Item*/
-
+	/*NonReservable Item - RM*/
+	@Transactional
+	public NonReservableItem createNonReservableItem(int id, Library library, NonReservableItem.TypeOfNonReservableItem type) {
+		NonReservableItem nr = new NonReservableItem(id, library, type);
+		entityManager.persist(nr);
+		return nr;
+	}
+	
+	@Transactional
+	public NonReservableItem findNonReservableItem(int id) {
+		return entityManager.find(NonReservableItem.class, id);
+	}
+	
+	/*Reservable Item - RM*/
+	@Transactional
+	public ReservableItem createReservableItem(int id, Library library, int aDuplicates, String aName, String aAuthor, Status aStatus, ReservableItem.TypeOfReservableItem type) {
+		ReservableItem r = new ReservableItem(id, library, aDuplicates, aName, aAuthor, aStatus, type);
+		entityManager.persist(r);
+		return r;
+	}
+	
+	@Transactional
+	public ReservableItem findReservableItem(int id) {
+		return entityManager.find(ReservableItem.class, id);
+	}
 }
