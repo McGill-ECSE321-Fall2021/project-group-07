@@ -21,13 +21,13 @@ public class NonreservableItem extends InventoryItem
   //------------------------
 
   //NonreservableItem Attributes
-  private typeOfNonReservableItem nonReservableItem;
+  private TypeOfNonReservableItem nonReservableItem;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public NonreservableItem(int aId, Library aLibrary, typeOfNonReservableItem aNonReservableItem)
+  public NonreservableItem(int aId, Library aLibrary, TypeOfNonReservableItem aNonReservableItem)
   {
     super(aId, aLibrary);
     nonReservableItem = aNonReservableItem;
@@ -37,7 +37,7 @@ public class NonreservableItem extends InventoryItem
   // INTERFACE
   //------------------------
 
-  public boolean setNonReservableItem(typeOfNonReservableItem aNonReservableItem)
+  public boolean setNonReservableItem(TypeOfNonReservableItem aNonReservableItem)
   {
     boolean wasSet = false;
     nonReservableItem = aNonReservableItem;
@@ -45,7 +45,7 @@ public class NonreservableItem extends InventoryItem
     return wasSet;
   }
 
-  public typeOfNonReservableItem getNonReservableItem()
+  public TypeOfNonReservableItem getNonReservableItem()
   {
     return nonReservableItem;
   }

@@ -4,6 +4,14 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+
+
 // line 52 "model.ump"
 // line 123 "model.ump"
 public class Event
@@ -37,6 +45,7 @@ public class Event
   // INTERFACE
   //------------------------
 
+  
   public boolean setSchedule(List<TimeSlot> aSchedule)
   {
     boolean wasSet = false;
@@ -45,11 +54,13 @@ public class Event
     return wasSet;
   }
 
+  @ManyToOne(optional=false)
   public List<TimeSlot> getSchedule()
   {
     return schedule;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Visitor getVisitor()
   {
     return visitor;

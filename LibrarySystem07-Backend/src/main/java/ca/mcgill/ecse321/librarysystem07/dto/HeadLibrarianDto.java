@@ -12,13 +12,13 @@ public class HeadLibrarianDto {
 	private String username;
 	private String address;
 	private Integer libraryCardID;
-	private List<Timeslot> schedule;
+	private List<TimeSlot> schedule;
 	
 	public HeadLibrarianDto() {
 	}
 	
 	public HeadLibrarianDto(String name) {
-		this(name, username, address, libraryCardID, schedule);
+		//this(name);
 	}
 
 	public String getName() {
@@ -37,7 +37,7 @@ public class HeadLibrarianDto {
 		return libraryCardID;
 	}
 
-	public List<Timeslot> getSchedule() {
+	public List<TimeSlot> getSchedule() {
 		return schedule;
 	}
 	

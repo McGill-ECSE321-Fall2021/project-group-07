@@ -5,8 +5,11 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableItem;
+
 // line 87 "model.ump"
 // line 146 "model.ump"
+
 public class Reservation
 {
 
@@ -157,7 +160,7 @@ public class Reservation
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public ReservableItem addReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, ReservableItem.typeOfReservableItem aReservableItem)
+  public ReservableItem addReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, TypeOfReservableItem aReservableItem)
   {
     return new ReservableItem(aId, aLibrary, aDuplicates, aName, aAuthor, aStatus, aReservableItem, this);
   }

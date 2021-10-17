@@ -5,8 +5,16 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 // line 23 "model.ump"
 // line 112 "model.ump"
+
+@Entity
 public class HeadLibrarian extends UserRole
 {
 
@@ -30,6 +38,11 @@ public class HeadLibrarian extends UserRole
   //------------------------
   // INTERFACE
   //------------------------
+  
+  @Id
+  public Integer getLibrarianCardID(HeadLibrarian hl) {
+	  return getLibraryCardID();
+  }
 
   public boolean setSchedule(List<TimeSlot> aSchedule)
   {
@@ -39,6 +52,7 @@ public class HeadLibrarian extends UserRole
     return wasSet;
   }
 
+  @OneToOne(optional=false)
   public List<TimeSlot> getSchedule()
   {
     return schedule;

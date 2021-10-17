@@ -26,7 +26,7 @@ public class ReservableItem extends InventoryItem
   private String name;
   private String author;
   private Status status;
-  private typeOfReservableItem reservableItem;
+  private TypeOfReservableItem reservableItem;
 
   //ReservableItem Associations
   private Reservation reservation;
@@ -35,7 +35,7 @@ public class ReservableItem extends InventoryItem
   // CONSTRUCTOR
   //------------------------
 
-  public ReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, Status aStatus, typeOfReservableItem aReservableItem, Reservation aReservation)
+  public ReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfReservableItem aReservableItem, Reservation aReservation)
   {
     super(aId, aLibrary);
     duplicates = aDuplicates;
@@ -86,7 +86,7 @@ public class ReservableItem extends InventoryItem
     return wasSet;
   }
 
-  public boolean setReservableItem(typeOfReservableItem aReservableItem)
+  public boolean setReservableItem(TypeOfReservableItem aReservableItem)
   {
     boolean wasSet = false;
     reservableItem = aReservableItem;
@@ -114,7 +114,7 @@ public class ReservableItem extends InventoryItem
     return status;
   }
 
-  public typeOfReservableItem getReservableItem()
+  public TypeOfReservableItem getReservableItem()
   {
     return reservableItem;
   }
