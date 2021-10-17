@@ -23,6 +23,7 @@ public class LibrarySystem07Repository {
 	@Autowired
 	EntityManager entityManager;
 
+	/*Visitor*/
 	@Transactional
 	public Visitor createVisitor(String name) {
 		Visitor v = new Visitor(name, name, name, 0, null, 0);
@@ -37,14 +38,18 @@ public class LibrarySystem07Repository {
 		return v;
 	}
 
+	
+	/*TimeSlot*/
 	@Transactional
 	public TimeSlot createTimeSlot(Time startTime, Time endTime, Date date, DayOfTheWeek dayoftheWeek) {
 		TimeSlot ts;
 
 		List<TimeSlot> allSlots = findAllTimeSlots();
 		Integer id = 0;
+		//if no timeslots, make ID 0
 		if (allSlots.isEmpty()) ts = new TimeSlot(startTime, endTime, date, dayoftheWeek, id);
 		else {
+			//find highest ID and add 1 to it to get next ID
 			for (TimeSlot t : allSlots) {
 
 				if (t.getTimeSlotID() > id) id = t.getTimeSlotID();
@@ -56,7 +61,7 @@ public class LibrarySystem07Repository {
 	}
 
 	@Transactional
-	public TimeSlot getTimeSlot(String id) {
+	public TimeSlot findTimeSlotById(int id) {
 		TimeSlot t = entityManager.find(TimeSlot.class, id);
 		return t;
 	}
@@ -67,5 +72,23 @@ public class LibrarySystem07Repository {
 		Collection<TimeSlot> collectionOfTimeSlots = ((Collection<TimeSlot>) query.getResultList());
 		List<TimeSlot> listOfTimeSlots = new ArrayList<TimeSlot>(collectionOfTimeSlots);
 		return listOfTimeSlots;
+	}
+	
+	/*Reservation*/
+	@Transactional
+	public List<Reservation> findReservationByVisitor(Visitor v) {
+		List<Reservation> r = v.getReservations();
+		return r;
+	}
+	
+	@Transactional
+	public Reservation findReservationByReservableItem(ReservableItem i) {
+		Reservation r = i.getReservation();
+		return r;
+	}
+	
+	@Transactional
+	public Reservation findReservationById(Integer ID) {
+		return Reservation.getWithReservationID(ID);
 	}
 }
