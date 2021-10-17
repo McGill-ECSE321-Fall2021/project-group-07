@@ -76,19 +76,20 @@ public class LibrarySystem07Repository {
 	
 	/*Reservation*/
 	@Transactional
-	public List<Reservation> findReservationByVisitor(Visitor v) {
-		List<Reservation> r = v.getReservations();
+	public Reservation findReservationByVisitor(Visitor v) {
+		Reservation r = entityManager.find(Reservation.class, v);
 		return r;
 	}
 	
 	@Transactional
 	public Reservation findReservationByReservableItem(ReservableItem i) {
-		Reservation r = i.getReservation();
+		Reservation r = entityManager.find(Reservation.class, i);
 		return r;
 	}
 	
 	@Transactional
 	public Reservation findReservationById(Integer ID) {
-		return Reservation.getWithReservationID(ID);
-	}
+		Reservation r = entityManager.find(Reservation.class, ID);
+		return r;	
+		}
 }
