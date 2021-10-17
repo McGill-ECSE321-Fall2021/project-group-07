@@ -1,70 +1,54 @@
+package ca.mcgill.ecse321.librarysystem07.model;
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-package ca.mcgill.ecse321.librarysystem07.model;
 
 
 import java.sql.Time;
 import java.sql.Date;
 import java.util.*;
 
-// line 41 "model.ump"
-// line 128 "model.ump"
-public class Timeslot
+// line 39 "model.ump"
+// line 152 "model.ump"
+public class TimeSlot
 {
+
+  //------------------------
+  // ENUMERATIONS
+  //------------------------
+
+  public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static Map<Integer, TimeSlot> timeslotsByTimeSlotID = new HashMap<Integer, TimeSlot>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Timeslot Attributes
+  //TimeSlot Attributes
   private Time startTime;
   private Time endTime;
-  private Date startDate;
-  private Date endDate;
-  private DayofTheWeek dayOfTheWeek;
-
-  //Timeslot Associations
-  private List<Librarian> librarians;
-  private HeadLibrarian headLibrarian;
-  private Event event;
-  private List<Reservation> reservations;
+  private Date date;
+  private DayOfTheWeek dayOfTheWeek;
+  private int timeSlotID;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Timeslot(Time aStartTime, Time aEndTime, Date aStartDate, Date aEndDate, DayofTheWeek aDayOfTheWeek, HeadLibrarian aHeadLibrarian, Event aEvent)
+  public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aTimeSlotID)
   {
     startTime = aStartTime;
     endTime = aEndTime;
-    startDate = aStartDate;
-    endDate = aEndDate;
+    date = aDate;
     dayOfTheWeek = aDayOfTheWeek;
-    librarians = new ArrayList<Librarian>();
-    if (aHeadLibrarian == null || aHeadLibrarian.getTimeslot() != null)
+    if (!setTimeSlotID(aTimeSlotID))
     {
-      throw new RuntimeException("Unable to create Timeslot due to aHeadLibrarian. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Cannot create due to duplicate timeSlotID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
-    headLibrarian = aHeadLibrarian;
-    if (aEvent == null || aEvent.getTimeslot() != null)
-    {
-      throw new RuntimeException("Unable to create Timeslot due to aEvent. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    event = aEvent;
-    reservations = new ArrayList<Reservation>();
-  }
-
-  public Timeslot(Time aStartTime, Time aEndTime, Date aStartDate, Date aEndDate, DayofTheWeek aDayOfTheWeek, String aNameForHeadLibrarian, String aUsernameForHeadLibrarian, String aAddressForHeadLibrarian, int aLibraryCardIDForHeadLibrarian, Library aLibraryForHeadLibrarian, List<Time> aHoursForHeadLibrarian)
-  {
-    startTime = aStartTime;
-    endTime = aEndTime;
-    startDate = aStartDate;
-    endDate = aEndDate;
-    dayOfTheWeek = aDayOfTheWeek;
-    librarians = new ArrayList<Librarian>();
-    headLibrarian = new HeadLibrarian(aNameForHeadLibrarian, aUsernameForHeadLibrarian, aAddressForHeadLibrarian, aLibraryCardIDForHeadLibrarian, aLibraryForHeadLibrarian, aHoursForHeadLibrarian, this);
-    event = new Event(this);
-    reservations = new ArrayList<Reservation>();
   }
 
   //------------------------
@@ -87,27 +71,38 @@ public class Timeslot
     return wasSet;
   }
 
-  public boolean setStartDate(Date aStartDate)
+  public boolean setDate(Date aDate)
   {
     boolean wasSet = false;
-    startDate = aStartDate;
+    date = aDate;
     wasSet = true;
     return wasSet;
   }
 
-  public boolean setEndDate(Date aEndDate)
-  {
-    boolean wasSet = false;
-    endDate = aEndDate;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setDayOfTheWeek(DayofTheWeek aDayOfTheWeek)
+  public boolean setDayOfTheWeek(DayOfTheWeek aDayOfTheWeek)
   {
     boolean wasSet = false;
     dayOfTheWeek = aDayOfTheWeek;
     wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setTimeSlotID(int aTimeSlotID)
+  {
+    boolean wasSet = false;
+    Integer anOldTimeSlotID = getTimeSlotID();
+    if (anOldTimeSlotID != null && anOldTimeSlotID.equals(aTimeSlotID)) {
+      return true;
+    }
+    if (hasWithTimeSlotID(aTimeSlotID)) {
+      return wasSet;
+    }
+    timeSlotID = aTimeSlotID;
+    wasSet = true;
+    if (anOldTimeSlotID != null) {
+      timeslotsByTimeSlotID.remove(anOldTimeSlotID);
+    }
+    timeslotsByTimeSlotID.put(aTimeSlotID, this);
     return wasSet;
   }
 
@@ -121,282 +116,44 @@ public class Timeslot
     return endTime;
   }
 
-  public Date getStartDate()
+  public Date getDate()
   {
-    return startDate;
+    return date;
   }
 
-  public Date getEndDate()
-  {
-    return endDate;
-  }
-
-  public DayofTheWeek getDayOfTheWeek()
+  public DayOfTheWeek getDayOfTheWeek()
   {
     return dayOfTheWeek;
   }
-  /* Code from template association_GetMany */
-  public Librarian getLibrarian(int index)
-  {
-    Librarian aLibrarian = librarians.get(index);
-    return aLibrarian;
-  }
 
-  public List<Librarian> getLibrarians()
+  public int getTimeSlotID()
   {
-    List<Librarian> newLibrarians = Collections.unmodifiableList(librarians);
-    return newLibrarians;
+    return timeSlotID;
   }
-
-  public int numberOfLibrarians()
+  /* Code from template attribute_GetUnique */
+  public static TimeSlot getWithTimeSlotID(int aTimeSlotID)
   {
-    int number = librarians.size();
-    return number;
+    return timeslotsByTimeSlotID.get(aTimeSlotID);
   }
-
-  public boolean hasLibrarians()
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithTimeSlotID(int aTimeSlotID)
   {
-    boolean has = librarians.size() > 0;
-    return has;
-  }
-
-  public int indexOfLibrarian(Librarian aLibrarian)
-  {
-    int index = librarians.indexOf(aLibrarian);
-    return index;
-  }
-  /* Code from template association_GetOne */
-  public HeadLibrarian getHeadLibrarian()
-  {
-    return headLibrarian;
-  }
-  /* Code from template association_GetOne */
-  public Event getEvent()
-  {
-    return event;
-  }
-  /* Code from template association_GetMany */
-  public Reservation getReservation(int index)
-  {
-    Reservation aReservation = reservations.get(index);
-    return aReservation;
-  }
-
-  public List<Reservation> getReservations()
-  {
-    List<Reservation> newReservations = Collections.unmodifiableList(reservations);
-    return newReservations;
-  }
-
-  public int numberOfReservations()
-  {
-    int number = reservations.size();
-    return number;
-  }
-
-  public boolean hasReservations()
-  {
-    boolean has = reservations.size() > 0;
-    return has;
-  }
-
-  public int indexOfReservation(Reservation aReservation)
-  {
-    int index = reservations.indexOf(aReservation);
-    return index;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfLibrarians()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToManyMethod */
-  public boolean addLibrarian(Librarian aLibrarian)
-  {
-    boolean wasAdded = false;
-    if (librarians.contains(aLibrarian)) { return false; }
-    librarians.add(aLibrarian);
-    if (aLibrarian.indexOfTimeslot(this) != -1)
-    {
-      wasAdded = true;
-    }
-    else
-    {
-      wasAdded = aLibrarian.addTimeslot(this);
-      if (!wasAdded)
-      {
-        librarians.remove(aLibrarian);
-      }
-    }
-    return wasAdded;
-  }
-  /* Code from template association_RemoveMany */
-  public boolean removeLibrarian(Librarian aLibrarian)
-  {
-    boolean wasRemoved = false;
-    if (!librarians.contains(aLibrarian))
-    {
-      return wasRemoved;
-    }
-
-    int oldIndex = librarians.indexOf(aLibrarian);
-    librarians.remove(oldIndex);
-    if (aLibrarian.indexOfTimeslot(this) == -1)
-    {
-      wasRemoved = true;
-    }
-    else
-    {
-      wasRemoved = aLibrarian.removeTimeslot(this);
-      if (!wasRemoved)
-      {
-        librarians.add(oldIndex,aLibrarian);
-      }
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addLibrarianAt(Librarian aLibrarian, int index)
-  {  
-    boolean wasAdded = false;
-    if(addLibrarian(aLibrarian))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfLibrarians()) { index = numberOfLibrarians() - 1; }
-      librarians.remove(aLibrarian);
-      librarians.add(index, aLibrarian);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveLibrarianAt(Librarian aLibrarian, int index)
-  {
-    boolean wasAdded = false;
-    if(librarians.contains(aLibrarian))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfLibrarians()) { index = numberOfLibrarians() - 1; }
-      librarians.remove(aLibrarian);
-      librarians.add(index, aLibrarian);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addLibrarianAt(aLibrarian, index);
-    }
-    return wasAdded;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfReservations()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public Reservation addReservation(int aReservationID, Visitor aVisitor)
-  {
-    return new Reservation(aReservationID, this, aVisitor);
-  }
-
-  public boolean addReservation(Reservation aReservation)
-  {
-    boolean wasAdded = false;
-    if (reservations.contains(aReservation)) { return false; }
-    Timeslot existingTimeslot = aReservation.getTimeslot();
-    boolean isNewTimeslot = existingTimeslot != null && !this.equals(existingTimeslot);
-    if (isNewTimeslot)
-    {
-      aReservation.setTimeslot(this);
-    }
-    else
-    {
-      reservations.add(aReservation);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeReservation(Reservation aReservation)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aReservation, as it must always have a timeslot
-    if (!this.equals(aReservation.getTimeslot()))
-    {
-      reservations.remove(aReservation);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addReservationAt(Reservation aReservation, int index)
-  {  
-    boolean wasAdded = false;
-    if(addReservation(aReservation))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfReservations()) { index = numberOfReservations() - 1; }
-      reservations.remove(aReservation);
-      reservations.add(index, aReservation);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveReservationAt(Reservation aReservation, int index)
-  {
-    boolean wasAdded = false;
-    if(reservations.contains(aReservation))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfReservations()) { index = numberOfReservations() - 1; }
-      reservations.remove(aReservation);
-      reservations.add(index, aReservation);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addReservationAt(aReservation, index);
-    }
-    return wasAdded;
+    return getWithTimeSlotID(aTimeSlotID) != null;
   }
 
   public void delete()
   {
-    ArrayList<Librarian> copyOfLibrarians = new ArrayList<Librarian>(librarians);
-    librarians.clear();
-    for(Librarian aLibrarian : copyOfLibrarians)
-    {
-      aLibrarian.removeTimeslot(this);
-    }
-    HeadLibrarian existingHeadLibrarian = headLibrarian;
-    headLibrarian = null;
-    if (existingHeadLibrarian != null)
-    {
-      existingHeadLibrarian.delete();
-    }
-    Event existingEvent = event;
-    event = null;
-    if (existingEvent != null)
-    {
-      existingEvent.delete();
-    }
-    for(int i=reservations.size(); i > 0; i--)
-    {
-      Reservation aReservation = reservations.get(i - 1);
-      aReservation.delete();
-    }
+    timeslotsByTimeSlotID.remove(getTimeSlotID());
   }
 
 
   public String toString()
   {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
+    return super.toString() + "["+
+            "timeSlotID" + ":" + getTimeSlotID()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "startTime" + "=" + (getStartTime() != null ? !getStartTime().equals(this)  ? getStartTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "endTime" + "=" + (getEndTime() != null ? !getEndTime().equals(this)  ? getEndTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "startDate" + "=" + (getStartDate() != null ? !getStartDate().equals(this)  ? getStartDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "endDate" + "=" + (getEndDate() != null ? !getEndDate().equals(this)  ? getEndDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "dayOfTheWeek" + "=" + (getDayOfTheWeek() != null ? !getDayOfTheWeek().equals(this)  ? getDayOfTheWeek().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "headLibrarian = "+(getHeadLibrarian()!=null?Integer.toHexString(System.identityHashCode(getHeadLibrarian())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "event = "+(getEvent()!=null?Integer.toHexString(System.identityHashCode(getEvent())):"null");
+            "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "dayOfTheWeek" + "=" + (getDayOfTheWeek() != null ? !getDayOfTheWeek().equals(this)  ? getDayOfTheWeek().toString().replaceAll("  ","    ") : "this" : "null");
   }
 }

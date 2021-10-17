@@ -1,12 +1,12 @@
+package ca.mcgill.ecse321.librarysystem07.model;
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-package ca.mcgill.ecse321.librarysystem07.model;
 
-import java.sql.Time;
+
 import java.util.*;
 
-// line 31 "model.ump"
-// line 122 "model.ump"
+// line 29 "model.ump"
+// line 117 "model.ump"
 public class Library
 {
 
@@ -17,7 +17,7 @@ public class Library
   //Library Attributes
   private String name;
   private String city;
-  private Time openingHours;
+  private List<TimeSlot> openingHours;
   private List<Librarian> employees;
   private long phoneNumber;
 
@@ -29,7 +29,7 @@ public class Library
   // CONSTRUCTOR
   //------------------------
 
-  public Library(String aName, String aCity, Time aOpeningHours, List<Librarian> aEmployees, long aPhoneNumber)
+  public Library(String aName, String aCity, List<TimeSlot> aOpeningHours, List<Librarian> aEmployees, long aPhoneNumber)
   {
     name = aName;
     city = aCity;
@@ -60,7 +60,7 @@ public class Library
     return wasSet;
   }
 
-  public boolean setOpeningHours(Time aOpeningHours)
+  public boolean setOpeningHours(List<TimeSlot> aOpeningHours)
   {
     boolean wasSet = false;
     openingHours = aOpeningHours;
@@ -94,7 +94,7 @@ public class Library
     return city;
   }
 
-  public Time getOpeningHours()
+  public List<TimeSlot> getOpeningHours()
   {
     return openingHours;
   }
@@ -174,10 +174,7 @@ public class Library
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public UserRole addUserRole(String aName, String aUsername, String aAddress, int aLibraryCardID)
-  {
-    return new UserRole(aName, aUsername, aAddress, aLibraryCardID, this);
-  }
+
 
   public boolean addUserRole(UserRole aUserRole)
   {
@@ -246,7 +243,7 @@ public class Library
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public InventoryItem addInventoryItem(String aId)
+  public InventoryItem addInventoryItem(int aId)
   {
     return new InventoryItem(aId, this);
   }
@@ -320,11 +317,13 @@ public class Library
       UserRole aUserRole = userRoles.get(i - 1);
       aUserRole.delete();
     }
-    for(int i=inventoryItems.size(); i > 0; i--)
+    while (inventoryItems.size() > 0)
     {
-      InventoryItem aInventoryItem = inventoryItems.get(i - 1);
+      InventoryItem aInventoryItem = inventoryItems.get(inventoryItems.size() - 1);
       aInventoryItem.delete();
+      inventoryItems.remove(aInventoryItem);
     }
+    
   }
 
 
