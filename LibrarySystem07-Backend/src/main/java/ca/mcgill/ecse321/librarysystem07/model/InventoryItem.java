@@ -2,18 +2,25 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
+import java.util.*;
 
 // line 60 "model.ump"
-// line 116 "model.ump"
+// line 129 "model.ump"
 public class InventoryItem
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static Map<Integer, InventoryItem> inventoryitemsById = new HashMap<Integer, InventoryItem>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //InventoryItem Attributes
-  private String id;
+  private int id;
 
   //InventoryItem Associations
   private Library library;
@@ -22,9 +29,12 @@ public class InventoryItem
   // CONSTRUCTOR
   //------------------------
 
-  public InventoryItem(String aId, Library aLibrary)
+  public InventoryItem(int aId, Library aLibrary)
   {
-    id = aId;
+    if (!setId(aId))
+    {
+      throw new RuntimeException("Cannot create due to duplicate id. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
     boolean didAddLibrary = setLibrary(aLibrary);
     if (!didAddLibrary)
     {
@@ -36,17 +46,38 @@ public class InventoryItem
   // INTERFACE
   //------------------------
 
-  public boolean setId(String aId)
+  public boolean setId(int aId)
   {
     boolean wasSet = false;
+    Integer anOldId = getId();
+    if (anOldId != null && anOldId.equals(aId)) {
+      return true;
+    }
+    if (hasWithId(aId)) {
+      return wasSet;
+    }
     id = aId;
     wasSet = true;
+    if (anOldId != null) {
+      inventoryitemsById.remove(anOldId);
+    }
+    inventoryitemsById.put(aId, this);
     return wasSet;
   }
 
-  public String getId()
+  public int getId()
   {
     return id;
+  }
+  /* Code from template attribute_GetUnique */
+  public static InventoryItem getWithId(int aId)
+  {
+    return inventoryitemsById.get(aId);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithId(int aId)
+  {
+    return getWithId(aId) != null;
   }
   /* Code from template association_GetOne */
   public Library getLibrary()
@@ -75,6 +106,7 @@ public class InventoryItem
 
   public void delete()
   {
+    inventoryitemsById.remove(getId());
     Library placeholderLibrary = library;
     this.library = null;
     if(placeholderLibrary != null)
