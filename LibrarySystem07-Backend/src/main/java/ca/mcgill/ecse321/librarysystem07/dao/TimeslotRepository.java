@@ -22,5 +22,4 @@ public interface TimeslotRepository extends CrudRepository<Timeslot, String>{
 	
 	void delete(List<Timeslot> listOfTimeslot);
 	
-	
 }
