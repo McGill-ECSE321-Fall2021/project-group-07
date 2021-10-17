@@ -6,6 +6,7 @@ import java.util.*;
 
 // line 67 "model.ump"
 // line 135 "model.ump"
+@Entity
 public class ReservableItem extends InventoryItem
 {
 
@@ -148,6 +149,10 @@ public class ReservableItem extends InventoryItem
     super.delete();
   }
 
+  @ID
+  public getReservableItemID(){
+    return getID();
+  }
 
   public String toString()
   {
