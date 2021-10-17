@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.librarysystem07.model.*;
-import ca.mcgill.ecse321.librarysystem07.model.Timeslot.DayoftheWeek;
+import ca.mcgill.ecse321.librarysystem07.model.TimeSlot.DayOfTheWeek;
 
 @Repository
 public class LibrarySystem07Repository {
@@ -38,23 +38,23 @@ public class LibrarySystem07Repository {
 	}
 
 	@Transactional
-	public Timeslot createTimeslot(Time startTime, Time endTime, Date startDate, Date endDate, DayoftheWeek dayoftheWeek) {
-		Timeslot ts = new Timeslot(startTime, endTime, startDate, endDate, dayoftheWeek);
+	public TimeSlot createTimeSlot(Time startTime, Time endTime, Date date, DayOfTheWeek dayoftheWeek) {
+		TimeSlot ts = new TimeSlot(startTime, endTime, date, dayoftheWeek);
 		entityManager.persist(ts);
 		return ts;
 	}
 	
 	@Transactional
-	public Timeslot getTimeslot(String id) {
-		Timeslot t = entityManager.find(Timeslot.class, id);
+	public TimeSlot getTimeSlot(String id) {
+		TimeSlot t = entityManager.find(TimeSlot.class, id);
 		return t;
 	}
 	
 	@Transactional
-	public List<Timeslot> findAllTimeslots() {
+	public List<TimeSlot> findAllTimeSlots() {
 		Query query = entityManager.createQuery("SELECT e FROM Professor e");
-		Collection<Timeslot> collectionOfTimeslots = ((Collection<Timeslot>) query.getResultList());
-		List<Timeslot> listOfTimeslots = new ArrayList<Timeslot>(collectionOfTimeslots);
-		return listOfTimeslots;
+		Collection<TimeSlot> collectionOfTimeSlots = ((Collection<TimeSlot>) query.getResultList());
+		List<TimeSlot> listOfTimeSlots = new ArrayList<TimeSlot>(collectionOfTimeSlots);
+		return listOfTimeSlots;
 	}
 }

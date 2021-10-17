@@ -4,11 +4,8 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
-import javax.persistence.Entity;
-
-// line 10 "model.ump"
-// line 133 "model.ump"
-@Entity
+// line 11 "model.ump"
+// line 102 "model.ump"
 public class Visitor extends UserRole
 {
 
@@ -116,48 +113,38 @@ public class Visitor extends UserRole
   {
     return 0;
   }
-  /* Code from template association_AddManyToManyMethod */
+  /* Code from template association_AddManyToOne */
+  public Event addEvent(List<TimeSlot> aSchedule)
+  {
+    return new Event(aSchedule, this);
+  }
+
   public boolean addEvent(Event aEvent)
   {
     boolean wasAdded = false;
     if (events.contains(aEvent)) { return false; }
-    events.add(aEvent);
-    if (aEvent.indexOfVisitor(this) != -1)
+    Visitor existingVisitor = aEvent.getVisitor();
+    boolean isNewVisitor = existingVisitor != null && !this.equals(existingVisitor);
+    if (isNewVisitor)
     {
-      wasAdded = true;
+      aEvent.setVisitor(this);
     }
     else
     {
-      wasAdded = aEvent.addVisitor(this);
-      if (!wasAdded)
-      {
-        events.remove(aEvent);
-      }
+      events.add(aEvent);
     }
+    wasAdded = true;
     return wasAdded;
   }
-  /* Code from template association_RemoveMany */
+
   public boolean removeEvent(Event aEvent)
   {
     boolean wasRemoved = false;
-    if (!events.contains(aEvent))
+    //Unable to remove aEvent, as it must always have a visitor
+    if (!this.equals(aEvent.getVisitor()))
     {
-      return wasRemoved;
-    }
-
-    int oldIndex = events.indexOf(aEvent);
-    events.remove(oldIndex);
-    if (aEvent.indexOfVisitor(this) == -1)
-    {
+      events.remove(aEvent);
       wasRemoved = true;
-    }
-    else
-    {
-      wasRemoved = aEvent.removeVisitor(this);
-      if (!wasRemoved)
-      {
-        events.add(oldIndex,aEvent);
-      }
     }
     return wasRemoved;
   }
@@ -199,9 +186,9 @@ public class Visitor extends UserRole
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Reservation addReservation(int aReservationID, Timeslot aTimeslot)
+  public Reservation addReservation(int aReservationID, TimeSlot aReservationTimeSlot)
   {
-    return new Reservation(aReservationID, aTimeslot, this);
+    return new Reservation(aReservationID, aReservationTimeSlot, this);
   }
 
   public boolean addReservation(Reservation aReservation)
@@ -268,17 +255,20 @@ public class Visitor extends UserRole
 
   public void delete()
   {
-    ArrayList<Event> copyOfEvents = new ArrayList<Event>(events);
-    events.clear();
-    for(Event aEvent : copyOfEvents)
+    while (events.size() > 0)
     {
-      aEvent.removeVisitor(this);
+      Event aEvent = events.get(events.size() - 1);
+      aEvent.delete();
+      events.remove(aEvent);
     }
-    for(int i=reservations.size(); i > 0; i--)
+    
+    while (reservations.size() > 0)
     {
-      Reservation aReservation = reservations.get(i - 1);
+      Reservation aReservation = reservations.get(reservations.size() - 1);
       aReservation.delete();
+      reservations.remove(aReservation);
     }
+    
     super.delete();
   }
 

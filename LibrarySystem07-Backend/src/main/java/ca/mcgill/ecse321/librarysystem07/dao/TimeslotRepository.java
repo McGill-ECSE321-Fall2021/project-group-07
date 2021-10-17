@@ -2,24 +2,24 @@ package ca.mcgill.ecse321.librarysystem07.dao;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
-import ca.mcgill.ecse321.librarysystem07.model.Timeslot;
+import ca.mcgill.ecse321.librarysystem07.model.TimeSlot;
 import ca.mcgill.ecse321.librarysystem07.model.Reservation;
 import ca.mcgill.ecse321.librarysystem07.model.Librarian;
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem;
 
 
-public interface TimeslotRepository extends CrudRepository<Timeslot, String>{
+public interface TimeslotRepository extends CrudRepository<TimeSlot, String>{
 	
-	Timeslot findTimeslotByReservation(Reservation reservation);
+	TimeSlot findTimeSlotByReservation(Reservation reservation);
 	
-	Iterable<Timeslot> findAllByReservableItem(ReservableItem reservableItem);
+	Iterable<TimeSlot> findAllByReservableItem(ReservableItem reservableItem);
 	
-	Iterable<Timeslot> findAllByLibrarian(Librarian librarian);
+	Iterable<TimeSlot> findAllByLibrarian(Librarian librarian);
 	
-	Iterable<Timeslot> findAll();
+	Iterable<TimeSlot> findAll();
 
-	void delete(Timeslot timeslot);
+	void delete(TimeSlot TimeSlot);
 	
-	void delete(List<Timeslot> listOfTimeslot);
+	void delete(List<TimeSlot> listOfTimeSlot);
 	
 }

@@ -1,16 +1,12 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
+
 package ca.mcgill.ecse321.librarysystem07.model;
 
-import java.util.*;
+import java.util.List;
 
-import ca.mcgill.ecse321.librarysystem07.model.Timeslot.DayoftheWeek;
-
-import java.sql.Time;
-import java.sql.Date;
-
-// line 53 "model.ump"
-// line 98 "model.ump"
+// line 52 "model.ump"
+// line 123 "model.ump"
 public class Event
 {
 
@@ -18,161 +14,82 @@ public class Event
   // MEMBER VARIABLES
   //------------------------
 
+  //Event Attributes
+  private List<TimeSlot> schedule;
+
   //Event Associations
-  private Timeslot timeslot;
-  private List<Visitor> visitors;
+  private Visitor visitor;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Event(Timeslot aTimeslot)
+  public Event(List<TimeSlot> aSchedule, Visitor aVisitor)
   {
-    if (aTimeslot == null)
+    schedule = aSchedule;
+    boolean didAddVisitor = setVisitor(aVisitor);
+    if (!didAddVisitor)
     {
-      throw new RuntimeException("Unable to create Event due to aTimeslot. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Unable to create event due to visitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    timeslot = aTimeslot;
-    visitors = new ArrayList<Visitor>();
-  }
-
-  public Event(Time aStartTimeForTimeslot, Time aEndTimeForTimeslot, Date aStartDateForTimeslot, Date aEndDateForTimeslot, DayoftheWeek aDayOfTheWeekForTimeslot, HeadLibrarian aHeadLibrarianForTimeslot)
-  {
-    timeslot = new Timeslot(aStartTimeForTimeslot, aEndTimeForTimeslot, aStartDateForTimeslot, aEndDateForTimeslot, aDayOfTheWeekForTimeslot);
-    visitors = new ArrayList<Visitor>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setSchedule(List<TimeSlot> aSchedule)
+  {
+    boolean wasSet = false;
+    schedule = aSchedule;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public List<TimeSlot> getSchedule()
+  {
+    return schedule;
+  }
   /* Code from template association_GetOne */
-  public Timeslot getTimeslot()
+  public Visitor getVisitor()
   {
-    return timeslot;
+    return visitor;
   }
-  /* Code from template association_GetMany */
-  public Visitor getVisitor(int index)
+  /* Code from template association_SetOneToMany */
+  public boolean setVisitor(Visitor aVisitor)
   {
-    Visitor aVisitor = visitors.get(index);
-    return aVisitor;
-  }
-
-  public List<Visitor> getVisitors()
-  {
-    List<Visitor> newVisitors = Collections.unmodifiableList(visitors);
-    return newVisitors;
-  }
-
-  public int numberOfVisitors()
-  {
-    int number = visitors.size();
-    return number;
-  }
-
-  public boolean hasVisitors()
-  {
-    boolean has = visitors.size() > 0;
-    return has;
-  }
-
-  public int indexOfVisitor(Visitor aVisitor)
-  {
-    int index = visitors.indexOf(aVisitor);
-    return index;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfVisitors()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToManyMethod */
-  public boolean addVisitor(Visitor aVisitor)
-  {
-    boolean wasAdded = false;
-    if (visitors.contains(aVisitor)) { return false; }
-    visitors.add(aVisitor);
-    if (aVisitor.indexOfEvent(this) != -1)
+    boolean wasSet = false;
+    if (aVisitor == null)
     {
-      wasAdded = true;
-    }
-    else
-    {
-      wasAdded = aVisitor.addEvent(this);
-      if (!wasAdded)
-      {
-        visitors.remove(aVisitor);
-      }
-    }
-    return wasAdded;
-  }
-  /* Code from template association_RemoveMany */
-  public boolean removeVisitor(Visitor aVisitor)
-  {
-    boolean wasRemoved = false;
-    if (!visitors.contains(aVisitor))
-    {
-      return wasRemoved;
+      return wasSet;
     }
 
-    int oldIndex = visitors.indexOf(aVisitor);
-    visitors.remove(oldIndex);
-    if (aVisitor.indexOfEvent(this) == -1)
+    Visitor existingVisitor = visitor;
+    visitor = aVisitor;
+    if (existingVisitor != null && !existingVisitor.equals(aVisitor))
     {
-      wasRemoved = true;
+      existingVisitor.removeEvent(this);
     }
-    else
-    {
-      wasRemoved = aVisitor.removeEvent(this);
-      if (!wasRemoved)
-      {
-        visitors.add(oldIndex,aVisitor);
-      }
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addVisitorAt(Visitor aVisitor, int index)
-  {  
-    boolean wasAdded = false;
-    if(addVisitor(aVisitor))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfVisitors()) { index = numberOfVisitors() - 1; }
-      visitors.remove(aVisitor);
-      visitors.add(index, aVisitor);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveVisitorAt(Visitor aVisitor, int index)
-  {
-    boolean wasAdded = false;
-    if(visitors.contains(aVisitor))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfVisitors()) { index = numberOfVisitors() - 1; }
-      visitors.remove(aVisitor);
-      visitors.add(index, aVisitor);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addVisitorAt(aVisitor, index);
-    }
-    return wasAdded;
+    visitor.addEvent(this);
+    wasSet = true;
+    return wasSet;
   }
 
   public void delete()
   {
-    Timeslot existingTimeslot = timeslot;
-    timeslot = null;
-    ArrayList<Visitor> copyOfVisitors = new ArrayList<Visitor>(visitors);
-    visitors.clear();
-    for(Visitor aVisitor : copyOfVisitors)
+    Visitor placeholderVisitor = visitor;
+    this.visitor = null;
+    if(placeholderVisitor != null)
     {
-      aVisitor.removeEvent(this);
+      placeholderVisitor.removeEvent(this);
     }
   }
 
+
+  public String toString()
+  {
+    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "schedule" + "=" + (getSchedule() != null ? !getSchedule().equals(this)  ? getSchedule().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "visitor = "+(getVisitor()!=null?Integer.toHexString(System.identityHashCode(getVisitor())):"null");
+  }
 }

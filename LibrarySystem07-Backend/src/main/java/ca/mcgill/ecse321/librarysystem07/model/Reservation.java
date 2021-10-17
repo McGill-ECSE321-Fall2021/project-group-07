@@ -5,9 +5,15 @@ package ca.mcgill.ecse321.librarysystem07.model;
 import java.util.*;
 
 // line 87 "model.ump"
-// line 155 "model.ump"
+// line 146 "model.ump"
 public class Reservation
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static Map<Integer, Reservation> reservationsByReservationID = new HashMap<Integer, Reservation>();
 
   //------------------------
   // MEMBER VARIABLES
@@ -15,9 +21,9 @@ public class Reservation
 
   //Reservation Attributes
   private int reservationID;
+  private TimeSlot reservationTimeSlot;
 
   //Reservation Associations
-  private Timeslot timeslot;
   private Visitor visitor;
   private List<ReservableItem> reservableItems;
 
@@ -25,13 +31,12 @@ public class Reservation
   // CONSTRUCTOR
   //------------------------
 
-  public Reservation(int aReservationID, Timeslot aTimeslot, Visitor aVisitor)
+  public Reservation(int aReservationID, TimeSlot aReservationTimeSlot, Visitor aVisitor)
   {
-    reservationID = aReservationID;
-    boolean didAddTimeslot = setTimeslot(aTimeslot);
-    if (!didAddTimeslot)
+    reservationTimeSlot = aReservationTimeSlot;
+    if (!setReservationID(aReservationID))
     {
-      throw new RuntimeException("Unable to create reservation due to timeslot. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Cannot create due to duplicate reservationID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
     boolean didAddVisitor = setVisitor(aVisitor);
     if (!didAddVisitor)
@@ -48,7 +53,26 @@ public class Reservation
   public boolean setReservationID(int aReservationID)
   {
     boolean wasSet = false;
+    Integer anOldReservationID = getReservationID();
+    if (anOldReservationID != null && anOldReservationID.equals(aReservationID)) {
+      return true;
+    }
+    if (hasWithReservationID(aReservationID)) {
+      return wasSet;
+    }
     reservationID = aReservationID;
+    wasSet = true;
+    if (anOldReservationID != null) {
+      reservationsByReservationID.remove(anOldReservationID);
+    }
+    reservationsByReservationID.put(aReservationID, this);
+    return wasSet;
+  }
+
+  public boolean setReservationTimeSlot(TimeSlot aReservationTimeSlot)
+  {
+    boolean wasSet = false;
+    reservationTimeSlot = aReservationTimeSlot;
     wasSet = true;
     return wasSet;
   }
@@ -57,10 +81,20 @@ public class Reservation
   {
     return reservationID;
   }
-  /* Code from template association_GetOne */
-  public Timeslot getTimeslot()
+  /* Code from template attribute_GetUnique */
+  public static Reservation getWithReservationID(int aReservationID)
   {
-    return timeslot;
+    return reservationsByReservationID.get(aReservationID);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithReservationID(int aReservationID)
+  {
+    return getWithReservationID(aReservationID) != null;
+  }
+
+  public TimeSlot getReservationTimeSlot()
+  {
+    return reservationTimeSlot;
   }
   /* Code from template association_GetOne */
   public Visitor getVisitor()
@@ -98,17 +132,6 @@ public class Reservation
     return index;
   }
   /* Code from template association_SetOneToMany */
-  public boolean setTimeslot(Timeslot aTimeslot)
-  {
-    boolean wasSet = false;
-    if (aTimeslot == null)
-    {
-      return wasSet;
-    }
-    wasSet = true;
-    return wasSet;
-  }
-  /* Code from template association_SetOneToMany */
   public boolean setVisitor(Visitor aVisitor)
   {
     boolean wasSet = false;
@@ -133,7 +156,7 @@ public class Reservation
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public ReservableItem addReservableItem(String aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, ReservableItem.TypeOfReservableItem aReservableItem)
+  public ReservableItem addReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, ReservableItem.TypeOfReservableItem aReservableItem)
   {
     return new ReservableItem(aId, aLibrary, aDuplicates, aName, aAuthor, aStatus, aReservableItem, this);
   }
@@ -202,19 +225,20 @@ public class Reservation
 
   public void delete()
   {
-    Timeslot placeholderTimeslot = timeslot;
-    this.timeslot = null;
+    reservationsByReservationID.remove(getReservationID());
     Visitor placeholderVisitor = visitor;
     this.visitor = null;
     if(placeholderVisitor != null)
     {
       placeholderVisitor.removeReservation(this);
     }
-    for(int i=reservableItems.size(); i > 0; i--)
+    while (reservableItems.size() > 0)
     {
-      ReservableItem aReservableItem = reservableItems.get(i - 1);
+      ReservableItem aReservableItem = reservableItems.get(reservableItems.size() - 1);
       aReservableItem.delete();
+      reservableItems.remove(aReservableItem);
     }
+    
   }
 
 
@@ -222,7 +246,7 @@ public class Reservation
   {
     return super.toString() + "["+
             "reservationID" + ":" + getReservationID()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "timeslot = "+(getTimeslot()!=null?Integer.toHexString(System.identityHashCode(getTimeslot())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "reservationTimeSlot" + "=" + (getReservationTimeSlot() != null ? !getReservationTimeSlot().equals(this)  ? getReservationTimeSlot().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "visitor = "+(getVisitor()!=null?Integer.toHexString(System.identityHashCode(getVisitor())):"null");
   }
 }

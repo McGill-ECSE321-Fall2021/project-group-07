@@ -2,9 +2,10 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
+import java.util.*;
 
 // line 67 "model.ump"
-// line 110 "model.ump"
+// line 135 "model.ump"
 public class ReservableItem extends InventoryItem
 {
 
@@ -33,7 +34,7 @@ public class ReservableItem extends InventoryItem
   // CONSTRUCTOR
   //------------------------
 
-  public ReservableItem(String aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfReservableItem aReservableItem, Reservation aReservation)
+  public ReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfReservableItem aReservableItem, Reservation aReservation)
   {
     super(aId, aLibrary);
     duplicates = aDuplicates;
@@ -143,11 +144,11 @@ public class ReservableItem extends InventoryItem
 
   public void delete()
   {
-    Reservation placeholderReservation = reservation;
-    this.reservation = null;
-    if(placeholderReservation != null)
+    Reservation existingReservation = reservation;
+    reservation = null;
+    if (existingReservation != null)
     {
-      placeholderReservation.removeReservableItem(this);
+      existingReservation.delete();
     }
     super.delete();
   }
