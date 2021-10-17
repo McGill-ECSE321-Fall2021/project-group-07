@@ -5,8 +5,8 @@
 
 | Members            | Roles                   | Effort       |
 | ------------------ |:-----------------------:| ------------:|
-| Rebecca Mizrahi    | Developer and Designer  |              |
-| Liamo Pennimpede   | Developer and Designer  |              |
-| Samantha Handal    | Developer and Designer  |              |
-| Basel Elaghoury    | Developer and Designer  |              |
-| Amelie Barsoum     | Developer and Designer  |              |
+| Rebecca Mizrahi    | Developer and Designer  | 10 hours     |
+| Liamo Pennimpede   | Developer and Designer  | 10 hours     |
+| Samantha Handal    | Developer and Designer  | 10 hours     |
+| Basel Elaghoury    | Developer and Designer  | 10 hours     |
+| Amelie Barsoum     | Developer and Designer  | 10 hours     |
