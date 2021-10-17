@@ -5,8 +5,16 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 // line 17 "model.ump"
 // line 107 "model.ump"
+
+@Entity
 public class Librarian extends UserRole
 {
 

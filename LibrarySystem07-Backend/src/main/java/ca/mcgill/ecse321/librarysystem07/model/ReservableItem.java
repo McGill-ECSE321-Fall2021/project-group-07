@@ -35,7 +35,7 @@ public class ReservableItem extends InventoryItem
   // CONSTRUCTOR
   //------------------------
 
-  public ReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfReservableItem aReservableItem, Reservation aReservation)
+  public ReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfReservableItem aReservableItem)
   {
     super(aId, aLibrary);
     duplicates = aDuplicates;
@@ -43,12 +43,8 @@ public class ReservableItem extends InventoryItem
     author = aAuthor;
     status = aStatus;
     reservableItem = aReservableItem;
-    boolean didAddReservation = setReservation(aReservation);
-    if (!didAddReservation)
-    {
-      throw new RuntimeException("Unable to create reservableItem due to reservation. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
   }
+
 
   //------------------------
   // INTERFACE

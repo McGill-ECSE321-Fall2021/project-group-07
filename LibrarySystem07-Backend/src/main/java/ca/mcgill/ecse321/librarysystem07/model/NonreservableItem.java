@@ -7,7 +7,7 @@ import java.util.*;
 
 // line 81 "model.ump"
 // line 141 "model.ump"
-public class NonreservableItem extends InventoryItem
+public class NonReservableItem extends InventoryItem
 {
 
   //------------------------
@@ -27,7 +27,7 @@ public class NonreservableItem extends InventoryItem
   // CONSTRUCTOR
   //------------------------
 
-  public NonreservableItem(int aId, Library aLibrary, TypeOfNonReservableItem aNonReservableItem)
+  public NonReservableItem(int aId, Library aLibrary, TypeOfNonReservableItem aNonReservableItem)
   {
     super(aId, aLibrary);
     nonReservableItem = aNonReservableItem;

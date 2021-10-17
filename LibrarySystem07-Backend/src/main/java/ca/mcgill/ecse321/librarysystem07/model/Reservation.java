@@ -5,11 +5,17 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableItem;
 
 // line 87 "model.ump"
 // line 146 "model.ump"
-
+@Entity
 public class Reservation
 {
 
@@ -26,6 +32,7 @@ public class Reservation
   //Reservation Attributes
   private int reservationID;
   private TimeSlot reservationTimeSlot;
+  private ReservableItem reservationItem;
 
   //Reservation Associations
   private Visitor visitor;
@@ -35,9 +42,25 @@ public class Reservation
   // CONSTRUCTOR
   //------------------------
 
-  public Reservation(int aReservationID, TimeSlot aReservationTimeSlot, Visitor aVisitor)
+//  public Reservation(int aReservationID, TimeSlot aReservationTimeSlot, Visitor aVisitor)
+//  {
+//    reservationTimeSlot = aReservationTimeSlot;
+//    if (!setReservationID(aReservationID))
+//    {
+//      throw new RuntimeException("Cannot create due to duplicate reservationID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+//    }
+//    boolean didAddVisitor = setVisitor(aVisitor);
+//    if (!didAddVisitor)
+//    {
+//      throw new RuntimeException("Unable to create reservation due to visitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+//    }
+//    reservableItems = new ArrayList<ReservableItem>();
+//  }
+  
+  public Reservation(int aReservationID, TimeSlot aReservationTimeSlot, ReservableItem aReservationItem, Visitor aVisitor)
   {
     reservationTimeSlot = aReservationTimeSlot;
+    reservationItem = aReservationItem;
     if (!setReservationID(aReservationID))
     {
       throw new RuntimeException("Cannot create due to duplicate reservationID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
@@ -47,8 +70,8 @@ public class Reservation
     {
       throw new RuntimeException("Unable to create reservation due to visitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    reservableItems = new ArrayList<ReservableItem>();
   }
+
 
   //------------------------
   // INTERFACE
@@ -81,6 +104,7 @@ public class Reservation
     return wasSet;
   }
 
+  @Id
   public int getReservationID()
   {
     return reservationID;
@@ -136,6 +160,7 @@ public class Reservation
     return index;
   }
   /* Code from template association_SetOneToMany */
+  @ManyToOne(optional=true)
   public boolean setVisitor(Visitor aVisitor)
   {
     boolean wasSet = false;

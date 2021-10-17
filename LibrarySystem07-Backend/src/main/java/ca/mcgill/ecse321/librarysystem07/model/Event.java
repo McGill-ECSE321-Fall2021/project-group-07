@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 
 // line 52 "model.ump"
 // line 123 "model.ump"
+@Entity
 public class Event
 {
 
@@ -54,18 +55,18 @@ public class Event
     return wasSet;
   }
 
-  @ManyToOne(optional=false)
   public List<TimeSlot> getSchedule()
   {
     return schedule;
   }
   /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
+  @Id
   public Visitor getVisitor()
   {
     return visitor;
   }
   /* Code from template association_SetOneToMany */
+  @ManyToOne(optional=false)
   public boolean setVisitor(Visitor aVisitor)
   {
     boolean wasSet = false;

@@ -52,7 +52,6 @@ public class HeadLibrarian extends UserRole
     return wasSet;
   }
 
-  @OneToOne(optional=false)
   public List<TimeSlot> getSchedule()
   {
     return schedule;
