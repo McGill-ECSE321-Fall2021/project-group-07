@@ -8,6 +8,7 @@ import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableIt
 
 // line 87 "model.ump"
 // line 146 "model.ump"
+@Entity
 public class Reservation
 {
 
@@ -51,7 +52,6 @@ public class Reservation
   //------------------------
   // INTERFACE
   //------------------------
-
   public boolean setReservationID(int aReservationID)
   {
     boolean wasSet = false;
@@ -79,6 +79,7 @@ public class Reservation
     return wasSet;
   }
 
+  @ID
   public int getReservationID()
   {
     return reservationID;
@@ -134,6 +135,7 @@ public class Reservation
     return index;
   }
   /* Code from template association_SetOneToMany */
+  @ManyToOne(cascade=CascadeType.ALL)
   public boolean setVisitor(Visitor aVisitor)
   {
     boolean wasSet = false;
