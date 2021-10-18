@@ -10,6 +10,6 @@ import ca.mcgill.ecse321.librarysystem07.model.Visitor;
 
 public interface VisitorRepository extends CrudRepository<Visitor, Integer> {
 	
-	Visitor findVisitorByLibrarianCardID(Integer visitorLibrarianCardID);
+	Visitor findVisitorByLibrarianCardID(Integer libraryCardID);
 
 }

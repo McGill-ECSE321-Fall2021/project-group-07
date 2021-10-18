@@ -81,7 +81,7 @@ public class TestLibrarySystem07Persistence {
 
 		aLibrary.addTimeSlot(openingHours12);
 		
-		int aLibraryCardID = 12345; 
+		Integer aLibraryCardID = 12345; 
 		int aDemeritPoints = 0;
 		
 		// First example for object save/load
@@ -247,7 +247,7 @@ public class TestLibrarySystem07Persistence {
 		
 		eventRepository.save(newEvent);
 		newEvent = null;
-		newEvent = eventRepository.findEventById(ide); //find event by the Visitor's name
+		newEvent = eventRepository.findEventByEventID(ide); //find event by the Visitor's name
 		
 		assertNotNull(newEvent);
 		assertEquals(visitor, newEvent.getVisitor());

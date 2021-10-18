@@ -52,6 +52,13 @@ public class HeadLibrarian extends UserRole
     return newTimeSlots;
   }
 
+  //me add
+  public void setTimeSlots(List<TimeSlot> slots) {
+	  for (TimeSlot t : slots) {
+		  addTimeSlot(t);
+	  }
+  }
+  
   public int numberOfTimeSlots()
   {
     int number = timeSlots.size();

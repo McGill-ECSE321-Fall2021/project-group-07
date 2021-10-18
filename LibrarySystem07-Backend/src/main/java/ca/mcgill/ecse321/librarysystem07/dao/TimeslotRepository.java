@@ -12,7 +12,7 @@ import ca.mcgill.ecse321.librarysystem07.model.Event;
 
 public interface TimeslotRepository extends CrudRepository<TimeSlot, Integer>{
 	
-	TimeSlot findTimeSlotById(Integer id);
+	TimeSlot findTimeSlotByTimeSlotID(Integer timeSlotID);
 
 	TimeSlot findTimeSlotByReservation(Reservation reservation);
 	
@@ -22,12 +22,12 @@ public interface TimeslotRepository extends CrudRepository<TimeSlot, Integer>{
 
 	TimeSlot findTimeSlotByHeadLibrarian(HeadLibrarian headLibrarian);
 	
-	TimeSlot findTimeSlotByHeadLibrarian(Library library);
+	TimeSlot findTimeSlotByLibrary(Library library);
 	
-	Iterable<TimeSlot> findAll();
+//	Iterable<TimeSlot> findAll();
 
-	void delete(TimeSlot TimeSlot);
-	
-	void delete(List<TimeSlot> listOfTimeSlot);
+//	void delete(TimeSlot TimeSlot);
+//	
+//	void delete(List<TimeSlot> listOfTimeSlot);
 	
 }

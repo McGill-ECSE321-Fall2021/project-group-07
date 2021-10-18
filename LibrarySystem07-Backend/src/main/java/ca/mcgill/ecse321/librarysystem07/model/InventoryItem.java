@@ -88,8 +88,8 @@ public class InventoryItem
     return getWithId(aId) != null;
   }
   /* Code from template association_GetOne */
+  //@JoinColumn(name = "inventoryitem_name")
   @ManyToOne
-  @JoinColumn(name = "inventoryitem_name")
   public Library getLibrary()
   {
     return library;

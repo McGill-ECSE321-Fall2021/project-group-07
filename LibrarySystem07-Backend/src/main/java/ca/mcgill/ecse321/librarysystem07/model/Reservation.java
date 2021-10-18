@@ -100,8 +100,8 @@ public class Reservation
     return getWithReservationID(aReservationID) != null;
   }
   /* Code from template association_GetOne */
+  //@JoinColumn(name = "reservation_librarycardid")
   @ManyToOne
-  @JoinColumn(name = "reservation_librarycardid")
   public Visitor getVisitor()
   {
     return visitor;
@@ -119,6 +119,13 @@ public class Reservation
     List<TimeSlot> newTimeSlots = Collections.unmodifiableList(timeSlots);
     return newTimeSlots;
   }
+  
+  public void setTimeSlots(List<TimeSlot> slots) {
+	  for (TimeSlot t : slots) {
+		  addTimeSlot(t);
+	  }
+  }
+
 
   public int numberOfTimeSlots()
   {

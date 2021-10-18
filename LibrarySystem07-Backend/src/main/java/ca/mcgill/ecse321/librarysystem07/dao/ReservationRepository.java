@@ -8,9 +8,9 @@ import ca.mcgill.ecse321.librarysystem07.model.*;
 
 public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
 	
-	List<Reservation> findReservationsByVisitor(Visitor v);
+	List<Reservation> findReservationsByVisitor(Visitor visitor);
 	
-	Reservation findReservationById(Integer Id);
+	Reservation findReservationByReservationID(Integer reservationID);
 	
-	Reservation findReservationByReservableItem(ReservableItem r);
+	Reservation findReservationByReservableItem(ReservableItem reservableItem);
 }

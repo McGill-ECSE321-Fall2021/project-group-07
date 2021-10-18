@@ -8,7 +8,7 @@ import ca.mcgill.ecse321.librarysystem07.model.Visitor;
 
 public interface EventRepository extends CrudRepository<Event, Integer>{
 	
-	Event findEventById(Integer id);
+	Event findEventByEventID(Integer eventID);
 	boolean existsByVisitor(Visitor visitor);
 	List<Event> findByVisitor(Visitor visitor);
 

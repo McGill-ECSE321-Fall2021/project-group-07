@@ -133,7 +133,27 @@ public class Library
     List<TimeSlot> newTimeSlots = Collections.unmodifiableList(timeSlots);
     return newTimeSlots;
   }
+  
+  //me add
+  public void setTimeSlots(List<TimeSlot> slots) {
+	  for (TimeSlot t : slots) {
+		  addTimeSlot(t);
+	  }
+  }
 
+  public void setInventoryItems(List<InventoryItem> inv) {
+	  for (InventoryItem i : inv) {
+		  addInventoryItem(i);
+	  }
+  }
+
+  public void setUserRoles(List<UserRole> userRoles) {
+	  for (UserRole r : userRoles) {
+		  addUserRole(r);
+	  }
+  }
+  
+  
   public int numberOfTimeSlots()
   {
     int number = timeSlots.size();
@@ -157,8 +177,9 @@ public class Library
     InventoryItem aInventoryItem = inventoryItems.get(index);
     return aInventoryItem;
   }
-
-  @OneToMany(cascade = CascadeType.ALL)
+  
+  //(cascade = CascadeType.ALL)
+  @OneToMany
   public List<InventoryItem> getInventoryItems()
   {
     List<InventoryItem> newInventoryItems = Collections.unmodifiableList(inventoryItems);

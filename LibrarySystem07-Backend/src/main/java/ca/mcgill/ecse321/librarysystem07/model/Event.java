@@ -107,9 +107,8 @@ public class Event
     return getWithEventID(aEventID) != null;
   }
   /* Code from template association_GetOne */
-
+//@JoinColumn(name="event_librarycardid")
   @ManyToOne
-  @JoinColumn(name="event_librarycardid")
   public Visitor getVisitor()
   {
     return visitor;
@@ -126,6 +125,12 @@ public class Event
   {
     List<TimeSlot> newTimeSlots = Collections.unmodifiableList(timeSlots);
     return newTimeSlots;
+  }
+  
+  public void setTimeSlots(List<TimeSlot> slots) {
+	  for (TimeSlot t : slots) {
+		  addTimeSlot(t);
+	  }
   }
 
   public int numberOfTimeSlots()

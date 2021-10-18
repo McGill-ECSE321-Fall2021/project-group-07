@@ -6,7 +6,7 @@ import ca.mcgill.ecse321.librarysystem07.model.Librarian;
 
 public interface LibrarianRepository extends CrudRepository<Librarian, String>{
 
-	Librarian findLibrarianByLibraryCardID(Integer ID);
+	Librarian findLibrarianByLibraryCardID(Integer libraryCardID);
 	
 	Librarian findLibrarianByName(String name);
 

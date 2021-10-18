@@ -51,6 +51,14 @@ public class Librarian extends UserRole
     List<TimeSlot> newTimeSlots = Collections.unmodifiableList(timeSlots);
     return newTimeSlots;
   }
+  
+  //me add
+  public void setTimeSlots(List<TimeSlot> slots) {
+	  for (TimeSlot t : slots) {
+		  addTimeSlot(t);
+	  }
+  }
+
 
   public int numberOfTimeSlots()
   {

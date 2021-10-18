@@ -58,8 +58,8 @@ public class Visitor extends UserRole
     Event aEvent = events.get(index);
     return aEvent;
   }
-
-  @OneToMany(cascade = CascadeType.ALL)
+//(cascade = CascadeType.ALL)
+  @OneToMany
   public List<Event> getEvents()
   {
     List<Event> newEvents = Collections.unmodifiableList(events);
@@ -89,8 +89,8 @@ public class Visitor extends UserRole
     Reservation aReservation = reservations.get(index);
     return aReservation;
   }
-
-  @OneToMany(cascade = CascadeType.ALL)
+//(cascade = CascadeType.ALL)
+  @OneToMany
   public List<Reservation> getReservations()
   {
     List<Reservation> newReservations = Collections.unmodifiableList(reservations);
@@ -120,7 +120,7 @@ public class Visitor extends UserRole
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Event addEvent(String aName, int aEventID)
+  public Event setEvent(String aName, int aEventID)
   {
     return new Event(aName, aEventID, this);
   }
@@ -141,6 +141,20 @@ public class Visitor extends UserRole
     }
     wasAdded = true;
     return wasAdded;
+  }
+  
+  public boolean setEvents(List<Event> events) {
+	  for (Event e : events) {
+		  addEvent(e);
+	  }
+	  return false;
+  }
+  
+  public boolean setReservations(List<Reservation> res) {
+	  for (Reservation r : res) {
+		  addReservation(r);
+	  }
+	  return false;
   }
 
   public boolean removeEvent(Event aEvent)
