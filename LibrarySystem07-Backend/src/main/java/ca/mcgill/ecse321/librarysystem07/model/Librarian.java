@@ -45,6 +45,10 @@ public class Librarian extends UserRole
   {
     return schedule;
   }
+  
+//  public Integer getLibrarianCardID() {
+//	  return getLibraryCardID();
+//  }
 
   public void delete()
   {
