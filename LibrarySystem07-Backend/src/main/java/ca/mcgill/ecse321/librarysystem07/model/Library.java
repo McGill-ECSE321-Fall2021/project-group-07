@@ -1,12 +1,19 @@
-package ca.mcgill.ecse321.librarysystem07.model;
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-
+package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 // line 29 "model.ump"
 // line 117 "model.ump"
+
+@Entity
 public class Library
 {
 
@@ -83,7 +90,8 @@ public class Library
     wasSet = true;
     return wasSet;
   }
-
+  
+  @Id
   public String getName()
   {
     return name;
@@ -139,6 +147,7 @@ public class Library
     return index;
   }
   /* Code from template association_GetMany */
+  
   public InventoryItem getInventoryItem(int index)
   {
     InventoryItem aInventoryItem = inventoryItems.get(index);
@@ -174,7 +183,6 @@ public class Library
     return 0;
   }
   /* Code from template association_AddManyToOne */
-
 
   public boolean addUserRole(UserRole aUserRole)
   {
