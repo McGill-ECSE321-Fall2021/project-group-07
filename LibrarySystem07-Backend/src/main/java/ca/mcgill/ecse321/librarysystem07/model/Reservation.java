@@ -3,11 +3,13 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
+import javax.persistence.*;
 
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableItem;
 
 // line 87 "model.ump"
 // line 146 "model.ump"
+@Entity
 public class Reservation
 {
 
