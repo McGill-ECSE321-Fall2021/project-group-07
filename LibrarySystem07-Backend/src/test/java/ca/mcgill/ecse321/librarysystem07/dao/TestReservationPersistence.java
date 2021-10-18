@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import ca.mcgill.ecse321.librarysystem07.model.Librarian;
 import ca.mcgill.ecse321.librarysystem07.model.Library;
 import ca.mcgill.ecse321.librarysystem07.model.Reservation;
 import ca.mcgill.ecse321.librarysystem07.model.TimeSlot;
@@ -66,7 +67,9 @@ public class TestReservationPersistence {
 		List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
 		timeSlots.add(ts);
 		timeSlots.add(ts2);
-		Library library = new Library("name", "city", timeSlots, null, 5145);
+		List<Librarian> employees = new ArrayList<Librarian>();
+		long phoneNumber = 514-514-5141;
+		Library library = new Library("name", "city", timeSlots, employees, phoneNumber);
 		
 		
 		Visitor v = new Visitor("bob", "bob1", "street A", 1, library, 0);
