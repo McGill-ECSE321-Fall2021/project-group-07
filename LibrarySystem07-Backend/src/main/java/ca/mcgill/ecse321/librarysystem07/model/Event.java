@@ -1,16 +1,14 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
+
 package ca.mcgill.ecse321.librarysystem07.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-
+import javax.persistence.*;
 
 // line 52 "model.ump"
 // line 123 "model.ump"
@@ -21,9 +19,12 @@ public class Event
   //------------------------
   // MEMBER VARIABLES
   //------------------------
+  
+         private static Map<Integer, Event> eventsByEventID = new HashMap<Integer, Event>();
 
   //Event Attributes
   private List<TimeSlot> schedule;
+  private int id;
 
   //Event Associations
   private Visitor visitor;
@@ -40,6 +41,13 @@ public class Event
     {
       throw new RuntimeException("Unable to create event due to visitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
+    int anId = 0;
+    for (Entry<Integer, Event> e : eventsByEventID.entrySet()) {
+    	if (e.getKey() > anId) anId = e.getKey();
+    }
+    if (anId == 0) id = anId;
+    else id = anId + 1;
+    
   }
 
   //------------------------
@@ -94,6 +102,18 @@ public class Event
     {
       placeholderVisitor.removeEvent(this);
     }
+  }
+  
+   /* Code from template attribute_GetUnique */
+  public static Event getWithTimeSlotID(int id)
+  {
+    return eventsByEventID.get(id);
+  }
+  
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithTimeSlotID(int id)
+  {
+    return getWithTimeSlotID(id) != null;
   }
 
 
