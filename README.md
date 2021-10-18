@@ -8,39 +8,19 @@ Our team decided to focus most of our attention on the design of our project, to
 
 | Members            | Roles                   | Effort       |
 | ------------------ |:-----------------------:| ------------:|
-| Rebecca Mizrahi    | Developer and Designer  | 10 hours     |
-| Liamo Pennimpede   | Developer and Designer  | 10 hours     |
-| Samantha Handal    | Developer and Designer  | 10 hours     |
-| Basel Elaghoury    | Developer and Designer  | 10 hours     |
-| Amelie Barsoum     | Developer and Designer  | 10 hours     |
+| Rebecca Mizrahi    | Developer, Designer, Tester  | 10 hours     |
+| Liamo Pennimpede   | Developer, Designer, Project Manager  | 10 hours     |
+| Samantha Handal    | Developer, Designer, Tester  | 10 hours     |
+| Basel Elaghoury    | Developer, Designer, Tester  | 10 hours     |
+| Amelie Barsoum     | Developer and Designer, Project Manager  | 10 hours     |
 
-**DELIVERABLE 2**
+**Requirements**
 
-| Members            | Roles                   | Effort       |
-| ------------------ |:-----------------------:| ------------:|
-| Rebecca Mizrahi    | Developer and Designer  |              |
-| Liamo Pennimpede   | Developer and Designer  |              |
-| Samantha Handal    | Developer and Designer  |              |
-| Basel Elaghoury    | Developer and Designer  |              |
-| Amelie Barsoum     | Developer and Designer  |              |
+Link to our [Requirements!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Requirements)
 
-**DELIVERABLE 3**
+**Use Case Diagram and Use Case Desciptions**
 
-| Members            | Roles                   | Effort       |
-| ------------------ |:-----------------------:| ------------:|
-| Rebecca Mizrahi    | Developer and Designer  |              |
-| Liamo Pennimpede   | Developer and Designer  |              |
-| Samantha Handal    | Developer and Designer  |              |
-| Basel Elaghoury    | Developer and Designer  |              |
-| Amelie Barsoum     | Developer and Designer  |              |
+Link to our [Use Case Diagram and Descriptions!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Use-Case-Diagram)
 
-**DELIVERABLE 4**
-
-| Members            | Roles                   | Effort       |
-| ------------------ |:-----------------------:| ------------:|
-| Rebecca Mizrahi    | Developer and Designer  |              |
-| Liamo Pennimpede   | Developer and Designer  |              |
-| Samantha Handal    | Developer and Designer  |              |
-| Basel Elaghoury    | Developer and Designer  |              |
-| Amelie Barsoum     | Developer and Designer  |              |
-
+**UML Diagram**
+Link to our [Domain Model!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Domain-Model)
