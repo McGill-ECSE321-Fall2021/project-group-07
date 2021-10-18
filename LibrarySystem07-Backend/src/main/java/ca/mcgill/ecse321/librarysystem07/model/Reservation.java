@@ -4,6 +4,11 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableItem;
 
 // line 87 "model.ump"
@@ -79,6 +84,7 @@ public class Reservation
     return wasSet;
   }
 
+  @Id
   public int getReservationID()
   {
     return reservationID;
@@ -99,17 +105,20 @@ public class Reservation
     return reservationTimeSlot;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=true)
   public Visitor getVisitor()
   {
     return visitor;
   }
   /* Code from template association_GetMany */
+  
+//@OneToMany
   public ReservableItem getReservableItem(int index)
   {
     ReservableItem aReservableItem = reservableItems.get(index);
     return aReservableItem;
   }
-
+  
   public List<ReservableItem> getReservableItems()
   {
     List<ReservableItem> newReservableItems = Collections.unmodifiableList(reservableItems);

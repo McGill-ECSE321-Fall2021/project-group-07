@@ -4,8 +4,14 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+
 // line 60 "model.ump"
 // line 129 "model.ump"
+@MappedSuperclass
 public class InventoryItem
 {
 
@@ -65,6 +71,7 @@ public class InventoryItem
     return wasSet;
   }
 
+  @Id
   public int getId()
   {
     return id;
@@ -80,11 +87,13 @@ public class InventoryItem
     return getWithId(aId) != null;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Library getLibrary()
   {
     return library;
   }
   /* Code from template association_SetOneToMany */
+  
   public boolean setLibrary(Library aLibrary)
   {
     boolean wasSet = false;

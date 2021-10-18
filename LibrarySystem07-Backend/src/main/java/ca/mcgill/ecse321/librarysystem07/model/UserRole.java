@@ -154,6 +154,7 @@ public abstract class UserRole
     return getWithLibraryCardID(aLibraryCardID) != null;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Library getLibrary()
   {
     return library;
