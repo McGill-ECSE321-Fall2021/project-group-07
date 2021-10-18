@@ -54,35 +54,6 @@ public class TimeSlot
     endTime = aEndTime;
     date = aDate;
     dayOfTheWeek = aDayOfTheWeek;
-    if (!setTimeSlotID(aTimeSlotID))
-    {
-      throw new RuntimeException("Cannot create due to duplicate timeSlotID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
-    }
-    boolean didAddLibrarian = setLibrarian(aLibrarian);
-    if (!didAddLibrarian)
-    {
-      throw new RuntimeException("Unable to create timeSlot due to librarian. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddHeadLibrarian = setHeadLibrarian(aHeadLibrarian);
-    if (!didAddHeadLibrarian)
-    {
-      throw new RuntimeException("Unable to create timeSlot due to headLibrarian. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddLibrary = setLibrary(aLibrary);
-    if (!didAddLibrary)
-    {
-      throw new RuntimeException("Unable to create timeSlot due to library. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddEvent = setEvent(aEvent);
-    if (!didAddEvent)
-    {
-      throw new RuntimeException("Unable to create timeSlot due to event. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
-    boolean didAddReservation = setReservation(aReservation);
-    if (!didAddReservation)
-    {
-      throw new RuntimeException("Unable to create timeSlot due to reservation. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
-    }
   }
 
   //------------------------

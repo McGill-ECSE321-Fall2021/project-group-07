@@ -38,7 +38,7 @@ public class TestTimeSlotPersistence {
 		Time startTime = new Time(8, 0, 0);
 		Time endTime = new Time(10, 0, 0);
 		Date aDate = new Date(2021, 11, 0);
-		TimeSlot ts = new TimeSlot(startTime, endTime, aDate, TimeSlot.DayOfTheWeek.Monday);
+		TimeSlot ts = new TimeSlot(startTime, endTime, aDate, TimeSlot.DayOfTheWeek.Monday, null);
 		
 		timeSlotRepository.save(ts);
 		int id = ts.getTimeSlotID();

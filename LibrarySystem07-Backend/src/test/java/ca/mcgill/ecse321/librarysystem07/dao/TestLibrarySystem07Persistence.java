@@ -21,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ca.mcgill.ecse321.librarysystem07.model.*;
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.Status;
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableItem;
+import ca.mcgill.ecse321.librarysystem07.model.TimeSlot.DayOfTheWeek;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -37,17 +38,49 @@ public class TestLibrarySystem07Persistence {
 
 	@Autowired
 	private EventRepository eventRepository;
+	
+	@Autowired
+	private TimeslotRepository timeSlotRepository;
 
+	@Autowired
+	private ReservationRepository reservationRepository;
+	
 	
 	@AfterEach
 	public void clearDatabase() {
-		// Fisrt, we clear registrations to avoid exceptions due to inconsistencies
 		visitorRepository.deleteAll();
 		reservableItemRepository.deleteAll();
 		nonReservableItemRepository.deleteAll();
 		eventRepository.deleteAll();
+		timeSlotRepository.deleteAll();
+		reservationRepository.deleteAll();
 	}
 	
+	@Test
+	public void testPersistAndLoadTimeSlot() {
+		String aName = "TestVisitor";
+		String aUsername = "TestVisitor123";
+		String aAddress = "4500 haha st"; 
+		Library aLibrary = new Library(aName, aUsername, aAddress);
+
+		Librarian librarian = new Librarian("Lisa", "lisa1", "123 steet", 0, aLibrary);
+		
+		Time startTime = new Time(8, 0, 0);
+		Time endTime = new Time(10, 0, 0);
+		Date aDate = new Date(2021, 11, 0);
+		
+		TimeSlot ts = new TimeSlot(startTime, endTime, aDate, DayOfTheWeek.Monday, 0, librarian, null, aLibrary, null, null);
+
+		timeSlotRepository.save(ts);
+		int id = ts.getTimeSlotID();
+
+		ts = null;
+		ts = timeSlotRepository.findTimeSlotByTimeSlotID(id);
+		
+		assertNotNull(ts);
+		assertEquals(id, ts.getTimeSlotID());
+	}
+		
 	@Test
 	public void testPersistAndLoadVisitor() {
 		
@@ -130,7 +163,6 @@ public class TestLibrarySystem07Persistence {
 		TimeSlot openingHours12 = new TimeSlot(startTime12, endTime12, day12, weekday12, 0, null, null, aLibrary, null, null);
 
 		aLibrary.addTimeSlot(openingHours12);
-
 		
 		int aDuplicates = 1;
 		String aNamee = "George of The Jungle"; 
@@ -252,7 +284,40 @@ public class TestLibrarySystem07Persistence {
 		assertNotNull(newEvent);
 		assertEquals(visitor, newEvent.getVisitor());
 	}
-
+	
+	@Test
+	public void testPersistAndLoadReservation() {
+		
+		String aName = "library1";
+		String aUsername = "fijdslkm";
+		String aAddress = "4500 haha st"; 
+		Library aLibrary = new Library(aName, aUsername, aAddress);
+		
+		/*Persist visitor*/
+		Visitor v = new Visitor("bob", "bob1", "street A", 1, aLibrary, 0);
+		visitorRepository.save(v);
+		
+		
+		/*Persist reservable item*/
+		int aDuplicates = 1;
+		String name = "George of The Jungle"; 
+		String aAuthor = "man";
+		Status aStatus = ReservableItem.Status.Available;
+		TypeOfReservableItem aReservableItem = ReservableItem.TypeOfReservableItem.Book;
+		ReservableItem r = new ReservableItem(0, aLibrary, aDuplicates, name, aAuthor, aStatus, aReservableItem);
+		reservableItemRepository.save(r);
+		
+		/*Persist and load reservation*/
+		int resId = 0;//reservation.getReservationID();
+		Reservation reservation = new Reservation(resId, v, r);
+		reservationRepository.save(reservation);
+		
+		reservation = null;
+		reservation = reservationRepository.findReservationByReservationID(resId);
+		assertNotNull(reservation);
+		assertEquals(resId, reservation.getReservationID());	
+	
+	}
 
 
 }
