@@ -3,6 +3,7 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
+import javax.persistence.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Id;
@@ -11,7 +12,11 @@ import javax.persistence.MappedSuperclass;
 
 // line 60 "model.ump"
 // line 129 "model.ump"
+<<<<<<< HEAD
+@Entity
+=======
 @MappedSuperclass
+>>>>>>> fe435c1563d6bd33694490f7ccff32d62ebc0852
 public class InventoryItem
 {
 
@@ -70,7 +75,10 @@ public class InventoryItem
     inventoryitemsById.put(aId, this);
     return wasSet;
   }
+<<<<<<< HEAD
+=======
 
+>>>>>>> fe435c1563d6bd33694490f7ccff32d62ebc0852
   @Id
   public int getId()
   {
@@ -93,7 +101,11 @@ public class InventoryItem
     return library;
   }
   /* Code from template association_SetOneToMany */
+<<<<<<< HEAD
+  @ManyToOne
+=======
   
+>>>>>>> fe435c1563d6bd33694490f7ccff32d62ebc0852
   public boolean setLibrary(Library aLibrary)
   {
     boolean wasSet = false;
