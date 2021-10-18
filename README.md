@@ -8,11 +8,11 @@ Our team decided to focus most of our attention on the design of our project, to
 
 | Members            | Roles                   | Effort       |
 | ------------------ |:-----------------------:| ------------:|
-| Rebecca Mizrahi    | Developer, Designer, Tester  | 10 hours     |
-| Liamo Pennimpede   | Developer, Designer, Project Manager  | 10 hours     |
-| Samantha Handal    | Developer, Designer, Tester  | 10 hours     |
-| Basel Elaghoury    | Developer, Designer, Tester  | 10 hours     |
-| Amelie Barsoum     | Developer and Designer, Project Manager  | 10 hours     |
+| Rebecca Mizrahi    | Developer, Designer, Tester  | 20 hours     |
+| Liamo Pennimpede   | Developer, Designer, Project Manager  | 21 hours     |
+| Samantha Handal    | Developer, Designer, Tester  | 21 hours     |
+| Basel Elaghoury    | Developer, Designer, Tester  | 20 hours     |
+| Amelie Barsoum     | Developer and Designer, Project Manager  | 20 hours     |
 
 **Requirements**
 
