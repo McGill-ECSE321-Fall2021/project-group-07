@@ -51,6 +51,7 @@ public class TestLibrarySystem07Persistence {
 	@Autowired
 	private HeadLibrarianRepository headLibrarianRepository;
 	
+	//After each test method run the method below to clear the database (erase its contents)
 	@AfterEach
 	public void clearDatabase() {
 		visitorRepository.deleteAll();
@@ -65,13 +66,14 @@ public class TestLibrarySystem07Persistence {
 	
 	@Test
 	public void testPersistAndLoadTimeSlot() {
+		//Code to create a new library object
 		String aName = "TestVisitor";
 		String aPhoneNumber = "343278902";
 		String aAddress = "4500 haha st"; 
 		Library aLibrary = new Library(aName, aAddress, aPhoneNumber);
-
+		//Creating a new librarian object
 		Librarian librarian = new Librarian("Lisa", "lisa1", "123 steet", 0, aLibrary);
-		
+		//Code to create a new timeslot object
 		Time startTime = new Time(8, 0, 0);
 		Time endTime = new Time(10, 0, 0);
 		Date aDate = new Date(2021, 11, 0);
@@ -90,13 +92,13 @@ public class TestLibrarySystem07Persistence {
 		
 	@Test
 	public void testPersistAndLoadVisitor() {
-		
+		//Creating a new library object
 		String aName = "TestVisitor";
 		String aUsername = "TestVisitor123";
 		String aAddress = "4500 haha st"; 
 
 		Library aLibrary = new Library(aName, aUsername, aAddress);
-		
+		//Creating a new timeslot object
 		Time startTime = new Time(9, 0, 0);
 		Time endTime = new Time(20, 0, 0);
 		Date day  = new Date(2021, 10, 17);
@@ -138,11 +140,12 @@ public class TestLibrarySystem07Persistence {
 	
 	@Test
 	public void testPersistAndLoadLibrarian() {
+		//Creating a new library object
 		String aName = "TestVisitor";
 		String aPhoneNumber = "343278902";
 		String aAddress = "4500 haha st"; 
 		Library aLibrary = new Library(aName, aAddress, aPhoneNumber);
-
+		//Creating a new librarian object
 		int libraryCardID = 0;
 		String name = "Lisa";
 		String username = "lisa1";
@@ -161,12 +164,13 @@ public class TestLibrarySystem07Persistence {
 	
 	@Test
 	public void testPersistAndLoadHeadLibrarian() {
+		//Creating a new library object
 		String name = "Nancy";
 		String username = "nancy";
 		String address = "240 test street";
 		int libraryCardId = 667;
 		Library library = new Library("Lib", "Montreal", "76859340");
-		
+		//Creating a new HeadLibrarian object
 		HeadLibrarian headLibrarian= new HeadLibrarian(name, username, address, libraryCardId, library);
 		headLibrarianRepository.save(headLibrarian);
 		
@@ -182,13 +186,13 @@ public class TestLibrarySystem07Persistence {
 	public void testPersistAndLoadReservableItem() {
 		
 		int aId = 345456;
-		
+		//Creating a new library object
 		String aName = "TestLibrary";
 		String aPhoneNumber = "543678439";
 		String aAddress = "4500 haha st"; 
 
 		Library aLibrary = new Library(aName, aAddress, aPhoneNumber);
-		
+		//Creating several new timeslot objects
 		Time startTime = new Time(9, 0, 0);
 		Time endTime = new Time(20, 0, 0);
 		Date day  = new Date(2021, 10, 17);
@@ -235,13 +239,13 @@ public class TestLibrarySystem07Persistence {
 	public void testPersistAndLoadNonReservableItem() {
 		
 		int aId = 345456;
-		
+		//Creating a new library object
 		String aName = "TestVisitor";
 		String aUsername = "TestVisitor123";
 		String aAddress = "4500 haha st"; 
 
 		Library aLibrary = new Library(aName, aUsername, aAddress);
-		
+		//Creating several new timeslot objects
 		Time startTime = new Time(9, 0, 0);
 		Time endTime = new Time(20, 0, 0);
 		Date day  = new Date(2021, 10, 17);
@@ -282,13 +286,13 @@ public class TestLibrarySystem07Persistence {
 	
 	@Test
 	public void testPersistAndLoadEvent() {
-		
+		//Creating a new library object
 		String aName = "TestVisitor";
 		String aUsername = "TestVisitor123";
 		String aAddress = "4500 haha st"; 
 
 		Library aLibrary = new Library(aName, aUsername, aAddress);
-		
+		//Creating several new timeslot objects
 		Time startTime = new Time(9, 0, 0);
 		Time endTime = new Time(20, 0, 0);
 		Date day  = new Date(2021, 10, 17);
@@ -336,7 +340,7 @@ public class TestLibrarySystem07Persistence {
 	
 	@Test
 	public void testPersistAndLoadReservation() {
-		
+		//Creating a new visitor object
 		String aName = "library1";
 		String aUsername = "fijdslkm";
 		String aAddress = "4500 haha st"; 
