@@ -45,6 +45,11 @@ public class TestLibrarySystem07Persistence {
 	@Autowired
 	private ReservationRepository reservationRepository;
 	
+	@Autowired
+	private LibrarianRepository librarianRepository;
+	
+	@Autowired
+	private HeadLibrarianRepository headLibrarianRepository;
 	
 	@AfterEach
 	public void clearDatabase() {
@@ -54,14 +59,16 @@ public class TestLibrarySystem07Persistence {
 		eventRepository.deleteAll();
 		timeSlotRepository.deleteAll();
 		reservationRepository.deleteAll();
+		librarianRepository.deleteAll();
+		headLibrarianRepository.deleteAll();
 	}
 	
 	@Test
 	public void testPersistAndLoadTimeSlot() {
 		String aName = "TestVisitor";
-		String aUsername = "TestVisitor123";
+		String aPhoneNumber = "343278902";
 		String aAddress = "4500 haha st"; 
-		Library aLibrary = new Library(aName, aUsername, aAddress);
+		Library aLibrary = new Library(aName, aAddress, aPhoneNumber);
 
 		Librarian librarian = new Librarian("Lisa", "lisa1", "123 steet", 0, aLibrary);
 		
@@ -130,15 +137,57 @@ public class TestLibrarySystem07Persistence {
 	}
 	
 	@Test
+	public void testPersistAndLoadLibrarian() {
+		String aName = "TestVisitor";
+		String aPhoneNumber = "343278902";
+		String aAddress = "4500 haha st"; 
+		Library aLibrary = new Library(aName, aAddress, aPhoneNumber);
+
+		int libraryCardID = 0;
+		String name = "Lisa";
+		String username = "lisa1";
+		Librarian librarian = new Librarian(name, username, "123 steet", libraryCardID, aLibrary);
+		
+		librarianRepository.save(librarian);
+		
+		librarian = null;
+		librarian = librarianRepository.findLibrarianByLibraryCardID(libraryCardID);
+		
+		assertNotNull(librarian);
+		assertEquals(libraryCardID, librarian.getLibraryCardID());
+		assertEquals(name, librarian.getName());
+        assertEquals(username, librarian.getUsername());
+	}
+	
+	@Test
+	public void testPersistAndLoadHeadLibrarian() {
+		String name = "Nancy";
+		String username = "nancy";
+		String address = "240 test street";
+		int libraryCardId = 667;
+		Library library = new Library("Lib", "Montreal", "76859340");
+		
+		HeadLibrarian headLibrarian= new HeadLibrarian(name, username, address, libraryCardId, library);
+		headLibrarianRepository.save(headLibrarian);
+		
+		headLibrarian = null;
+		
+		headLibrarian = headLibrarianRepository.findHeadLibrarianByName(name);
+		
+		assertNotNull(headLibrarian);
+		assertEquals(libraryCardId, headLibrarian.getLibraryCardID());
+	}
+	
+	@Test
 	public void testPersistAndLoadReservableItem() {
 		
 		int aId = 345456;
 		
-		String aName = "TestVisitor";
-		String aUsername = "TestVisitor123";
+		String aName = "TestLibrary";
+		String aPhoneNumber = "543678439";
 		String aAddress = "4500 haha st"; 
 
-		Library aLibrary = new Library(aName, aUsername, aAddress);
+		Library aLibrary = new Library(aName, aAddress, aPhoneNumber);
 		
 		Time startTime = new Time(9, 0, 0);
 		Time endTime = new Time(20, 0, 0);
