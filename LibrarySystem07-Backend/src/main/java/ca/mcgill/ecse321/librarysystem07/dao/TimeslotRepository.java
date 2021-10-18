@@ -9,7 +9,7 @@ import ca.mcgill.ecse321.librarysystem07.model.Librarian;
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem;
 
 
-public interface TimeslotRepository extends CrudRepository<TimeSlot, String>{
+public interface TimeslotRepository extends CrudRepository<TimeSlot, Integer>{
 	
 	TimeSlot findTimeSlotById(Integer id);
 
