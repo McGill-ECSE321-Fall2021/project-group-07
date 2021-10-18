@@ -24,3 +24,6 @@ Link to our [Use Case Diagram and Descriptions!](https://github.com/McGill-ECSE3
 
 **UML Diagram**
 Link to our [Domain Model!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Domain-Model)
+
+**Project Management Ressources**
+Link to our [Project Management Ressources For Deliverable 1!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
