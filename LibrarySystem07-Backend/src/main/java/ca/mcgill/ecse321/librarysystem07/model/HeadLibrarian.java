@@ -3,9 +3,11 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
+import javax.persistence.*;
 
 // line 23 "model.ump"
 // line 112 "model.ump"
+@Entity
 public class HeadLibrarian extends UserRole
 {
 
@@ -29,6 +31,12 @@ public class HeadLibrarian extends UserRole
   //------------------------
   // INTERFACE
   //------------------------
+  
+  @Id
+  public Integer getLibrarianCardID(HeadLibrarian hl) {
+	  return getLibraryCardID();
+  }
+
 
   public boolean setSchedule(List<TimeSlot> aSchedule)
   {
