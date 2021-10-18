@@ -48,12 +48,17 @@ public class TimeSlot
   // CONSTRUCTOR
   //------------------------
 
-  public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aTimeSlotID, Librarian aLibrarian, HeadLibrarian aHeadLibrarian, Library aLibrary, Event aEvent, Reservation aReservation)
+  public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aTimeSlotID, Library aLibrary)
   {
     startTime = aStartTime;
     endTime = aEndTime;
     date = aDate;
     dayOfTheWeek = aDayOfTheWeek;
+    librarian = null;
+    headLibrarian = null;
+    library = null;
+    event = null;
+    reservation = null;
   }
 
   //------------------------
