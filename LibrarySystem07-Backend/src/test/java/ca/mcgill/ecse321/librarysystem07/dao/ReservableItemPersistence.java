@@ -19,7 +19,7 @@ import ca.mcgill.ecse321.library.models.ReservableItem;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-
+public class TestReservableItem{
     @Test
     @Transactional
     public void testPersistAndReservableItem(){
@@ -51,5 +51,6 @@ import ca.mcgill.ecse321.library.models.ReservableItem;
         assertEquals(name, rI.getName());
         assertEquals(author, rI.getAuthor());
         assertEquals(status, rI.getStatus());
-        assertEquals(type, rI.getType());
+       assertEquals(type, rI.getType());
     }
+}

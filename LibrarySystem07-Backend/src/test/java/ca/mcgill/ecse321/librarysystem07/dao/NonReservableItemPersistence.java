@@ -19,7 +19,7 @@ import ca.mcgill.ecse321.library.models.NonReservableItem;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-
+public class TestNonReservableItem{
     @Test
     @Transactional
     public void testPersistAndNonReservableItem(){
@@ -41,3 +41,4 @@ import ca.mcgill.ecse321.library.models.NonReservableItem;
         assertEquals(testLibrary, nR.getLibrary());
         assertEquals(type, nR.getType());
     }
+}
