@@ -4,16 +4,11 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 import javax.persistence.*;
+// line 59 "model.ump"
+// line 143 "model.ump"
 
-import javax.persistence.CascadeType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-
-// line 60 "model.ump"
-// line 129 "model.ump"
-
-@MappedSuperclass
+@Entity
+@Table(name = "Inventory Item")
 public class InventoryItem
 {
 
@@ -89,14 +84,14 @@ public class InventoryItem
     return getWithId(aId) != null;
   }
   /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
+  //@JoinColumn(name = "inventoryitem_name")
+  @ManyToOne
   public Library getLibrary()
   {
     return library;
   }
   /* Code from template association_SetOneToMany */
 
-  @ManyToOne
   public boolean setLibrary(Library aLibrary)
   {
     boolean wasSet = false;

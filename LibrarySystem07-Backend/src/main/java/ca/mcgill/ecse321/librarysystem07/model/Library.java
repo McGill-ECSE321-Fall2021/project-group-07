@@ -2,18 +2,18 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
+/*PLEASE DO NOT EDIT THIS CODE*/
+/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
+
+
 import java.util.*;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
+import java.sql.Time;
+import java.sql.Date;
+import javax.persistence.*;
 // line 29 "model.ump"
-// line 117 "model.ump"
-
+// line 133 "model.ump"
 @Entity
+@Table(name = "Library")
 public class Library
 {
 
@@ -24,25 +24,24 @@ public class Library
   //Library Attributes
   private String name;
   private String city;
-  private List<TimeSlot> openingHours;
-  private List<Librarian> employees;
-  private long phoneNumber;
+  private String phoneNumber;
 
   //Library Associations
   private List<UserRole> userRoles;
+  private List<TimeSlot> timeSlots;
   private List<InventoryItem> inventoryItems;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Library(String aName, String aCity, List<TimeSlot> aOpeningHours, long aPhoneNumber)
+  public Library(String aName, String aCity, String aPhoneNumber)
   {
     name = aName;
     city = aCity;
-    openingHours = aOpeningHours;
     phoneNumber = aPhoneNumber;
     userRoles = new ArrayList<UserRole>();
+    timeSlots = new ArrayList<TimeSlot>();
     inventoryItems = new ArrayList<InventoryItem>();
   }
 
@@ -66,30 +65,14 @@ public class Library
     return wasSet;
   }
 
-  public boolean setOpeningHours(List<TimeSlot> aOpeningHours)
-  {
-    boolean wasSet = false;
-    openingHours = aOpeningHours;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setEmployees(List<Librarian> aEmployees)
-  {
-    boolean wasSet = false;
-    employees = aEmployees;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setPhoneNumber(long aPhoneNumber)
+  public boolean setPhoneNumber(String aPhoneNumber)
   {
     boolean wasSet = false;
     phoneNumber = aPhoneNumber;
     wasSet = true;
     return wasSet;
   }
-  
+
   @Id
   public String getName()
   {
@@ -101,17 +84,7 @@ public class Library
     return city;
   }
 
-  public List<TimeSlot> getOpeningHours()
-  {
-    return openingHours;
-  }
-
-  public List<Librarian> getEmployees()
-  {
-    return employees;
-  }
-
-  public long getPhoneNumber()
+  public String getPhoneNumber()
   {
     return phoneNumber;
   }
@@ -122,6 +95,7 @@ public class Library
     return aUserRole;
   }
 
+  @OneToMany
   public List<UserRole> getUserRoles()
   {
     List<UserRole> newUserRoles = Collections.unmodifiableList(userRoles);
@@ -145,15 +119,60 @@ public class Library
     int index = userRoles.indexOf(aUserRole);
     return index;
   }
-  
   /* Code from template association_GetMany */
+  public TimeSlot getTimeSlot(int index)
+  {
+    TimeSlot aTimeSlot = timeSlots.get(index);
+    return aTimeSlot;
+  }
+
   @OneToMany
+  public List<TimeSlot> getTimeSlots()
+  {
+    List<TimeSlot> newTimeSlots = Collections.unmodifiableList(timeSlots);
+    return newTimeSlots;
+  }
+  
+  //me add
+  public void setTimeSlots(List<TimeSlot> slots) {
+	  this.timeSlots = slots;
+  }
+
+  public void setInventoryItems(List<InventoryItem> inv) {
+	  this.inventoryItems = inv;
+  }
+
+  public void setUserRoles(List<UserRole> userRoles) {
+	  this.userRoles = userRoles;
+  }
+  
+  
+  public int numberOfTimeSlots()
+  {
+    int number = timeSlots.size();
+    return number;
+  }
+
+  public boolean hasTimeSlots()
+  {
+    boolean has = timeSlots.size() > 0;
+    return has;
+  }
+
+  public int indexOfTimeSlot(TimeSlot aTimeSlot)
+  {
+    int index = timeSlots.indexOf(aTimeSlot);
+    return index;
+  }
+  /* Code from template association_GetMany */
   public InventoryItem getInventoryItem(int index)
   {
     InventoryItem aInventoryItem = inventoryItems.get(index);
     return aInventoryItem;
   }
   
+  //(cascade = CascadeType.ALL)
+  @OneToMany
   public List<InventoryItem> getInventoryItems()
   {
     List<InventoryItem> newInventoryItems = Collections.unmodifiableList(inventoryItems);
@@ -183,6 +202,7 @@ public class Library
     return 0;
   }
   /* Code from template association_AddManyToOne */
+
 
   public boolean addUserRole(UserRole aUserRole)
   {
@@ -242,6 +262,78 @@ public class Library
     else 
     {
       wasAdded = addUserRoleAt(aUserRole, index);
+    }
+    return wasAdded;
+  }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfTimeSlots()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public TimeSlot addTimeSlot(Time aStartTime, Time aEndTime, Date aDate, TimeSlot.DayOfTheWeek aDayOfTheWeek, int aTimeSlotID, Librarian aLibrarian, HeadLibrarian aHeadLibrarian, Event aEvent, Reservation aReservation)
+  {
+    return new TimeSlot(aStartTime, aEndTime, aDate, aDayOfTheWeek, aTimeSlotID, aLibrarian, aHeadLibrarian, this, aEvent, aReservation);
+  }
+
+  public boolean addTimeSlot(TimeSlot aTimeSlot)
+  {
+    boolean wasAdded = false;
+    if (timeSlots.contains(aTimeSlot)) { return false; }
+    Library existingLibrary = aTimeSlot.getLibrary();
+    boolean isNewLibrary = existingLibrary != null && !this.equals(existingLibrary);
+    if (isNewLibrary)
+    {
+      aTimeSlot.setLibrary(this);
+    }
+    else
+    {
+      timeSlots.add(aTimeSlot);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeTimeSlot(TimeSlot aTimeSlot)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aTimeSlot, as it must always have a library
+    if (!this.equals(aTimeSlot.getLibrary()))
+    {
+      timeSlots.remove(aTimeSlot);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addTimeSlotAt(TimeSlot aTimeSlot, int index)
+  {  
+    boolean wasAdded = false;
+    if(addTimeSlot(aTimeSlot))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfTimeSlots()) { index = numberOfTimeSlots() - 1; }
+      timeSlots.remove(aTimeSlot);
+      timeSlots.add(index, aTimeSlot);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveTimeSlotAt(TimeSlot aTimeSlot, int index)
+  {
+    boolean wasAdded = false;
+    if(timeSlots.contains(aTimeSlot))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfTimeSlots()) { index = numberOfTimeSlots() - 1; }
+      timeSlots.remove(aTimeSlot);
+      timeSlots.add(index, aTimeSlot);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addTimeSlotAt(aTimeSlot, index);
     }
     return wasAdded;
   }
@@ -325,6 +417,11 @@ public class Library
       UserRole aUserRole = userRoles.get(i - 1);
       aUserRole.delete();
     }
+    for(int i=timeSlots.size(); i > 0; i--)
+    {
+      TimeSlot aTimeSlot = timeSlots.get(i - 1);
+      aTimeSlot.delete();
+    }
     while (inventoryItems.size() > 0)
     {
       InventoryItem aInventoryItem = inventoryItems.get(inventoryItems.size() - 1);
@@ -340,8 +437,6 @@ public class Library
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "city" + ":" + getCity()+ "," +
-            "phoneNumber" + ":" + getPhoneNumber()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "openingHours" + "=" + (getOpeningHours() != null ? !getOpeningHours().equals(this)  ? getOpeningHours().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "employees" + "=" + (getEmployees() != null ? !getEmployees().equals(this)  ? getEmployees().toString().replaceAll("  ","    ") : "this" : "null");
+            "phoneNumber" + ":" + getPhoneNumber()+ "]";
   }
 }

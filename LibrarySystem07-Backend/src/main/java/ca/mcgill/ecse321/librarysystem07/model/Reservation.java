@@ -5,12 +5,13 @@ package ca.mcgill.ecse321.librarysystem07.model;
 import java.util.*;
 import javax.persistence.*;
 
+import java.sql.Time;
+import java.sql.Date;
 
-import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableItem;
-
-// line 87 "model.ump"
-// line 146 "model.ump"
+// line 86 "model.ump"
+// line 159 "model.ump"
 @Entity
+@Table(name = "Reservation")
 public class Reservation
 {
 
@@ -26,19 +27,18 @@ public class Reservation
 
   //Reservation Attributes
   private int reservationID;
-  private TimeSlot reservationTimeSlot;
 
   //Reservation Associations
   private Visitor visitor;
-  private List<ReservableItem> reservableItems;
+  private List<TimeSlot> timeSlots;
+  private ReservableItem reservableItem;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Reservation(int aReservationID, TimeSlot aReservationTimeSlot, Visitor aVisitor)
+  public Reservation(int aReservationID, Visitor aVisitor, ReservableItem aReservableItem)
   {
-    reservationTimeSlot = aReservationTimeSlot;
     if (!setReservationID(aReservationID))
     {
       throw new RuntimeException("Cannot create due to duplicate reservationID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
@@ -48,7 +48,11 @@ public class Reservation
     {
       throw new RuntimeException("Unable to create reservation due to visitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    reservableItems = new ArrayList<ReservableItem>();
+    timeSlots = new ArrayList<TimeSlot>();
+    if (!setReservableItem(aReservableItem))
+    {
+      throw new RuntimeException("Unable to create Reservation due to aReservableItem. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
   }
 
   //------------------------
@@ -74,14 +78,6 @@ public class Reservation
     return wasSet;
   }
 
-  public boolean setReservationTimeSlot(TimeSlot aReservationTimeSlot)
-  {
-    boolean wasSet = false;
-    reservationTimeSlot = aReservationTimeSlot;
-    wasSet = true;
-    return wasSet;
-  }
-
   @Id
   public int getReservationID()
   {
@@ -97,48 +93,54 @@ public class Reservation
   {
     return getWithReservationID(aReservationID) != null;
   }
-
-  public TimeSlot getReservationTimeSlot()
-  {
-    return reservationTimeSlot;
-  }
   /* Code from template association_GetOne */
-  @ManyToOne(optional=true)
+  //@JoinColumn(name = "reservation_librarycardid")
+  @ManyToOne
   public Visitor getVisitor()
   {
     return visitor;
   }
   /* Code from template association_GetMany */
-  
-//@OneToMany
-  public ReservableItem getReservableItem(int index)
+  public TimeSlot getTimeSlot(int index)
   {
-    ReservableItem aReservableItem = reservableItems.get(index);
-    return aReservableItem;
-  }
-  
-  public List<ReservableItem> getReservableItems()
-  {
-    List<ReservableItem> newReservableItems = Collections.unmodifiableList(reservableItems);
-    return newReservableItems;
+    TimeSlot aTimeSlot = timeSlots.get(index);
+    return aTimeSlot;
   }
 
-  public int numberOfReservableItems()
+  @OneToMany
+  public List<TimeSlot> getTimeSlots()
   {
-    int number = reservableItems.size();
+    List<TimeSlot> newTimeSlots = Collections.unmodifiableList(timeSlots);
+    return newTimeSlots;
+  }
+  
+  public void setTimeSlots(List<TimeSlot> slots) {
+	  this.timeSlots = slots;
+  }
+
+
+  public int numberOfTimeSlots()
+  {
+    int number = timeSlots.size();
     return number;
   }
 
-  public boolean hasReservableItems()
+  public boolean hasTimeSlots()
   {
-    boolean has = reservableItems.size() > 0;
+    boolean has = timeSlots.size() > 0;
     return has;
   }
 
-  public int indexOfReservableItem(ReservableItem aReservableItem)
+  public int indexOfTimeSlot(TimeSlot aTimeSlot)
   {
-    int index = reservableItems.indexOf(aReservableItem);
+    int index = timeSlots.indexOf(aTimeSlot);
     return index;
+  }
+  /* Code from template association_GetOne */
+  @OneToOne(optional=false)
+  public ReservableItem getReservableItem()
+  {
+    return reservableItem;
   }
   /* Code from template association_SetOneToMany */
   public boolean setVisitor(Visitor aVisitor)
@@ -160,77 +162,87 @@ public class Reservation
     return wasSet;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfReservableItems()
+  public static int minimumNumberOfTimeSlots()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-
-  public ReservableItem addReservableItem(int aId, Library aLibrary, int aDuplicates, String aName, String aAuthor, ReservableItem.Status aStatus, ReservableItem.TypeOfReservableItem aReservableItem)
+  public TimeSlot addTimeSlot(Time aStartTime, Time aEndTime, Date aDate, TimeSlot.DayOfTheWeek aDayOfTheWeek, int aTimeSlotID, Librarian aLibrarian, HeadLibrarian aHeadLibrarian, Library aLibrary, Event aEvent)
   {
-    return new ReservableItem(aId, aLibrary, aDuplicates, aName, aAuthor, aStatus, aReservableItem);
+    return new TimeSlot(aStartTime, aEndTime, aDate, aDayOfTheWeek, aTimeSlotID, aLibrarian, aHeadLibrarian, aLibrary, aEvent, this);
   }
 
-  public boolean addReservableItem(ReservableItem aReservableItem)
+  public boolean addTimeSlot(TimeSlot aTimeSlot)
   {
     boolean wasAdded = false;
-    if (reservableItems.contains(aReservableItem)) { return false; }
-    Reservation existingReservation = aReservableItem.getReservation();
+    if (timeSlots.contains(aTimeSlot)) { return false; }
+    Reservation existingReservation = aTimeSlot.getReservation();
     boolean isNewReservation = existingReservation != null && !this.equals(existingReservation);
     if (isNewReservation)
     {
-      aReservableItem.setReservation(this);
+      aTimeSlot.setReservation(this);
     }
     else
     {
-      reservableItems.add(aReservableItem);
+      timeSlots.add(aTimeSlot);
     }
     wasAdded = true;
     return wasAdded;
   }
 
-  public boolean removeReservableItem(ReservableItem aReservableItem)
+  public boolean removeTimeSlot(TimeSlot aTimeSlot)
   {
     boolean wasRemoved = false;
-    //Unable to remove aReservableItem, as it must always have a reservation
-    if (!this.equals(aReservableItem.getReservation()))
+    //Unable to remove aTimeSlot, as it must always have a reservation
+    if (!this.equals(aTimeSlot.getReservation()))
     {
-      reservableItems.remove(aReservableItem);
+      timeSlots.remove(aTimeSlot);
       wasRemoved = true;
     }
     return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
-  public boolean addReservableItemAt(ReservableItem aReservableItem, int index)
+  public boolean addTimeSlotAt(TimeSlot aTimeSlot, int index)
   {  
     boolean wasAdded = false;
-    if(addReservableItem(aReservableItem))
+    if(addTimeSlot(aTimeSlot))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfReservableItems()) { index = numberOfReservableItems() - 1; }
-      reservableItems.remove(aReservableItem);
-      reservableItems.add(index, aReservableItem);
+      if(index > numberOfTimeSlots()) { index = numberOfTimeSlots() - 1; }
+      timeSlots.remove(aTimeSlot);
+      timeSlots.add(index, aTimeSlot);
       wasAdded = true;
     }
     return wasAdded;
   }
 
-  public boolean addOrMoveReservableItemAt(ReservableItem aReservableItem, int index)
+  public boolean addOrMoveTimeSlotAt(TimeSlot aTimeSlot, int index)
   {
     boolean wasAdded = false;
-    if(reservableItems.contains(aReservableItem))
+    if(timeSlots.contains(aTimeSlot))
     {
       if(index < 0 ) { index = 0; }
-      if(index > numberOfReservableItems()) { index = numberOfReservableItems() - 1; }
-      reservableItems.remove(aReservableItem);
-      reservableItems.add(index, aReservableItem);
+      if(index > numberOfTimeSlots()) { index = numberOfTimeSlots() - 1; }
+      timeSlots.remove(aTimeSlot);
+      timeSlots.add(index, aTimeSlot);
       wasAdded = true;
     } 
     else 
     {
-      wasAdded = addReservableItemAt(aReservableItem, index);
+      wasAdded = addTimeSlotAt(aTimeSlot, index);
     }
     return wasAdded;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setReservableItem(ReservableItem aNewReservableItem)
+  {
+    boolean wasSet = false;
+    if (aNewReservableItem != null)
+    {
+      reservableItem = aNewReservableItem;
+      wasSet = true;
+    }
+    return wasSet;
   }
 
   public void delete()
@@ -242,13 +254,12 @@ public class Reservation
     {
       placeholderVisitor.removeReservation(this);
     }
-    while (reservableItems.size() > 0)
+    for(int i=timeSlots.size(); i > 0; i--)
     {
-      ReservableItem aReservableItem = reservableItems.get(reservableItems.size() - 1);
-      aReservableItem.delete();
-      reservableItems.remove(aReservableItem);
+      TimeSlot aTimeSlot = timeSlots.get(i - 1);
+      aTimeSlot.delete();
     }
-    
+    reservableItem = null;
   }
 
 
@@ -256,7 +267,7 @@ public class Reservation
   {
     return super.toString() + "["+
             "reservationID" + ":" + getReservationID()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "reservationTimeSlot" + "=" + (getReservationTimeSlot() != null ? !getReservationTimeSlot().equals(this)  ? getReservationTimeSlot().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "visitor = "+(getVisitor()!=null?Integer.toHexString(System.identityHashCode(getVisitor())):"null");
+            "  " + "visitor = "+(getVisitor()!=null?Integer.toHexString(System.identityHashCode(getVisitor())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "reservableItem = "+(getReservableItem()!=null?Integer.toHexString(System.identityHashCode(getReservableItem())):"null");
   }
 }

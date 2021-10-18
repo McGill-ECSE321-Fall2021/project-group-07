@@ -5,12 +5,12 @@ package ca.mcgill.ecse321.librarysystem07.model;
 import java.util.*;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-// line 67 "model.ump"
-// line 135 "model.ump"
+// line 66 "model.ump"
+// line 148 "model.ump"
 @Entity
+@Table(name = "Reservable Item")
 public class ReservableItem extends InventoryItem
 {
 
@@ -31,9 +31,6 @@ public class ReservableItem extends InventoryItem
   private String author;
   private Status status;
   private TypeOfReservableItem reservableItem;
-
-  //ReservableItem Associations
-  private Reservation reservation;
 
   //------------------------
   // CONSTRUCTOR
@@ -117,40 +114,9 @@ public class ReservableItem extends InventoryItem
   {
     return reservableItem;
   }
-  /* Code from template association_GetOne */
-  //@ManyToOne(optional=true)
-  public Reservation getReservation()
-  {
-    return reservation;
-  }
-  /* Code from template association_SetOneToMany */
-  public boolean setReservation(Reservation aReservation)
-  {
-    boolean wasSet = false;
-    if (aReservation == null)
-    {
-      return wasSet;
-    }
-
-    Reservation existingReservation = reservation;
-    reservation = aReservation;
-    if (existingReservation != null && !existingReservation.equals(aReservation))
-    {
-      existingReservation.removeReservableItem(this);
-    }
-    reservation.addReservableItem(this);
-    wasSet = true;
-    return wasSet;
-  }
 
   public void delete()
   {
-    Reservation existingReservation = reservation;
-    reservation = null;
-    if (existingReservation != null)
-    {
-      existingReservation.delete();
-    }
     super.delete();
   }
 
@@ -162,7 +128,6 @@ public class ReservableItem extends InventoryItem
             "name" + ":" + getName()+ "," +
             "author" + ":" + getAuthor()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "status" + "=" + (getStatus() != null ? !getStatus().equals(this)  ? getStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "reservableItem" + "=" + (getReservableItem() != null ? !getReservableItem().equals(this)  ? getReservableItem().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "reservation = "+(getReservation()!=null?Integer.toHexString(System.identityHashCode(getReservation())):"null");
+            "  " + "reservableItem" + "=" + (getReservableItem() != null ? !getReservableItem().equals(this)  ? getReservableItem().toString().replaceAll("  ","    ") : "this" : "null");
   }
 }

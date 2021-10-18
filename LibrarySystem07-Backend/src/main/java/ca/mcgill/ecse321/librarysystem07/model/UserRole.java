@@ -6,9 +6,9 @@ import java.util.*;
 import javax.persistence.*;
 
 // line 2 "model.ump"
-// line 97 "model.ump"
-
-@MappedSuperclass
+// line 113 "model.ump"
+@Entity
+@Table(name = "User Role")
 public abstract class UserRole
 {
 
@@ -154,7 +154,7 @@ public abstract class UserRole
     return getWithLibraryCardID(aLibraryCardID) != null;
   }
   /* Code from template association_GetOne */
-  @ManyToOne(optional=false)
+  @ManyToOne
   public Library getLibrary()
   {
     return library;

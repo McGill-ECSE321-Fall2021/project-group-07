@@ -5,14 +5,12 @@ package ca.mcgill.ecse321.librarysystem07.model;
 import java.sql.Time;
 import java.sql.Date;
 import java.util.*;
-import java.util.Map.Entry;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 
 @Entity
+@Table(name = "Time Slot")
 public class TimeSlot
 {
 
@@ -39,13 +37,19 @@ public class TimeSlot
   private DayOfTheWeek dayOfTheWeek;
   private int timeSlotID;
 
+  //TimeSlot Associations
+  private Librarian librarian;
+  private HeadLibrarian headLibrarian;
+  private Library library;
+  private Event event;
+  private Reservation reservation;
+
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aTimeSlotID)
+  public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aTimeSlotID, Librarian aLibrarian, HeadLibrarian aHeadLibrarian, Library aLibrary, Event aEvent, Reservation aReservation)
   {
-	//add check to make sure id is not already used
     startTime = aStartTime;
     endTime = aEndTime;
     date = aDate;
@@ -54,20 +58,31 @@ public class TimeSlot
     {
       throw new RuntimeException("Cannot create due to duplicate timeSlotID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
-  }
-  
-  public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
-  {
-    startTime = aStartTime;
-    endTime = aEndTime;
-    date = aDate;
-    dayOfTheWeek = aDayOfTheWeek;
-    int anId = 0;
-    for (Entry<Integer, TimeSlot> e : timeslotsByTimeSlotID.entrySet()) {
-    	if (e.getKey() > anId) anId = e.getKey();
+    boolean didAddLibrarian = setLibrarian(aLibrarian);
+    if (!didAddLibrarian)
+    {
+      throw new RuntimeException("Unable to create timeSlot due to librarian. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    if (anId == 0) timeSlotID = anId;
-    else timeSlotID = anId + 1;
+    boolean didAddHeadLibrarian = setHeadLibrarian(aHeadLibrarian);
+    if (!didAddHeadLibrarian)
+    {
+      throw new RuntimeException("Unable to create timeSlot due to headLibrarian. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
+    boolean didAddLibrary = setLibrary(aLibrary);
+    if (!didAddLibrary)
+    {
+      throw new RuntimeException("Unable to create timeSlot due to library. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
+    boolean didAddEvent = setEvent(aEvent);
+    if (!didAddEvent)
+    {
+      throw new RuntimeException("Unable to create timeSlot due to event. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
+    boolean didAddReservation = setReservation(aReservation);
+    if (!didAddReservation)
+    {
+      throw new RuntimeException("Unable to create timeSlot due to reservation. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
   }
 
   //------------------------
@@ -160,10 +175,181 @@ public class TimeSlot
   {
     return getWithTimeSlotID(aTimeSlotID) != null;
   }
+  /* Code from template association_GetOne */
+  @ManyToOne
+  public Librarian getLibrarian()
+  {
+    return librarian;
+  }
+  /* Code from template association_GetOne */
+  @ManyToOne
+  public HeadLibrarian getHeadLibrarian()
+  {
+    return headLibrarian;
+  }
+  /* Code from template association_GetOne */
+  @ManyToOne
+  public Library getLibrary()
+  {
+    return library;
+  }
+  /* Code from template association_GetOne */
+  @ManyToOne
+  public Event getEvent()
+  {
+    return event;
+  }
+  /* Code from template association_GetOne */
+  @ManyToOne
+  public Reservation getReservation()
+  {
+    return reservation;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setLibrarian(Librarian aLibrarian)
+  {
+    boolean wasSet = false;
+    if (aLibrarian == null)
+    {
+      return wasSet;
+    }
+
+    Librarian existingLibrarian = librarian;
+    librarian = aLibrarian;
+    if (existingLibrarian != null && !existingLibrarian.equals(aLibrarian))
+    {
+      existingLibrarian.removeTimeSlot(this);
+    }
+    librarian.addTimeSlot(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setHeadLibrarian(HeadLibrarian aHeadLibrarian)
+  {
+    boolean wasSet = false;
+    if (aHeadLibrarian == null)
+    {
+      return wasSet;
+    }
+
+    HeadLibrarian existingHeadLibrarian = headLibrarian;
+    headLibrarian = aHeadLibrarian;
+    if (existingHeadLibrarian != null && !existingHeadLibrarian.equals(aHeadLibrarian))
+    {
+      existingHeadLibrarian.removeTimeSlot(this);
+    }
+    headLibrarian.addTimeSlot(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setLibrary(Library aLibrary)
+  {
+    boolean wasSet = false;
+    if (aLibrary == null)
+    {
+      return wasSet;
+    }
+
+    Library existingLibrary = library;
+    library = aLibrary;
+    if (existingLibrary != null && !existingLibrary.equals(aLibrary))
+    {
+      existingLibrary.removeTimeSlot(this);
+    }
+    library.addTimeSlot(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setEvent(Event aEvent)
+  {
+    boolean wasSet = false;
+    if (aEvent == null)
+    {
+      return wasSet;
+    }
+
+    Event existingEvent = event;
+    event = aEvent;
+    if (existingEvent != null && !existingEvent.equals(aEvent))
+    {
+      existingEvent.removeTimeSlot(this);
+    }
+    event.addTimeSlot(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setReservation(Reservation aReservation)
+  {
+    boolean wasSet = false;
+    if (aReservation == null)
+    {
+      return wasSet;
+    }
+
+    Reservation existingReservation = reservation;
+    reservation = aReservation;
+    if (existingReservation != null && !existingReservation.equals(aReservation))
+    {
+      existingReservation.removeTimeSlot(this);
+    }
+    reservation.addTimeSlot(this);
+    wasSet = true;
+    return wasSet;
+  }
 
   public void delete()
   {
     timeslotsByTimeSlotID.remove(getTimeSlotID());
+    Librarian placeholderLibrarian = librarian;
+    this.librarian = null;
+    if(placeholderLibrarian != null)
+    {
+      placeholderLibrarian.removeTimeSlot(this);
+    }
+    HeadLibrarian placeholderHeadLibrarian = headLibrarian;
+    this.headLibrarian = null;
+    if(placeholderHeadLibrarian != null)
+    {
+      placeholderHeadLibrarian.removeTimeSlot(this);
+    }
+    Library placeholderLibrary = library;
+    this.library = null;
+    if(placeholderLibrary != null)
+    {
+      placeholderLibrary.removeTimeSlot(this);
+    }
+    Event placeholderEvent = event;
+    this.event = null;
+    if(placeholderEvent != null)
+    {
+      placeholderEvent.removeTimeSlot(this);
+    }
+    Reservation placeholderReservation = reservation;
+    this.reservation = null;
+    if(placeholderReservation != null)
+    {
+      placeholderReservation.removeTimeSlot(this);
+    }
   }
 
+
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "timeSlotID" + ":" + getTimeSlotID()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "startTime" + "=" + (getStartTime() != null ? !getStartTime().equals(this)  ? getStartTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "endTime" + "=" + (getEndTime() != null ? !getEndTime().equals(this)  ? getEndTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "dayOfTheWeek" + "=" + (getDayOfTheWeek() != null ? !getDayOfTheWeek().equals(this)  ? getDayOfTheWeek().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "librarian = "+(getLibrarian()!=null?Integer.toHexString(System.identityHashCode(getLibrarian())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "headLibrarian = "+(getHeadLibrarian()!=null?Integer.toHexString(System.identityHashCode(getHeadLibrarian())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "library = "+(getLibrary()!=null?Integer.toHexString(System.identityHashCode(getLibrary())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "event = "+(getEvent()!=null?Integer.toHexString(System.identityHashCode(getEvent())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "reservation = "+(getReservation()!=null?Integer.toHexString(System.identityHashCode(getReservation())):"null");
+  }
 }

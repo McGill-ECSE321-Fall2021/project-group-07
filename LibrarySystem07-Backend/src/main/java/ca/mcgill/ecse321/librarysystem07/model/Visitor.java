@@ -3,11 +3,13 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
+
 import javax.persistence.*;
 
 // line 11 "model.ump"
-// line 102 "model.ump"
+// line 118 "model.ump"
 @Entity
+@Table(name = "Visitor")
 public class Visitor extends UserRole
 {
 
@@ -50,20 +52,14 @@ public class Visitor extends UserRole
   {
     return demeritPoints;
   }
-  
-//  @Id
-//  public Integer getLibrarianCardID() {
-//	  return getLibraryCardID();
-//  }
-  
   /* Code from template association_GetMany */
-  @OneToMany
   public Event getEvent(int index)
   {
     Event aEvent = events.get(index);
     return aEvent;
   }
-
+//(cascade = CascadeType.ALL)
+  @OneToMany
   public List<Event> getEvents()
   {
     List<Event> newEvents = Collections.unmodifiableList(events);
@@ -88,13 +84,13 @@ public class Visitor extends UserRole
     return index;
   }
   /* Code from template association_GetMany */
-  @OneToMany
   public Reservation getReservation(int index)
   {
     Reservation aReservation = reservations.get(index);
     return aReservation;
   }
-  
+//(cascade = CascadeType.ALL)
+  @OneToMany
   public List<Reservation> getReservations()
   {
     List<Reservation> newReservations = Collections.unmodifiableList(reservations);
@@ -124,9 +120,9 @@ public class Visitor extends UserRole
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Event addEvent(List<TimeSlot> aSchedule)
+  public Event setEvent(String aName, int aEventID)
   {
-    return new Event(aSchedule, this);
+    return new Event(aName, aEventID, this);
   }
 
   public boolean addEvent(Event aEvent)
@@ -145,6 +141,14 @@ public class Visitor extends UserRole
     }
     wasAdded = true;
     return wasAdded;
+  }
+  
+  public void setEvents(List<Event> events) {
+	  this.events = events;
+  }
+  
+  public void setReservations(List<Reservation> res) {
+	  this.reservations = res;
   }
 
   public boolean removeEvent(Event aEvent)
@@ -196,9 +200,9 @@ public class Visitor extends UserRole
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Reservation addReservation(int aReservationID, TimeSlot aReservationTimeSlot)
+  public Reservation addReservation(int aReservationID, ReservableItem aReservableItem)
   {
-    return new Reservation(aReservationID, aReservationTimeSlot, this);
+    return new Reservation(aReservationID, this, aReservableItem);
   }
 
   public boolean addReservation(Reservation aReservation)
