@@ -3,9 +3,12 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
+import javax.persistence.*;
 
 // line 2 "model.ump"
 // line 97 "model.ump"
+
+@MappedSuperclass
 public abstract class UserRole
 {
 
@@ -135,6 +138,7 @@ public abstract class UserRole
     return address;
   }
 
+  @Id
   public int getLibraryCardID()
   {
     return libraryCardID;
@@ -150,6 +154,7 @@ public abstract class UserRole
     return getWithLibraryCardID(aLibraryCardID) != null;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Library getLibrary()
   {
     return library;

@@ -20,7 +20,7 @@ Link to our [Requirements!](https://github.com/McGill-ECSE321-Fall2021/project-g
 
 **Use Case Diagram and Use Case Desciptions**
 
-Link to our [Use Case Diagram and Descriptions!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Use-Case-Diagram)
+Link to our [Use Case Diagram and Descriptions!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Use-Case-Page)
 
 **UML Diagram**
 Link to our [Domain Model!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Domain-Model)

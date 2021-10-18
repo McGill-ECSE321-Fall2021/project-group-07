@@ -21,7 +21,7 @@ public class Event
   // MEMBER VARIABLES
   //------------------------
 
-	 private static Map<Integer, Event> eventsByEventID = new HashMap<Integer, Event>();
+  private static Map<Integer, Event> eventsByEventID = new HashMap<Integer, Event>();
 
   //Event Attributes
   private List<TimeSlot> schedule;
@@ -68,17 +68,18 @@ public class Event
     return schedule;
   }
   /* Code from template association_GetOne */
+  @ManyToOne(optional=true)
   public Visitor getVisitor()
   {
     return visitor;
   }
   
   @Id
-  @OneToOne(optional=false)
   public int getEventID()
   {
     return id;
   }
+  
   /* Code from template association_SetOneToMany */
   public boolean setVisitor(Visitor aVisitor)
   {

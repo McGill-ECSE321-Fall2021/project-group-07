@@ -4,8 +4,13 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 // line 67 "model.ump"
 // line 135 "model.ump"
+@Entity
 public class ReservableItem extends InventoryItem
 {
 
@@ -113,6 +118,7 @@ public class ReservableItem extends InventoryItem
     return reservableItem;
   }
   /* Code from template association_GetOne */
+  //@ManyToOne(optional=true)
   public Reservation getReservation()
   {
     return reservation;
