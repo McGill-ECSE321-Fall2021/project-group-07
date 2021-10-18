@@ -5,10 +5,6 @@ package ca.mcgill.ecse321.librarysystem07.model;
 import java.util.*;
 import javax.persistence.*;
 
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableItem;
 
