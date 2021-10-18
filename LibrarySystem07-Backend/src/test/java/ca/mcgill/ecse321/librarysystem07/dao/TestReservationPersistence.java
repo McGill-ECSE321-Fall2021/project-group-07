@@ -67,9 +67,8 @@ public class TestReservationPersistence {
 		List<TimeSlot> timeSlots = new ArrayList<TimeSlot>();
 		timeSlots.add(ts);
 		timeSlots.add(ts2);
-		List<Librarian> employees = new ArrayList<Librarian>();
 		long phoneNumber = 514-514-5141;
-		Library library = new Library("name", "city", timeSlots, employees, phoneNumber);
+		Library library = new Library("name", "city", timeSlots, phoneNumber);
 		
 		
 		Visitor v = new Visitor("bob", "bob1", "street A", 1, library, 0);
