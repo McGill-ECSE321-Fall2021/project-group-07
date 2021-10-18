@@ -32,11 +32,6 @@ public class HeadLibrarian extends UserRole
   // INTERFACE
   //------------------------
   
-  @Id
-  public Integer getLibrarianCardID(HeadLibrarian hl) {
-	  return getLibraryCardID();
-  }
-
 
   public boolean setSchedule(List<TimeSlot> aSchedule)
   {
