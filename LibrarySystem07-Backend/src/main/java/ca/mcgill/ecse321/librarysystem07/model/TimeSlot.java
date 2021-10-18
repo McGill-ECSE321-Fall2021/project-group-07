@@ -146,7 +146,6 @@ public class TimeSlot
   }
 
   @Id
-  @OneToOne(optional=false)
   public int getTimeSlotID()
   {
     return timeSlotID;

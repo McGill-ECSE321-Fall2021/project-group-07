@@ -36,12 +36,11 @@ public class Library
   // CONSTRUCTOR
   //------------------------
 
-  public Library(String aName, String aCity, List<TimeSlot> aOpeningHours, List<Librarian> aEmployees, long aPhoneNumber)
+  public Library(String aName, String aCity, List<TimeSlot> aOpeningHours, long aPhoneNumber)
   {
     name = aName;
     city = aCity;
     openingHours = aOpeningHours;
-    employees = aEmployees;
     phoneNumber = aPhoneNumber;
     userRoles = new ArrayList<UserRole>();
     inventoryItems = new ArrayList<InventoryItem>();
@@ -146,14 +145,15 @@ public class Library
     int index = userRoles.indexOf(aUserRole);
     return index;
   }
-  /* Code from template association_GetMany */
   
+  /* Code from template association_GetMany */
+  @OneToMany
   public InventoryItem getInventoryItem(int index)
   {
     InventoryItem aInventoryItem = inventoryItems.get(index);
     return aInventoryItem;
   }
-
+  
   public List<InventoryItem> getInventoryItems()
   {
     List<InventoryItem> newInventoryItems = Collections.unmodifiableList(inventoryItems);
