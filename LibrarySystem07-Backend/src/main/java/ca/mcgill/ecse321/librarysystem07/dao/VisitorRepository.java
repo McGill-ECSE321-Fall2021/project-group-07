@@ -12,8 +12,4 @@ public interface VisitorRepository extends CrudRepository<Visitor, Integer> {
 	
 	Visitor findVisitorByLibrarianCardID(Integer visitorLibrarianCardID);
 
-	boolean existsByReservationAndEvent(Reservation reservation, Event eventName);
-
-	Visitor findByPersonAndEvent(Reservation reservation, Event eventName);
-
 }

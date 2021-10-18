@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.librarysystem07.model.*;
 import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.Status;
+import ca.mcgill.ecse321.librarysystem07.model.ReservableItem.TypeOfReservableItem;
 import ca.mcgill.ecse321.librarysystem07.model.TimeSlot.DayOfTheWeek;
 
 @Repository
@@ -41,8 +42,8 @@ public class LibrarySystem07Repository {
 	
 	/*TimeSlot - RM*/
 	@Transactional
-	public TimeSlot createTimeSlot(Time startTime, Time endTime, Date date, DayOfTheWeek dayoftheWeek) {
-		TimeSlot ts = new TimeSlot(startTime, endTime, date, dayoftheWeek);
+	public TimeSlot createTimeSlot(Time startTime, Time endTime, Date date, DayOfTheWeek dayoftheWeek, int id) {
+		TimeSlot ts = new TimeSlot(startTime, endTime, date, dayoftheWeek, id, null, null, null, null, null);
 		entityManager.persist(ts);
 		return ts;
 	}
@@ -63,8 +64,8 @@ public class LibrarySystem07Repository {
 	
 	/*Reservation - RM*/
 	@Transactional
-	public Reservation createReservation(int id, TimeSlot ts, Visitor v) {
-		Reservation r = new Reservation(id, ts, v);
+	public Reservation createReservation(int id, Visitor v, ReservableItem type) {
+		Reservation r = new Reservation(id, v, type);
 		entityManager.persist(r);
 		return r;
 	}
@@ -89,8 +90,8 @@ public class LibrarySystem07Repository {
 	
 	/*Librarian - RM*/
 	@Transactional
-	public Librarian createLibrarian(String aName, String aUsername, String aAddress, int aLibraryCardID, Library aLibrary, List<TimeSlot> aSchedule) {
-		Librarian l = new Librarian(aName, aUsername, aAddress, aLibraryCardID, aLibrary, aSchedule);
+	public Librarian createLibrarian(String aName, String aUsername, String aAddress, int aLibraryCardID, Library aLibrary) {
+		Librarian l = new Librarian(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
 		entityManager.persist(l);
 		return l;
 	}

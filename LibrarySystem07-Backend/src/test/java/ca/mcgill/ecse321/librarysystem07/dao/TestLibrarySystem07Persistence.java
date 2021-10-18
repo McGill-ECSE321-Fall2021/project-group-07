@@ -51,39 +51,38 @@ public class TestLibrarySystem07Persistence {
 	@Test
 	public void testPersistAndLoadVisitor() {
 		
+		String aName = "TestVisitor";
+		String aUsername = "TestVisitor123";
+		String aAddress = "4500 haha st"; 
+
+		Library aLibrary = new Library(aName, aUsername, aAddress);
+		
 		Time startTime = new Time(9, 0, 0);
 		Time endTime = new Time(20, 0, 0);
 		Date day  = new Date(2021, 10, 17);
 		TimeSlot.DayOfTheWeek weekday = TimeSlot.DayOfTheWeek.Sunday;
-		TimeSlot openingHours = new TimeSlot(startTime, endTime, day, weekday);
+		TimeSlot openingHours = new TimeSlot(startTime, endTime, day, weekday, 0, null, null, aLibrary, null, null);
+		
+		aLibrary.addTimeSlot(openingHours);
 		
 		Time startTime1 = new Time(9, 0, 0);
 		Time endTime1 = new Time(20, 0, 0);
 		Date day1  = new Date(2021, 10, 18);
 		TimeSlot.DayOfTheWeek weekday1 = TimeSlot.DayOfTheWeek.Monday;
-		TimeSlot openingHours1 = new TimeSlot(startTime1, endTime1, day1, weekday1);
-
+		TimeSlot openingHours1 = new TimeSlot(startTime1, endTime1, day1, weekday1, 0, null, null, aLibrary, null, null);
+		
+		aLibrary.addTimeSlot(openingHours1);
+		
 		Time startTime12 = new Time(9, 0, 0);
 		Time endTime12 = new Time(20, 0, 0);
 		Date day12  = new Date(2021, 10, 19);
 		TimeSlot.DayOfTheWeek weekday12 = TimeSlot.DayOfTheWeek.Tuesday;
-		TimeSlot openingHours12 = new TimeSlot(startTime12, endTime12, day12, weekday12);
+		TimeSlot openingHours12 = new TimeSlot(startTime12, endTime12, day12, weekday12, 0, null, null, aLibrary, null, null);
 
-		List<TimeSlot> openingHourss = new ArrayList<>();
-		openingHourss.add(openingHours12);
-		openingHourss.add(openingHours1);
-		openingHourss.add(openingHours);
+		aLibrary.addTimeSlot(openingHours12);
 		
-		int aLibraryCardIDD = 7654;
-		
-		
-		String aName = "TestVisitor";
-		String aUsername = "TestVisitor123";
-		String aAddress = "4500 haha st"; 
-		Library aLibrary = new Library("Lib", "mtl", openingHourss, aLibraryCardIDD);
 		int aLibraryCardID = 12345; 
 		int aDemeritPoints = 0;
-		
 		
 		// First example for object save/load
 		Visitor visitor = new Visitor(aName, aUsername, aAddress, aLibraryCardID, aLibrary, aDemeritPoints);
@@ -102,39 +101,45 @@ public class TestLibrarySystem07Persistence {
 		
 		int aId = 345456;
 		
+		String aName = "TestVisitor";
+		String aUsername = "TestVisitor123";
+		String aAddress = "4500 haha st"; 
+
+		Library aLibrary = new Library(aName, aUsername, aAddress);
+		
 		Time startTime = new Time(9, 0, 0);
 		Time endTime = new Time(20, 0, 0);
 		Date day  = new Date(2021, 10, 17);
 		TimeSlot.DayOfTheWeek weekday = TimeSlot.DayOfTheWeek.Sunday;
-		TimeSlot openingHours = new TimeSlot(startTime, endTime, day, weekday);
+		TimeSlot openingHours = new TimeSlot(startTime, endTime, day, weekday, 0, null, null, aLibrary, null, null);
+		
+		aLibrary.addTimeSlot(openingHours);
 		
 		Time startTime1 = new Time(9, 0, 0);
 		Time endTime1 = new Time(20, 0, 0);
 		Date day1  = new Date(2021, 10, 18);
 		TimeSlot.DayOfTheWeek weekday1 = TimeSlot.DayOfTheWeek.Monday;
-		TimeSlot openingHours1 = new TimeSlot(startTime1, endTime1, day1, weekday1);
-
+		TimeSlot openingHours1 = new TimeSlot(startTime1, endTime1, day1, weekday1, 0, null, null, aLibrary, null, null);
+		
+		aLibrary.addTimeSlot(openingHours1);
+		
 		Time startTime12 = new Time(9, 0, 0);
 		Time endTime12 = new Time(20, 0, 0);
 		Date day12  = new Date(2021, 10, 19);
 		TimeSlot.DayOfTheWeek weekday12 = TimeSlot.DayOfTheWeek.Tuesday;
-		TimeSlot openingHours12 = new TimeSlot(startTime12, endTime12, day12, weekday12);
+		TimeSlot openingHours12 = new TimeSlot(startTime12, endTime12, day12, weekday12, 0, null, null, aLibrary, null, null);
 
-		List<TimeSlot> openingHourss = new ArrayList<>();
-		openingHourss.add(openingHours12);
-		openingHourss.add(openingHours1);
-		openingHourss.add(openingHours);
-				
-		Library aLibrary = new Library("Lib", "mtl", openingHourss, aId);
+		aLibrary.addTimeSlot(openingHours12);
+
 		
 		int aDuplicates = 1;
-		String aName = "George of The Jungle"; 
+		String aNamee = "George of The Jungle"; 
 		String aAuthor = "man";
 		Status aStatus = ReservableItem.Status.Available;
 		TypeOfReservableItem aReservableItem = ReservableItem.TypeOfReservableItem.Book;
 			
 		// First example for object save/load
-		ReservableItem item = new ReservableItem(aId, aLibrary, aDuplicates, aName, aAuthor, aStatus, aReservableItem);
+		ReservableItem item = new ReservableItem(aId, aLibrary, aDuplicates, aNamee, aAuthor, aStatus, aReservableItem);
 		// First example for attribute save/load
 		reservableItemRepository.save(item);
 
@@ -150,30 +155,35 @@ public class TestLibrarySystem07Persistence {
 		
 		int aId = 345456;
 		
+		String aName = "TestVisitor";
+		String aUsername = "TestVisitor123";
+		String aAddress = "4500 haha st"; 
+
+		Library aLibrary = new Library(aName, aUsername, aAddress);
+		
 		Time startTime = new Time(9, 0, 0);
 		Time endTime = new Time(20, 0, 0);
 		Date day  = new Date(2021, 10, 17);
 		TimeSlot.DayOfTheWeek weekday = TimeSlot.DayOfTheWeek.Sunday;
-		TimeSlot openingHours = new TimeSlot(startTime, endTime, day, weekday);
+		TimeSlot openingHours = new TimeSlot(startTime, endTime, day, weekday, 0, null, null, aLibrary, null, null);
+		
+		aLibrary.addTimeSlot(openingHours);
 		
 		Time startTime1 = new Time(9, 0, 0);
 		Time endTime1 = new Time(20, 0, 0);
 		Date day1  = new Date(2021, 10, 18);
 		TimeSlot.DayOfTheWeek weekday1 = TimeSlot.DayOfTheWeek.Monday;
-		TimeSlot openingHours1 = new TimeSlot(startTime1, endTime1, day1, weekday1);
-
+		TimeSlot openingHours1 = new TimeSlot(startTime1, endTime1, day1, weekday1, 0, null, null, aLibrary, null, null);
+		
+		aLibrary.addTimeSlot(openingHours1);
+		
 		Time startTime12 = new Time(9, 0, 0);
 		Time endTime12 = new Time(20, 0, 0);
 		Date day12  = new Date(2021, 10, 19);
 		TimeSlot.DayOfTheWeek weekday12 = TimeSlot.DayOfTheWeek.Tuesday;
-		TimeSlot openingHours12 = new TimeSlot(startTime12, endTime12, day12, weekday12);
+		TimeSlot openingHours12 = new TimeSlot(startTime12, endTime12, day12, weekday12, 0, null, null, aLibrary, null, null);
 
-		List<TimeSlot> openingHourss = new ArrayList<>();
-		openingHourss.add(openingHours12);
-		openingHourss.add(openingHours1);
-		openingHourss.add(openingHours);
-				
-		Library aLibrary = new Library("Lib", "mtl", openingHourss, aId);
+		aLibrary.addTimeSlot(openingHours12);
 		
 		NonReservableItem.TypeOfNonReservableItem aReservableItem = NonReservableItem.TypeOfNonReservableItem.Magazine;
 			
@@ -191,15 +201,36 @@ public class TestLibrarySystem07Persistence {
 	
 	@Test
 	public void testPersistAndLoadEvent() {
-		List<TimeSlot> schedule = new ArrayList<TimeSlot>();
 		
-		//Code to instantiate a library for our visitor
-		String libraryName = "Johnson Library";
-		String city = "Montreal";
-		List<TimeSlot> openingHours = new ArrayList<TimeSlot>();
-		List<Librarian> employees = new ArrayList<Librarian>();
-		long phoneNumber = 514-514-5141;
-		Library library = new Library(libraryName, city, openingHours, phoneNumber);
+		String aName = "TestVisitor";
+		String aUsername = "TestVisitor123";
+		String aAddress = "4500 haha st"; 
+
+		Library aLibrary = new Library(aName, aUsername, aAddress);
+		
+		Time startTime = new Time(9, 0, 0);
+		Time endTime = new Time(20, 0, 0);
+		Date day  = new Date(2021, 10, 17);
+		TimeSlot.DayOfTheWeek weekday = TimeSlot.DayOfTheWeek.Sunday;
+		TimeSlot openingHours = new TimeSlot(startTime, endTime, day, weekday, 0, null, null, aLibrary, null, null);
+		
+		aLibrary.addTimeSlot(openingHours);
+		
+		Time startTime1 = new Time(9, 0, 0);
+		Time endTime1 = new Time(20, 0, 0);
+		Date day1  = new Date(2021, 10, 18);
+		TimeSlot.DayOfTheWeek weekday1 = TimeSlot.DayOfTheWeek.Monday;
+		TimeSlot openingHours1 = new TimeSlot(startTime1, endTime1, day1, weekday1, 0, null, null, aLibrary, null, null);
+		
+		aLibrary.addTimeSlot(openingHours1);
+		
+		Time startTime12 = new Time(9, 0, 0);
+		Time endTime12 = new Time(20, 0, 0);
+		Date day12  = new Date(2021, 10, 19);
+		TimeSlot.DayOfTheWeek weekday12 = TimeSlot.DayOfTheWeek.Tuesday;
+		TimeSlot openingHours12 = new TimeSlot(startTime12, endTime12, day12, weekday12, 0, null, null, aLibrary, null, null);
+
+		aLibrary.addTimeSlot(openingHours12);
 		
 		//Code to instantiate a visitor
 		String name = "Max";
@@ -207,18 +238,19 @@ public class TestLibrarySystem07Persistence {
 		String address = "123 cat street";
 		int libraryCardId = 123456789;
 		int demerit = 0;
-		Visitor visitor = new Visitor(name, username, address, libraryCardId, library, demerit);
+		Visitor visitor = new Visitor(name, username, address, libraryCardId, aLibrary, demerit);
 		
 		//Creating new event
-		Event newEvent = new Event(schedule,visitor);
+		String eventName = "Birday";
+		int ide = 7654;
+		Event newEvent = new Event(eventName, ide, visitor);
 		
 		eventRepository.save(newEvent);
 		newEvent = null;
-		newEvent = eventRepository.findEventByName(name); //find event by the Visitor's name
+		newEvent = eventRepository.findEventById(ide); //find event by the Visitor's name
 		
 		assertNotNull(newEvent);
 		assertEquals(visitor, newEvent.getVisitor());
-		assertEquals(schedule, newEvent.getSchedule());
 	}
 
 
