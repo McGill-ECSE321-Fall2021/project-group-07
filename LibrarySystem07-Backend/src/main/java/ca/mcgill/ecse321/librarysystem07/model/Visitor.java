@@ -189,7 +189,7 @@ public class Visitor extends UserRole
   /* Code from template association_AddManyToOne */
   public Reservation addReservation(int aReservationID, TimeSlot aReservationTimeSlot)
   {
-    return new Reservation(aReservationID, aReservationTimeSlot, this);
+    return new Reservation(aReservationID, aReservationTimeSlot, null, this);
   }
 
   public boolean addReservation(Reservation aReservation)
