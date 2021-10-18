@@ -98,6 +98,7 @@ public class Event
     visitor.addEvent(this);
     wasSet = true;
     return wasSet;
+    
   }
 
   public void delete()
