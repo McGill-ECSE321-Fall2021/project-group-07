@@ -51,10 +51,10 @@ public class Visitor extends UserRole
     return demeritPoints;
   }
   
-  @Id
-  public Integer getLibrarianCardID() {
-	  return getLibraryCardID();
-  }
+//  @Id
+//  public Integer getLibrarianCardID() {
+//	  return getLibraryCardID();
+//  }
   
   /* Code from template association_GetMany */
   public Event getEvent(int index)

@@ -138,6 +138,7 @@ public abstract class UserRole
     return address;
   }
 
+  @Id
   public int getLibraryCardID()
   {
     return libraryCardID;
