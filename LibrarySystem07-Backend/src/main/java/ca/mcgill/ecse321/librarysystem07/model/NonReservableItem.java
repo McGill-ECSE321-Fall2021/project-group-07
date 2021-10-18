@@ -4,8 +4,11 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
+import javax.persistence.Entity;
+
 // line 81 "model.ump"
 // line 141 "model.ump"
+@Entity
 public class NonReservableItem extends InventoryItem
 {
 

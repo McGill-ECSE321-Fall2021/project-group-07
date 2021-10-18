@@ -51,12 +51,13 @@ public class Visitor extends UserRole
     return demeritPoints;
   }
   
-  @Id
-  public Integer getLibrarianCardID() {
-	  return getLibraryCardID();
-  }
+//  @Id
+//  public Integer getLibrarianCardID() {
+//	  return getLibraryCardID();
+//  }
   
   /* Code from template association_GetMany */
+  @OneToMany
   public Event getEvent(int index)
   {
     Event aEvent = events.get(index);
@@ -87,12 +88,13 @@ public class Visitor extends UserRole
     return index;
   }
   /* Code from template association_GetMany */
+  @OneToMany
   public Reservation getReservation(int index)
   {
     Reservation aReservation = reservations.get(index);
     return aReservation;
   }
-
+  
   public List<Reservation> getReservations()
   {
     List<Reservation> newReservations = Collections.unmodifiableList(reservations);
