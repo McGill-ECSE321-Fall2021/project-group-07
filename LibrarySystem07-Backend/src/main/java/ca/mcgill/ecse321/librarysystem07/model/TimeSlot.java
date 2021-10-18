@@ -11,24 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-//line 39 "model.ump"
-//line 152 "model.ump"
-=======
-import java.util.Map.Entry;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
-//line 39 "model.ump"
-//line 152 "model.ump"
-=======
-import java.util.Map.Entry;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-
 // line 39 "model.ump"
 // line 152 "model.ump"
 @Entity
