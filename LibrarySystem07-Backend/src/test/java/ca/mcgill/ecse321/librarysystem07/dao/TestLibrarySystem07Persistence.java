@@ -35,6 +35,8 @@ public class TestLibrarySystem07Persistence {
 	@Autowired
 	private NonReservableItemRepository nonReservableItemRepository;
 
+	@Autowired
+	private EventRepository eventRepository;
 
 	
 	@AfterEach
@@ -43,6 +45,7 @@ public class TestLibrarySystem07Persistence {
 		visitorRepository.deleteAll();
 		reservableItemRepository.deleteAll();
 		nonReservableItemRepository.deleteAll();
+		eventRepository.deleteAll();
 	}
 	
 	@Test
@@ -185,6 +188,39 @@ public class TestLibrarySystem07Persistence {
 		assertNotNull(item);
 		assertEquals(aId, item.getId());
 	}
+	
+	@Test
+	public void testPersistAndLoadEvent() {
+		List<TimeSlot> schedule = new ArrayList<TimeSlot>();
+		
+		//Code to instantiate a library for our visitor
+		String libraryName = "Johnson Library";
+		String city = "Montreal";
+		List<TimeSlot> openingHours = new ArrayList<TimeSlot>();
+		List<Librarian> employees = new ArrayList<Librarian>();
+		long phoneNumber = 514-514-5141;
+		Library library = new Library(libraryName, city, openingHours, phoneNumber);
+		
+		//Code to instantiate a visitor
+		String name = "Max";
+		String username = "Max123";
+		String address = "123 cat street";
+		int libraryCardId = 123456789;
+		int demerit = 0;
+		Visitor visitor = new Visitor(name, username, address, libraryCardId, library, demerit);
+		
+		//Creating new event
+		Event newEvent = new Event(schedule,visitor);
+		
+		eventRepository.save(newEvent);
+		newEvent = null;
+		newEvent = eventRepository.findEventByName(name); //find event by the Visitor's name
+		
+		assertNotNull(newEvent);
+		assertEquals(visitor, newEvent.getVisitor());
+		assertEquals(schedule, newEvent.getSchedule());
+	}
+
 
 
 }

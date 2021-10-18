@@ -44,7 +44,18 @@ public class TimeSlot
   // CONSTRUCTOR
   //------------------------
 
-
+  public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aTimeSlotID)
+  {
+	//add check to make sure id is not already used
+    startTime = aStartTime;
+    endTime = aEndTime;
+    date = aDate;
+    dayOfTheWeek = aDayOfTheWeek;
+    if (!setTimeSlotID(aTimeSlotID))
+    {
+      throw new RuntimeException("Cannot create due to duplicate timeSlotID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
+  }
   
   public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
   {
