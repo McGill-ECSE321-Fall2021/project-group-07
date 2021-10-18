@@ -166,7 +166,6 @@ public class TimeSlot
   }
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   public int getTimeSlotID()
   {
     return timeSlotID;

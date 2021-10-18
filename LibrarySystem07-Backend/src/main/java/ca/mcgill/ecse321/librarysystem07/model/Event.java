@@ -91,7 +91,6 @@ public class Event
   
   //@GeneratedValue(strategy = GenerationType.AUTO)
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   public int getEventID()
   {
     return eventID;
@@ -128,9 +127,7 @@ public class Event
   }
   
   public void setTimeSlots(List<TimeSlot> slots) {
-	  for (TimeSlot t : slots) {
-		  addTimeSlot(t);
-	  }
+	  this.timeSlots = slots;
   }
 
   public int numberOfTimeSlots()

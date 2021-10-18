@@ -74,7 +74,6 @@ public class Library
   }
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   public String getName()
   {
     return name;
@@ -136,21 +135,15 @@ public class Library
   
   //me add
   public void setTimeSlots(List<TimeSlot> slots) {
-	  for (TimeSlot t : slots) {
-		  addTimeSlot(t);
-	  }
+	  this.timeSlots = slots;
   }
 
   public void setInventoryItems(List<InventoryItem> inv) {
-	  for (InventoryItem i : inv) {
-		  addInventoryItem(i);
-	  }
+	  this.inventoryItems = inv;
   }
 
   public void setUserRoles(List<UserRole> userRoles) {
-	  for (UserRole r : userRoles) {
-		  addUserRole(r);
-	  }
+	  this.userRoles = userRoles;
   }
   
   

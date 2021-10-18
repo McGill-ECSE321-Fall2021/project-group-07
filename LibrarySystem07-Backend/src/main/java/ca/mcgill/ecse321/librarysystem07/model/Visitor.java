@@ -143,18 +143,12 @@ public class Visitor extends UserRole
     return wasAdded;
   }
   
-  public boolean setEvents(List<Event> events) {
-	  for (Event e : events) {
-		  addEvent(e);
-	  }
-	  return false;
+  public void setEvents(List<Event> events) {
+	  this.events = events;
   }
   
-  public boolean setReservations(List<Reservation> res) {
-	  for (Reservation r : res) {
-		  addReservation(r);
-	  }
-	  return false;
+  public void setReservations(List<Reservation> res) {
+	  this.reservations = res;
   }
 
   public boolean removeEvent(Event aEvent)

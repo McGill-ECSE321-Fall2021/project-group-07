@@ -54,9 +54,7 @@ public class HeadLibrarian extends UserRole
 
   //me add
   public void setTimeSlots(List<TimeSlot> slots) {
-	  for (TimeSlot t : slots) {
-		  addTimeSlot(t);
-	  }
+	  this.timeSlots = slots;
   }
   
   public int numberOfTimeSlots()

@@ -84,7 +84,6 @@ public class Reservation
   }
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   public int getReservationID()
   {
     return reservationID;
@@ -121,9 +120,7 @@ public class Reservation
   }
   
   public void setTimeSlots(List<TimeSlot> slots) {
-	  for (TimeSlot t : slots) {
-		  addTimeSlot(t);
-	  }
+	  this.timeSlots = slots;
   }
 
 

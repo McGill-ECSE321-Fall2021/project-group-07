@@ -139,7 +139,6 @@ public abstract class UserRole
   }
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   public int getLibraryCardID()
   {
     return libraryCardID;
