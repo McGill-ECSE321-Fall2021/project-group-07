@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 // line 52 "model.ump"
 // line 123 "model.ump"
-@Entity
 public class Event
 {
 

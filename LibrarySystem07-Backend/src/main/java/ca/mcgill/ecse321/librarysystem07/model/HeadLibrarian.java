@@ -3,10 +3,9 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
-import javax.persistence.*;
+
 // line 23 "model.ump"
 // line 112 "model.ump"
-@Entity
 public class HeadLibrarian extends UserRole
 {
 
