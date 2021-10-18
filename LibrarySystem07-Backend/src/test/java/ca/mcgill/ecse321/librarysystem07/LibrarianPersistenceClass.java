@@ -19,7 +19,7 @@ import ca.mcgill.ecse321.library.models.Librarian;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-
+public class TestLibrarianPersistence{
     @Test
     @Transactional
     public void testPersistAndLibrarian(){
@@ -54,3 +54,4 @@ import ca.mcgill.ecse321.library.models.Librarian;
         assertEquals(testLibrary, lib.getLibrary());
         assertEquals(schedule, lib.getSchedule());
     }
+}
