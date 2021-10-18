@@ -46,10 +46,9 @@ public class Librarian extends UserRole
     return schedule;
   }
   
-  @Id
-  public Integer getLibrarianCardID(HeadLibrarian hl) {
-	  return getLibraryCardID();
-  }
+//  public Integer getLibrarianCardID() {
+//	  return getLibraryCardID();
+//  }
 
   public void delete()
   {

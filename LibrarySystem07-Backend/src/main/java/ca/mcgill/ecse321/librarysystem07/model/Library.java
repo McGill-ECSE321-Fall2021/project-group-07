@@ -147,7 +147,7 @@ public class Library
     return index;
   }
   /* Code from template association_GetMany */
-  @OneToMany(cascade=CascadeType.ALL)
+  
   public InventoryItem getInventoryItem(int index)
   {
     InventoryItem aInventoryItem = inventoryItems.get(index);
@@ -184,7 +184,6 @@ public class Library
   }
   /* Code from template association_AddManyToOne */
 
-  @OneToMany
   public boolean addUserRole(UserRole aUserRole)
   {
     boolean wasAdded = false;
