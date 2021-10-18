@@ -2,18 +2,13 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-
-
 import java.sql.Time;
 import java.sql.Date;
 import java.util.*;
 
 import javax.persistence.*;
 
-// line 38 "model.ump"
-// line 138 "model.ump"
+
 @Entity
 @Table(name = "Time Slot")
 public class TimeSlot
@@ -340,6 +335,7 @@ public class TimeSlot
       placeholderReservation.removeTimeSlot(this);
     }
   }
+
 
 
   public String toString()

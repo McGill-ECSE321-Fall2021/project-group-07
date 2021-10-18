@@ -165,6 +165,7 @@ public class Event
     visitor.addEvent(this);
     wasSet = true;
     return wasSet;
+    
   }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfTimeSlots()

@@ -2,14 +2,11 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-
-
 import java.util.*;
 import javax.persistence.*;
 // line 59 "model.ump"
 // line 143 "model.ump"
+
 @Entity
 @Table(name = "Inventory Item")
 public class InventoryItem
@@ -94,6 +91,7 @@ public class InventoryItem
     return library;
   }
   /* Code from template association_SetOneToMany */
+
   public boolean setLibrary(Library aLibrary)
   {
     boolean wasSet = false;

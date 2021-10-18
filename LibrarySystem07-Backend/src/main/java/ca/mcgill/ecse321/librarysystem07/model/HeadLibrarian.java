@@ -10,6 +10,7 @@ import java.util.*;
 import java.sql.Time;
 import java.sql.Date;
 import javax.persistence.*;
+
 // line 23 "model.ump"
 // line 108 "model.ump"
 // line 128 "model.ump"
@@ -38,6 +39,7 @@ public class HeadLibrarian extends UserRole
   //------------------------
   // INTERFACE
   //------------------------
+
   /* Code from template association_GetMany */
   public TimeSlot getTimeSlot(int index)
   {

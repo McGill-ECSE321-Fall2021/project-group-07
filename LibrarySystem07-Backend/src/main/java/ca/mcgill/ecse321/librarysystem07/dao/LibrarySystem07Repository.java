@@ -49,14 +49,14 @@ public class LibrarySystem07Repository {
 	}
 
 	@Transactional
-	public TimeSlot findTimeSlotById(int id) {
+	public TimeSlot getTimeSlotById(int id) {
 		TimeSlot t = entityManager.find(TimeSlot.class, id);
 		return t;
 	}
 
 	@Transactional
 	public List<TimeSlot> findAllTimeSlots() {
-		Query query = entityManager.createQuery("SELECT e FROM Professor e");
+		Query query = entityManager.createQuery("SELECT e FROM TimeSlot e");
 		Collection<TimeSlot> collectionOfTimeSlots = ((Collection<TimeSlot>) query.getResultList());
 		List<TimeSlot> listOfTimeSlots = new ArrayList<TimeSlot>(collectionOfTimeSlots);
 		return listOfTimeSlots;
