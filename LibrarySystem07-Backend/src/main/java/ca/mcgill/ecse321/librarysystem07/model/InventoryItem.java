@@ -87,7 +87,7 @@ public class InventoryItem
     return library;
   }
   /* Code from template association_SetOneToMany */
-  @ManyToOne(optional=false)
+  @ManyToOne
   public boolean setLibrary(Library aLibrary)
   {
     boolean wasSet = false;
