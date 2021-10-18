@@ -64,6 +64,7 @@ public class TimeSlot
 
   public TimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aTimeSlotID)
   {
+	//add check to make sure id is not already used
     startTime = aStartTime;
     endTime = aEndTime;
     date = aDate;
