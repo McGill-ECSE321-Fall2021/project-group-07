@@ -20,7 +20,7 @@ public class LibrarianTimeSlot {
 
 	 public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	 public LibrarianTimeSlot(Librarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aTimeSlotID, Library aLibrary)
+	 public LibrarianTimeSlot(Librarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
 	  {
 	    setStartTime(aStartTime);
 	    setEndTime(aEndTime);
