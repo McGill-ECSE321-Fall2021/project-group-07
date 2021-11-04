@@ -8,7 +8,7 @@ public class Visitor extends UserRole {
 	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints) {
 
 		super(aName, aUsername, aAddress, aLibraryCardID);
-		setBalance(0);
+		this.balance = 0;
 		this.setDemeritPoints(aDemeritPoints);
 //		if (!aAddress.contains("montreal")) {
 //			setDemeritPoints(this.balance + 10);
@@ -30,6 +30,5 @@ public class Visitor extends UserRole {
 	public void setDemeritPoints(int demeritPoints) {
 		this.demeritPoints = demeritPoints;
 	}
-	
 	
 }
