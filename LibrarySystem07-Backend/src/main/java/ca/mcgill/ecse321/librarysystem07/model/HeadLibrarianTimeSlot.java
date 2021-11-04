@@ -10,20 +10,20 @@ public class HeadLibrarianTimeSlot {
 	private Date date;
 	private HeadLibrarian headLibrarian;
 
-	 public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	 public HeadLibrarianTimeSlot(HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
-	  {
-	    setStartTime(aStartTime);
-	    setEndTime(aEndTime);
-	    setDate(aDate);
-	    setDayOfTheWeek(aDayOfTheWeek);
-	    setHeadLibrarian(aLibrarian);
-	  }
-	 
-	 public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot() {
-		 return this;
-	 }
+	public HeadLibrarianTimeSlot(HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
+	{
+		setStartTime(aStartTime);
+		setEndTime(aEndTime);
+		setDate(aDate);
+		setDayOfTheWeek(aDayOfTheWeek);
+		setHeadLibrarian(aLibrarian);
+	}
+
+	public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot() {
+		return this;
+	}
 
 	public Time getStartTime() {
 		return startTime;

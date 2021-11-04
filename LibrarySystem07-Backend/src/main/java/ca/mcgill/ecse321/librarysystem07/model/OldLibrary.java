@@ -14,7 +14,7 @@ import javax.persistence.*;
 // line 133 "model.ump"
 @Entity
 @Table(name = "Library")
-public class Library
+public class OldLibrary
 {
 
   //------------------------
