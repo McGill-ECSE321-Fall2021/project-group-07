@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Time Slot")
-public class TimeSlot
+public class OldTimeSlot
 {
 
   //------------------------
