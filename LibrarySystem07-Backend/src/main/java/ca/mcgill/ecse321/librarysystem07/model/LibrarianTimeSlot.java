@@ -11,29 +11,29 @@ import ca.mcgill.ecse321.librarysystem07.model.OldTimeSlot.DayOfTheWeek;
 @Entity
 @Table(name = "Librarian Time Slot")
 public class LibrarianTimeSlot {
-	
+
 	private Time startTime;
 	private Time endTime;
 	private DayOfTheWeek dayOfTheWeek;
 	private Date date;
 	private Librarian librarian;
 
-	 public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	 public LibrarianTimeSlot(Librarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
-	  {
-	    setStartTime(aStartTime);
-	    setEndTime(aEndTime);
-	    setDate(aDate);
-	    setDayOfTheWeek(aDayOfTheWeek);
-	    setLibrarian(aLibrarian);
-	  }
-	 
-	 public LibrarianTimeSlot getLibrarianTimeSlot() {
-		 return this;
-	 }
-	 
-	
+	public LibrarianTimeSlot(Librarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
+	{
+		setStartTime(aStartTime);
+		setEndTime(aEndTime);
+		setDate(aDate);
+		setDayOfTheWeek(aDayOfTheWeek);
+		setLibrarian(aLibrarian);
+	}
+
+	public LibrarianTimeSlot getLibrarianTimeSlot() {
+		return this;
+	}
+
+
 	public DayOfTheWeek getDayOfTheWeek() {
 		return dayOfTheWeek;
 	}
