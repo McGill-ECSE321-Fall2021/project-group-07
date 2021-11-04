@@ -3,6 +3,11 @@ package ca.mcgill.ecse321.librarysystem07.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Library")
 public class Library {
 
 	private String name;
