@@ -12,19 +12,13 @@ public class Library {
 
 	private String name;
 	private String city;
-	private List<LibrarianTimeSlot> librarianSchedules;
-	private List<HeadLibrarianTimeSlot> headLibrarianSchedules;
-	private List<UserRole> users;
-	private List<InventoryItem> inventoryItems;
+	private String phoneNumber;
 
-	public Library(String aName, String aCity)
+	public Library(String aName, String aCity, String aPhoneNumber)
 	{
 		setName(aName);
 		setCity(aCity);
-		setUsers(new ArrayList<UserRole>());
-		setLibrarianSchedules(new ArrayList<LibrarianTimeSlot>());
-		setHeadLibrarianSchedules(new ArrayList<HeadLibrarianTimeSlot>());
-		setInventoryItems(new ArrayList<InventoryItem>());
+		setPhoneNumber(aPhoneNumber);
 	}
 
 	public String getName() {
@@ -35,44 +29,20 @@ public class Library {
 		this.name = name;
 	}
 
-	public List<LibrarianTimeSlot> getLibrarianSchedules() {
-		return librarianSchedules;
-	}
-
-	public void setLibrarianSchedules(List<LibrarianTimeSlot> librarianSchedules) {
-		this.librarianSchedules = librarianSchedules;
-	}
-
-	public List<HeadLibrarianTimeSlot> getHeadLibrarianSchedules() {
-		return headLibrarianSchedules;
-	}
-
-	public void setHeadLibrarianSchedules(List<HeadLibrarianTimeSlot> headLibrarianSchedules) {
-		this.headLibrarianSchedules = headLibrarianSchedules;
-	}
-
-	public List<UserRole> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<UserRole> users) {
-		this.users = users;
-	}
-
-	public List<InventoryItem> getInventoryItems() {
-		return inventoryItems;
-	}
-
-	public void setInventoryItems(List<InventoryItem> inventoryItems) {
-		this.inventoryItems = inventoryItems;
-	}
-
 	public String getCity() {
 		return city;
 	}
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 }

@@ -13,16 +13,18 @@ public class HeadLibrarianTimeSlot {
 	private DayOfTheWeek dayOfTheWeek;
 	private Date date;
 	private HeadLibrarian headLibrarian;
+	private Library library;
 
 	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	public HeadLibrarianTimeSlot(HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek)
+	public HeadLibrarianTimeSlot(HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, Library aLibrary)
 	{
 		setStartTime(aStartTime);
 		setEndTime(aEndTime);
 		setDate(aDate);
 		setDayOfTheWeek(aDayOfTheWeek);
 		setHeadLibrarian(aLibrarian);
+		setLibrary(aLibrary);
 	}
 
 	public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot() {
@@ -67,5 +69,13 @@ public class HeadLibrarianTimeSlot {
 
 	public void setHeadLibrarian(HeadLibrarian headLibrarian) {
 		this.headLibrarian = headLibrarian;
+	}
+
+	public Library getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(Library library) {
+		this.library = library;
 	}
 }

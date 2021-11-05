@@ -6,9 +6,10 @@ public abstract class UserRole {
 	private String username;
 	private String address;
 	private int libraryCardID;
+	private Library library;
 	//private int balance?
 
-	public UserRole(String aName, String aUsername, String aAddress, int aLibraryCardID) {
+	public UserRole(String aName, String aUsername, String aAddress, int aLibraryCardID, Library aLibrary) {
 		this.name = aName;
 		this.username = aUsername;
 		this.address = aAddress;
@@ -45,6 +46,14 @@ public abstract class UserRole {
 
 	public void setLibraryCardID(int libraryCardID) {
 		this.libraryCardID = libraryCardID;
+	}
+
+	public Library getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(Library library) {
+		this.library = library;
 	}
 	
 	//if (!aAddress.contains("thisCity")) user.setBalance(user.balance + 10));

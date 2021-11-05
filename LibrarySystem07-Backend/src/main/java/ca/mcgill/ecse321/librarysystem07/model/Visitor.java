@@ -4,10 +4,11 @@ public class Visitor extends UserRole {
 	
 	private int balance;
 	private int demeritPoints;
+	private Library library;
+	
+	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints, Library aLibrary) {
 
-	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints) {
-
-		super(aName, aUsername, aAddress, aLibraryCardID);
+		super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
 		this.balance = 0;
 		this.setDemeritPoints(aDemeritPoints);
 //		if (!aAddress.contains("montreal")) {
@@ -29,6 +30,14 @@ public class Visitor extends UserRole {
 
 	public void setDemeritPoints(int demeritPoints) {
 		this.demeritPoints = demeritPoints;
+	}
+
+	public Library getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(Library library) {
+		this.library = library;
 	}
 	
 }
