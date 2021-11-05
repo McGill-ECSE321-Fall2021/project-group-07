@@ -5,6 +5,8 @@
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -51,7 +53,8 @@ public class Event
   {
     return name;
   }
-
+  
+  @Id
   public int getEventID()
   {
     return eventID;
@@ -62,7 +65,7 @@ public class Event
     return eventsByEventID.get(aEventID);
   }
 
-  /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Visitor getVisitor()
   {
     return visitor;
