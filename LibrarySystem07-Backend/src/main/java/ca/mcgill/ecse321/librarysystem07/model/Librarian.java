@@ -9,6 +9,7 @@ import javax.persistence.Table;
 // line 25 "model.ump"
 // line 111 "model.ump"
 @Entity
+@Table(name = "librarian")
 public class Librarian extends UserRole
 {
 
@@ -20,18 +21,13 @@ public class Librarian extends UserRole
   // CONSTRUCTOR
   //------------------------
 
-  public Librarian(String aName, String aUsername, String aAddress, int aLibraryCardID, Library aLibrary)
+  public Librarian(String aName, String aUsername, String aAddress, int aLibraryCardID)
   {
-    super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
+    super(aName, aUsername, aAddress, aLibraryCardID);
   }
 
   //------------------------
   // INTERFACE
   //------------------------
-
-  public void delete()
-  {
-    super.delete();
-  }
 
 }

@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.librarysystem07.model.HeadLibrarian;
 
-public interface HeadLibrarianRepository extends CrudRepository<HeadLibrarian, String>{
+public interface HeadLibrarianRepository extends CrudRepository<HeadLibrarian, Integer>{
 	
-	HeadLibrarian findHeadLibrarianByName(String name);
+	HeadLibrarian findHeadLibrarianByLibraryCardID(Integer libraryCardID);
 }
