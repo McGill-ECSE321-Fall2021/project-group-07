@@ -1,97 +1,183 @@
+/*PLEASE DO NOT EDIT THIS CODE*/
+/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.sql.Time;
 import java.sql.Date;
 import java.util.*;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-import ca.mcgill.ecse321.librarysystem07.model.OldTimeSlot.DayOfTheWeek;
+// line 44 "model.ump"
+// line 129 "model.ump"
+public class LibrarianTimeSlot
+{
 
-@Entity
-@Table(name = "Librarian Time Slot")
-public class LibrarianTimeSlot {
+  //------------------------
+  // ENUMERATIONS
+  //------------------------
 
-	private Time startTime;
-	private Time endTime;
-	private DayOfTheWeek dayOfTheWeek;
-	private Date date;
-	private Librarian librarian;
-	private Library library;
-	private int timeSlotId;
+  public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
 
-	public LibrarianTimeSlot(int librarianTimeSlotId, Librarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, Library aLibrary)
-	{
-		setStartTime(aStartTime);
-		setEndTime(aEndTime);
-		setDate(aDate);
-		setDayOfTheWeek(aDayOfTheWeek);
-		setLibrarian(aLibrarian);
-		setLibrary(aLibrary);
-		setTimeSlotId(librarianTimeSlotId);
-	}
+  private static Map<Integer, LibrarianTimeSlot> librariantimeslotsByLibrarianTimeSlotID = new HashMap<Integer, LibrarianTimeSlot>();
 
-	@Id
-	public LibrarianTimeSlot getLibrarianTimeSlot() {
-		return this;
-	}
+  //------------------------
+  // MEMBER VARIABLES
+  //------------------------
 
-	public DayOfTheWeek getDayOfTheWeek() {
-		return dayOfTheWeek;
-	}
+  //LibrarianTimeSlot Attributes
+  private Time startTime;
+  private Time endTime;
+  private Date date;
+  private DayOfTheWeek dayOfTheWeek;
+  private int librarianTimeSlotID;
 
-	public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
-		this.dayOfTheWeek = dayOfTheWeek;
-	}
+  //LibrarianTimeSlot Associations
+  private Librarian librarian;
 
-	public Time getStartTime() {
-		return startTime;
-	}
+  //------------------------
+  // CONSTRUCTOR
+  //------------------------
 
-	public void setStartTime(Time startTime) {
-		this.startTime = startTime;
-	}
+  public LibrarianTimeSlot(Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, int aLibrarianTimeSlotID, Librarian aLibrarian)
+  {
+    startTime = aStartTime;
+    endTime = aEndTime;
+    date = aDate;
+    dayOfTheWeek = aDayOfTheWeek;
+    if (!setLibrarianTimeSlotID(aLibrarianTimeSlotID))
+    {
+      throw new RuntimeException("Cannot create due to duplicate librarianTimeSlotID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+    }
+    if (!setLibrarian(aLibrarian))
+    {
+      throw new RuntimeException("Unable to create LibrarianTimeSlot due to aLibrarian. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+    }
+  }
 
-	public Time getEndTime() {
-		return endTime;
-	}
+  //------------------------
+  // INTERFACE
+  //------------------------
 
-	public void setEndTime(Time endTime) {
-		this.endTime = endTime;
-	}
+  public boolean setStartTime(Time aStartTime)
+  {
+    boolean wasSet = false;
+    startTime = aStartTime;
+    wasSet = true;
+    return wasSet;
+  }
 
-	public Date getDate() {
-		return date;
-	}
+  public boolean setEndTime(Time aEndTime)
+  {
+    boolean wasSet = false;
+    endTime = aEndTime;
+    wasSet = true;
+    return wasSet;
+  }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+  public boolean setDate(Date aDate)
+  {
+    boolean wasSet = false;
+    date = aDate;
+    wasSet = true;
+    return wasSet;
+  }
 
-	public Librarian getLibrarian() {
-		return librarian;
-	}
+  public boolean setDayOfTheWeek(DayOfTheWeek aDayOfTheWeek)
+  {
+    boolean wasSet = false;
+    dayOfTheWeek = aDayOfTheWeek;
+    wasSet = true;
+    return wasSet;
+  }
 
-	public void setLibrarian(Librarian librarian) {
-		this.librarian = librarian;
-	}
+  public boolean setLibrarianTimeSlotID(int aLibrarianTimeSlotID)
+  {
+    boolean wasSet = false;
+    Integer anOldLibrarianTimeSlotID = getLibrarianTimeSlotID();
+    if (anOldLibrarianTimeSlotID != null && anOldLibrarianTimeSlotID.equals(aLibrarianTimeSlotID)) {
+      return true;
+    }
+    if (hasWithLibrarianTimeSlotID(aLibrarianTimeSlotID)) {
+      return wasSet;
+    }
+    librarianTimeSlotID = aLibrarianTimeSlotID;
+    wasSet = true;
+    if (anOldLibrarianTimeSlotID != null) {
+      librariantimeslotsByLibrarianTimeSlotID.remove(anOldLibrarianTimeSlotID);
+    }
+    librariantimeslotsByLibrarianTimeSlotID.put(aLibrarianTimeSlotID, this);
+    return wasSet;
+  }
 
-	public Library getLibrary() {
-		return library;
-	}
+  public Time getStartTime()
+  {
+    return startTime;
+  }
 
-	public void setLibrary(Library library) {
-		this.library = library;
-	}
+  public Time getEndTime()
+  {
+    return endTime;
+  }
 
-	public int getTimeSlotId() {
-		return timeSlotId;
-	}
+  public Date getDate()
+  {
+    return date;
+  }
 
-	public void setTimeSlotId(int timeSlotId) {
-		this.timeSlotId = timeSlotId;
-	}
+  public DayOfTheWeek getDayOfTheWeek()
+  {
+    return dayOfTheWeek;
+  }
+
+  public int getLibrarianTimeSlotID()
+  {
+    return librarianTimeSlotID;
+  }
+  /* Code from template attribute_GetUnique */
+  public static LibrarianTimeSlot getWithLibrarianTimeSlotID(int aLibrarianTimeSlotID)
+  {
+    return librariantimeslotsByLibrarianTimeSlotID.get(aLibrarianTimeSlotID);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithLibrarianTimeSlotID(int aLibrarianTimeSlotID)
+  {
+    return getWithLibrarianTimeSlotID(aLibrarianTimeSlotID) != null;
+  }
+  /* Code from template association_GetOne */
+  public Librarian getLibrarian()
+  {
+    return librarian;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setLibrarian(Librarian aNewLibrarian)
+  {
+    boolean wasSet = false;
+    if (aNewLibrarian != null)
+    {
+      librarian = aNewLibrarian;
+      wasSet = true;
+    }
+    return wasSet;
+  }
+
+  public void delete()
+  {
+    librariantimeslotsByLibrarianTimeSlotID.remove(getLibrarianTimeSlotID());
+    librarian = null;
+  }
+
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "librarianTimeSlotID" + ":" + getLibrarianTimeSlotID()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "startTime" + "=" + (getStartTime() != null ? !getStartTime().equals(this)  ? getStartTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "endTime" + "=" + (getEndTime() != null ? !getEndTime().equals(this)  ? getEndTime().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "date" + "=" + (getDate() != null ? !getDate().equals(this)  ? getDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "dayOfTheWeek" + "=" + (getDayOfTheWeek() != null ? !getDayOfTheWeek().equals(this)  ? getDayOfTheWeek().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "librarian = "+(getLibrarian()!=null?Integer.toHexString(System.identityHashCode(getLibrarian())):"null");
+  }
 }
