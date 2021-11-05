@@ -25,8 +25,6 @@ public class TestHeadLibrarianPersistence {
 	@Autowired
 	private HeadLibrarianRepository headLibrarianRepository;
 	
-//	@Autowired
-//	private LibrarySystem07Repository librarySystemRepository;
 	
 	@AfterEach
 	public void clearDatabase() {

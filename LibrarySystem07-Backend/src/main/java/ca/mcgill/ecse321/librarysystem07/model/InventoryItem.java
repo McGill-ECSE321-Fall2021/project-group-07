@@ -3,27 +3,37 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
-import javax.persistence.*;
-// line 59 "model.ump"
-// line 143 "model.ump"
 
-@Entity
-@Table(name = "Inventory Item")
+// line 66 "model.ump"
+// line 139 "model.ump"
 public class InventoryItem
 {
+
+  //------------------------
+  // ENUMERATIONS
+  //------------------------
+
+  public enum Status { CheckedOut, OnReserve, Available, Damaged }
+  public enum TypeOfReservableItem { CD, Movie, Book }
+  public enum TypeOfItem { Reservable, NonReservableItem }
 
   //------------------------
   // STATIC VARIABLES
   //------------------------
 
-  private static Map<Integer, InventoryItem> inventoryitemsById = new HashMap<Integer, InventoryItem>();
+  private static Map<Integer, InventoryItem> inventoryitemsByInventoryItemID = new HashMap<Integer, InventoryItem>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //InventoryItem Attributes
-  private int id;
+  private int inventoryItemID;
+  private int duplicates;
+  private String name;
+  private String author;
+  private Status status;
+  private TypeOfItem type;
 
   //InventoryItem Associations
   private Library library;
@@ -32,11 +42,16 @@ public class InventoryItem
   // CONSTRUCTOR
   //------------------------
 
-  public InventoryItem(int aId, Library aLibrary)
+  public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType, Library aLibrary)
   {
-    if (!setId(aId))
+    duplicates = aDuplicates;
+    name = aName;
+    author = aAuthor;
+    status = aStatus;
+    type = aType;
+    if (!setInventoryItemID(aInventoryItemID))
     {
-      throw new RuntimeException("Cannot create due to duplicate id. See http://manual.umple.org?RE003ViolationofUniqueness.html");
+      throw new RuntimeException("Cannot create due to duplicate inventoryItemID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
     boolean didAddLibrary = setLibrary(aLibrary);
     if (!didAddLibrary)
@@ -49,49 +64,110 @@ public class InventoryItem
   // INTERFACE
   //------------------------
 
-  public boolean setId(int aId)
+  public boolean setInventoryItemID(int aInventoryItemID)
   {
     boolean wasSet = false;
-    Integer anOldId = getId();
-    if (anOldId != null && anOldId.equals(aId)) {
+    Integer anOldInventoryItemID = getInventoryItemID();
+    if (anOldInventoryItemID != null && anOldInventoryItemID.equals(aInventoryItemID)) {
       return true;
     }
-    if (hasWithId(aId)) {
+    if (hasWithInventoryItemID(aInventoryItemID)) {
       return wasSet;
     }
-    id = aId;
+    inventoryItemID = aInventoryItemID;
     wasSet = true;
-    if (anOldId != null) {
-      inventoryitemsById.remove(anOldId);
+    if (anOldInventoryItemID != null) {
+      inventoryitemsByInventoryItemID.remove(anOldInventoryItemID);
     }
-    inventoryitemsById.put(aId, this);
+    inventoryitemsByInventoryItemID.put(aInventoryItemID, this);
     return wasSet;
   }
 
-  @Id
-  public int getId()
+  public boolean setDuplicates(int aDuplicates)
   {
-    return id;
+    boolean wasSet = false;
+    duplicates = aDuplicates;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setName(String aName)
+  {
+    boolean wasSet = false;
+    name = aName;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setAuthor(String aAuthor)
+  {
+    boolean wasSet = false;
+    author = aAuthor;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setStatus(Status aStatus)
+  {
+    boolean wasSet = false;
+    status = aStatus;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setType(TypeOfItem aType)
+  {
+    boolean wasSet = false;
+    type = aType;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public int getInventoryItemID()
+  {
+    return inventoryItemID;
   }
   /* Code from template attribute_GetUnique */
-  public static InventoryItem getWithId(int aId)
+  public static InventoryItem getWithInventoryItemID(int aInventoryItemID)
   {
-    return inventoryitemsById.get(aId);
+    return inventoryitemsByInventoryItemID.get(aInventoryItemID);
   }
   /* Code from template attribute_HasUnique */
-  public static boolean hasWithId(int aId)
+  public static boolean hasWithInventoryItemID(int aInventoryItemID)
   {
-    return getWithId(aId) != null;
+    return getWithInventoryItemID(aInventoryItemID) != null;
+  }
+
+  public int getDuplicates()
+  {
+    return duplicates;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public String getAuthor()
+  {
+    return author;
+  }
+
+  public Status getStatus()
+  {
+    return status;
+  }
+
+  public TypeOfItem getType()
+  {
+    return type;
   }
   /* Code from template association_GetOne */
-  //@JoinColumn(name = "inventoryitem_name")
-  @ManyToOne
   public Library getLibrary()
   {
     return library;
   }
   /* Code from template association_SetOneToMany */
-
   public boolean setLibrary(Library aLibrary)
   {
     boolean wasSet = false;
@@ -113,7 +189,7 @@ public class InventoryItem
 
   public void delete()
   {
-    inventoryitemsById.remove(getId());
+    inventoryitemsByInventoryItemID.remove(getInventoryItemID());
     Library placeholderLibrary = library;
     this.library = null;
     if(placeholderLibrary != null)
@@ -126,7 +202,12 @@ public class InventoryItem
   public String toString()
   {
     return super.toString() + "["+
-            "id" + ":" + getId()+ "]" + System.getProperties().getProperty("line.separator") +
+            "inventoryItemID" + ":" + getInventoryItemID()+ "," +
+            "duplicates" + ":" + getDuplicates()+ "," +
+            "name" + ":" + getName()+ "," +
+            "author" + ":" + getAuthor()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "status" + "=" + (getStatus() != null ? !getStatus().equals(this)  ? getStatus().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "type" + "=" + (getType() != null ? !getType().equals(this)  ? getType().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "library = "+(getLibrary()!=null?Integer.toHexString(System.identityHashCode(getLibrary())):"null");
   }
 }

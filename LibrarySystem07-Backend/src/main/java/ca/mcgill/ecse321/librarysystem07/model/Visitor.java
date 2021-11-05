@@ -1,15 +1,11 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
+<<<<<<< HEAD
 import java.util.*;
+import java.sql.Date;
 
-import javax.persistence.*;
-
-// line 11 "model.ump"
-// line 118 "model.ump"
-@Entity
-@Table(name = "Visitor")
+// line 19 "model.ump"
+// line 106 "model.ump"
 public class Visitor extends UserRole
 {
 
@@ -21,7 +17,6 @@ public class Visitor extends UserRole
   private int demeritPoints;
 
   //Visitor Associations
-  private List<Event> events;
   private List<Reservation> reservations;
 
   //------------------------
@@ -32,7 +27,6 @@ public class Visitor extends UserRole
   {
     super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
     demeritPoints = aDemeritPoints;
-    events = new ArrayList<Event>();
     reservations = new ArrayList<Reservation>();
   }
 
@@ -53,44 +47,12 @@ public class Visitor extends UserRole
     return demeritPoints;
   }
   /* Code from template association_GetMany */
-  public Event getEvent(int index)
-  {
-    Event aEvent = events.get(index);
-    return aEvent;
-  }
-//(cascade = CascadeType.ALL)
-  @OneToMany
-  public List<Event> getEvents()
-  {
-    List<Event> newEvents = Collections.unmodifiableList(events);
-    return newEvents;
-  }
-
-  public int numberOfEvents()
-  {
-    int number = events.size();
-    return number;
-  }
-
-  public boolean hasEvents()
-  {
-    boolean has = events.size() > 0;
-    return has;
-  }
-
-  public int indexOfEvent(Event aEvent)
-  {
-    int index = events.indexOf(aEvent);
-    return index;
-  }
-  /* Code from template association_GetMany */
   public Reservation getReservation(int index)
   {
     Reservation aReservation = reservations.get(index);
     return aReservation;
   }
-//(cascade = CascadeType.ALL)
-  @OneToMany
+
   public List<Reservation> getReservations()
   {
     List<Reservation> newReservations = Collections.unmodifiableList(reservations);
@@ -115,94 +77,14 @@ public class Visitor extends UserRole
     return index;
   }
   /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfEvents()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public Event setEvent(String aName, int aEventID)
-  {
-    return new Event(aName, aEventID, this);
-  }
-
-  public boolean addEvent(Event aEvent)
-  {
-    boolean wasAdded = false;
-    if (events.contains(aEvent)) { return false; }
-    Visitor existingVisitor = aEvent.getVisitor();
-    boolean isNewVisitor = existingVisitor != null && !this.equals(existingVisitor);
-    if (isNewVisitor)
-    {
-      aEvent.setVisitor(this);
-    }
-    else
-    {
-      events.add(aEvent);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-  
-  public void setEvents(List<Event> events) {
-	  this.events = events;
-  }
-  
-  public void setReservations(List<Reservation> res) {
-	  this.reservations = res;
-  }
-
-  public boolean removeEvent(Event aEvent)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aEvent, as it must always have a visitor
-    if (!this.equals(aEvent.getVisitor()))
-    {
-      events.remove(aEvent);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addEventAt(Event aEvent, int index)
-  {  
-    boolean wasAdded = false;
-    if(addEvent(aEvent))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfEvents()) { index = numberOfEvents() - 1; }
-      events.remove(aEvent);
-      events.add(index, aEvent);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveEventAt(Event aEvent, int index)
-  {
-    boolean wasAdded = false;
-    if(events.contains(aEvent))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfEvents()) { index = numberOfEvents() - 1; }
-      events.remove(aEvent);
-      events.add(index, aEvent);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addEventAt(aEvent, index);
-    }
-    return wasAdded;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfReservations()
   {
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Reservation addReservation(int aReservationID, ReservableItem aReservableItem)
+  public Reservation addReservation(Date aStartDate, Date aEndData, InventoryItem aInventoryItem)
   {
-    return new Reservation(aReservationID, this, aReservableItem);
+    return new Reservation(aStartDate, aEndData, this, aInventoryItem);
   }
 
   public boolean addReservation(Reservation aReservation)
@@ -269,20 +151,11 @@ public class Visitor extends UserRole
 
   public void delete()
   {
-    while (events.size() > 0)
+    for(int i=reservations.size(); i > 0; i--)
     {
-      Event aEvent = events.get(events.size() - 1);
-      aEvent.delete();
-      events.remove(aEvent);
-    }
-    
-    while (reservations.size() > 0)
-    {
-      Reservation aReservation = reservations.get(reservations.size() - 1);
+      Reservation aReservation = reservations.get(i - 1);
       aReservation.delete();
-      reservations.remove(aReservation);
     }
-    
     super.delete();
   }
 
@@ -293,3 +166,52 @@ public class Visitor extends UserRole
             "demeritPoints" + ":" + getDemeritPoints()+ "]";
   }
 }
+=======
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Visitor")
+public class Visitor extends UserRole {
+	
+	private float balance;
+	private int demeritPoints;
+	private Library library;
+	
+	
+	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints, Library aLibrary) {
+
+		super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
+		this.balance = 0;
+		this.setDemeritPoints(aDemeritPoints);
+//		if (!aAddress.contains(library.getCity())) {
+//			setBalance(this.balance + 10);
+//		}
+	}
+
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public int getDemeritPoints() {
+		return demeritPoints;
+	}
+
+	public void setDemeritPoints(int demeritPoints) {
+		this.demeritPoints = demeritPoints;
+	}
+
+	public Library getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(Library library) {
+		this.library = library;
+	}
+	
+}
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa

@@ -1,17 +1,12 @@
-package ca.mcgill.ecse321.librarysystem07.model;
-
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-
+<<<<<<< HEAD
+package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
-import java.sql.Time;
-import java.sql.Date;
-import javax.persistence.*;
-// line 51 "model.ump"
-// line 96 "model.ump"
-@Entity
-@Table(name = "Event")
+
+// line 37 "model.ump"
+// line 123 "model.ump"
 public class Event
 {
 
@@ -31,7 +26,6 @@ public class Event
 
   //Event Associations
   private Visitor visitor;
-  private List<TimeSlot> timeSlots;
 
   //------------------------
   // CONSTRUCTOR
@@ -40,30 +34,55 @@ public class Event
   public Event(String aName, int aEventID, Visitor aVisitor)
   {
     name = aName;
+=======
+
+
+import java.util.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "Event")
+public class Event
+{
+
+ 
+  private String name;
+  private int eventID;
+  private Visitor visitor;
+
+  public Event(String aName, int aEventID, Visitor aVisitor)
+  {
+    setName(aName);
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
     if (!setEventID(aEventID))
     {
       throw new RuntimeException("Cannot create due to duplicate eventID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
-    boolean didAddVisitor = setVisitor(aVisitor);
-    if (!didAddVisitor)
+    if (!setVisitor(aVisitor))
     {
-      throw new RuntimeException("Unable to create event due to visitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Unable to create Event due to aVisitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    timeSlots = new ArrayList<TimeSlot>();
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
+<<<<<<< HEAD
   public boolean setName(String aName)
+=======
+  public void setName(String aName)
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
   {
     boolean wasSet = false;
     name = aName;
     wasSet = true;
-    return wasSet;
   }
 
+<<<<<<< HEAD
   public boolean setEventID(int aEventID)
   {
     boolean wasSet = false;
@@ -88,11 +107,22 @@ public class Event
     return name;
   }
 
-  
-  //@GeneratedValue(strategy = GenerationType.AUTO)
-  @Id
   public int getEventID()
   {
+=======
+  public void setEventID(int aEventID)
+  {
+    eventID = aEventID;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public int getEventID()
+  {
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
     return eventID;
   }
   /* Code from template attribute_GetUnique */
@@ -100,160 +130,33 @@ public class Event
   {
     return eventsByEventID.get(aEventID);
   }
+<<<<<<< HEAD
   /* Code from template attribute_HasUnique */
   public static boolean hasWithEventID(int aEventID)
   {
     return getWithEventID(aEventID) != null;
   }
   /* Code from template association_GetOne */
-//@JoinColumn(name="event_librarycardid")
-  @ManyToOne
   public Visitor getVisitor()
   {
     return visitor;
   }
-  /* Code from template association_GetMany */
-  public TimeSlot getTimeSlot(int index)
-  {
-    TimeSlot aTimeSlot = timeSlots.get(index);
-    return aTimeSlot;
-  }
-
-  @OneToMany
-  public List<TimeSlot> getTimeSlots()
-  {
-    List<TimeSlot> newTimeSlots = Collections.unmodifiableList(timeSlots);
-    return newTimeSlots;
-  }
-  
-  public void setTimeSlots(List<TimeSlot> slots) {
-	  this.timeSlots = slots;
-  }
-
-  public int numberOfTimeSlots()
-  {
-    int number = timeSlots.size();
-    return number;
-  }
-
-  public boolean hasTimeSlots()
-  {
-    boolean has = timeSlots.size() > 0;
-    return has;
-  }
-
-  public int indexOfTimeSlot(TimeSlot aTimeSlot)
-  {
-    int index = timeSlots.indexOf(aTimeSlot);
-    return index;
-  }
-  /* Code from template association_SetOneToMany */
-  public boolean setVisitor(Visitor aVisitor)
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setVisitor(Visitor aNewVisitor)
   {
     boolean wasSet = false;
-    if (aVisitor == null)
+    if (aNewVisitor != null)
     {
-      return wasSet;
+      visitor = aNewVisitor;
+      wasSet = true;
     }
-
-    Visitor existingVisitor = visitor;
-    visitor = aVisitor;
-    if (existingVisitor != null && !existingVisitor.equals(aVisitor))
-    {
-      existingVisitor.removeEvent(this);
-    }
-    visitor.addEvent(this);
-    wasSet = true;
     return wasSet;
-    
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfTimeSlots()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
-  public TimeSlot addTimeSlot(Time aStartTime, Time aEndTime, Date aDate, TimeSlot.DayOfTheWeek aDayOfTheWeek, int aTimeSlotID, Librarian aLibrarian, HeadLibrarian aHeadLibrarian, Library aLibrary, Reservation aReservation)
-  {
-    return new TimeSlot(aStartTime, aEndTime, aDate, aDayOfTheWeek, aTimeSlotID, aLibrarian, aHeadLibrarian, aLibrary, this, aReservation);
-  }
-
-  public boolean addTimeSlot(TimeSlot aTimeSlot)
-  {
-    boolean wasAdded = false;
-    if (timeSlots.contains(aTimeSlot)) { return false; }
-    Event existingEvent = aTimeSlot.getEvent();
-    boolean isNewEvent = existingEvent != null && !this.equals(existingEvent);
-    if (isNewEvent)
-    {
-      aTimeSlot.setEvent(this);
-    }
-    else
-    {
-      timeSlots.add(aTimeSlot);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeTimeSlot(TimeSlot aTimeSlot)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aTimeSlot, as it must always have a event
-    if (!this.equals(aTimeSlot.getEvent()))
-    {
-      timeSlots.remove(aTimeSlot);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addTimeSlotAt(TimeSlot aTimeSlot, int index)
-  {  
-    boolean wasAdded = false;
-    if(addTimeSlot(aTimeSlot))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfTimeSlots()) { index = numberOfTimeSlots() - 1; }
-      timeSlots.remove(aTimeSlot);
-      timeSlots.add(index, aTimeSlot);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
-
-  public boolean addOrMoveTimeSlotAt(TimeSlot aTimeSlot, int index)
-  {
-    boolean wasAdded = false;
-    if(timeSlots.contains(aTimeSlot))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfTimeSlots()) { index = numberOfTimeSlots() - 1; }
-      timeSlots.remove(aTimeSlot);
-      timeSlots.add(index, aTimeSlot);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addTimeSlotAt(aTimeSlot, index);
-    }
-    return wasAdded;
   }
 
   public void delete()
   {
     eventsByEventID.remove(getEventID());
-    Visitor placeholderVisitor = visitor;
-    this.visitor = null;
-    if(placeholderVisitor != null)
-    {
-      placeholderVisitor.removeEvent(this);
-    }
-    for(int i=timeSlots.size(); i > 0; i--)
-    {
-      TimeSlot aTimeSlot = timeSlots.get(i - 1);
-      aTimeSlot.delete();
-    }
+    visitor = null;
   }
 
 
@@ -263,5 +166,17 @@ public class Event
             "name" + ":" + getName()+ "," +
             "eventID" + ":" + getEventID()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "visitor = "+(getVisitor()!=null?Integer.toHexString(System.identityHashCode(getVisitor())):"null");
+=======
+
+  /* Code from template association_GetOne */
+  public Visitor getVisitor()
+  {
+    return visitor;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public void setVisitor(Visitor aNewVisitor)
+  {
+      visitor = aNewVisitor;
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
   }
 }
