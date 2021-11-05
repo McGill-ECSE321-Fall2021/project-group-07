@@ -3,9 +3,12 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 // line 25 "model.ump"
 // line 111 "model.ump"
+@Entity
 public class Librarian extends UserRole
 {
 
