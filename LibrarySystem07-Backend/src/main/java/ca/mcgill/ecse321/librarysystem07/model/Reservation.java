@@ -95,7 +95,7 @@ public class Reservation
   }
   /* Code from template association_GetOne */
   //@JoinColumn(name = "reservation_librarycardid")
-  @ManyToOne
+  @ManyToOne(optional=false)
   public Visitor getVisitor()
   {
     return visitor;
@@ -107,7 +107,7 @@ public class Reservation
     return aTimeSlot;
   }
 
-  @OneToMany
+  
   public List<TimeSlot> getTimeSlots()
   {
     List<TimeSlot> newTimeSlots = Collections.unmodifiableList(timeSlots);
@@ -137,7 +137,7 @@ public class Reservation
     return index;
   }
   /* Code from template association_GetOne */
-  @OneToOne(optional=false)
+  @ManyToOne(optional=false)
   public ReservableItem getReservableItem()
   {
     return reservableItem;
