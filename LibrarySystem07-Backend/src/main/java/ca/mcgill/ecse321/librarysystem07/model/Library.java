@@ -1,9 +1,9 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
+<<<<<<< HEAD
 import ca.mcgill.ecse321.librarysystem07.model.InventoryItem.TypeOfItem;
 
 // line 2 "model.ump"
@@ -48,15 +48,27 @@ public class Library
     wasSet = true;
     return wasSet;
   }
+=======
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-  public boolean setCity(String aCity)
-  {
-    boolean wasSet = false;
-    city = aCity;
-    wasSet = true;
-    return wasSet;
-  }
+@Entity
+@Table(name = "Library")
+public class Library {
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
 
+	private String name;
+	private String city;
+	private String phoneNumber;
+	private List<LibrarianTimeSlot> librarianTimeSlots;
+	private List<HeadLibrarianTimeSlot> headLibrarianTimeSlots;
+	private List<InventoryItem> inventoryItems;
+	private List<UserRole> users;
+
+<<<<<<< HEAD
   public boolean setPhoneNumber(String aPhoneNumber)
   {
     boolean wasSet = false;
@@ -69,12 +81,26 @@ public class Library
   {
     return name;
   }
+=======
 
-  public String getCity()
-  {
-    return city;
-  }
+	public Library(String aName, String aCity, String aPhoneNumber)
+	{
+		setName(aName);
+		setCity(aCity);
+		setPhoneNumber(aPhoneNumber);
+	}
 
+	@Id
+	public String getName() {
+		return name;
+	}
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+<<<<<<< HEAD
   public String getPhoneNumber()
   {
     return phoneNumber;
@@ -85,25 +111,34 @@ public class Library
     UserRole aUserRole = userRoles.get(index);
     return aUserRole;
   }
+=======
+	public String getCity() {
+		return city;
+	}
 
-  public List<UserRole> getUserRoles()
-  {
-    List<UserRole> newUserRoles = Collections.unmodifiableList(userRoles);
-    return newUserRoles;
-  }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-  public int numberOfUserRoles()
-  {
-    int number = userRoles.size();
-    return number;
-  }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
 
-  public boolean hasUserRoles()
-  {
-    boolean has = userRoles.size() > 0;
-    return has;
-  }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
+	@OneToMany(cascade={CascadeType.ALL})
+	public List<LibrarianTimeSlot> getLibrarianTimeSlots() {
+		return librarianTimeSlots;
+	}
+
+	public void setLibrarianTimeSlots(List<LibrarianTimeSlot> librarianTimeSlots) {
+		this.librarianTimeSlots = librarianTimeSlots;
+	}
+
+<<<<<<< HEAD
   public int indexOfUserRole(UserRole aUserRole)
   {
     int index = userRoles.indexOf(aUserRole);
@@ -121,31 +156,27 @@ public class Library
     List<InventoryItem> newInventoryItems = Collections.unmodifiableList(inventoryItems);
     return newInventoryItems;
   }
+=======
+	@OneToMany(cascade={CascadeType.ALL})
+	public List<HeadLibrarianTimeSlot> getHeadLibrarianTimeSlots() {
+		return headLibrarianTimeSlots;
+	}
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
 
-  public int numberOfInventoryItems()
-  {
-    int number = inventoryItems.size();
-    return number;
-  }
+	public void setHeadLibrarianTimeSlots(List<HeadLibrarianTimeSlot> headLibrarianTimeSlots) {
+		this.headLibrarianTimeSlots = headLibrarianTimeSlots;
+	}
 
-  public boolean hasInventoryItems()
-  {
-    boolean has = inventoryItems.size() > 0;
-    return has;
-  }
+	@OneToMany(cascade={CascadeType.ALL})
+	public List<InventoryItem> getInventoryItems() {
+		return inventoryItems;
+	}
 
-  public int indexOfInventoryItem(InventoryItem aInventoryItem)
-  {
-    int index = inventoryItems.indexOf(aInventoryItem);
-    return index;
-  }
-  /* Code from template association_MinimumNumberOfMethod */
-  public static int minimumNumberOfUserRoles()
-  {
-    return 0;
-  }
-  /* Code from template association_AddManyToOne */
+	public void setInventoryItems(List<InventoryItem> inventoryItems) {
+		this.inventoryItems = inventoryItems;
+	}
 
+<<<<<<< HEAD
 
   public boolean addUserRole(UserRole aUserRole)
   {
@@ -164,33 +195,16 @@ public class Library
     wasAdded = true;
     return wasAdded;
   }
+=======
+	public void addInventoryItem(InventoryItem aInventoryItem)
+	{
+		if (inventoryItems.contains(aInventoryItem)) { return; }
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
 
-  public boolean removeUserRole(UserRole aUserRole)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aUserRole, as it must always have a library
-    if (!this.equals(aUserRole.getLibrary()))
-    {
-      userRoles.remove(aUserRole);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addUserRoleAt(UserRole aUserRole, int index)
-  {  
-    boolean wasAdded = false;
-    if(addUserRole(aUserRole))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfUserRoles()) { index = numberOfUserRoles() - 1; }
-      userRoles.remove(aUserRole);
-      userRoles.add(index, aUserRole);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
+		aInventoryItem.setLibrary(this);
+		inventoryItems.add(aInventoryItem);
 
+<<<<<<< HEAD
   public boolean addOrMoveUserRoleAt(UserRole aUserRole, int index)
   {
     boolean wasAdded = false;
@@ -218,69 +232,25 @@ public class Library
   {
     return new InventoryItem(aInventoryItemID, aDuplicates, aName, aAuthor, aStatus, aType, this);
   }
+=======
+	}
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
 
-  public boolean addInventoryItem(InventoryItem aInventoryItem)
-  {
-    boolean wasAdded = false;
-    if (inventoryItems.contains(aInventoryItem)) { return false; }
-    Library existingLibrary = aInventoryItem.getLibrary();
-    boolean isNewLibrary = existingLibrary != null && !this.equals(existingLibrary);
-    if (isNewLibrary)
-    {
-      aInventoryItem.setLibrary(this);
-    }
-    else
-    {
-      inventoryItems.add(aInventoryItem);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
+	public void removeInventoryItem(InventoryItem aInventoryItem)
+	{
+		inventoryItems.remove(aInventoryItem);
+	}
 
-  public boolean removeInventoryItem(InventoryItem aInventoryItem)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aInventoryItem, as it must always have a library
-    if (!this.equals(aInventoryItem.getLibrary()))
-    {
-      inventoryItems.remove(aInventoryItem);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-  /* Code from template association_AddIndexControlFunctions */
-  public boolean addInventoryItemAt(InventoryItem aInventoryItem, int index)
-  {  
-    boolean wasAdded = false;
-    if(addInventoryItem(aInventoryItem))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfInventoryItems()) { index = numberOfInventoryItems() - 1; }
-      inventoryItems.remove(aInventoryItem);
-      inventoryItems.add(index, aInventoryItem);
-      wasAdded = true;
-    }
-    return wasAdded;
-  }
+	@OneToMany(cascade={CascadeType.ALL})
+	public List<UserRole> getUsers() {
+		return users;
+	}
 
-  public boolean addOrMoveInventoryItemAt(InventoryItem aInventoryItem, int index)
-  {
-    boolean wasAdded = false;
-    if(inventoryItems.contains(aInventoryItem))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfInventoryItems()) { index = numberOfInventoryItems() - 1; }
-      inventoryItems.remove(aInventoryItem);
-      inventoryItems.add(index, aInventoryItem);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addInventoryItemAt(aInventoryItem, index);
-    }
-    return wasAdded;
-  }
+	public void setUsers(List<UserRole> users) {
+		this.users = users;
+	}
 
+<<<<<<< HEAD
   public void delete()
   {
     while (userRoles.size() > 0)
@@ -308,3 +278,8 @@ public class Library
             "phoneNumber" + ":" + getPhoneNumber()+ "]";
   }
 }
+=======
+
+
+}
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa

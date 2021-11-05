@@ -6,25 +6,28 @@ import ca.mcgill.ecse321.librarysystem07.model.TimeSlot;
 import ca.mcgill.ecse321.librarysystem07.model.Reservation;
 import ca.mcgill.ecse321.librarysystem07.model.HeadLibrarian;
 import ca.mcgill.ecse321.librarysystem07.model.Librarian;
-import ca.mcgill.ecse321.librarysystem07.model.ReservableItem;
+import ca.mcgill.ecse321.librarysystem07.model.Library;
+import ca.mcgill.ecse321.librarysystem07.model.Event;
 
 
-public interface TimeslotRepository extends CrudRepository<TimeSlot, String>{
+public interface TimeslotRepository extends CrudRepository<TimeSlot, Integer>{
 	
-	TimeSlot findTimeSlotById(Integer id);
+	TimeSlot findTimeSlotByTimeSlotID(Integer timeSlotID);
 
 	TimeSlot findTimeSlotByReservation(Reservation reservation);
 	
-	TimeSlot findTimeSlotByReservableItem(ReservableItem item);
+	TimeSlot findTimeSlotByEvent(Event event);
 
 	TimeSlot findTimeSlotByLibrarian(Librarian librarian);
 
 	TimeSlot findTimeSlotByHeadLibrarian(HeadLibrarian headLibrarian);
 	
-	Iterable<TimeSlot> findAll();
-
-	void delete(TimeSlot TimeSlot);
+	TimeSlot findTimeSlotByLibrary(Library library);
 	
-	void delete(List<TimeSlot> listOfTimeSlot);
+//	Iterable<TimeSlot> findAll();
+
+//	void delete(TimeSlot TimeSlot);
+//	
+//	void delete(List<TimeSlot> listOfTimeSlot);
 	
 }

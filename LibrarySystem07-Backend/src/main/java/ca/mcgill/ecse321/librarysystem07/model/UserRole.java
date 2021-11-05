@@ -1,7 +1,6 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
+<<<<<<< HEAD
 import java.util.*;
 
 // line 10 "model.ump"
@@ -197,3 +196,70 @@ public abstract class UserRole
             "  " + "library = "+(getLibrary()!=null?Integer.toHexString(System.identityHashCode(getLibrary())):"null");
   }
 }
+=======
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "User Role")
+public abstract class UserRole {
+
+	private String name;
+	private String username;
+	private String address;
+	private int libraryCardID;
+	private Library library;
+	//private int balance?
+
+	public UserRole(String aName, String aUsername, String aAddress, int aLibraryCardID, Library aLibrary) {
+		this.name = aName;
+		this.username = aUsername;
+		this.address = aAddress;
+		this.libraryCardID = aLibraryCardID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	@Id
+	public int getLibraryCardID() {
+		return libraryCardID;
+	}
+
+	public void setLibraryCardID(int libraryCardID) {
+		this.libraryCardID = libraryCardID;
+	}
+
+	public Library getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(Library library) {
+		this.library = library;
+	}
+	
+	//if (!aAddress.contains("thisCity")) user.setBalance(user.balance + 10));
+}
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa

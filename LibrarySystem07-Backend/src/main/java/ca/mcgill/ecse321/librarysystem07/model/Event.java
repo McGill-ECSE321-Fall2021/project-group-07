@@ -1,5 +1,6 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
+<<<<<<< HEAD
 package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
@@ -33,6 +34,29 @@ public class Event
   public Event(String aName, int aEventID, Visitor aVisitor)
   {
     name = aName;
+=======
+
+
+import java.util.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "Event")
+public class Event
+{
+
+ 
+  private String name;
+  private int eventID;
+  private Visitor visitor;
+
+  public Event(String aName, int aEventID, Visitor aVisitor)
+  {
+    setName(aName);
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
     if (!setEventID(aEventID))
     {
       throw new RuntimeException("Cannot create due to duplicate eventID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
@@ -47,14 +71,18 @@ public class Event
   // INTERFACE
   //------------------------
 
+<<<<<<< HEAD
   public boolean setName(String aName)
+=======
+  public void setName(String aName)
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
   {
     boolean wasSet = false;
     name = aName;
     wasSet = true;
-    return wasSet;
   }
 
+<<<<<<< HEAD
   public boolean setEventID(int aEventID)
   {
     boolean wasSet = false;
@@ -81,6 +109,20 @@ public class Event
 
   public int getEventID()
   {
+=======
+  public void setEventID(int aEventID)
+  {
+    eventID = aEventID;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public int getEventID()
+  {
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
     return eventID;
   }
   /* Code from template attribute_GetUnique */
@@ -88,6 +130,7 @@ public class Event
   {
     return eventsByEventID.get(aEventID);
   }
+<<<<<<< HEAD
   /* Code from template attribute_HasUnique */
   public static boolean hasWithEventID(int aEventID)
   {
@@ -123,5 +166,17 @@ public class Event
             "name" + ":" + getName()+ "," +
             "eventID" + ":" + getEventID()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "visitor = "+(getVisitor()!=null?Integer.toHexString(System.identityHashCode(getVisitor())):"null");
+=======
+
+  /* Code from template association_GetOne */
+  public Visitor getVisitor()
+  {
+    return visitor;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public void setVisitor(Visitor aNewVisitor)
+  {
+      visitor = aNewVisitor;
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
   }
 }

@@ -1,7 +1,6 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 package ca.mcgill.ecse321.librarysystem07.model;
 
+<<<<<<< HEAD
 import java.util.*;
 import java.sql.Date;
 
@@ -167,3 +166,52 @@ public class Visitor extends UserRole
             "demeritPoints" + ":" + getDemeritPoints()+ "]";
   }
 }
+=======
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Visitor")
+public class Visitor extends UserRole {
+	
+	private float balance;
+	private int demeritPoints;
+	private Library library;
+	
+	
+	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints, Library aLibrary) {
+
+		super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
+		this.balance = 0;
+		this.setDemeritPoints(aDemeritPoints);
+//		if (!aAddress.contains(library.getCity())) {
+//			setBalance(this.balance + 10);
+//		}
+	}
+
+	public float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
+	public int getDemeritPoints() {
+		return demeritPoints;
+	}
+
+	public void setDemeritPoints(int demeritPoints) {
+		this.demeritPoints = demeritPoints;
+	}
+
+	public Library getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(Library library) {
+		this.library = library;
+	}
+	
+}
+>>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa

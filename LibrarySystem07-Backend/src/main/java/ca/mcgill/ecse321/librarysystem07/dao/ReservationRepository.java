@@ -6,12 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 
 import ca.mcgill.ecse321.librarysystem07.model.*;
 
-public interface ReservationRepository extends CrudRepository<Reservation, String> {
+public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
 	
-	Reservation findReservationByReservableItem(ReservableItem r);
+	List<Reservation> findReservationsByVisitor(Visitor visitor);
 	
-	List<Reservation> findReservationsByVisitor(Visitor v);
+	Reservation findReservationByReservationID(Integer reservationID);
 	
-	Reservation findReservationById(Integer ID);
-	
+	Reservation findReservationByReservableItem(ReservableItem reservableItem);
 }
