@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import ca.mcgill.ecse321.librarysystem07.model.OldTimeSlot.DayOfTheWeek;
-
 @Entity
 @Table(name = "Librarian Time Slot")
 public class LibrarianTimeSlot {
