@@ -4,16 +4,10 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import ca.mcgill.ecse321.librarysystem07.model.InventoryItem.TypeOfItem;
 
-// line 29 "model.ump"
-// line 117 "model.ump"
-
-@Entity
+// line 2 "model.ump"
+// line 95 "model.ump"
 public class Library
 {
 
@@ -24,9 +18,7 @@ public class Library
   //Library Attributes
   private String name;
   private String city;
-  private List<TimeSlot> openingHours;
-  private List<Librarian> employees;
-  private long phoneNumber;
+  private String phoneNumber;
 
   //Library Associations
   private List<UserRole> userRoles;
@@ -36,11 +28,10 @@ public class Library
   // CONSTRUCTOR
   //------------------------
 
-  public Library(String aName, String aCity, List<TimeSlot> aOpeningHours, long aPhoneNumber)
+  public Library(String aName, String aCity, String aPhoneNumber)
   {
     name = aName;
     city = aCity;
-    openingHours = aOpeningHours;
     phoneNumber = aPhoneNumber;
     userRoles = new ArrayList<UserRole>();
     inventoryItems = new ArrayList<InventoryItem>();
@@ -66,31 +57,14 @@ public class Library
     return wasSet;
   }
 
-  public boolean setOpeningHours(List<TimeSlot> aOpeningHours)
-  {
-    boolean wasSet = false;
-    openingHours = aOpeningHours;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setEmployees(List<Librarian> aEmployees)
-  {
-    boolean wasSet = false;
-    employees = aEmployees;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setPhoneNumber(long aPhoneNumber)
+  public boolean setPhoneNumber(String aPhoneNumber)
   {
     boolean wasSet = false;
     phoneNumber = aPhoneNumber;
     wasSet = true;
     return wasSet;
   }
-  
-  @Id
+
   public String getName()
   {
     return name;
@@ -101,17 +75,7 @@ public class Library
     return city;
   }
 
-  public List<TimeSlot> getOpeningHours()
-  {
-    return openingHours;
-  }
-
-  public List<Librarian> getEmployees()
-  {
-    return employees;
-  }
-
-  public long getPhoneNumber()
+  public String getPhoneNumber()
   {
     return phoneNumber;
   }
@@ -145,15 +109,13 @@ public class Library
     int index = userRoles.indexOf(aUserRole);
     return index;
   }
-  
   /* Code from template association_GetMany */
-  @OneToMany
   public InventoryItem getInventoryItem(int index)
   {
     InventoryItem aInventoryItem = inventoryItems.get(index);
     return aInventoryItem;
   }
-  
+
   public List<InventoryItem> getInventoryItems()
   {
     List<InventoryItem> newInventoryItems = Collections.unmodifiableList(inventoryItems);
@@ -183,6 +145,7 @@ public class Library
     return 0;
   }
   /* Code from template association_AddManyToOne */
+
 
   public boolean addUserRole(UserRole aUserRole)
   {
@@ -251,9 +214,9 @@ public class Library
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public InventoryItem addInventoryItem(int aId)
+  public InventoryItem addInventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, InventoryItem.Status aStatus, TypeOfItem aType)
   {
-    return new InventoryItem(aId, this);
+    return new InventoryItem(aInventoryItemID, aDuplicates, aName, aAuthor, aStatus, aType, this);
   }
 
   public boolean addInventoryItem(InventoryItem aInventoryItem)
@@ -320,11 +283,13 @@ public class Library
 
   public void delete()
   {
-    for(int i=userRoles.size(); i > 0; i--)
+    while (userRoles.size() > 0)
     {
-      UserRole aUserRole = userRoles.get(i - 1);
+      UserRole aUserRole = userRoles.get(userRoles.size() - 1);
       aUserRole.delete();
+      userRoles.remove(aUserRole);
     }
+    
     while (inventoryItems.size() > 0)
     {
       InventoryItem aInventoryItem = inventoryItems.get(inventoryItems.size() - 1);
@@ -340,8 +305,6 @@ public class Library
     return super.toString() + "["+
             "name" + ":" + getName()+ "," +
             "city" + ":" + getCity()+ "," +
-            "phoneNumber" + ":" + getPhoneNumber()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "openingHours" + "=" + (getOpeningHours() != null ? !getOpeningHours().equals(this)  ? getOpeningHours().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "employees" + "=" + (getEmployees() != null ? !getEmployees().equals(this)  ? getEmployees().toString().replaceAll("  ","    ") : "this" : "null");
+            "phoneNumber" + ":" + getPhoneNumber()+ "]";
   }
 }

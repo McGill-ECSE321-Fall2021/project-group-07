@@ -1,31 +1,27 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-
 package ca.mcgill.ecse321.librarysystem07.model;
 
-import java.util.HashMap;
+import java.util.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.persistence.*;
-
-// line 52 "model.ump"
+// line 37 "model.ump"
 // line 123 "model.ump"
-@Entity
 public class Event
 {
+
+  //------------------------
+  // STATIC VARIABLES
+  //------------------------
+
+  private static Map<Integer, Event> eventsByEventID = new HashMap<Integer, Event>();
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  private static Map<Integer, Event> eventsByEventID = new HashMap<Integer, Event>();
-
   //Event Attributes
-  private List<TimeSlot> schedule;
-  private int id;
+  private String name;
+  private int eventID;
 
   //Event Associations
   private Visitor visitor;
@@ -34,102 +30,98 @@ public class Event
   // CONSTRUCTOR
   //------------------------
 
-  public Event(List<TimeSlot> aSchedule, Visitor aVisitor)
+  public Event(String aName, int aEventID, Visitor aVisitor)
   {
-    schedule = aSchedule;
-    boolean didAddVisitor = setVisitor(aVisitor);
-    if (!didAddVisitor)
+    name = aName;
+    if (!setEventID(aEventID))
     {
-      throw new RuntimeException("Unable to create event due to visitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
+      throw new RuntimeException("Cannot create due to duplicate eventID. See http://manual.umple.org?RE003ViolationofUniqueness.html");
     }
-    int anId = 0;
-    for (Entry<Integer, Event> e : eventsByEventID.entrySet()) {
-    	if (e.getKey() > anId) anId = e.getKey();
+    if (!setVisitor(aVisitor))
+    {
+      throw new RuntimeException("Unable to create Event due to aVisitor. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
-    if (anId == 0) id = anId;
-    else id = anId + 1;
-    
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setSchedule(List<TimeSlot> aSchedule)
+  public boolean setName(String aName)
   {
     boolean wasSet = false;
-    schedule = aSchedule;
+    name = aName;
     wasSet = true;
     return wasSet;
   }
 
-  public List<TimeSlot> getSchedule()
+  public boolean setEventID(int aEventID)
   {
-    return schedule;
+    boolean wasSet = false;
+    Integer anOldEventID = getEventID();
+    if (anOldEventID != null && anOldEventID.equals(aEventID)) {
+      return true;
+    }
+    if (hasWithEventID(aEventID)) {
+      return wasSet;
+    }
+    eventID = aEventID;
+    wasSet = true;
+    if (anOldEventID != null) {
+      eventsByEventID.remove(anOldEventID);
+    }
+    eventsByEventID.put(aEventID, this);
+    return wasSet;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public int getEventID()
+  {
+    return eventID;
+  }
+  /* Code from template attribute_GetUnique */
+  public static Event getWithEventID(int aEventID)
+  {
+    return eventsByEventID.get(aEventID);
+  }
+  /* Code from template attribute_HasUnique */
+  public static boolean hasWithEventID(int aEventID)
+  {
+    return getWithEventID(aEventID) != null;
   }
   /* Code from template association_GetOne */
-  @ManyToOne(optional=true)
   public Visitor getVisitor()
   {
     return visitor;
   }
-  
-  @Id
-  public int getEventID()
-  {
-    return id;
-  }
-  
-  /* Code from template association_SetOneToMany */
-  public boolean setVisitor(Visitor aVisitor)
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setVisitor(Visitor aNewVisitor)
   {
     boolean wasSet = false;
-    if (aVisitor == null)
+    if (aNewVisitor != null)
     {
-      return wasSet;
+      visitor = aNewVisitor;
+      wasSet = true;
     }
-
-    Visitor existingVisitor = visitor;
-    visitor = aVisitor;
-    if (existingVisitor != null && !existingVisitor.equals(aVisitor))
-    {
-      existingVisitor.removeEvent(this);
-    }
-    visitor.addEvent(this);
-    wasSet = true;
     return wasSet;
-    
   }
 
   public void delete()
   {
-	 eventsByEventID.remove(getEventID());
-    Visitor placeholderVisitor = visitor;
-    this.visitor = null;
-    if(placeholderVisitor != null)
-    {
-      placeholderVisitor.removeEvent(this);
-    }
+    eventsByEventID.remove(getEventID());
+    visitor = null;
   }
-  
-  /* Code from template attribute_GetUnique */
-  public static Event getWithTimeSlotID(int id)
-  {
-    return eventsByEventID.get(id);
-  }
-  
-  /* Code from template attribute_HasUnique */
-  public static boolean hasWithTimeSlotID(int id)
-  {
-    return getWithTimeSlotID(id) != null;
-  }
-
 
 
   public String toString()
   {
-    return super.toString() + "["+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "schedule" + "=" + (getSchedule() != null ? !getSchedule().equals(this)  ? getSchedule().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+    return super.toString() + "["+
+            "name" + ":" + getName()+ "," +
+            "eventID" + ":" + getEventID()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "visitor = "+(getVisitor()!=null?Integer.toHexString(System.identityHashCode(getVisitor())):"null");
   }
 }
