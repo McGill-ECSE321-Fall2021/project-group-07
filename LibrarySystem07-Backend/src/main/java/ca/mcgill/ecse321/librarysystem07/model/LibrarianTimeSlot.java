@@ -69,6 +69,7 @@ public class LibrarianTimeSlot {
 		this.date = date;
 	}
 
+	@ManyToOne(optional=false)
 	public Librarian getLibrarian() {
 		return librarian;
 	}
