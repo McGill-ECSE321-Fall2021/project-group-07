@@ -62,6 +62,11 @@ public class Library {
 	public void setLibrarianTimeSlots(List<LibrarianTimeSlot> librarianTimeSlots) {
 		this.librarianTimeSlots = librarianTimeSlots;
 	}
+	
+	public void addLibrarianTimeSlot(LibrarianTimeSlot ts) {
+		if (!librarianTimeSlots.contains(ts)) librarianTimeSlots.add(ts);
+	}
+
 
 	@OneToMany(cascade={CascadeType.ALL})
 	public List<HeadLibrarianTimeSlot> getHeadLibrarianTimeSlots() {
@@ -70,6 +75,10 @@ public class Library {
 
 	public void setHeadLibrarianTimeSlots(List<HeadLibrarianTimeSlot> headLibrarianTimeSlots) {
 		this.headLibrarianTimeSlots = headLibrarianTimeSlots;
+	}
+	
+	public void addHeadLibrarianTimeSlot(HeadLibrarianTimeSlot ts) {
+		if (!headLibrarianTimeSlots.contains(ts)) headLibrarianTimeSlots.add(ts);
 	}
 
 	@OneToMany(cascade={CascadeType.ALL})
@@ -84,14 +93,13 @@ public class Library {
 	public void addInventoryItem(InventoryItem aInventoryItem)
 	{
 		if (inventoryItems.contains(aInventoryItem)) { return; }
-
 		aInventoryItem.setLibrary(this);
 		inventoryItems.add(aInventoryItem);
-
 	}
 
 	public void removeInventoryItem(InventoryItem aInventoryItem)
 	{
+		if (!inventoryItems.contains(aInventoryItem)) { return; }
 		inventoryItems.remove(aInventoryItem);
 	}
 
@@ -103,7 +111,15 @@ public class Library {
 	public void setUsers(List<UserRole> users) {
 		this.users = users;
 	}
-
-
+	
+	public void addUser(UserRole user) {
+		if (users.contains(user)) { return; }
+		users.add(user);
+	}
+	public void removeUser(UserRole user) {
+		if (users.contains(user)) {
+			users.remove(user);
+		}
+	}
 
 }
