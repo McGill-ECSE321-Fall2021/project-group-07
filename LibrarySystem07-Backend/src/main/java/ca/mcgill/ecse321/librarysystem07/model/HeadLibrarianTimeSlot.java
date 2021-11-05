@@ -6,6 +6,8 @@ import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+
 @Entity
 @Table(name = "Head Librarian Time Slot")
 public class HeadLibrarianTimeSlot {
@@ -67,6 +69,7 @@ public class HeadLibrarianTimeSlot {
 		this.date = date;
 	}
 
+	@ManyToOne(optional=false)
 	public HeadLibrarian getHeadLibrarian() {
 		return headLibrarian;
 	}
