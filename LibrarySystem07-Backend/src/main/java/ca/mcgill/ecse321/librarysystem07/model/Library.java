@@ -3,8 +3,10 @@ package ca.mcgill.ecse321.librarysystem07.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +16,11 @@ public class Library {
 	private String name;
 	private String city;
 	private String phoneNumber;
+	private List<LibrarianTimeSlot> librarianTimeSlots;
+	private List<HeadLibrarianTimeSlot> headLibrarianTimeSlots;
+	private List<InventoryItem> inventoryItems;
+	private List<UserRole> users;
+
 
 	public Library(String aName, String aCity, String aPhoneNumber)
 	{
@@ -45,6 +52,42 @@ public class Library {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public List<LibrarianTimeSlot> getLibrarianTimeSlots() {
+		return librarianTimeSlots;
+	}
+
+	public void setLibrarianTimeSlots(List<LibrarianTimeSlot> librarianTimeSlots) {
+		this.librarianTimeSlots = librarianTimeSlots;
+	}
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public List<HeadLibrarianTimeSlot> getHeadLibrarianTimeSlots() {
+		return headLibrarianTimeSlots;
+	}
+
+	public void setHeadLibrarianTimeSlots(List<HeadLibrarianTimeSlot> headLibrarianTimeSlots) {
+		this.headLibrarianTimeSlots = headLibrarianTimeSlots;
+	}
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public List<InventoryItem> getInventoryItems() {
+		return inventoryItems;
+	}
+
+	public void setInventoryItems(List<InventoryItem> inventoryItems) {
+		this.inventoryItems = inventoryItems;
+	}
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public List<UserRole> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserRole> users) {
+		this.users = users;
 	}
 
 }
