@@ -9,7 +9,7 @@ import ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot;
 
 public interface LibrarianTimeSlotRepository extends CrudRepository<LibrarianTimeSlot, Integer> {
 
-	List<LibrarianTimeSlot> findLibrarianTimeSlotByHeadLibrarian(Librarian Librarian);
+	List<LibrarianTimeSlot> findLibrarianTimeSlotByLibrarian(Librarian Librarian);
 	LibrarianTimeSlot findLibrarianTimeSlotByTimeSlotID(int timeSlotId);
 
 }
