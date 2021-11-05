@@ -2,12 +2,12 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "Library")
@@ -20,7 +20,6 @@ public class Library {
 	private List<HeadLibrarianTimeSlot> headLibrarianTimeSlots;
 	private List<InventoryItem> inventoryItems;
 	private List<UserRole> users;
-
 
 	public Library(String aName, String aCity, String aPhoneNumber)
 	{
@@ -37,7 +36,7 @@ public class Library {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+ 
 	public String getCity() {
 		return city;
 	}
@@ -90,12 +89,11 @@ public class Library {
 		this.inventoryItems = inventoryItems;
 	}
 
-	public void addInventoryItem(InventoryItem aInventoryItem)
-	{
+	public void addInventoryItem(InventoryItem aInventoryItem) {
 		if (inventoryItems.contains(aInventoryItem)) { return; }
 		aInventoryItem.setLibrary(this);
 		inventoryItems.add(aInventoryItem);
-	}
+  }
 
 	public void removeInventoryItem(InventoryItem aInventoryItem)
 	{
@@ -119,7 +117,7 @@ public class Library {
 	public void removeUser(UserRole user) {
 		if (users.contains(user)) {
 			users.remove(user);
-		}
+    }
 	}
 
 }
