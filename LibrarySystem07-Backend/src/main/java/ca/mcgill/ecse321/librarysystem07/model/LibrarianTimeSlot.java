@@ -6,6 +6,7 @@ import java.util.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "Librarian Time Slot")
