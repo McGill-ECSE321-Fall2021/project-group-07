@@ -2,7 +2,7 @@ package ca.mcgill.ecse321.librarysystem07.model;
 
 public class Visitor extends UserRole {
 	
-	private int balance;
+	private float balance;
 	private int demeritPoints;
 	private Library library;
 	
@@ -12,11 +12,11 @@ public class Visitor extends UserRole {
 		this.balance = 0;
 		this.setDemeritPoints(aDemeritPoints);
 //		if (!aAddress.contains("montreal")) {
-//			setDemeritPoints(this.balance + 10);
+//			setBalance(this.balance + 10);
 //		}
 	}
 
-	public int getBalance() {
+	public float getBalance() {
 		return balance;
 	}
 
