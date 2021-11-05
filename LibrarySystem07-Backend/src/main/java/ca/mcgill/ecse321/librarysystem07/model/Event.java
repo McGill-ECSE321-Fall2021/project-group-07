@@ -40,6 +40,8 @@ public class Event
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -119,7 +121,8 @@ public class Event
   {
     return name;
   }
-
+  
+  @Id
   public int getEventID()
   {
 >>>>>>> bd4c3279ae24cc91d34b04f3ab03de3ecccd2afa
@@ -168,7 +171,7 @@ public class Event
             "  " + "visitor = "+(getVisitor()!=null?Integer.toHexString(System.identityHashCode(getVisitor())):"null");
 =======
 
-  /* Code from template association_GetOne */
+  @ManyToOne(optional=false)
   public Visitor getVisitor()
   {
     return visitor;
