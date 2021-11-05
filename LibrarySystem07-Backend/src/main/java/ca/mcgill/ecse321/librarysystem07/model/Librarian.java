@@ -14,9 +14,4 @@ public class Librarian extends UserRole
     super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
   }
 
-  public void delete()
-  {
-    super.delete();
-  }
-
 }
