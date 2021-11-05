@@ -81,6 +81,20 @@ public class Library {
 		this.inventoryItems = inventoryItems;
 	}
 
+	public void addInventoryItem(InventoryItem aInventoryItem)
+	{
+		if (inventoryItems.contains(aInventoryItem)) { return; }
+
+		aInventoryItem.setLibrary(this);
+		inventoryItems.add(aInventoryItem);
+
+	}
+
+	public void removeInventoryItem(InventoryItem aInventoryItem)
+	{
+		inventoryItems.remove(aInventoryItem);
+	}
+
 	@OneToMany(cascade={CascadeType.ALL})
 	public List<UserRole> getUsers() {
 		return users;
@@ -89,5 +103,7 @@ public class Library {
 	public void setUsers(List<UserRole> users) {
 		this.users = users;
 	}
+
+
 
 }
