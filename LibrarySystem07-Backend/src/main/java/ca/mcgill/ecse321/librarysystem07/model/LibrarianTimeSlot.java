@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.sql.Date;
 import java.util.*;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import ca.mcgill.ecse321.librarysystem07.model.OldTimeSlot.DayOfTheWeek;
@@ -18,10 +19,11 @@ public class LibrarianTimeSlot {
 	private Date date;
 	private Librarian librarian;
 	private Library library;
+	private int timeSlotId;
 
 	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	public LibrarianTimeSlot(Librarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, Library aLibrary)
+	public LibrarianTimeSlot(int librarianTimeSlotId, Librarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, Library aLibrary)
 	{
 		setStartTime(aStartTime);
 		setEndTime(aEndTime);
@@ -29,12 +31,13 @@ public class LibrarianTimeSlot {
 		setDayOfTheWeek(aDayOfTheWeek);
 		setLibrarian(aLibrarian);
 		setLibrary(aLibrary);
+		setTimeSlotId(librarianTimeSlotId);
 	}
 
+	@Id
 	public LibrarianTimeSlot getLibrarianTimeSlot() {
 		return this;
 	}
-
 
 	public DayOfTheWeek getDayOfTheWeek() {
 		return dayOfTheWeek;
@@ -82,5 +85,13 @@ public class LibrarianTimeSlot {
 
 	public void setLibrary(Library library) {
 		this.library = library;
+	}
+
+	public int getTimeSlotId() {
+		return timeSlotId;
+	}
+
+	public void setTimeSlotId(int timeSlotId) {
+		this.timeSlotId = timeSlotId;
 	}
 }

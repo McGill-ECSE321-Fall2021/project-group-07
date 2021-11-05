@@ -4,20 +4,23 @@ import java.sql.Date;
 import java.sql.Time;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name = "Head Librarian Time Slot")
 public class HeadLibrarianTimeSlot {
+	
 	private Time startTime;
 	private Time endTime;
 	private DayOfTheWeek dayOfTheWeek;
 	private Date date;
 	private HeadLibrarian headLibrarian;
 	private Library library;
+	private int timeSlotId;
 
 	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	public HeadLibrarianTimeSlot(HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, Library aLibrary)
+	public HeadLibrarianTimeSlot(int headLibrarianTimeSlotId, HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, Library aLibrary)
 	{
 		setStartTime(aStartTime);
 		setEndTime(aEndTime);
@@ -25,6 +28,7 @@ public class HeadLibrarianTimeSlot {
 		setDayOfTheWeek(aDayOfTheWeek);
 		setHeadLibrarian(aLibrarian);
 		setLibrary(aLibrary);
+		setTimeSlotId(headLibrarianTimeSlotId);
 	}
 
 	public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot() {
@@ -77,5 +81,14 @@ public class HeadLibrarianTimeSlot {
 
 	public void setLibrary(Library library) {
 		this.library = library;
+	}
+
+	@Id
+	public int getTimeSlotId() {
+		return timeSlotId;
+	}
+
+	public void setTimeSlotId(int timeSlotId) {
+		this.timeSlotId = timeSlotId;
 	}
 }

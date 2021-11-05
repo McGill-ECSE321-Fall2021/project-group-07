@@ -1,5 +1,11 @@
 package ca.mcgill.ecse321.librarysystem07.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "User Role")
 public abstract class UserRole {
 
 	private String name;
@@ -40,6 +46,7 @@ public abstract class UserRole {
 		this.address = address;
 	}
 
+	@Id
 	public int getLibraryCardID() {
 		return libraryCardID;
 	}
