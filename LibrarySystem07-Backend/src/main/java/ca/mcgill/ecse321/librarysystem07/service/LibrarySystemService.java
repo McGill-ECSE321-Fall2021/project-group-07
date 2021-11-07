@@ -75,6 +75,7 @@ public class LibrarySystemService {
 	}
 	
 	/* INVENTORY ITEM */
+	
 	@Transactional
 	public List<InventoryItem> getAllInventoryItems() {
 		return toList(inventoryItemRepository.findAll());
@@ -88,6 +89,7 @@ public class LibrarySystemService {
 		return inventoryItemRepository.findInventoryItemByInventoryItemID(id);
 	}
 	
+	@Transactional
 	public InventoryItem createInventoryItem(int id, int duplicates, String name, 
 			String author, Status status, TypeOfItem type) {
 		String error = "";
@@ -119,6 +121,57 @@ public class LibrarySystemService {
 		inventoryItemRepository.save(item);
 		return item;
 	}
+	
+	/* RESERVATION */
+	
+	@Transactional
+	public List<Reservation> getAllReservations() {
+		return toList(reservationRepository.findAll());
+	}
+	
+	@Transactional
+	public Reservation getReservation(InventoryItem item, Visitor visitor) {
+		if (item == null) {
+			throw new IllegalArgumentException("Invalid item!");
+		}
+		if (visitor == null) {
+			throw new IllegalArgumentException("Invalid!");
+		}
+		return reservationRepository.findByInventoryItemAndVisitor(item, visitor);
+	}
+	
+	@Transactional
+	public Reservation createReservation(int id, Date startDate, Date endDate, 
+			Visitor aVisitor, InventoryItem aInventoryItem) {
+		String error = "";
+		if (id < 0) {
+			error += "ID is invalid!";
+		}
+		if (startDate == null) {
+			error += "Start time is invalid!";
+		}
+		if (endDate == null) {
+			error += "End time is invalid!";
+		}
+		if (endDate != null && startDate != null && endDate.before(startDate)) {
+			error = error + "End date cannot be before start date!";
+		}
+		if (aVisitor == null) {
+			error += "Visitor is invalid!";
+		}
+		if (aInventoryItem == null) {
+			error+= "Inventory item is invalid!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		Reservation r = new Reservation(id, startDate, endDate, aVisitor, aInventoryItem);
+		reservationRepository.save(r);
+		return r;
+	}
+	
 	
 	/* VISITOR */
 	
