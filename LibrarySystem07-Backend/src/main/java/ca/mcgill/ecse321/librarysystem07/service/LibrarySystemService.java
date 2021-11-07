@@ -35,6 +35,49 @@ public class LibrarySystemService {
 	InventoryItemRepository inventoryItemRepository;
 
 
+	/* VISITOR */
+	
+	@Transactional
+	public List<Visitor> getAllVisitors() {
+		return toList(visitorRepository.findAll());
+	}
+	
+	@Transactional
+	public Visitor getVisitor(int id) {
+		if (id < 0) {
+			throw new IllegalArgumentException("ID is invalid!");
+		}
+		return visitorRepository.findVisitorByLibraryCardID(id);
+	}
+	
+	public Visitor createVisitor(String name, String username, String address, int libraryCardID, int demeritPoints) {
+		String error = "";
+		
+		if (name == null || name.trim().length() == 0) {
+			error += "Name is invalid!";
+		}
+		if (username == null || username.trim().length() == 0) {
+			error += "Username is invalid!";
+		}
+		if (address == null || address.trim().length() == 0) {
+			error += "Address is invalid";
+		}
+		if (libraryCardID < 0) {
+			error += "Library card ID invalid";
+		}
+		if (demeritPoints < 0) {
+			error += "Demerit points must be 0 or greater!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		Visitor v = new Visitor(name, username, address, libraryCardID, demeritPoints);
+		visitorRepository.save(v);
+		return v;
+		
+	}
 	
 	/* HEAD LIBRARIAN */
 
@@ -214,7 +257,6 @@ public class LibrarySystemService {
 		librarianTimeSlotRepository.save(hlts);
 		return hlts;
 	}
-	
 	
 	
 	private <T> List<T> toList(Iterable<T> iterable){
