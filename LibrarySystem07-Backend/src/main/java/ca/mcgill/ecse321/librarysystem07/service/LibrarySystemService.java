@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.librarysystem07.dao.*;
 import ca.mcgill.ecse321.librarysystem07.model.*;
 import ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWeek;
+import ca.mcgill.ecse321.librarysystem07.model.InventoryItem.Status;
+import ca.mcgill.ecse321.librarysystem07.model.InventoryItem.TypeOfItem;
 
 
 @Service
@@ -35,6 +37,89 @@ public class LibrarySystemService {
 	InventoryItemRepository inventoryItemRepository;
 
 
+	/* EVENT */
+	
+	@Transactional
+	public List<Event> getAllEvents() {
+		return toList(eventRepository.findAll());
+	}
+	
+	@Transactional
+	public Event getEvent(int id) {
+		if (id <0) {
+			throw new IllegalArgumentException("ID is invalid!");
+		}
+		return eventRepository.findEventByEventID(id);
+	}
+	
+	@Transactional
+	public Event createEvent(String name, int eventID, Visitor visitor) {
+		String error = "";
+		if (name.trim().length() == 0 || name == null) {
+			error += "Name is invalid! ";
+		}
+		if (eventID < 0) {
+			error += "ID must be an integer above 0. ";
+		}
+		if (visitor == null) {
+			error += "Visitor is invalid! ";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		Event e = new Event(name, eventID, visitor);
+		eventRepository.save(e);
+		return e;
+	}
+	
+	/* INVENTORY ITEM */
+	@Transactional
+	public List<InventoryItem> getAllInventoryItems() {
+		return toList(inventoryItemRepository.findAll());
+	}
+	
+	@Transactional
+	public InventoryItem getInventoryItem(int id) {
+		if (id < 0) {
+			throw new IllegalArgumentException("ID is invalid!");
+		}
+		return inventoryItemRepository.findInventoryItemByInventoryItemID(id);
+	}
+	
+	public InventoryItem createInventoryItem(int id, int duplicates, String name, 
+			String author, Status status, TypeOfItem type) {
+		String error = "";
+		if (id < 0) {
+			error += "ID must be an integer above 0. ";
+		}
+		if (duplicates < 0) {
+			error += "Invalid number of duplicates.";
+		}
+		if (name.trim().length() == 0 || name == null) {
+			error += "Invalid name!";
+		}
+		if (author.trim().length() == 0 || author == null) {
+			error += "Invalid author!";
+		}
+		if (status == null) {
+			error += "Invalid status! ";
+		}
+		if (type == null) {
+			error += "Invalid type! ";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		InventoryItem item = new InventoryItem(id, duplicates, name, author, status, type);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+	
 	/* VISITOR */
 	
 	@Transactional
