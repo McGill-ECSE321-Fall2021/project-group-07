@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.librarysystem07.dao.*;
 import ca.mcgill.ecse321.librarysystem07.model.*;
+import ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWeek;
 
 
 @Service
@@ -34,7 +35,83 @@ public class LibrarySystemService {
 	InventoryItemRepository inventoryItemRepository;
 	
 	
-	/*LIBRARIAN*/
+	/* HEAD LIBRARIAN */
+	
+	@Transactional
+	public List<HeadLibrarian> getAllHeadLibrarians() {
+		return toList(headLibrarianRepository.findAll());
+	}
+
+	@Transactional
+	public HeadLibrarian getHeadLibrarian(Integer id) {
+	    if (id == null || id < 0) {
+	        throw new IllegalArgumentException("ID is invalid!");
+	    }
+	    HeadLibrarian l = headLibrarianRepository.findHeadLibrarianByLibraryCardID(id);
+	    return l;
+	}
+	
+	@Transactional
+	public HeadLibrarian createHeadLibrarian(String name, String username, String address, Integer id) {
+		String error = "";
+		if (id == null || id < 0) {
+			error += "Librarian ID is invalid!   ";
+		}
+		if (name.equals(null) || name.trim().length() == 0) {
+			error += "Librarian name is invalid!   ";
+		}
+		if (username.equals(null) || username.trim().length() == 0) {
+			error += "Username is invalid!   ";
+		}
+		if (address.equals(null) || address.trim().length() == 0) {
+			error += "Address is invalid!   ";
+		}
+		error = error.trim();
+	    if (error.length() > 0) {
+	        throw new IllegalArgumentException(error);
+	    }
+	    
+	    HeadLibrarian librarian = new HeadLibrarian(name, username, address, id);
+	    headLibrarianRepository.save(librarian);
+	    return librarian;
+	}
+	
+	/* HEAD LIBRARIAN TIMESLOT */
+	
+	@Transactional
+	public List<HeadLibrarianTimeSlot> getAllHeadLibrarianTimeSlots() {
+		return toList(headLibrarianTimeSlotRepository.findAll());
+	}
+	
+	@Transactional
+	public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot(Integer id) {
+		 if (id == null || id < 0) {
+		        throw new IllegalArgumentException("Time slot id is invalid!");
+		 }
+		 return headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarianTimeSlotId(id);
+	}
+	
+	@Transactional
+	public HeadLibrarianTimeSlot createHeadLibrarianTimeSlot(int headLibrarianTimeSlotId, 
+			HeadLibrarian headLibrarian, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
+		String error = "";
+		
+		if (headLibrarianTimeSlotId < 0) {
+			error += "Librarian ID is invalid!   ";
+		}
+		
+		
+		error = error.trim();
+	    if (error.length() > 0) {
+	        throw new IllegalArgumentException(error);
+	    }
+	    HeadLibrarianTimeSlot hlts = new HeadLibrarianTimeSlot(headLibrarianTimeSlotId, headLibrarian, startTime, endTime, dayOfTheWeek);
+	    headLibrarianTimeSlotRepository.save(hlts);
+	    return hlts;
+	}
+	
+	
+	/* LIBRARIAN */
 	
 	@Transactional
 	public List<Librarian> getAllLibrarians() {
@@ -75,6 +152,7 @@ public class LibrarySystemService {
 	    return librarian;
 	}
 	
+	/* LIBRARIAN TIMESLOT */
 	
 	
 	private <T> List<T> toList(Iterable<T> iterable){
