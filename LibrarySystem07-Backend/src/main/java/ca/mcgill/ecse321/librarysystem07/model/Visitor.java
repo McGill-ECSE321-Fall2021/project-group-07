@@ -9,7 +9,6 @@ public class Visitor extends UserRole {
 	
 	private float balance;
 	private int demeritPoints;
-	//private Library library;
 	
 	
 	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints) {
