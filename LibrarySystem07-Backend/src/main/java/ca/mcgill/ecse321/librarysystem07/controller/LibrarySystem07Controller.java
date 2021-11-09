@@ -43,7 +43,7 @@ public class LibrarySystem07Controller {
 	@GetMapping(value = { "/headLibrarian", "/headLibrarian/" })
 	public HeadLibrarianDto getHeadLibrarian() {
 		
-		return convertToDto(service.getHeadLibrarian());
+		return convertToDto(service.getAllHeadLibrarians().get(0));
 	}
 	
 	/*
