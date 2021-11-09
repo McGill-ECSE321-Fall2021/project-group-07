@@ -352,14 +352,19 @@ public class LibrarySystem07Service {
 		return toList(headLibrarianTimeSlotRepository.findAll());
 	}
 
-	
-//	@Transactional
-//	public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot(Integer id) {
-//		if (id == null || id < 0) {
-//			throw new IllegalArgumentException("Time slot id is invalid!");
-//		}
-//		return headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarianTimeSlotId(id);
-//	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return head librarian schedule slot with Id id.
+	 */
+	@Transactional
+	public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot(Integer id) {
+		if (id == null || id < 0) {
+			throw new IllegalArgumentException("Time slot id is invalid!");
+		}
+		return headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarianTimeSlotId(id);
+	}
 
 	/**
 	 * 
