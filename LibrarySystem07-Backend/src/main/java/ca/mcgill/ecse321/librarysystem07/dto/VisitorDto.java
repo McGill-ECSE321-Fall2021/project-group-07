@@ -38,11 +38,11 @@ public class VisitorDto {
 		libraryCardId = aLibraryCardID;
 		setDemeritPoints(aDemeritPoints);
 		setBalance(0);
-		this.setEvents(events);
-		this.setReservations(reservations);
+		setEvents(events);
+		setReservations(reservations);
 	}
 	
-
+	//GETTERS & SETTERS
 	public float getBalance() {
 		return balance;
 	}
