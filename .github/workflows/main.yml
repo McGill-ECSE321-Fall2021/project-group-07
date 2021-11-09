@@ -33,3 +33,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       working-directory: LibrarySystem07-Backend
+    - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      with:
+        heroku_app_name: "librarysystem07-backend-ls07"
+        heroku_email: "Samantha.handal@mail.mcgill.ca"
