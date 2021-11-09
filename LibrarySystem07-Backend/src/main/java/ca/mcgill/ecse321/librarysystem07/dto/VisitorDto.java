@@ -20,6 +20,7 @@ public class VisitorDto {
 	//CONSTRUCTORS
 	public VisitorDto() {}
 	
+	@SuppressWarnings("unchecked")
 	public VisitorDto(String aName, String aUsername, String aAddress, int aLibraryCardID) {
 		this(aName, aUsername, aAddress, aLibraryCardID, 0, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
 	}
@@ -37,8 +38,8 @@ public class VisitorDto {
 		libraryCardId = aLibraryCardID;
 		setDemeritPoints(aDemeritPoints);
 		setBalance(0);
-		this.events = events;
-		this.reservations = reservations;
+		this.setEvents(events);
+		this.setReservations(reservations);
 	}
 	
 
@@ -72,6 +73,22 @@ public class VisitorDto {
 
 	public int getLibraryCardId() {
 		return libraryCardId;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
 	}	
 
 }
