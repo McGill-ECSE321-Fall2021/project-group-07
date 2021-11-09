@@ -18,7 +18,7 @@ import ca.mcgill.ecse321.librarysystem07.model.InventoryItem.TypeOfItem;
 
 
 @Service
-public class LibrarySystemService {
+public class LibrarySystem07Service {
 
 	@Autowired
 	EventRepository eventRepository;
