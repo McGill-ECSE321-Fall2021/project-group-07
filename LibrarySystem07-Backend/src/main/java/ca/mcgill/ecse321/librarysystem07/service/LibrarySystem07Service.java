@@ -16,6 +16,7 @@ import ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWee
 import ca.mcgill.ecse321.librarysystem07.model.InventoryItem.Status;
 import ca.mcgill.ecse321.librarysystem07.model.InventoryItem.TypeOfItem;
 
+
 @Service
 public class LibrarySystem07Service {
 
@@ -37,13 +38,20 @@ public class LibrarySystem07Service {
 	InventoryItemRepository inventoryItemRepository;
 
 
-	/* EVENT */
+	// EVENT //
 	
+	/**
+	 * @return Iterable list of events.
+	 */
 	@Transactional
 	public List<Event> getAllEvents() {
 		return toList(eventRepository.findAll());
 	}
 	
+	/**
+	 * @param id
+	 * @return Event with ID id.
+	 */
 	@Transactional
 	public Event getEvent(int id) {
 		if (id <0) {
@@ -52,6 +60,13 @@ public class LibrarySystem07Service {
 		return eventRepository.findEventByEventID(id);
 	}
 	
+	/**
+	 * 
+	 * @param Event name
+	 * @param eventID
+	 * @param Visitor booking event
+	 * @return New event
+	 */
 	@Transactional
 	public Event createEvent(String name, int eventID, Visitor visitor) {
 		String error = "";
@@ -74,13 +89,23 @@ public class LibrarySystem07Service {
 		return e;
 	}
 	
+	
 	/* INVENTORY ITEM */
 	
+	/**
+	 * 
+	 * @return Iterable list of inventory items.
+	 */
 	@Transactional
 	public List<InventoryItem> getAllInventoryItems() {
 		return toList(inventoryItemRepository.findAll());
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return Inventory item with ID = id.
+	 */
 	@Transactional
 	public InventoryItem getInventoryItem(int id) {
 		if (id < 0) {
@@ -89,6 +114,16 @@ public class LibrarySystem07Service {
 		return inventoryItemRepository.findInventoryItemByInventoryItemID(id);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param duplicates
+	 * @param name
+	 * @param author
+	 * @param status
+	 * @param type
+	 * @return new inventory item.
+	 */
 	@Transactional
 	public InventoryItem createInventoryItem(int id, int duplicates, String name, 
 			String author, Status status, TypeOfItem type) {
@@ -122,13 +157,24 @@ public class LibrarySystem07Service {
 		return item;
 	}
 	
-	/* RESERVATION */
 	
+	// RESERVATION //
+	
+	/**
+	 * 
+	 * @return Iterable list of reservations.
+	 */
 	@Transactional
 	public List<Reservation> getAllReservations() {
 		return toList(reservationRepository.findAll());
 	}
 	
+	/**
+	 * 
+	 * @param item
+	 * @param visitor
+	 * @return reservation for Visitor visitor with InventoryItem item
+	 */
 	@Transactional
 	public Reservation getReservation(InventoryItem item, Visitor visitor) {
 		if (item == null) {
@@ -140,9 +186,19 @@ public class LibrarySystem07Service {
 		return reservationRepository.findByInventoryItemAndVisitor(item, visitor);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param startDate
+	 * @param endDate
+	 * @param visitor
+	 * @param inventoryItem
+	 * @return new reservation for Visitor
+	 */
 	@Transactional
 	public Reservation createReservation(int id, Date startDate, Date endDate, 
-			Visitor aVisitor, InventoryItem aInventoryItem) {
+			Visitor visitor, InventoryItem inventoryItem) {
+
 		String error = "";
 		if (id < 0) {
 			error += "ID is invalid!";
@@ -156,10 +212,11 @@ public class LibrarySystem07Service {
 		if (endDate != null && startDate != null && endDate.before(startDate)) {
 			error = error + "End date cannot be before start date!";
 		}
-		if (aVisitor == null) {
+		if (visitor == null) {
 			error += "Visitor is invalid!";
 		}
-		if (aInventoryItem == null) {
+		if (inventoryItem == null) {
+      
 			error+= "Inventory item is invalid!";
 		}
 		error = error.trim();
@@ -167,19 +224,29 @@ public class LibrarySystem07Service {
 			throw new IllegalArgumentException(error);
 		}
 		
-		Reservation r = new Reservation(id, startDate, endDate, aVisitor, aInventoryItem);
+		Reservation r = new Reservation(id, startDate, endDate, visitor, inventoryItem);
 		reservationRepository.save(r);
 		return r;
 	}
 	
 	
-	/* VISITOR */
 	
+	// VISITOR //
+	
+	/**
+	 * 
+	 * @return Iterable list of visitors
+	 */
 	@Transactional
 	public List<Visitor> getAllVisitors() {
 		return toList(visitorRepository.findAll());
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return Visitor with Library Card Id id.
+	 */
 	@Transactional
 	public Visitor getVisitor(int id) {
 		if (id < 0) {
@@ -188,6 +255,15 @@ public class LibrarySystem07Service {
 		return visitorRepository.findVisitorByLibraryCardID(id);
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @param username
+	 * @param address
+	 * @param libraryCardID
+	 * @param demeritPoints
+	 * @return new visitor
+	 */
 	public Visitor createVisitor(String name, String username, String address, int libraryCardID, int demeritPoints) {
 		String error = "";
 		
@@ -217,13 +293,14 @@ public class LibrarySystem07Service {
 		
 	}
 	
-	/* HEAD LIBRARIAN */
+	
+	// HEAD LIBRARIAN //
 
-	@Transactional
-	public List<HeadLibrarian> getAllHeadLibrarians() {
-		return toList(headLibrarianRepository.findAll());
-	}
-
+	/**
+	 * 
+	 * @param id
+	 * @return head librarian with libraryCardId id.
+	 */
 	@Transactional
 	public HeadLibrarian getHeadLibrarian(Integer id) {
 		if (id == null || id < 0) {
@@ -233,6 +310,22 @@ public class LibrarySystem07Service {
 		return l;
 	}
 
+  /**
+  * @return list of all head librarians.
+  */
+  @Transactional
+	public List<HeadLibrarian> getAllHeadLibrarians() {
+		return toList(headLibrarianRepository.findAll());
+	}
+  
+	/**
+	 * 
+	 * @param name
+	 * @param username
+	 * @param address
+	 * @param id
+	 * @return new head librarian/
+	 */
 	@Transactional
 	public HeadLibrarian createHeadLibrarian(String name, String username, String address, Integer id) {
 		String error = "";
@@ -258,14 +351,23 @@ public class LibrarySystem07Service {
 		return librarian;
 	}
 
+	
+	// HEAD LIBRARIAN TIMESLOT //
 
-	/* HEAD LIBRARIAN TIMESLOT */
-
+	/**
+	 * @return all head librarian schedule time slots
+	 */
 	@Transactional
 	public List<HeadLibrarianTimeSlot> getAllHeadLibrarianTimeSlots() {
 		return toList(headLibrarianTimeSlotRepository.findAll());
 	}
 
+
+	/**
+	 * 
+	 * @param id
+	 * @return head librarian schedule slot with Id id.
+	 */
 	@Transactional
 	public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot(Integer id) {
 		if (id == null || id < 0) {
@@ -274,47 +376,64 @@ public class LibrarySystem07Service {
 		return headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarianTimeSlotId(id);
 	}
 
+	/**
+	 * 
+	 * @param headLibrarian
+	 * @param startTime
+	 * @param endTime
+	 * @param dayOfTheWeek
+	 * @return new head librarian schedule time slot
+	 */
 	@Transactional
-	public HeadLibrarianTimeSlot createHeadLibrarianTimeSlot(HeadLibrarian headLibrarian, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
-		String error = "";
+ 	public HeadLibrarianTimeSlot createHeadLibrarianTimeSlot(HeadLibrarian headLibrarian, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
+ 		String error = "";
 
-		if (headLibrarian == null) {
-			error += "Head librarian is invalid!";
-		}
-		if (startTime == null) {
-			error += "Timeslot start time is invalid!";
-		}
-		if (endTime == null) {
-			error += "Timeslot end time is invalid!";
-		}
-		if (endTime != null && startTime != null && endTime.before(startTime)) {
-			error = error + "Timeslot end time cannot be before event start time!";
-		}
-		if (dayOfTheWeek == null) {
-			error += "Invalid day of week!";
-		}
-		
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		
-		Random rand = new Random();
-		int headLibrarianTimeSlotId = rand.nextInt();
-		
-		HeadLibrarianTimeSlot hlts = new HeadLibrarianTimeSlot(headLibrarianTimeSlotId, headLibrarian, startTime, endTime, dayOfTheWeek);
-		headLibrarianTimeSlotRepository.save(hlts);
-		return hlts;
-	}
+ 		if (headLibrarian == null) {
+ 			error += "Head librarian is invalid!";
+ 		}
+ 		if (startTime == null) {
+ 			error += "Timeslot start time is invalid!";
+ 		}
+ 		if (endTime == null) {
+ 			error += "Timeslot end time is invalid!";
+ 		}
+ 		if (endTime != null && startTime != null && endTime.before(startTime)) {
+ 			error = error + "Timeslot end time cannot be before event start time!";
+ 		}
+ 		if (dayOfTheWeek == null) {
+ 			error += "Invalid day of week!";
+ 		}
+
+ 		error = error.trim();
+ 		if (error.length() > 0) {
+ 			throw new IllegalArgumentException(error);
+ 		}
+
+ 		Random rand = new Random();
+ 		int headLibrarianTimeSlotId = rand.nextInt();
+
+ 		HeadLibrarianTimeSlot hlts = new HeadLibrarianTimeSlot(headLibrarianTimeSlotId, headLibrarian, startTime, endTime, dayOfTheWeek);
+ 		headLibrarianTimeSlotRepository.save(hlts);
+ 		return hlts;
+ 	}
 
 
-	/* LIBRARIAN */
+	// LIBRARIAN //
+
+	/**
+	 * @return iterable list of all librarians
+	 */
 
 	@Transactional
 	public List<Librarian> getAllLibrarians() {
 		return toList(librarianRepository.findAll());
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return librarian with LibraryCardId id
+	 */
 	@Transactional
 	public Librarian getLibrarian(Integer id) {
 		if (id == null || id < 0) {
@@ -324,6 +443,14 @@ public class LibrarySystem07Service {
 		return l;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param username
+	 * @param address
+	 * @param id
+	 * @return new librarian
+	 */
 	@Transactional
 	public Librarian createLibrarian(String name, String username, String address, Integer id) {
 		String error = "";
@@ -349,13 +476,22 @@ public class LibrarySystem07Service {
 		return librarian;
 	}
 
-	/* LIBRARIAN TIMESLOT */
+	// LIBRARIAN TIMESLOT //
 
+	/**
+	 * 
+	 * @return iterable list of librarian schedule time slots
+	 */
 	@Transactional
 	public List<LibrarianTimeSlot> getAllLibrarianTimeSlots() {
 		return toList(librarianTimeSlotRepository.findAll());
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return librarian schedule time slot with TimeSlotId id
+	 */
 	@Transactional
 	public LibrarianTimeSlot getLibrarianTimeSlot(Integer id) {
 		if (id == null || id < 0) {
@@ -364,6 +500,14 @@ public class LibrarySystem07Service {
 		return librarianTimeSlotRepository.findLibrarianTimeSlotByLibrarianTimeSlotId(id);
 	}
 
+  /**
+	 * 
+	 * @param librarian
+	 * @param startTime
+	 * @param endTime
+	 * @param dayOfTheWeek
+	 * @return new librarian time slot
+	 */
 	@Transactional
 	public LibrarianTimeSlot createLibrarianTimeSlot(Librarian librarian, Time startTime, Time endTime, LibrarianTimeSlot.DayOfTheWeek dayOfTheWeek) {
 		String error = "";
@@ -396,11 +540,13 @@ public class LibrarySystem07Service {
 		librarianTimeSlotRepository.save(hlts);
 		return hlts;
 	}
+
 	
-	/*
-	 * i added
-	 */
-	
+  /**
+  *
+  * @param librarian
+  * @return list of all librarian's schedule slots
+  */
 	@Transactional
 	public List<LibrarianTimeSlot> getLibrarianTimeSlotByLibrarian(Librarian librarian) {
 		List<LibrarianTimeSlot> librarianSchedule = new ArrayList<>();
@@ -410,6 +556,12 @@ public class LibrarySystem07Service {
 		return librarianSchedule;
 	}
 	
+   /**
+	 * 
+	 * @param <T>
+	 * @param iterable
+	 * @return iterable list
+	 */
 	private <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {
