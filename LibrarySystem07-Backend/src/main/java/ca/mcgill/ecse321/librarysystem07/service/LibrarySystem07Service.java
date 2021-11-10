@@ -89,8 +89,24 @@ public class LibrarySystem07Service {
 		return e;
 	}
 	
+	/**
+	 * 
+	 * @param visitor
+	 * @return all events created by visitor
+	 */
+	@Transactional
+	public List<Event> getEventsOfVisitor(Visitor visitor) {
+		List<Event> events = new ArrayList<Event>();
+		for (Event e : getAllEvents()) {
+			if (e.getVisitor().equals(visitor)) {
+				events.add(e);
+			}
+		}
+		return events;
+	}
 	
-	/* INVENTORY ITEM */
+	
+	// INVENTORY ITEM //
 	
 	/**
 	 * 
@@ -184,6 +200,22 @@ public class LibrarySystem07Service {
 			throw new IllegalArgumentException("Invalid!");
 		}
 		return reservationRepository.findByInventoryItemAndVisitor(item, visitor);
+	}
+	
+	/**
+	 * 
+	 * @param visitor
+	 * @return all reservations for visitor
+	 */
+	@Transactional
+	public List<Reservation> getReservationsForVisitor(Visitor visitor) {
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		for (Reservation r : getAllReservations()) {
+			if (r.getVisitor().equals(visitor)) {
+				reservations.add(r);
+			}
+		}
+		return reservations;
 	}
 	
 	/**
