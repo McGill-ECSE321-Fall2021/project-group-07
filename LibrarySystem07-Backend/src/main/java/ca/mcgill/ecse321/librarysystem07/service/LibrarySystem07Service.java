@@ -90,7 +90,7 @@ public class LibrarySystem07Service {
 	}
 	
 	
-	/* INVENTORY ITEM */
+	// INVENTORY ITEM //
 	
 	/**
 	 * 
