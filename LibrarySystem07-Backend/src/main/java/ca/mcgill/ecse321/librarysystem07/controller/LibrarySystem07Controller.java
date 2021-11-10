@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,6 +68,11 @@ public class LibrarySystem07Controller {
 		Visitor v = convertToDomainObject(vDto);
 		return createEventDtosForVisitor(v);
 	}
+	
+	@DeleteMapping(value="/visitor/{libraryCardId}")
+	public void deleteVisitor(@PathVariable("libraryCardId") int libraryCardId) {
+		service.deleteVisitor(libraryCardId);
+	}
 
 
 	/* Event controller methods */
@@ -86,6 +92,11 @@ public class LibrarySystem07Controller {
 					throws IllegalArgumentException {
 		Event event = service.createEvent(name, eventId, visitor);
 		return convertToDto(event);
+	}
+
+	@DeleteMapping(value="/event/{eventId}")
+	public void deleteEvent(@PathVariable("eventId") int eventId) {
+		service.deleteEvent(eventId);
 	}
 
 
@@ -128,6 +139,11 @@ public class LibrarySystem07Controller {
 		return eventsDto;
 	}
 
+	@DeleteMapping(value="/reservation/{reservationId}")
+	public void deleteReservation(@PathVariable("reservationId") int reservationId) {
+		service.deleteReservation(reservationId);
+	}
+	
 
 	/*
 	 * 
@@ -149,6 +165,12 @@ public class LibrarySystem07Controller {
 		return convertToDto(service.getAllHeadLibrarians().get(0));
 	}
 
+	@DeleteMapping(value="/headLibrarian/{libraryCardId}")
+	public void deleteHeadLibrarian(@PathVariable("libraryCardId") int libraryCardId) {
+		service.deleteHeadLibrarian(libraryCardId);
+	}
+	
+	
 	/*
 	 * librarian controllers
 	 */
@@ -177,6 +199,11 @@ public class LibrarySystem07Controller {
 		return convertToDto(service.getLibrarian(libraryCardId));
 	}
 
+	@DeleteMapping(value="/librarian/{libraryCardId}")
+	public void deleteLibrarian(@PathVariable("libraryCardId") int libraryCardId) {
+		service.deleteLibrarian(libraryCardId);
+	}
+	
 	/*
 	 * headLibrarianTimeSlot controllers
 	 */
@@ -220,6 +247,33 @@ public class LibrarySystem07Controller {
 		return headLibrarianTimeSlotDtos;
 	}
 
+	@DeleteMapping(value="/headLibrarian/{libraryCardId}")
+	public void deleteHeadLibrarianTimeSlot(@PathVariable("libraryCardId") Integer libraryCardId, @RequestParam(name = "dayOfWeek") String dayOfWeek,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime) {
+		
+		DayOfTheWeek weekDay;
+
+		if (dayOfWeek.equalsIgnoreCase("monday")) {
+			weekDay = DayOfTheWeek.Monday;
+		} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
+			weekDay = DayOfTheWeek.Tuesday;
+		} else if (dayOfWeek.equalsIgnoreCase("wednesday")) {
+			weekDay = DayOfTheWeek.Wednesday;
+		} else if (dayOfWeek.equalsIgnoreCase("thursday")) {
+			weekDay = DayOfTheWeek.Thursday;
+		} else if (dayOfWeek.equalsIgnoreCase("friday")) {
+			weekDay = DayOfTheWeek.Friday;
+		} else if (dayOfWeek.equalsIgnoreCase("saturday")) {
+			weekDay = DayOfTheWeek.Saturday;
+		} else {
+			weekDay = DayOfTheWeek.Sunday;
+		}
+
+		service.deleteHeadLibrarianTimeSlot(Time.valueOf(startTime), Time.valueOf(endTime), weekDay,service.getHeadLibrarian(libraryCardId) );
+	}
+	
+	
 	/*
 	 * librarianTimeSlot controllers
 	 */
@@ -268,6 +322,34 @@ public class LibrarySystem07Controller {
 		Librarian l = convertToDomainObject(lDto);
 		return createLibrarianTimeSlotDtosForLibrarian(l);
 	}
+	
+	@DeleteMapping(value="/librarian/{libraryCardId}")
+	public void deleteLibrarianTimeSlot(@PathVariable("libraryCardId") Integer libraryCardId, @RequestParam(name = "dayOfWeek") String dayOfWeek,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime) {
+		
+		LibrarianTimeSlot.DayOfTheWeek weekDay;
+
+		if (dayOfWeek.equalsIgnoreCase("monday")) {
+			weekDay = LibrarianTimeSlot.DayOfTheWeek.Monday;
+		} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
+			weekDay = LibrarianTimeSlot.DayOfTheWeek.Tuesday;
+		} else if (dayOfWeek.equalsIgnoreCase("wednesday")) {
+			weekDay = LibrarianTimeSlot.DayOfTheWeek.Wednesday;
+		} else if (dayOfWeek.equalsIgnoreCase("thursday")) {
+			weekDay = LibrarianTimeSlot.DayOfTheWeek.Thursday;
+		} else if (dayOfWeek.equalsIgnoreCase("friday")) {
+			weekDay = LibrarianTimeSlot.DayOfTheWeek.Friday;
+		} else if (dayOfWeek.equalsIgnoreCase("saturday")) {
+			weekDay = LibrarianTimeSlot.DayOfTheWeek.Saturday;
+		} else {
+			weekDay = LibrarianTimeSlot.DayOfTheWeek.Sunday;
+		}
+
+		service.deleteLibrarianTimeSlot(Time.valueOf(startTime), Time.valueOf(endTime), weekDay,service.getLibrarian(libraryCardId) );
+	}
+	
+	
 
 	/*
 	 * MODEL TO DTO HELPER METHODS

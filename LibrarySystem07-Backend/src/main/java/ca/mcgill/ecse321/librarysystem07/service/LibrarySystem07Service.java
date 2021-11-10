@@ -626,8 +626,8 @@ public class LibrarySystem07Service {
 	 * @param day
 	 */
 	@Transactional
-	public void deleteHeadLibrarianTimeSlot(Time startTime, Time endTime, DayOfTheWeek day) {
-		for (HeadLibrarianTimeSlot timeSlot : headLibrarianTimeSlotRepository.findAll()) {
+	public void deleteHeadLibrarianTimeSlot(Time startTime, Time endTime, HeadLibrarianTimeSlot.DayOfTheWeek day, HeadLibrarian headLibrarian) {
+		for (HeadLibrarianTimeSlot timeSlot : headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarian(headLibrarian)) {
 			if (timeSlot.getDayOfTheWeek().equals(day)) {
 				
 				//if times have total overlap with a timeSlot, delete timeSlot
@@ -839,14 +839,14 @@ public class LibrarySystem07Service {
 	 * @param day
 	 */
 	@Transactional
-	public void deleteLibrarianTimeSlot(Time startTime, Time endTime, DayOfTheWeek day) {
-		for (HeadLibrarianTimeSlot timeSlot : headLibrarianTimeSlotRepository.findAll()) {
+	public void deleteLibrarianTimeSlot(Time startTime, Time endTime, LibrarianTimeSlot.DayOfTheWeek day, Librarian librarian) {
+		for (LibrarianTimeSlot timeSlot : librarianTimeSlotRepository.findLibrarianTimeSlotByLibrarian(librarian)) {
 			if (timeSlot.getDayOfTheWeek().equals(day)) {
 				
 				//if times have total overlap with a timeSlot, delete timeSlot
 				if ((timeSlot.getStartTime().equals(startTime) || timeSlot.getStartTime().after(startTime)) 
 						&& timeSlot.getEndTime().equals(endTime) || timeSlot.getEndTime().before(endTime)) {
-					deleteHeadLibrarianTimeSlot(timeSlot);
+					deleteLibrarianTimeSlot(timeSlot);
 				}
 				
 				//if the time period to delete starts before the timeSlot, and ends in the middle of a timeSlot, 
