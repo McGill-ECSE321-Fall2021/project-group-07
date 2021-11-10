@@ -405,7 +405,7 @@ public class LibrarySystem07Service {
 		if (id == null || id < 0) {
 			throw new IllegalArgumentException("Time slot id is invalid!");
 		}
-		return headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarianTimeSlotId(id);
+		return headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByTimeSlotID(id);
 	}
 
 	/**
@@ -529,7 +529,7 @@ public class LibrarySystem07Service {
 		if (id == null || id < 0) {
 			throw new IllegalArgumentException("Time slot id is invalid!");
 		}
-		return librarianTimeSlotRepository.findLibrarianTimeSlotByLibrarianTimeSlotId(id);
+		return librarianTimeSlotRepository.findLibrarianTimeSlotByTimeSlotID(id);
 	}
 
   /**
