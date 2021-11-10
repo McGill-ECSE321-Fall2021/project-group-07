@@ -379,7 +379,7 @@ public class LibrarySystem07Controller {
 			throw new IllegalArgumentException("Reservation is not valid.");
 		}
 		else {
-			ReservationDto reservation = new ReservationDto(r.getStartDate(), r.getEndData(), r.getVisitor(), r.getInventoryItem(), r.getReservationID());
+			ReservationDto reservation = new ReservationDto(r.getStartDate(), r.getEndDate(), r.getVisitor(), r.getInventoryItem(), r.getReservationID());
 			return reservation;
 		}
 	}
