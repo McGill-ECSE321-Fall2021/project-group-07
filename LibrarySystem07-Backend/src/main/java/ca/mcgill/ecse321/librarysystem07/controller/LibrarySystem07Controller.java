@@ -1,20 +1,12 @@
-<<<<<<< HEAD
 
 package ca.mcgill.ecse321.librarysystem07.controller;
 
 import java.sql.Date;
-=======
-package ca.mcgill.ecse321.librarysystem07.controller;
-
->>>>>>> 7534830a97ff1725b9a931b0e11703729988dd7c
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.stream.Collectors;
-=======
->>>>>>> 7534830a97ff1725b9a931b0e11703729988dd7c
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,7 +30,6 @@ public class LibrarySystem07Controller {
 	@Autowired
 	private LibrarySystem07Service service;
 	
-<<<<<<< HEAD
 	// VISITOR //
 	
 	@GetMapping(value = { "/visitors", "/visitors/" })
@@ -124,15 +115,10 @@ public class LibrarySystem07Controller {
 		}
 		return eventsDto;
 	}
-	
-	
-	private Visitor convertToDomainObject(VisitorDto v) {
-		List<Visitor> visitors = service.getAllVisitors();
-		for (Visitor visitor : visitors) {
-			if (visitor.getLibraryCardID() == v.getLibraryCardId()) {
-				return visitor;
-=======
+
+
 	/*
+	 * 
 	 * headlibrarian controllers
 	 */
 	
@@ -351,14 +337,21 @@ public class LibrarySystem07Controller {
 		for (Librarian librarian : allLibrarians) {
 			if (librarian.getLibraryCardID() == lDto.getLibraryCardID()) {
 				return librarian;
->>>>>>> 7534830a97ff1725b9a931b0e11703729988dd7c
 			}
 		}
 		return null;
 	}
 	
-<<<<<<< HEAD
-	
+	private Visitor convertToDomainObject(VisitorDto v) {
+		List<Visitor> visitors = service.getAllVisitors();
+		for (Visitor visitor : visitors) {
+			if (visitor.getLibraryCardID() == v.getLibraryCardId()) {
+				return visitor;
+			}
+		}
+		return null;
+	}
+		
 	private EventDto convertToDto(Event e) {
 		if (e == null) {
 			throw new IllegalArgumentException("Event is not valid.");
@@ -379,6 +372,8 @@ public class LibrarySystem07Controller {
 		}
 	}
 	
+	
+	
 	private VisitorDto convertToDto(Visitor v) {
 		if (v == null) {
 			throw new IllegalArgumentException("This visitor is invalid.");
@@ -388,7 +383,8 @@ public class LibrarySystem07Controller {
 			return vDto;
 		}
 	}
-=======
+
+
 	/*
 	 * helper methods for initializing dayOfTheWeek in LibrarianTimeSlotDto and HeadLibrarianTimeSlotDto
 	 * when creating DTO, we need to use the enum class within the DTO class and not the model 
@@ -443,5 +439,4 @@ public class LibrarySystem07Controller {
 		return newTime;
 	}
 	
->>>>>>> 7534830a97ff1725b9a931b0e11703729988dd7c
 }
