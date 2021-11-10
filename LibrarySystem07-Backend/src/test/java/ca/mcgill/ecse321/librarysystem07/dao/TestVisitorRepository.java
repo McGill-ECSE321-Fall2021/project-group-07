@@ -28,10 +28,17 @@ public class TestVisitorRepository {
 	@Test
 	public void testPersistAndLoadVisitor() {
 		
+<<<<<<< HEAD
 		String libName = "Westmount Library";
 		String city = "Montreal";
 		String phoneNumber = "514-678-0453";
 		Library lib = new Library(libName, city, phoneNumber);
+=======
+//		String libName = "Westmount Library";
+//		String city = "Montreal";
+//		String phoneNumber = "514-678-0453";
+//		Library lib = new Library(libName, city, phoneNumber);
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 		
 		String name = "Sam";
 		String username = "Sam20031";
@@ -39,11 +46,19 @@ public class TestVisitorRepository {
 		Integer aLibraryCardID = 12345; 
 		int aDemeritPoints = 0;
 
+<<<<<<< HEAD
 		Visitor sam = new Visitor(name, username, addy, aLibraryCardID, aDemeritPoints, lib);
 		visitorRepository.save(sam);
 		
 		sam = null;
 		sam = visitorRepository.findVisitorByLibrarianCardID(aLibraryCardID);
+=======
+		Visitor sam = new Visitor(name, username, addy, aLibraryCardID, aDemeritPoints);
+		visitorRepository.save(sam);
+		
+		sam = null;
+		sam = visitorRepository.findVisitorByLibraryCardID(aLibraryCardID);
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 		
 		assertNotNull(sam);
 		assertEquals(aLibraryCardID, sam.getLibraryCardID());

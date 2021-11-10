@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Library")
+@Table(name = "library")
 public class Library {
 
 	private String name;
@@ -93,7 +93,11 @@ public class Library {
 	public void addInventoryItem(InventoryItem aInventoryItem)
 	{
 		if (inventoryItems.contains(aInventoryItem)) { return; }
+<<<<<<< HEAD
 		aInventoryItem.setLibrary(this);
+=======
+		//aInventoryItem.setLibrary(this);
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 		inventoryItems.add(aInventoryItem);
 	}
 
@@ -122,4 +126,8 @@ public class Library {
 		}
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda

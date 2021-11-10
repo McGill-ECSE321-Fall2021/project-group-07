@@ -4,17 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Visitor")
+@Table(name = "visitor")
 public class Visitor extends UserRole {
 	
 	private float balance;
 	private int demeritPoints;
-	private Library library;
 	
 	
-	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints, Library aLibrary) {
+	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints) {
 
-		super(aName, aUsername, aAddress, aLibraryCardID, aLibrary);
+		super(aName, aUsername, aAddress, aLibraryCardID);
 		this.balance = 0;
 		this.setDemeritPoints(aDemeritPoints);
 //		if (!aAddress.contains(library.getCity())) {
@@ -38,12 +37,16 @@ public class Visitor extends UserRole {
 		this.demeritPoints = demeritPoints;
 	}
 
-	public Library getLibrary() {
-		return library;
-	}
-
-	public void setLibrary(Library library) {
-		this.library = library;
-	}
+//	public Library getLibrary() {
+//		return library;
+//	}
+//
+//	public void setLibrary(Library library) {
+//		this.library = library;
+//	}
 	
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda

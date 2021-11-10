@@ -9,6 +9,10 @@ import javax.persistence.*;
 // line 66 "model.ump"
 // line 139 "model.ump"
 @Entity
+<<<<<<< HEAD
+=======
+@Table(name = "Inventory Item")
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 public class InventoryItem
 {
 
@@ -23,7 +27,7 @@ public class InventoryItem
   // STATIC VARIABLES
   //------------------------
 
-  private static Map<Integer, InventoryItem> inventoryitemsByInventoryItemID = new HashMap<Integer, InventoryItem>();
+  //private static Map<Integer, InventoryItem> inventoryitemsByInventoryItemID = new HashMap<Integer, InventoryItem>();
 
   //------------------------
   // MEMBER VARIABLES
@@ -38,14 +42,18 @@ public class InventoryItem
   private TypeOfItem type; 
   private boolean isReservable; 
 
-  //InventoryItem Associations
-  private Library library;
+//  //InventoryItem Associations
+//  private Library library;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
+<<<<<<< HEAD
   public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType, Library aLibrary) {
+=======
+  public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType) {
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 	
 	this.inventoryItemID = aInventoryItemID;
     this.duplicates = aDuplicates;
@@ -53,7 +61,11 @@ public class InventoryItem
     this.author = aAuthor;
     this.status = aStatus;
     this.type = aType;
+<<<<<<< HEAD
     this.library = aLibrary;
+=======
+    //this.library = aLibrary;
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
     
     if (type.equals(TypeOfItem.Archive) || type.equals(TypeOfItem.Newspaper) || type.equals(TypeOfItem.Magazine)) {
     	isReservable = false;
@@ -63,6 +75,7 @@ public class InventoryItem
     
   }
 
+<<<<<<< HEAD
 	public static Map<Integer, InventoryItem> getInventoryitemsByInventoryItemID() {
 		return inventoryitemsByInventoryItemID;
 	}
@@ -70,6 +83,15 @@ public class InventoryItem
 	public static void setInventoryitemsByInventoryItemID(Map<Integer, InventoryItem> inventoryitemsByInventoryItemID) {
 		InventoryItem.inventoryitemsByInventoryItemID = inventoryitemsByInventoryItemID;
 	}
+=======
+//	public static Map<Integer, InventoryItem> getInventoryitemsByInventoryItemID() {
+//		return inventoryitemsByInventoryItemID;
+//	}
+//	
+//	public static void setInventoryitemsByInventoryItemID(Map<Integer, InventoryItem> inventoryitemsByInventoryItemID) {
+//		InventoryItem.inventoryitemsByInventoryItemID = inventoryitemsByInventoryItemID;
+//	}
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 	
 	@Id
 	public int getInventoryItemID() {
@@ -128,6 +150,7 @@ public class InventoryItem
 		this.isReservable = isReservable;
 	}
 	
+<<<<<<< HEAD
 	public Library getLibrary() {
 		return library;
 	}
@@ -135,6 +158,15 @@ public class InventoryItem
 	public void setLibrary(Library library) {
 		this.library = library;
 	}
+=======
+//	public Library getLibrary() {
+//		return library;
+//	}
+//	
+//	public void setLibrary(Library library) {
+//		this.library = library;
+//	}
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 	
 
 }

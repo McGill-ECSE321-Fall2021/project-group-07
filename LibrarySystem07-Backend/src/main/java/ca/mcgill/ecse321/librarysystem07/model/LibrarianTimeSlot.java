@@ -5,16 +5,25 @@ import java.sql.Date;
 import java.util.*;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "Librarian Time Slot")
+=======
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "librarian time slot")
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 public class LibrarianTimeSlot {
 
 	private Time startTime;
 	private Time endTime;
 	private DayOfTheWeek dayOfTheWeek;
+<<<<<<< HEAD
 	private Date date;
 	private Librarian librarian;
 	private Library library;
@@ -36,6 +45,22 @@ public class LibrarianTimeSlot {
 	@Id
 	public LibrarianTimeSlot getLibrarianTimeSlot() {
 		return this;
+=======
+	private Librarian librarian;
+	//private Library library;
+	private int librarianTimeSlotId;
+
+	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+
+	public LibrarianTimeSlot(int librarianTimeSlotId, Librarian aLibrarian, Time aStartTime, Time aEndTime, DayOfTheWeek aDayOfTheWeek)
+	{
+		setStartTime(aStartTime);
+		setEndTime(aEndTime);
+		setDayOfTheWeek(aDayOfTheWeek);
+		setLibrarian(aLibrarian);
+		//setLibrary(aLibrary);
+		setLibrarianTimeSlotId(librarianTimeSlotId);
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 	}
 
 	public DayOfTheWeek getDayOfTheWeek() {
@@ -62,6 +87,7 @@ public class LibrarianTimeSlot {
 		this.endTime = endTime;
 	}
 
+<<<<<<< HEAD
 	public Date getDate() {
 		return date;
 	}
@@ -70,6 +96,8 @@ public class LibrarianTimeSlot {
 		this.date = date;
 	}
 
+=======
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 	@ManyToOne(optional=false)
 	public Librarian getLibrarian() {
 		return librarian;
@@ -79,6 +107,7 @@ public class LibrarianTimeSlot {
 		this.librarian = librarian;
 	}
 
+<<<<<<< HEAD
 	public Library getLibrary() {
 		return library;
 	}
@@ -95,3 +124,22 @@ public class LibrarianTimeSlot {
 		this.timeSlotId = timeSlotId;
 	}
 }
+=======
+//	public Library getLibrary() {
+//		return library;
+//	}
+//
+//	public void setLibrary(Library library) {
+//		this.library = library;
+//	}
+
+	@Id
+	public int getLibrarianTimeSlotId() {
+		return librarianTimeSlotId;
+	}
+
+	public void setLibrarianTimeSlotId(int alibrarianTimeSlotId) {
+		this.librarianTimeSlotId = alibrarianTimeSlotId;
+	}
+}
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda

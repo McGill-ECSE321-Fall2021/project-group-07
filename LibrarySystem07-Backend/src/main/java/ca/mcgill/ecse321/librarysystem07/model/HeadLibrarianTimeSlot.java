@@ -5,37 +5,36 @@ import java.sql.Time;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+<<<<<<< HEAD
+import javax.persistence.ManyToOne;
+=======
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 
 @Entity
-@Table(name = "Head Librarian Time Slot")
+@Table(name = "head librarian time slot")
 public class HeadLibrarianTimeSlot {
 	
 	private Time startTime;
 	private Time endTime;
 	private DayOfTheWeek dayOfTheWeek;
-	private Date date;
 	private HeadLibrarian headLibrarian;
-	private Library library;
-	private int timeSlotId;
+	//private Library library;
+	private int headLibrarianTimeSlotId;
 
 	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	public HeadLibrarianTimeSlot(int headLibrarianTimeSlotId, HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, Date aDate, DayOfTheWeek aDayOfTheWeek, Library aLibrary)
+	public HeadLibrarianTimeSlot(int headLibrarianTimeSlotId, HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, DayOfTheWeek aDayOfTheWeek)
 	{
 		setStartTime(aStartTime);
 		setEndTime(aEndTime);
-		setDate(aDate);
 		setDayOfTheWeek(aDayOfTheWeek);
 		setHeadLibrarian(aLibrarian);
-		setLibrary(aLibrary);
-		setTimeSlotId(headLibrarianTimeSlotId);
+		//setLibrary(aLibrary);
+		setHeadLibrarianTimeSlotId(headLibrarianTimeSlotId);
 	}
 
-	public HeadLibrarianTimeSlot getHeadLibrarianTimeSlot() {
-		return this;
-	}
 
 	public Time getStartTime() {
 		return startTime;
@@ -61,6 +60,7 @@ public class HeadLibrarianTimeSlot {
 		this.dayOfTheWeek = dayOfTheWeek;
 	}
 
+<<<<<<< HEAD
 	public Date getDate() {
 		return date;
 	}
@@ -69,6 +69,8 @@ public class HeadLibrarianTimeSlot {
 		this.date = date;
 	}
 
+=======
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 	@ManyToOne(optional=false)
 	public HeadLibrarian getHeadLibrarian() {
 		return headLibrarian;
@@ -78,20 +80,24 @@ public class HeadLibrarianTimeSlot {
 		this.headLibrarian = headLibrarian;
 	}
 
-	public Library getLibrary() {
-		return library;
-	}
-
-	public void setLibrary(Library library) {
-		this.library = library;
-	}
+//	public Library getLibrary() {
+//		return library;
+//	}
+//
+//	public void setLibrary(Library library) {
+//		this.library = library;
+//	}
 
 	@Id
-	public int getTimeSlotId() {
-		return timeSlotId;
+	public int getHeadLibrarianTimeSlotId() {
+		return headLibrarianTimeSlotId;
 	}
 
-	public void setTimeSlotId(int timeSlotId) {
-		this.timeSlotId = timeSlotId;
+	public void setHeadLibrarianTimeSlotId(int aheadLibrarianTimeSlotId) {
+		this.headLibrarianTimeSlotId = aheadLibrarianTimeSlotId;
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda

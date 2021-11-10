@@ -9,7 +9,11 @@ import javax.persistence.Table;
 
 
 @Entity
+<<<<<<< HEAD
 @Table(name = "Event")
+=======
+@Table(name = "event")
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 public class Event {
 
  

@@ -3,6 +3,8 @@ package ca.mcgill.ecse321.librarysystem07.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.sql.Time;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,54 +13,56 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ca.mcgill.ecse321.librarysystem07.model.Librarian;
+import ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot;
 import ca.mcgill.ecse321.librarysystem07.model.Library;
+import ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TestLibrarianPersistence {
+public class TestLibrarianTimeSlotPersistence {
 	
 	@Autowired
 	private LibrarianRepository librarianRepository;
 	
+	@Autowired
+	private LibrarianTimeSlotRepository librarianTimeSlotRepository;
+	
 	@AfterEach
 	public void clearDatabase() {
+		librarianTimeSlotRepository.deleteAll();
 		librarianRepository.deleteAll();
 	}
 
 	@Test
-	public void testPersistAndLoadLibrarian() {
+	public void testPersistAndLoadLibrarianTimeSlot() {
 		
-<<<<<<< HEAD
-		String libName = "Westmount Library";
-		String city = "Montreal";
-		String phoneNumber = "514-678-0453";
-		Library lib = new Library(libName, city, phoneNumber);
-=======
 //		String libName = "Westmount Library";
 //		String city = "Montreal";
 //		String phoneNumber = "514-678-0453";
-//		Library lib = new Library(libName, city, phoneNumber);
->>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
+//		Library library = new Library(libName, city, phoneNumber);
 		
 		String name = "Nancy";
 		String username = "nancy";
 		String address = "240 test street";
 		int libraryCardId =  667;
 		
-<<<<<<< HEAD
-		Librarian nancy = new Librarian(name, username, address, libraryCardId, lib);
-=======
 		Librarian nancy = new Librarian(name, username, address, libraryCardId);
->>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 		librarianRepository.save(nancy);
 		
-		nancy = null;
+		int librarianTimeSlotId = 0;
+		Time startTime = new Time(8, 0, 0);
+		Time endTime = new Time(12, 0, 0);
+		DayOfTheWeek day = DayOfTheWeek.Monday;
 		
-		nancy = librarianRepository.findLibrarianByLibraryCardID(libraryCardId);
+		LibrarianTimeSlot librarianTimeSlot = new LibrarianTimeSlot(librarianTimeSlotId, nancy, startTime, endTime, day);
 		
-		assertNotNull(nancy);
-		assertEquals(libraryCardId, nancy.getLibraryCardID());
-
+		librarianTimeSlotRepository.save(librarianTimeSlot);
+		
+		librarianTimeSlot = null;
+		
+		librarianTimeSlot = librarianTimeSlotRepository.findLibrarianTimeSlotByLibrarianTimeSlotId(librarianTimeSlotId);
+		assertNotNull(librarianTimeSlot);
+		assertEquals(librarianTimeSlot.getLibrarianTimeSlotId(), librarianTimeSlotId);
+		
 	}
-
 }

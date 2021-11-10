@@ -7,8 +7,15 @@ import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+<<<<<<< HEAD
 
 @Entity
+=======
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "reservation")
+>>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 public class Reservation
 {
 
