@@ -9,6 +9,7 @@ import javax.persistence.*;
 // line 66 "model.ump"
 // line 139 "model.ump"
 @Entity
+@Table(name = "Inventory Item")
 public class InventoryItem
 {
 
