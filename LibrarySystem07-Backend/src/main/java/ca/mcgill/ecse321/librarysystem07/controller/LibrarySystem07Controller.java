@@ -26,40 +26,51 @@ import ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWee
 @CrossOrigin(origins = "*")
 @RestController
 public class LibrarySystem07Controller {
-	
+
 	@Autowired
 	private LibrarySystem07Service service;
-	
-	// VISITOR //
-	
+
+	/* Visitor controller methods */
+
 	@GetMapping(value = { "/visitors", "/visitors/" })
 	public List<VisitorDto> getAllPersons() {
 		return service.getAllVisitors().stream().map(p -> convertToDto(p)).collect(Collectors.toList());
 	}
-	
+
 	@PostMapping(value = { "/visitor/{libraryCardId}", "/visitor/{libraryCardId}/" })
 	public VisitorDto createVisitor(@PathVariable("libraryCardId") int libraryCardId,
-			@RequestParam String name, @RequestParam String username, @RequestParam String address, @RequestParam int demeritPoints)
+			@RequestParam String name, 
+			@RequestParam String username, @RequestParam String address, @RequestParam int demeritPoints)
 					throws IllegalArgumentException {
 		Visitor visitor = service.createVisitor(name, username, address, libraryCardId, demeritPoints);
 		return convertToDto(visitor);
 	}
-	
+
+	/**
+	 * 
+	 * @param VisitorDto vDto
+	 * @return List<ReservationDto> of all reservations for visitor vDto
+	 */
 	@GetMapping(value = { "/reservations/visitor/{libraryCardId}", "/reservation/visitor/{libraryCardId}/" })
 	public List<ReservationDto> getReservationsOfVisitor(@PathVariable("libraryCardId") VisitorDto vDto) {
 		Visitor v = convertToDomainObject(vDto);
 		return createReservationDtosForVisitor(v);
 	}
-	
+
+	/**
+	 * 
+	 * @param VisitorDto vDto
+	 * @return List<EventDto> of all events created by visitor vDto
+	 */
 	@GetMapping(value = { "/events/visitor/{libraryCardId}", "/events/visitor/{libraryCardId}/" })
 	public List<EventDto> getEventsOfVisitor(@PathVariable("libraryCardId") VisitorDto vDto) {
 		Visitor v = convertToDomainObject(vDto);
 		return createEventDtosForVisitor(v);
 	}
 
-	
-	// EVENT //
-	
+
+	/* Event controller methods */
+
 	@GetMapping(value = { "/events", "/events/" })
 	public List<EventDto> getAllEvents() {
 		List<EventDto> eventDtos = new ArrayList<>();
@@ -68,18 +79,18 @@ public class LibrarySystem07Controller {
 		}
 		return eventDtos;
 	}
-	
+
 	@PostMapping(value = { "/events/{eventId}", "/events/{eventId}/" })
 	public EventDto createEvent(@PathVariable("eventId") int eventId, @RequestParam String name,
-	@RequestParam Visitor visitor)
-	throws IllegalArgumentException {
+			@RequestParam Visitor visitor)
+					throws IllegalArgumentException {
 		Event event = service.createEvent(name, eventId, visitor);
 		return convertToDto(event);
 	}
 
-	
-	// RESERVATION //
-	
+
+	/* Reservation controller methods */
+
 	@GetMapping(value = { "/reservations", "/reservations/" })
 	public List<ReservationDto> getAllReservations() {
 		List<ReservationDto> reservationDtos = new ArrayList<>();
@@ -88,16 +99,17 @@ public class LibrarySystem07Controller {
 		}
 		return reservationDtos;
 	}
-	
+
 	@PostMapping(value = { "/reservation/{reservationId}", "/reservation/{reservationId}/" })
 	public ReservationDto createReservation(@PathVariable("evreservationIdentId") int reservationId, 
-			@RequestParam Date startDate, @RequestParam Date endDate, @RequestParam Visitor visitor, @RequestParam InventoryItem inventoryItem)
-	throws IllegalArgumentException {
+			@RequestParam Date startDate, 
+			@RequestParam Date endDate, @RequestParam Visitor visitor, @RequestParam InventoryItem inventoryItem)
+					throws IllegalArgumentException {
 		Reservation r = service.createReservation(reservationId, startDate, endDate, visitor, inventoryItem);
 		return convertToDto(r);
 	}
-	
-	
+
+
 	private List<ReservationDto> createReservationDtosForVisitor(Visitor v) {
 		List<Reservation> reservations = service.getReservationsForVisitor(v);
 		List<ReservationDto> reservationsDto = new ArrayList<>();
@@ -106,7 +118,7 @@ public class LibrarySystem07Controller {
 		}
 		return reservationsDto;
 	}
-	
+
 	private List<EventDto> createEventDtosForVisitor(Visitor v) {
 		List<Event> events = service.getEventsOfVisitor(v);
 		List<EventDto> eventsDto = new ArrayList<>();
@@ -119,37 +131,37 @@ public class LibrarySystem07Controller {
 
 	/*
 	 * 
-	 * headlibrarian controllers
+	 * headLibrarian controllers
 	 */
-	
+
 	@PostMapping(value = { "/headLibrarian/{libraryCardID}", "/headLibrarian/{libraryCardID}/" })
 	public HeadLibrarianDto createHeadLibrarian(@PathVariable("libraryCardID") Integer libraryCardID,
 			@RequestParam(name = "name") String name, @RequestParam(name = "username") String username, @RequestParam(name = "address") String address) 
-		throws IllegalArgumentException {
-		
+					throws IllegalArgumentException {
+
 		HeadLibrarian headLibrarian = service.createHeadLibrarian(name, username, address, libraryCardID);
 		return convertToDto(headLibrarian);
 	}
-	
+
 	@GetMapping(value = { "/headLibrarian", "/headLibrarian/" })
 	public HeadLibrarianDto getHeadLibrarian() {
-		
+
 		return convertToDto(service.getAllHeadLibrarians().get(0));
 	}
-	
+
 	/*
 	 * librarian controllers
 	 */
-	
+
 	@PostMapping(value = { "/librarians/{libraryCardID}", "/librarians/{libraryCardID}/" })
 	public LibrarianDto createLibrarian(@PathVariable("libraryCardID") Integer libraryCardID,
 			@RequestParam(name = "name") String name, @RequestParam(name = "username") String username, @RequestParam(name = "address") String address) 
-		throws IllegalArgumentException {
-		
+					throws IllegalArgumentException {
+
 		Librarian librarian = service.createLibrarian(name, username, address, libraryCardID);
 		return convertToDto(librarian);
 	}
-	
+
 	@GetMapping(value = { "/librarians", "/librarians/" })
 	public List<LibrarianDto> getAllLibrarians() {
 		List<LibrarianDto> librarianDtos = new ArrayList<>();
@@ -158,26 +170,26 @@ public class LibrarySystem07Controller {
 		}
 		return librarianDtos;
 	}
-	
+
 	@GetMapping(value = { "/librarians/{libraryCardId}", "/librarians/{libraryCardId}" })
 	public LibrarianDto getLibrarianByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId) 
 			throws IllegalArgumentException {
-			return convertToDto(service.getLibrarian(libraryCardId));
+		return convertToDto(service.getLibrarian(libraryCardId));
 	}
-	
+
 	/*
-	 * headlibrarianTimeSlot controllers
+	 * headLibrarianTimeSlot controllers
 	 */
-	
+
 	@PostMapping(value = { "/headLibrarianTimeSlots", "/headLibrarianTimeSlots/" })
 	public HeadLibrarianTimeSlotDto scheduleHeadLibrarian(@RequestParam(name = "dayOfWeek") String dayOfWeek,
-	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
-	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime, 
-	@RequestParam(name = "headLibrarian") HeadLibrarianDto hlDto)
-	throws IllegalArgumentException {
-		
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime, 
+			@RequestParam(name = "headLibrarian") HeadLibrarianDto hlDto)
+					throws IllegalArgumentException {
+
 		DayOfTheWeek weekDay;
-		
+
 		if (dayOfWeek.equalsIgnoreCase("monday")) {
 			weekDay = DayOfTheWeek.Monday;
 		} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
@@ -193,12 +205,12 @@ public class LibrarySystem07Controller {
 		} else {
 			weekDay = DayOfTheWeek.Sunday;
 		}
-		
+
 		HeadLibrarian headLibrarian = service.getHeadLibrarian(hlDto.getLibraryCardID());
 		HeadLibrarianTimeSlot headLibrarianTimeSlot = service.createHeadLibrarianTimeSlot(headLibrarian, Time.valueOf(startTime), Time.valueOf(endTime), weekDay);
 		return convertToDto(headLibrarianTimeSlot, headLibrarian);
 	}
-	
+
 	@GetMapping(value = { "/headLibrarianTimeSlots", "/headLibrarianTimeSlots/" })
 	public List<HeadLibrarianTimeSlotDto> getAllHeadLibrarianTimeSlots() {
 		List<HeadLibrarianTimeSlotDto> headLibrarianTimeSlotDtos = new ArrayList<>();
@@ -207,20 +219,20 @@ public class LibrarySystem07Controller {
 		}
 		return headLibrarianTimeSlotDtos;
 	}
-	
+
 	/*
 	 * librarianTimeSlot controllers
 	 */
-	
+
 	@PostMapping(value = { "/librarianTimeSlots", "/librarianTimeSlots/" })
 	public LibrarianTimeSlotDto scheduleLibrarian(@RequestParam(name = "dayOfWeek") String dayOfWeek,
-	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
-	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime, 
-	@RequestParam(name = "librarian") LibrarianDto lDto)
-	throws IllegalArgumentException {
-		
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime, 
+			@RequestParam(name = "librarian") LibrarianDto lDto)
+					throws IllegalArgumentException {
+
 		ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek weekDay;
-		
+
 		if (dayOfWeek.equalsIgnoreCase("monday")) {
 			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Monday;
 		} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
@@ -236,12 +248,12 @@ public class LibrarySystem07Controller {
 		} else {
 			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Sunday;
 		}
-		
+
 		Librarian librarian = service.getLibrarian(lDto.getLibraryCardID());
 		LibrarianTimeSlot librarianTimeSlot = service.createLibrarianTimeSlot(librarian, Time.valueOf(startTime), Time.valueOf(endTime), weekDay);
 		return convertToDto(librarianTimeSlot, librarian);
 	}
-	
+
 	@GetMapping(value = { "/librarianTimeSlots", "/librarianTimeSlots/" })
 	public List<LibrarianTimeSlotDto> getAllLibrarianTimeSlots() {
 		List<LibrarianTimeSlotDto> librarianTimeSlotDtos = new ArrayList<>();
@@ -250,7 +262,7 @@ public class LibrarySystem07Controller {
 		}
 		return librarianTimeSlotDtos;
 	}
-	
+
 	@GetMapping(value = { "/librarianTimeSlots/librarians/{libraryCardID}", "/librarianTimeSlots/librarians/{libraryCardID}/" })
 	public List<LibrarianTimeSlotDto> getLibrarianSchedule(@PathVariable("libraryCardID") LibrarianDto lDto) {
 		Librarian l = convertToDomainObject(lDto);
@@ -262,49 +274,49 @@ public class LibrarySystem07Controller {
 	 */
 
 	private HeadLibrarianTimeSlotDto convertToDto(HeadLibrarianTimeSlot hlts, HeadLibrarian hl) {
-		
+
 		if (hl == null) {
 			throw new IllegalArgumentException("There is no such Person!");
 		}
-		
+
 		HeadLibrarianDto headLibrarianDto = convertToDto(hl);
 		HeadLibrarianTimeSlotDto headLibrarianTimeSlotDto = new HeadLibrarianTimeSlotDto(hlts.getStartTime(), hlts.getEndTime(), parseDayOfWeekHL(hlts.getDayOfTheWeek()), headLibrarianDto);
 		return headLibrarianTimeSlotDto;
 	}
-	
+
 	private LibrarianTimeSlotDto convertToDto(LibrarianTimeSlot lts, Librarian l) {
-		
+
 		if (lts == null) {
 			throw new IllegalArgumentException("There is no such Librarian Time Slot!");
 		}
-		
+
 		LibrarianDto librarianDto = convertToDto(l);
 		LibrarianTimeSlotDto librarianTimeSlotDto = new LibrarianTimeSlotDto(lts.getStartTime(), lts.getEndTime(), parseDayOfWeekL(lts.getDayOfTheWeek()), librarianDto);
 		return librarianTimeSlotDto;
 
 	}
-	
+
 	private HeadLibrarianDto convertToDto(HeadLibrarian hl) {
-		
+
 		if (hl == null) {
 			throw new IllegalArgumentException("There is no such Head Librarian!");
 		}
-		
+
 		HeadLibrarianDto headLibrarianDto = new HeadLibrarianDto(hl.getLibraryCardID(), hl.getName(), hl.getUsername(), hl.getAddress());
 		return headLibrarianDto;
 	}
-	
+
 	private LibrarianDto convertToDto(Librarian l) {
-		
+
 		if (l == null) {
 			throw new IllegalArgumentException("There is no such Head Librarian!");
 		}
-		
+
 		LibrarianDto librarianDto = new LibrarianDto(l.getLibraryCardID(), l.getName(), l.getUsername(), l.getAddress());
 		librarianDto.setLibrarianTimeSlots(createLibrarianTimeSlotDtosForLibrarian(l));
 		return librarianDto;
 	}
-	
+
 	/*
 	 * since we do not test the library as a whole, there is no way of accessing schedule
 	 * for a specific librarian, store within LibrarianDto a attribute for list of time slots
@@ -314,7 +326,7 @@ public class LibrarySystem07Controller {
 	 * @param a librarian
 	 * @return DTO time slots for a specific librarian
 	 */
-	
+
 	private List<LibrarianTimeSlotDto> createLibrarianTimeSlotDtosForLibrarian(Librarian l) {
 		List<LibrarianTimeSlot> librarianTimeSlotsForLibrarian = service.getLibrarianTimeSlotByLibrarian(l);
 		List<LibrarianTimeSlotDto> librarianTimeSlots = new ArrayList<>();
@@ -323,7 +335,7 @@ public class LibrarySystem07Controller {
 		}
 		return librarianTimeSlots;
 	}
-	
+
 	/*
 	 * helper method to convert from Dto object to model object
 	 * only librarian needs...
@@ -331,7 +343,7 @@ public class LibrarySystem07Controller {
 	 * @param Librarian object from Dto
 	 * @return Librarian object from model
 	 */
-	
+
 	private Librarian convertToDomainObject(LibrarianDto lDto) {
 		List<Librarian> allLibrarians = service.getAllLibrarians();
 		for (Librarian librarian : allLibrarians) {
@@ -341,7 +353,7 @@ public class LibrarySystem07Controller {
 		}
 		return null;
 	}
-	
+
 	private Visitor convertToDomainObject(VisitorDto v) {
 		List<Visitor> visitors = service.getAllVisitors();
 		for (Visitor visitor : visitors) {
@@ -351,7 +363,7 @@ public class LibrarySystem07Controller {
 		}
 		return null;
 	}
-		
+
 	private EventDto convertToDto(Event e) {
 		if (e == null) {
 			throw new IllegalArgumentException("Event is not valid.");
@@ -361,7 +373,7 @@ public class LibrarySystem07Controller {
 			return event;
 		}
 	}
-	
+
 	private ReservationDto convertToDto(Reservation r) {
 		if (r == null) {
 			throw new IllegalArgumentException("Reservation is not valid.");
@@ -371,9 +383,9 @@ public class LibrarySystem07Controller {
 			return reservation;
 		}
 	}
-	
-	
-	
+
+
+
 	private VisitorDto convertToDto(Visitor v) {
 		if (v == null) {
 			throw new IllegalArgumentException("This visitor is invalid.");
@@ -392,11 +404,11 @@ public class LibrarySystem07Controller {
 	 * @param DayOfTheWeek enum type from model class
 	 * @return DayOfTheWeek enum type for DTO class
 	 */
-	
+
 	private ca.mcgill.ecse321.librarysystem07.dto.LibrarianTimeSlotDto.DayOfTheWeek parseDayOfWeekL(ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek dayOfTheWeek) {
-		
+
 		ca.mcgill.ecse321.librarysystem07.dto.LibrarianTimeSlotDto.DayOfTheWeek newTime;
-		
+
 		if (dayOfTheWeek.toString().equalsIgnoreCase("monday")) {
 			newTime = ca.mcgill.ecse321.librarysystem07.dto.LibrarianTimeSlotDto.DayOfTheWeek.Monday;
 		} else if (dayOfTheWeek.toString().equalsIgnoreCase("tuesday")) {
@@ -412,14 +424,14 @@ public class LibrarySystem07Controller {
 		} else {
 			newTime = ca.mcgill.ecse321.librarysystem07.dto.LibrarianTimeSlotDto.DayOfTheWeek.Sunday;
 		}
-		
+
 		return newTime;
 	}
-	
+
 	private ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek parseDayOfWeekHL(ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWeek dayOfTheWeek) {
-		
+
 		ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek newTime = ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek.Sunday;
-		
+
 		if (dayOfTheWeek.toString().equalsIgnoreCase("monday")) {
 			newTime = ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek.Monday;
 		} else if (dayOfTheWeek.toString().equalsIgnoreCase("tuesday")) {
@@ -435,8 +447,8 @@ public class LibrarySystem07Controller {
 		} else {
 			newTime = ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek.Sunday;
 		}
-		
+
 		return newTime;
 	}
-	
+
 }
