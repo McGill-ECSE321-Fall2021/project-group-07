@@ -39,7 +39,7 @@ public class LibrarySystem07Service {
 
 
 	// EVENT //
-	
+
 	/**
 	 * @return Iterable list of events.
 	 */
@@ -47,7 +47,7 @@ public class LibrarySystem07Service {
 	public List<Event> getAllEvents() {
 		return toList(eventRepository.findAll());
 	}
-	
+
 	/**
 	 * @param id
 	 * @return Event with ID id.
@@ -59,7 +59,7 @@ public class LibrarySystem07Service {
 		}
 		return eventRepository.findEventByEventID(id);
 	}
-	
+
 	/**
 	 * 
 	 * @param Event name
@@ -83,15 +83,56 @@ public class LibrarySystem07Service {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Event e = new Event(name, eventID, visitor);
 		eventRepository.save(e);
 		return e;
 	}
-	
-	
+
+	/**
+	 * 
+	 * @param visitor
+	 * @return all events created by visitor
+	 */
+	@Transactional
+	public List<Event> getEventsOfVisitor(Visitor visitor) {
+		List<Event> events = new ArrayList<Event>();
+		for (Event e : getAllEvents()) {
+			if (e.getVisitor().equals(visitor)) {
+				events.add(e);
+			}
+		}
+		return events;
+	}
+
+	/**
+	 * Deletes event from the event repository and sets its attributes to null.
+	 * @param eventId
+	 */
+	@Transactional
+	public void deleteEvent(int eventId) {
+		Event e = eventRepository.findEventByEventID(eventId);
+		eventRepository.delete(e);
+		e.setName(null);
+		e.setVisitor(null);
+		e.setEventID(-1);
+	}
+
+	/**
+	 * 
+	 * @param Event e
+	 */
+	@Transactional
+	public void deleteEvent(Event e) {
+		eventRepository.delete(e);
+		e.setName(null);
+		e.setVisitor(null);
+		e.setEventID(-1);
+	}
+
+
 	// INVENTORY ITEM //
-	
+
 	/**
 	 * 
 	 * @return Iterable list of inventory items.
@@ -100,7 +141,7 @@ public class LibrarySystem07Service {
 	public List<InventoryItem> getAllInventoryItems() {
 		return toList(inventoryItemRepository.findAll());
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -113,7 +154,7 @@ public class LibrarySystem07Service {
 		}
 		return inventoryItemRepository.findInventoryItemByInventoryItemID(id);
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -146,20 +187,39 @@ public class LibrarySystem07Service {
 		if (type == null) {
 			error += "Invalid type! ";
 		}
-		
+
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		InventoryItem item = new InventoryItem(id, duplicates, name, author, status, type);
 		inventoryItemRepository.save(item);
 		return item;
 	}
 	
-	
+	/**
+	 * Delete inventory item from the repository and set its attributes to null.
+	 * @param id
+	 */
+	@Transactional
+	public void deleteInventoryItem(int id) {
+		InventoryItem i = inventoryItemRepository.findInventoryItemByInventoryItemID(id);
+		inventoryItemRepository.delete(i);
+		i.setAuthor(null);
+		i.setDuplicates(-1);
+		i.setInventoryItemID(-1);
+		i.setName(null);
+		i.setType(null);
+		i.setStatus(null);
+		i = null;
+		
+	}
+
+
+
 	// RESERVATION //
-	
+
 	/**
 	 * 
 	 * @return Iterable list of reservations.
@@ -168,7 +228,7 @@ public class LibrarySystem07Service {
 	public List<Reservation> getAllReservations() {
 		return toList(reservationRepository.findAll());
 	}
-	
+
 	/**
 	 * 
 	 * @param item
@@ -185,7 +245,23 @@ public class LibrarySystem07Service {
 		}
 		return reservationRepository.findByInventoryItemAndVisitor(item, visitor);
 	}
-	
+
+	/**
+	 * 
+	 * @param visitor
+	 * @return all reservations for visitor
+	 */
+	@Transactional
+	public List<Reservation> getReservationsForVisitor(Visitor visitor) {
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		for (Reservation r : getAllReservations()) {
+			if (r.getVisitor().equals(visitor)) {
+				reservations.add(r);
+			}
+		}
+		return reservations;
+	}
+
 	/**
 	 * 
 	 * @param id
@@ -216,23 +292,89 @@ public class LibrarySystem07Service {
 			error += "Visitor is invalid!";
 		}
 		if (inventoryItem == null) {
-      
+
 			error+= "Inventory item is invalid!";
 		}
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Reservation r = new Reservation(id, startDate, endDate, visitor, inventoryItem);
 		reservationRepository.save(r);
 		return r;
 	}
+
+	/**
+	 * Delete reservation from repository and set the object's attributes to null.
+	 * @param reservationId
+	 */
+	@Transactional
+	public void deleteReservation(int reservationId) {
+		Reservation r = reservationRepository.findReservationByReservationID(reservationId);
+		reservationRepository.delete(r);
+		r.setEndDate(null);
+		r.setStartDate(null);
+		r.setInventoryItem(null);
+		r.setReservationID(-1);
+		r.setVisitor(null);
+		r = null;
+	}
+
+	@Transactional
+	public void deleteReservation(Reservation r) {
+		reservationRepository.delete(r);
+		r.setEndDate(null);
+		r.setStartDate(null);
+		r.setInventoryItem(null);
+		r.setReservationID(-1);
+		r.setVisitor(null);
+		r = null;
+	}
+
+	@Transactional
+	public void deleteReservation(Visitor v, InventoryItem i) {
+		Reservation r = reservationRepository.findByInventoryItemAndVisitor(i, v);
+		reservationRepository.delete(r);
+		r.setEndDate(null);
+		r.setStartDate(null);
+		r.setInventoryItem(null);
+		r.setReservationID(-1);
+		r.setVisitor(null);
+		r = null;
+	}
+
+	@Transactional
+	public void deleteAllReservations(Visitor v) {
+		List<Reservation> reservation = reservationRepository.findReservationsByVisitor(v);
+		for (Reservation r : reservation) {
+			reservationRepository.delete(r);
+			r.setEndDate(null);
+			r.setStartDate(null);
+			r.setInventoryItem(null);
+			r.setReservationID(-1);
+			r.setVisitor(null);
+			r = null;
+		}
+	}
 	
+	@Transactional
+	public void deleteAllReservations(InventoryItem i) {
+		List<Reservation> reservation = reservationRepository.findReservationByInventoryItem(i);
+		for (Reservation r : reservation) {
+			reservationRepository.delete(r);
+			r.setEndDate(null);
+			r.setStartDate(null);
+			r.setInventoryItem(null);
+			r.setReservationID(-1);
+			r.setVisitor(null);
+			r = null;
+		}
+	}
 	
-	
+
 	// VISITOR //
-	
+
 	/**
 	 * 
 	 * @return Iterable list of visitors
@@ -241,7 +383,7 @@ public class LibrarySystem07Service {
 	public List<Visitor> getAllVisitors() {
 		return toList(visitorRepository.findAll());
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -254,7 +396,7 @@ public class LibrarySystem07Service {
 		}
 		return visitorRepository.findVisitorByLibraryCardID(id);
 	}
-	
+
 	/**
 	 * 
 	 * @param name
@@ -266,7 +408,7 @@ public class LibrarySystem07Service {
 	 */
 	public Visitor createVisitor(String name, String username, String address, int libraryCardID, int demeritPoints) {
 		String error = "";
-		
+
 		if (name == null || name.trim().length() == 0) {
 			error += "Name is invalid!";
 		}
@@ -286,13 +428,45 @@ public class LibrarySystem07Service {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Visitor v = new Visitor(name, username, address, libraryCardID, demeritPoints);
 		visitorRepository.save(v);
 		return v;
-		
+
+	}
+
+	/**
+	 * Delete visitor from repository and set visitor to null.
+	 * @param id
+	 */
+	@Transactional
+	public void deleteVisitor(int id) {
+		Visitor v = visitorRepository.findVisitorByLibraryCardID(id);
+		visitorRepository.delete(v);
+		v.setAddress(null);
+		v.setBalance(-1);
+		v.setDemeritPoints(-1);
+		v.setLibraryCardID(-1);
+		v.setName(null);
+		v.setUsername(null);
+		v = null;
 	}
 	
+	//TODO
+	//Add checks to ensure visitor exists in repo, same for all delete methods
+	
+	@Transactional
+	public void deleteVisitor(Visitor v) {
+		visitorRepository.delete(v);
+		v.setAddress(null);
+		v.setBalance(-1);
+		v.setDemeritPoints(-1);
+		v.setLibraryCardID(-1);
+		v.setName(null);
+		v.setUsername(null);
+		v = null;
+	}
+
 	
 	// HEAD LIBRARIAN //
 
@@ -310,14 +484,14 @@ public class LibrarySystem07Service {
 		return l;
 	}
 
-  /**
-  * @return list of all head librarians.
-  */
-  @Transactional
+	/**
+	 * @return list of all head librarians.
+	 */
+	@Transactional
 	public List<HeadLibrarian> getAllHeadLibrarians() {
 		return toList(headLibrarianRepository.findAll());
 	}
-  
+
 	/**
 	 * 
 	 * @param name
@@ -351,6 +525,31 @@ public class LibrarySystem07Service {
 		return librarian;
 	}
 
+	/**
+	 * Delete head librarian from repository and set the head librarian to null.
+	 * @param id
+	 */
+	@Transactional
+	public void deleteHeadLibrarian(int id) {
+		HeadLibrarian hl = headLibrarianRepository.findHeadLibrarianByLibraryCardID(id);
+		headLibrarianRepository.delete(hl);
+		hl.setAddress(null);
+		hl.setLibraryCardID(-1);
+		hl.setName(null);
+		hl.setUsername(null);
+		hl = null;
+	}
+	
+	@Transactional
+	public void deleteHeadLibrarian(HeadLibrarian hl) {
+		headLibrarianRepository.delete(hl);
+		hl.setAddress(null);
+		hl.setLibraryCardID(-1);
+		hl.setName(null);
+		hl.setUsername(null);
+		hl = null;
+	}
+	
 	
 	// HEAD LIBRARIAN TIMESLOT //
 
@@ -373,7 +572,7 @@ public class LibrarySystem07Service {
 		if (id == null || id < 0) {
 			throw new IllegalArgumentException("Time slot id is invalid!");
 		}
-		return headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarianTimeSlotId(id);
+		return headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByTimeSlotID(id);
 	}
 
 	/**
@@ -385,38 +584,85 @@ public class LibrarySystem07Service {
 	 * @return new head librarian schedule time slot
 	 */
 	@Transactional
- 	public HeadLibrarianTimeSlot createHeadLibrarianTimeSlot(HeadLibrarian headLibrarian, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
- 		String error = "";
+	public HeadLibrarianTimeSlot createHeadLibrarianTimeSlot(HeadLibrarian headLibrarian, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
+		String error = "";
 
- 		if (headLibrarian == null) {
- 			error += "Head librarian is invalid!";
- 		}
- 		if (startTime == null) {
- 			error += "Timeslot start time is invalid!";
- 		}
- 		if (endTime == null) {
- 			error += "Timeslot end time is invalid!";
- 		}
- 		if (endTime != null && startTime != null && endTime.before(startTime)) {
- 			error = error + "Timeslot end time cannot be before event start time!";
- 		}
- 		if (dayOfTheWeek == null) {
- 			error += "Invalid day of week!";
- 		}
+		if (headLibrarian == null) {
+			error += "Head librarian is invalid!";
+		}
+		if (startTime == null) {
+			error += "Timeslot start time is invalid!";
+		}
+		if (endTime == null) {
+			error += "Timeslot end time is invalid!";
+		}
+		if (endTime != null && startTime != null && endTime.before(startTime)) {
+			error = error + "Timeslot end time cannot be before event start time!";
+		}
+		if (dayOfTheWeek == null) {
+			error += "Invalid day of week!";
+		}
 
- 		error = error.trim();
- 		if (error.length() > 0) {
- 			throw new IllegalArgumentException(error);
- 		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
 
- 		Random rand = new Random();
- 		int headLibrarianTimeSlotId = rand.nextInt();
+		Random rand = new Random();
+		int headLibrarianTimeSlotId = rand.nextInt();
 
- 		HeadLibrarianTimeSlot hlts = new HeadLibrarianTimeSlot(headLibrarianTimeSlotId, headLibrarian, startTime, endTime, dayOfTheWeek);
- 		headLibrarianTimeSlotRepository.save(hlts);
- 		return hlts;
- 	}
+		HeadLibrarianTimeSlot hlts = new HeadLibrarianTimeSlot(headLibrarianTimeSlotId, headLibrarian, startTime, endTime, dayOfTheWeek);
+		headLibrarianTimeSlotRepository.save(hlts);
+		return hlts;
+	}
 
+	/**
+	 * Given a time slot to delete, delete any headLibrarianTimeSlots that overlap entirely with the time slot to delete,
+	 * and shorten any headLibrarianTimeSlots that partially overlap with the time slot to delete so no headLibrarianTimeSlots
+	 * have any overlap with the given time slot.
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @param day
+	 */
+	@Transactional
+	public void deleteHeadLibrarianTimeSlot(Time startTime, Time endTime, HeadLibrarianTimeSlot.DayOfTheWeek day, HeadLibrarian headLibrarian) {
+		for (HeadLibrarianTimeSlot timeSlot : headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarian(headLibrarian)) {
+			if (timeSlot.getDayOfTheWeek().equals(day)) {
+				
+				//if times have total overlap with a timeSlot, delete timeSlot
+				if ((timeSlot.getStartTime().equals(startTime) || timeSlot.getStartTime().after(startTime)) 
+						&& timeSlot.getEndTime().equals(endTime) || timeSlot.getEndTime().before(endTime)) {
+					deleteHeadLibrarianTimeSlot(timeSlot);
+				}
+				
+				//if the time period to delete starts before the timeSlot, and ends in the middle of a timeSlot, 
+				//set the timeSlot startTime to the endTime of the time period
+				else if ((timeSlot.getStartTime().after(startTime) || timeSlot.getStartTime().equals(startTime)) && 
+						timeSlot.getEndTime().after(endTime)) {
+					timeSlot.setStartTime(endTime);
+				}
+				
+				//if the time period to delete starts in the middle of a timeSlot, and ends after the timeSlot,
+				//set the timeSlot endTime to the startTime of the time period
+				else if (timeSlot.getStartTime().before(startTime) && 
+						(timeSlot.getEndTime().before(endTime) || timeSlot.getEndTime().equals(endTime))) {
+					timeSlot.setEndTime(startTime);
+				}
+			}
+		}
+	}
+	
+	@Transactional
+	public void deleteHeadLibrarianTimeSlot(HeadLibrarianTimeSlot timeSlot) {
+		headLibrarianTimeSlotRepository.delete(timeSlot);
+		timeSlot.setDayOfTheWeek(null);
+		timeSlot.setEndTime(null);
+		timeSlot.setHeadLibrarian(null);
+		timeSlot.setHeadLibrarianTimeSlotId(-1);
+		timeSlot.setStartTime(null);
+		timeSlot = null;
+	}
 
 	// LIBRARIAN //
 
@@ -475,6 +721,33 @@ public class LibrarySystem07Service {
 		librarianRepository.save(librarian);
 		return librarian;
 	}
+	
+	/**
+	 * Delete head librarian from repository and set the head librarian to null.
+	 * @param id
+	 */
+	@Transactional
+	public void deleteLibrarian(int id) {
+		Librarian hl = librarianRepository.findLibrarianByLibraryCardID(id);
+		librarianRepository.delete(hl);
+		hl.setAddress(null);
+		hl.setLibraryCardID(-1);
+		hl.setName(null);
+		hl.setUsername(null);
+		hl = null;
+	}
+	
+	@Transactional
+	public void deleteLibrarian(Librarian hl) {
+		librarianRepository.delete(hl);
+		hl.setAddress(null);
+		hl.setLibraryCardID(-1);
+		hl.setName(null);
+		hl.setUsername(null);
+		hl = null;
+	}
+	
+	
 
 	// LIBRARIAN TIMESLOT //
 
@@ -497,10 +770,10 @@ public class LibrarySystem07Service {
 		if (id == null || id < 0) {
 			throw new IllegalArgumentException("Time slot id is invalid!");
 		}
-		return librarianTimeSlotRepository.findLibrarianTimeSlotByLibrarianTimeSlotId(id);
+		return librarianTimeSlotRepository.findLibrarianTimeSlotByTimeSlotID(id);
 	}
 
-  /**
+	/**
 	 * 
 	 * @param librarian
 	 * @param startTime
@@ -527,12 +800,12 @@ public class LibrarySystem07Service {
 		if (dayOfTheWeek == null) {
 			error += "Invalid day of week!";
 		}
-		
+
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Random rand = new Random();
 		int librarianTimeSlotId = rand.nextInt();
 
@@ -541,12 +814,12 @@ public class LibrarySystem07Service {
 		return hlts;
 	}
 
-	
-  /**
-  *
-  * @param librarian
-  * @return list of all librarian's schedule slots
-  */
+
+	/**
+	 *
+	 * @param librarian
+	 * @return list of all librarian's schedule slots
+	 */
 	@Transactional
 	public List<LibrarianTimeSlot> getLibrarianTimeSlotByLibrarian(Librarian librarian) {
 		List<LibrarianTimeSlot> librarianSchedule = new ArrayList<>();
@@ -556,7 +829,59 @@ public class LibrarySystem07Service {
 		return librarianSchedule;
 	}
 	
-   /**
+	/**
+	 * Given a time slot to delete, delete any LibrarianTimeSlots that overlap entirely with the time slot to delete,
+	 * and shorten any LibrarianTimeSlots that partially overlap with the time slot to delete so no LibrarianTimeSlots
+	 * have any overlap with the given time slot.
+	 * 
+	 * @param startTime
+	 * @param endTime
+	 * @param day
+	 */
+	@Transactional
+	public void deleteLibrarianTimeSlot(Time startTime, Time endTime, LibrarianTimeSlot.DayOfTheWeek day, Librarian librarian) {
+		for (LibrarianTimeSlot timeSlot : librarianTimeSlotRepository.findLibrarianTimeSlotByLibrarian(librarian)) {
+			if (timeSlot.getDayOfTheWeek().equals(day)) {
+				
+				//if times have total overlap with a timeSlot, delete timeSlot
+				if ((timeSlot.getStartTime().equals(startTime) || timeSlot.getStartTime().after(startTime)) 
+						&& timeSlot.getEndTime().equals(endTime) || timeSlot.getEndTime().before(endTime)) {
+					deleteLibrarianTimeSlot(timeSlot);
+				}
+				
+				//if the time period to delete starts before the timeSlot, and ends in the middle of a timeSlot, 
+				//set the timeSlot startTime to the endTime of the time period
+				else if ((timeSlot.getStartTime().after(startTime) || timeSlot.getStartTime().equals(startTime)) && 
+						timeSlot.getEndTime().after(endTime)) {
+					timeSlot.setStartTime(endTime);
+				}
+				
+				//if the time period to delete starts in the middle of a timeSlot, and ends after the timeSlot,
+				//set the timeSlot endTime to the startTime of the time period
+				else if (timeSlot.getStartTime().before(startTime) && 
+						(timeSlot.getEndTime().before(endTime) || timeSlot.getEndTime().equals(endTime))) {
+					timeSlot.setEndTime(startTime);
+				}
+			}
+		}
+	}
+	
+	@Transactional
+	public void deleteLibrarianTimeSlot(LibrarianTimeSlot timeSlot) {
+		librarianTimeSlotRepository.delete(timeSlot);
+		timeSlot.setDayOfTheWeek(null);
+		timeSlot.setEndTime(null);
+		timeSlot.setLibrarian(null);
+		timeSlot.setLibrarianTimeSlotId(-1);
+		timeSlot.setStartTime(null);
+		timeSlot = null;
+	}
+
+	
+	
+	//HELPER//
+
+	/**
 	 * 
 	 * @param <T>
 	 * @param iterable

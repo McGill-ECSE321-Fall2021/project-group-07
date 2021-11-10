@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.librarysystem07.dto;
 
+import ca.mcgill.ecse321.librarysystem07.model.Visitor;
+
 public class EventDto {
     
     private String name;
@@ -10,7 +12,8 @@ public class EventDto {
         name = aName;
         eventID = aEventID;
         visitor = aVisitor;
-}
+    }
+    
     public String getName() {
         return name;
     }
@@ -23,4 +26,5 @@ public class EventDto {
 	public Visitor getVisitor() {
 		return visitor;
 	}
+
 }

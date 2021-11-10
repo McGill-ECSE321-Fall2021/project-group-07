@@ -70,7 +70,7 @@ public class TestHeadLibrarianTimeSlotPersistence {
 		headLibrarianTimeSlotRepository.save(headLibrarianTimeSlot);
 		
 		headLibrarianTimeSlot = null;
-		headLibrarianTimeSlot = headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarianTimeSlotId(headLibrarianTimeSlotId);
+		headLibrarianTimeSlot = headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByTimeSlotID(headLibrarianTimeSlotId);
 	
         assertNotNull(headLibrarianTimeSlot);
         assertEquals(headLibrarianTimeSlotId, headLibrarianTimeSlot.getHeadLibrarianTimeSlotId());
