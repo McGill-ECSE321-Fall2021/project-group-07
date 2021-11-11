@@ -678,4 +678,59 @@ public class LibrarySystem07Service {
 		}
 		return resultList;
 	}
+	
+	/*
+	 * Extra methods for reservation tests
+	 */
+	
+	public Reservation getReservation(Integer reservationId) {
+		
+		if (reservationId == null || reservationId < 0) {
+			throw new IllegalArgumentException("Reservation id is invalid!");
+		}
+		return reservationRepository.findReservationByReservationId(reservationId);
+	}
+	
+	@Transactional
+	public void deleteReservation(Integer id) {
+		
+		String error = "";
+		
+		if (id == null || id < 0) {
+			error += "Reservation ID is invalid! ";
+		}
+		
+		if (reservationRepository.findReservationByReservationId(id) == null) {
+			error += "No such Reservation! ";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		reservationRepository.deleteById(id);
+	}
+
+	@Transactional
+	public void deleteAllReservations() {
+		String error = "";
+		
+		if (reservationRepository.count() == 0) {
+			error += "Library has no Reservations!";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		reservationRepository.deleteAll();
+
+		
+	}
+	
+	
+}
+
 }
