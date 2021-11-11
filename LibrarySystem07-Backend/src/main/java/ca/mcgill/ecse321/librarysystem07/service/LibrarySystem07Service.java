@@ -139,7 +139,7 @@ public class LibrarySystem07Service {
 	 */
 	@Transactional
 	public List<InventoryItem> getAllInventoryItems() {
-		return toList(inventoryItemRepository.findAll());
+		return toList(inventoryItemRepository.findAll()); //ask about to list
 	}
 
 	/**
@@ -149,9 +149,6 @@ public class LibrarySystem07Service {
 	 */
 	@Transactional
 	public InventoryItem getInventoryItem(int id) {
-		if (id < 0) {
-			throw new IllegalArgumentException("ID is invalid!");
-		}
 		return inventoryItemRepository.findInventoryItemByInventoryItemID(id);
 	}
 
@@ -173,13 +170,13 @@ public class LibrarySystem07Service {
 			error += "ID must be an integer above 0. ";
 		}
 		if (duplicates < 0) {
-			error += "Invalid number of duplicates.";
+			error += "Invalid number of duplicates. ";
 		}
-		if (name.trim().length() == 0 || name == null) {
-			error += "Invalid name!";
+		if (name == null || name.trim().length() == 0) {
+			error += "Invalid name! ";
 		}
-		if (author.trim().length() == 0 || author == null) {
-			error += "Invalid author!";
+		if (author == null || author.trim().length() == 0) {
+			error += "Invalid author! ";
 		}
 		if (status == null) {
 			error += "Invalid status! ";
@@ -194,6 +191,13 @@ public class LibrarySystem07Service {
 		}
 
 		InventoryItem item = new InventoryItem(id, duplicates, name, author, status, type);
+		//talk abt this
+		item.setInventoryItemID(id);
+		item.setDuplicates(duplicates);
+		item.setName(name);
+		item.setAuthor(author);
+		item.setStatus(status);
+		item.setType(type);
 		inventoryItemRepository.save(item);
 		return item;
 	}
@@ -203,17 +207,71 @@ public class LibrarySystem07Service {
 	 * @param id
 	 */
 	@Transactional
-	public void deleteInventoryItem(int id) {
-		InventoryItem i = inventoryItemRepository.findInventoryItemByInventoryItemID(id);
-		inventoryItemRepository.delete(i);
-		i.setAuthor(null);
-		i.setDuplicates(-1);
-		i.setInventoryItemID(-1);
-		i.setName(null);
-		i.setType(null);
-		i.setStatus(null);
-		i = null;
+	public InventoryItem deleteInventoryItem(InventoryItem item){
+		if (item == null){
+				throw new IllegalArgumentException("Inventory Item must not be null.");
+			}
+			inventoryItemRepository.delete(item);
+			item = null;
+			return item;
 		
+	}
+
+	@Transactional
+	public InventoryItem updateIventoryItemDuplicate(InventoryItem item, int duplicates){
+		if (duplicates < 0){
+			throw new IllegalArgumentException("Invalid number of duplicates.");
+		}
+
+		item.setDuplicates(duplicates);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
+	@Transactional
+	public InventoryItem updateIventoryItemName(InventoryItem item, String name){
+		if (name == null ||  name.trim().length() == 0){
+			throw new IllegalArgumentException("Invalid name!");
+		}
+
+		item.setName(name);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
+	@Transactional
+	public InventoryItem updateIventoryItemAuthor(InventoryItem item, String author){
+		if (author == null ||  author.trim().length() == 0){
+			throw new IllegalArgumentException("Invalid author!");
+		}
+
+		item.setAuthor(author);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
+	
+
+	@Transactional
+	public InventoryItem updateIventoryItemStatus(InventoryItem item, Status status){
+		if (status == null){
+			throw new IllegalArgumentException("Invalid status!");
+		}
+
+		item.setStatus(status);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
+	@Transactional
+	public InventoryItem updateIventoryItemType(InventoryItem item, TypeOfItem type){
+		if (type == null){
+			throw new IllegalArgumentException("Invalid type!");
+		}
+
+		item.setType(type);
+		inventoryItemRepository.save(item);
+		return item;
 	}
 
 
