@@ -1,9 +1,11 @@
 package ca.mcgill.ecse321.librarysystem07.controller;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +33,7 @@ public class LibrarySystem07Controller {
 	private LibrarySystem07Service service;
 	
 	/*
-	 * headlibrarian controllers
+	 * * * * * * * * * * * * * * headlibrarian controllers * * * * * * * * * * * * * * 
 	 */
 	
 	/*
@@ -94,6 +97,7 @@ public class LibrarySystem07Controller {
 	}
 	
 	/*
+
 	 * Calling RESTful service endpoints
 	 * 
 	 * http://localhost:8080/headLibrarian?address={String}
@@ -111,7 +115,7 @@ public class LibrarySystem07Controller {
 	}
 	
 	/*
-	 * librarian controllers
+   * * * * * * * * * * * * * * * librarian controllers * * * * * * * * * * * * * * >>>>>>> master
 	 */
 	
 	/*
@@ -211,6 +215,7 @@ public class LibrarySystem07Controller {
 	}
 	
 	/*
+
 	 * Calling RESTful service endpoints
 	 * 
 	 * http://localhost:8080/librarians/{libraryCardID}?address={String}
@@ -230,7 +235,7 @@ public class LibrarySystem07Controller {
 	}
 	
 	/*
-	 * headlibrarianTimeSlot controllers
+	 * * * * * * * * * * * * * * * headlibrarianTimeSlot controllers * * * * * * * * * * * * * * 
 	 */
 	
 	/*
@@ -437,7 +442,7 @@ public class LibrarySystem07Controller {
 	}
 	
 	/*
-	 * librarianTimeSlot controllers
+	 * * * * * * * * * * * * * * * librarianTimeSlot controllers * * * * * * * * * * * * * * 
 	 */
 	
 	/*
@@ -605,7 +610,237 @@ public class LibrarySystem07Controller {
 		service.deleteLibrarianSchedule(librarian);
 	}
 	
+	
 	/*
+	 * * * * * * * * * * * * * * * Visitor Controllers * * * * * * * * * * * * * * 
+	 */
+	
+
+	/**
+	 * 
+	 * @return iterable list of all visitors
+	 */
+	@GetMapping(value = { "/visitors/", "/visitors/" })
+	public List<VisitorDto> getAllVisitors() {
+		return service.getAllVisitors().stream().map(p -> convertToDto(p)).collect(Collectors.toList());
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param libraryCardId
+	 * @param name
+	 * @param username
+	 * @param address
+	 * @param demeritPoints
+	 * @return visitor DTO
+	 * @throws IllegalArgumentException
+	 */
+	@PostMapping(value = { "/visitors/{libraryCardId}", "/visitor/{libraryCardId}/" })
+	public VisitorDto createVisitor(@PathVariable("libraryCardId") int libraryCardId,
+			@RequestParam String name, 
+			@RequestParam String username, @RequestParam String address, @RequestParam int demeritPoints)
+					throws IllegalArgumentException {
+		Visitor visitor = service.createVisitor(name, username, address, libraryCardId, demeritPoints);
+		return convertToDto(visitor);
+	}
+
+	/**
+	 * 
+	 * @param VisitorDto vDto
+	 * @return List<ReservationDto> of all reservations for visitor vDto
+	 */
+	@GetMapping(value = { "/reservations/visitor/{libraryCardId}", "/reservations/visitor/{libraryCardId}/" })
+	public List<ReservationDto> getReservationsOfVisitor(@PathVariable("libraryCardId") VisitorDto vDto) {
+		Visitor v = convertToDomainObject(vDto);
+		return createReservationDtosForVisitor(v);
+	}
+
+	/**
+	 * 
+	 * @param VisitorDto vDto
+	 * @return iterable list of event DTO of all events created by visitor vDto
+	 */
+	@GetMapping(value = { "/events/visitor/{libraryCardId}", "/events/visitor/{libraryCardId}/" })
+	public List<EventDto> getEventsOfVisitor(@PathVariable("libraryCardId") VisitorDto vDto) {
+		Visitor v = convertToDomainObject(vDto);
+		return createEventDtosForVisitor(v);
+	}
+	
+	/**
+	 * Update address of visitor.
+	 * @param visitorId
+	 * @param address
+	 */
+	@PutMapping(value="/visitors/{visitorId}")
+	public void updateVisitorAddress(@PathVariable("visitorId") int visitorId, @RequestParam(name="address") String address) {
+		Visitor v = service.getVisitor(visitorId);
+		service.updateVisitorAddress(v, address);
+	}
+	
+	/**
+	 * Update balance of visitor.
+	 * @param visitorId
+	 * @param balance
+	 */
+	@PutMapping(value="/visitors/{visitorId}")
+	public void updateVisitorBalance(@PathVariable("visitorId") int visitorId, @RequestParam(name="balance") float balance) {
+		Visitor v = service.getVisitor(visitorId);
+		service.updateVisitorBalance(v, balance);
+	}
+	
+	/**
+	 * Update number of demerit points of visitor.
+	 * @param visitorId
+	 * @param demeritPoints
+	 */
+	@PutMapping(value="/visitors/{visitorId}")
+	public void updateVisitorDemeritPoints(@PathVariable("visitorId") int visitorId, @RequestParam(name="demeritPoints") int points) {
+		Visitor v = service.getVisitor(visitorId);
+		service.updateVisitorDemeritPoints(v, points);
+	}
+	
+	/**
+	 * 
+	 * Delete mapping method to delete a visitor from system
+	 * 
+	 * @param libraryCardId
+	 */
+	@DeleteMapping(value="/visitors/{libraryCardId}")
+	public void deleteVisitor(@PathVariable("libraryCardId") int libraryCardId) {
+		service.deleteVisitor(libraryCardId);
+	}
+
+
+	/*
+	 * * * * * * * * * * * * * * * * Event controller methods * * * * * * * * * * * * * * * *
+	 * /
+
+	/**
+	 * 
+	 * @return iterable list of all events
+	 */
+	@GetMapping(value = { "/events/", "/events/" })
+	public List<EventDto> getAllEvents() {
+		List<EventDto> eventDtos = new ArrayList<>();
+		for (Event event : service.getAllEvents()) {
+			eventDtos.add(convertToDto(event));
+		}
+		return eventDtos;
+	}
+
+	/**
+	 * 
+	 * @param eventId
+	 * @param name
+	 * @param visitor
+	 * @return new event for visitor
+	 * @throws IllegalArgumentException
+	 */
+	@PostMapping(value = { "/events/{eventId}", "/events/{eventId}/" })
+	public EventDto createEvent(@PathVariable("eventId") int eventId, @RequestParam String name,
+			@RequestParam Visitor visitor)
+					throws IllegalArgumentException {
+		Event event = service.createEvent(name, eventId, visitor);
+		return convertToDto(event);
+	}
+
+	/**
+	 * Delete mapping method to delete event from system
+	 * @param eventId
+	 */
+	@DeleteMapping(value="/events/{eventId}")
+	public void deleteEvent(@PathVariable("eventId") int eventId) {
+		service.deleteEvent(eventId);
+	}
+
+
+	/* * * * * * * * * * * * * * * * Reservation controller methods * * * * * * * * * * * * * * * */
+
+	/**
+	 * 
+	 * @return iterable list of all reservation DTOs
+	 */
+	@GetMapping(value = { "/reservations/", "/reservations/" })
+	public List<ReservationDto> getAllReservations() {
+		List<ReservationDto> reservationDtos = new ArrayList<>();
+		for (Reservation r : service.getAllReservations()) {
+			reservationDtos.add(convertToDto(r));
+		}
+		return reservationDtos;
+	}
+
+	/**
+	 * 
+	 * @param reservationId
+	 * @param startDate
+	 * @param endDate
+	 * @param visitor
+	 * @param inventoryItem
+	 * @return new reservation
+	 * @throws IllegalArgumentException
+	 */
+	@PostMapping(value = { "/reservations/{reservationId}", "/reservations/{reservationId}/" })
+	public ReservationDto createReservation(@PathVariable("evreservationIdentId") int reservationId, 
+			@RequestParam Date startDate, 
+			@RequestParam Date endDate, @RequestParam Visitor visitor, @RequestParam InventoryItem inventoryItem)
+					throws IllegalArgumentException {
+		Reservation r = service.createReservation(reservationId, startDate, endDate, visitor, inventoryItem);
+		return convertToDto(r);
+	}
+
+	/**
+	 * 
+	 * @param visitor v
+	 * @return list of reservations created for visitor
+	 */
+	@PostMapping(value = { "/reservations", "/reservations"})
+	private List<ReservationDto> createReservationDtosForVisitor(Visitor v) {
+		List<Reservation> reservations = service.getReservationsForVisitor(v);
+		List<ReservationDto> reservationsDto = new ArrayList<>();
+		for (Reservation r : reservations) {
+			reservationsDto.add(convertToDto(r));
+		}
+		return reservationsDto;
+	}
+
+	/**
+	 * 
+	 * @param visitor v
+	 * @return list of events created by visitor
+	 */
+	@PostMapping(value = { "/visitor/reservations", "/visitor/reservations"})
+	private List<EventDto> createEventDtosForVisitor(Visitor v) {
+		List<Event> events = service.getEventsOfVisitor(v);
+		List<EventDto> eventsDto = new ArrayList<>();
+		for (Event e : events) {
+			eventsDto.add(convertToDto(e));
+		}
+		return eventsDto;
+	}
+	
+	/**
+	 * Update (for example, extend) the end date of a reservation.
+	 * @param reservationId
+	 * @param endDate
+	 */
+	@PutMapping(value="/reservations/{reservationId}")
+	public void updateReservation(@PathVariable("reservationId") int reservationId, @RequestParam(name="endDate") Date endDate) {
+		service.updateReservationEndDate(service.getReservation(reservationId), endDate);
+	}
+
+	/**
+	 * Delete mapping for deleting a reservation from system
+	 * @param reservationId
+	 */
+	@DeleteMapping(value="/reservations/{reservationId}")
+	public void deleteReservation(@PathVariable("reservationId") int reservationId) {
+		service.deleteReservation(reservationId);
+	}
+	
+	
+	/*
+
 	 * Calling RESTful service endpoints
 	 * 
 	 * http://localhost:8080/librarianTimeSlots/{librarianTimeSlotId}?startTime={HH:mm}
@@ -701,9 +936,13 @@ public class LibrarySystem07Controller {
 	}
 	
 	/*
-	 * Inventory Item controllers
+	 * * * * * * * * * * * * * * * Inventory Item controllers * * * * * * * * * * * * * * 
 	 */
 	
+	/**
+	 * 
+	 * @return list of all inventory items as DTOs
+	 */
 	 @GetMapping(value = { "/inventoryitem", "/inventoryitem/"})
 	 public List<InventoryItemDto> getAllInventoryItems(){
 		 List<InventoryItemDto> inventoryItemDtos = new ArrayList<>();
@@ -713,6 +952,17 @@ public class LibrarySystem07Controller {
 		 return inventoryItemDtos;
 	 }
 
+	 /**
+	  * 
+	  * @param InventoryItemID
+	  * @param duplicates
+	  * @param name
+	  * @param author
+	  * @param status
+	  * @param type
+	  * @return new inventory item
+	  * @throws IllegalArgumentException
+	  */
 	 @PostMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
 	 public InventoryItemDto createInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam int duplicates, @RequestParam String name, @RequestParam String author, @RequestParam("status") String status, @RequestParam("type") String type) throws IllegalArgumentException{
 		 InventoryItem.TypeOfItem typeOfItem = null;
@@ -744,6 +994,12 @@ public class LibrarySystem07Controller {
 		
 	 }
 
+	 /**
+	  * 
+	  * @param inventoryItemID
+	  * @return inventory item with id matching parameter.
+	  * @throws IllegalArgumentException
+	  */
 	 @GetMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
 	 public InventoryItemDto getInventoryItemByInventoryItemID(@PathVariable("inventoryItemID") int inventoryItemID) throws IllegalArgumentException {
 		 return convertToDto(service.getInventoryItem(inventoryItemID));
@@ -755,8 +1011,19 @@ public class LibrarySystem07Controller {
 		 service.deleteInventoryItem(inventoryItem);
 	 }
 
+	 /**
+	  * 
+	  * @param InventoryItemID
+	  * @param duplicates
+	  * @param name
+	  * @param author
+	  * @param status
+	  * @param type
+	  * @return inventory item with id InventoryItemID with updated attributes
+	  * @throws IllegalArgumentException
+	  */
 	 @PatchMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
-	 public InventoryItemDto editInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam(required = false) int duplicates, @RequestParam(required = false) String name, @RequestParam(required = false) String author, @RequestParam(required = false) String status, @RequestParam(required = false) String type) throws IllegalArgumentException{
+	 public InventoryItemDto updateInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam(required = false) int duplicates, @RequestParam(required = false) String name, @RequestParam(required = false) String author, @RequestParam(required = false) String status, @RequestParam(required = false) String type) throws IllegalArgumentException{
 		 InventoryItem inventoryItem = service.getInventoryItem(InventoryItemID);
 		 if (status != null){
 			InventoryItem.Status goodstatus = null;
@@ -801,9 +1068,6 @@ public class LibrarySystem07Controller {
 	 }
 
 
-
-	
-	
 
 	/*
 	 * MODEL TO DTO HELPER METHODS
@@ -860,6 +1124,52 @@ public class LibrarySystem07Controller {
 		librarianDto.setLibrarianTimeSlots(createLibrarianTimeSlotDtosForLibrarian(l));
 		return librarianDto;
 	}
+	
+	
+	private Visitor convertToDomainObject(VisitorDto v) {
+		List<Visitor> visitors = service.getAllVisitors();
+		for (Visitor visitor : visitors) {
+			if (visitor.getLibraryCardID() == v.getLibraryCardId()) {
+				return visitor;
+			}
+		}
+		return null;
+	}
+
+	private EventDto convertToDto(Event e) {
+		if (e == null) {
+			throw new IllegalArgumentException("Event is not valid.");
+		}
+		else {
+			EventDto event = new EventDto(e.getName(), e.getEventID(), e.getVisitor());
+			return event;
+		}
+	}
+
+	private ReservationDto convertToDto(Reservation r) {
+		if (r == null) {
+			throw new IllegalArgumentException("Reservation is not valid.");
+		}
+		else {
+			ReservationDto reservation = new ReservationDto(r.getStartDate(), r.getEndDate(), r.getVisitor(), r.getInventoryItem(), r.getReservationID());
+			return reservation;
+		}
+	}
+
+
+
+	private VisitorDto convertToDto(Visitor v) {
+		if (v == null) {
+			throw new IllegalArgumentException("This visitor is invalid.");
+		}
+		else {
+			VisitorDto vDto = new VisitorDto(v.getName(),v.getUsername(), v.getAddress(), v.getLibraryCardID(), v.getDemeritPoints());
+			return vDto;
+		}
+	}
+	
+	
+	
 	
 	/*
 	 * since we do not test the library as a whole, there is no way of accessing schedule
