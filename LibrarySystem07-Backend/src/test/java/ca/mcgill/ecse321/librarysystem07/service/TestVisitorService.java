@@ -8,6 +8,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.sql.Time;
 import java.time.LocalTime;
@@ -27,8 +29,7 @@ import ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWee
 import ca.mcgill.ecse321.librarysystem07.service.LibrarySystem07Service;
 
 /*
- * assuming database works, when we call specific function return
- * this response for this function call 
+ * MOCK DATABASE TO TEST FUNCTIONALITY
  */
 
 @ExtendWith(MockitoExtension.class)
@@ -175,7 +176,7 @@ public class TestVisitorService {
 	}
 	
 	@Test
-	public void updateVisitorBalance() {
+	public void testUpdateVisitorBalance() {
 		String error = null;
 		Integer libraryCardId = 215;
 		String name = "Bob";
@@ -191,7 +192,7 @@ public class TestVisitorService {
 	
 	//Update visitor address to a valid address
 	@Test
-	public void updateVisitorAddress() {
+	public void testUdateVisitorAddress() {
 		String error = null;
 		Integer libraryCardId = 15;
 		String name = "Bob";
@@ -212,8 +213,13 @@ public class TestVisitorService {
 		String username = "Bobob";
 		String address = "1 Montreal";
 		Visitor v = service.getVisitor(VISITOR_KEY);
-		service.deleteVisitor(VISITOR_KEY);
-		assertNull(v);
+		try {
+			service.deleteVisitor(v);
+		} catch(IllegalArgumentException e) {
+			fail();
+		}
+		//verify(visitorDao, times(1)).deleteById(anyInt());		
+		verify(visitorDao, times(1)).delete(any(Visitor.class));
 	}
 	
 	@Test
