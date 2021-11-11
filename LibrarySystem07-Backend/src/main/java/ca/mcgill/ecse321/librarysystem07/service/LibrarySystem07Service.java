@@ -730,6 +730,50 @@ public class LibrarySystem07Service {
 		
 	}
 	
+	/**
+	 * Update start date of reservation
+	 * @param r
+	 * @param startDate
+	 */
+	
+	@Transactional
+	public void updateReservationStartDate(Reservation r, Date startDate) {
+		String error = "";
+		if (r == null) {
+			error += "Reservation is null.";
+		}
+		if (r.getEndDate().before(startDate)) {
+			error+="Start date cannot be after end date.";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		r.setStartDate(startDate);
+	}
+	
+	/**
+	 * Update end date of reservation
+	 * @param r
+	 * @param endDate
+	 */
+	
+	@Transactional
+	public void updateReservationEndDate(Reservation r, Date endDate) {
+		String error = "";
+		if (r == null) {
+			error += "Reservation is null.";
+		}
+		if (r.getStartDate().after(endDate)) {
+			error+="Start date cannot be after end date.";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		r.setEndDate(endDate);
+	}
+	
 	
 }
 
