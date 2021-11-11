@@ -950,7 +950,7 @@ public class LibrarySystem07Service {
 		if (librarian == null) {
 		 	error += "Librarian is null!";
 		}
-		if (address.trim().length() == 0 || address == null) {
+		if (address == null || address.trim().length() == 0) {
 			error += "Address is invalid!";
 		}
 		error = error.trim();
