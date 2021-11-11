@@ -29,7 +29,10 @@ public class Reservation
   //------------------------
   // CONSTRUCTOR
   //------------------------
-
+  public Reservation() {
+	  
+  }
+  
   public Reservation(int aReservationID, Date aStartDate, Date aEndData, Visitor aVisitor, InventoryItem aInventoryItem)
   {
 	  this.reservationID = aReservationID;

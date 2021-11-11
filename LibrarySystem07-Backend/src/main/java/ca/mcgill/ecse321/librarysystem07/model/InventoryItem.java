@@ -45,6 +45,10 @@ public class InventoryItem
   // CONSTRUCTOR
   //------------------------
 
+  public InventoryItem() {
+	  
+  }
+  
   public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType) {
 	
 	this.inventoryItemID = aInventoryItemID;
@@ -56,9 +60,9 @@ public class InventoryItem
     //this.library = aLibrary;
     
     if (type.equals(TypeOfItem.Archive) || type.equals(TypeOfItem.Newspaper) || type.equals(TypeOfItem.Magazine)) {
-    	isReservable = false;
+    	this.isReservable = false;
     } else {
-    	isReservable = true;
+    	this.isReservable = true;
     }
     
   }
@@ -119,15 +123,25 @@ public class InventoryItem
 	public void setType(TypeOfItem type) {
 		this.type = type;
 	}
-	
+
 	public boolean isReservable() {
 		return isReservable;
 	}
-	
-	public void setReservable(boolean isReservable) {
-		this.isReservable = isReservable;
+
+	public void setReservable() {
+		
+	    if (type.equals(TypeOfItem.Archive) || type.equals(TypeOfItem.Newspaper) || type.equals(TypeOfItem.Magazine)) {
+	    	this.isReservable = false;
+	    } else {
+	    	this.isReservable = true;
+	    }
 	}
 	
+	public void setReservable(boolean isReservable) {
+			    
+	    this.isReservable = isReservable;
+	}
+//		
 //	public Library getLibrary() {
 //		return library;
 //	}

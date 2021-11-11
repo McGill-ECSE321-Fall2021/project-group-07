@@ -16,6 +16,10 @@ public class Event {
 	private String name;
 	private int eventID;
 	private Visitor visitor;
+	
+	public Event() {
+		
+	}
 
 	public Event(String aName, int aEventID, Visitor aVisitor) {
 			name = aName;

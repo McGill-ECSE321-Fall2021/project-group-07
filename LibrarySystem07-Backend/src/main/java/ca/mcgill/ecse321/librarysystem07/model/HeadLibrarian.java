@@ -6,9 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "head librarian")
 public class HeadLibrarian extends UserRole
 {
+		
+	public HeadLibrarian() {}
   public HeadLibrarian(String aName, String aUsername, String aAddress, int aLibraryCardID)
   {
     super(aName, aUsername, aAddress, aLibraryCardID);

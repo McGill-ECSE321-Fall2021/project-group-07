@@ -4,13 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "visitor")
 public class Visitor extends UserRole {
 	
 	private float balance;
 	private int demeritPoints;
 	//private Library library;
 	
+	public Visitor() {}
 	
 	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints) {
 
@@ -26,7 +26,7 @@ public class Visitor extends UserRole {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 
