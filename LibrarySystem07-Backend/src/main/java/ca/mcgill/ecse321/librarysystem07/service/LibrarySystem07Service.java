@@ -634,19 +634,6 @@ public class LibrarySystem07Service {
 	
 	// HEAD LIBRARIAN //
 
-	/**
-	 * 
-	 * @param id
-	 * @return head librarian with libraryCardId id.
-	 */
-	@Transactional
-	public HeadLibrarian getHeadLibrarian(Integer id) {
-		if (id == null || id < 0) {
-			throw new IllegalArgumentException("ID is invalid!");
-		}
-		HeadLibrarian l = headLibrarianRepository.findHeadLibrarianByLibraryCardID(id);
-		return l;
-	}
 
 	/**
 	 * @return list of all head librarians. Should be list of 1 head librarian.
@@ -714,7 +701,7 @@ public class LibrarySystem07Service {
 		
 		String error = "";
 		
-		if (librarianRepository.count() == 0) {
+		if (headLibrarianRepository.count() == 0) {
 			error += "Library has no Head Librarian!";
 		}
 		
@@ -787,7 +774,7 @@ public class LibrarySystem07Service {
 		
 		if (headLibrarianTimeSlotId == null || headLibrarianTimeSlotId < 0) {
 			error += "Head Librarian Time Slot ID is invalid! ";
-		} else if (headLibrarianTimeSlotRepository.findById(headLibrarianTimeSlotId) == null) {
+		} else if (headLibrarianTimeSlotRepository.findHeadLibrarianTimeSlotByHeadLibrarianTimeSlotId(headLibrarianTimeSlotId) == null) {
 			error += "No such Head Librarian Time Slot! ";
 		}
 		
@@ -921,10 +908,6 @@ public class LibrarySystem07Service {
 		
 		Librarian librarian = librarianRepository.findLibrarianByLibraryCardID(id);
 		librarianRepository.delete(librarian);
-		librarian.setAddress(null);
-		librarian.setUsername(null);
-		librarian.setName(null);
-		librarian.setLibraryCardID(0);
 	}
 	
 	@Transactional
@@ -941,9 +924,7 @@ public class LibrarySystem07Service {
 			throw new IllegalArgumentException(error);
 		}
 		
-		for (Librarian librarian : librarianRepository.findAll()) {
-			librarianRepository.delete(librarian);
-		}
+		librarianRepository.deleteAll();
 	}
 
 	/* LIBRARIAN TIMESLOT */
