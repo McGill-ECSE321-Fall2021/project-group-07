@@ -207,7 +207,7 @@ public class TestVisitorService {
 	}
 	
 	@Test
-	public void deleteVisitor() {
+	public void testDeleteVisitor() {
 		String name = "Bob";
 		String username = "Bobob";
 		String address = "1 Montreal";
