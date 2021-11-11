@@ -460,11 +460,124 @@ public class LibrarySystem07Controller {
 		Librarian librarian = convertToDomainObject(lDto);
 		service.deleteLibrarianSchedule(librarian);
 	}
+	
+	/*
+	 * Inventory Item controllers
+	 */
+	
+	 @GetMapping(value = { "/inventoryitem", "/inventoryitem/"})
+	 public List<InventoryItemDto> getAllInventoryItems(){
+		 List<InventoryItemDto> inventoryItemDtos = new ArrayList<>();
+		 for (InventoryItem inventoryItem : service.getAllInventoryItems()){
+			 inventoryItemDtos.add(convertToDto(inventoryItem));
+		 }
+		 return inventoryItemDtos;
+	 }
+
+	 @PostMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
+	 public InventoryItemDto createInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam int duplicates, @RequestParam String name, @RequestParam String author, @RequestParam("status") String status, @RequestParam("type") String type) throws IllegalArgumentException{
+		 InventoryItem.TypeOfItem typeOfItem = null;
+		 if (type.equalsIgnoreCase("CD")){
+			typeOfItem =  InventoryItem.TypeOfItem.CD;
+		 } else if (type.equalsIgnoreCase("Movie")){
+			typeOfItem =  InventoryItem.TypeOfItem.Movie;
+		 } else if (type.equalsIgnoreCase("Book")){
+			typeOfItem =  InventoryItem.TypeOfItem.Book;
+		 } else if (type.equalsIgnoreCase("Newspaper")){
+			typeOfItem =  InventoryItem.TypeOfItem.Newspaper;
+		 } else if (type.equalsIgnoreCase("Archive")){
+			typeOfItem =  InventoryItem.TypeOfItem.Archive;
+		 }
+
+		 InventoryItem.Status goodstatus = null;
+		 if (status.equalsIgnoreCase("CheckedOut")){
+			goodstatus = InventoryItem.Status.CheckedOut;
+		 } else if (status.equalsIgnoreCase("OnReserve")){
+			goodstatus = InventoryItem.Status.OnReserve;
+		 } else if (status.equalsIgnoreCase("Available")){
+			goodstatus = InventoryItem.Status.Available;
+		 } else if (status.equalsIgnoreCase("Damaged")){
+			goodstatus = InventoryItem.Status.Damaged;
+		 }
+
+		 InventoryItem inventoryItem = service.createInventoryItem(InventoryItemID, duplicates, name, author, goodstatus, typeOfItem);
+		 return convertToDto(inventoryItem);
+		
+	 }
+
+	 @GetMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
+	 public InventoryItemDto getInventoryItemByInventoryItemID(@PathVariable("inventoryItemID") int inventoryItemID) throws IllegalArgumentException {
+		 return convertToDto(service.getInventoryItem(inventoryItemID));
+	 }
+
+	 @DeleteMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
+	 public void deleteInventoryItem(@PathVariable("inventoryItemID") int inventoryItemID) throws IllegalArgumentException{
+		 InventoryItem inventoryItem = service.getInventoryItem(inventoryItemID);
+		 service.deleteInventoryItem(inventoryItem);
+	 }
+
+	 @PatchMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
+	 public InventoryItemDto editInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam(required = false) int duplicates, @RequestParam(required = false) String name, @RequestParam(required = false) String author, @RequestParam(required = false) String status, @RequestParam(required = false) String type) throws IllegalArgumentException{
+		 InventoryItem inventoryItem = service.getInventoryItem(InventoryItemID);
+		 if (status != null){
+			InventoryItem.Status goodstatus = null;
+			if (status.equalsIgnoreCase("CheckedOut")){
+				goodstatus = InventoryItem.Status.CheckedOut;
+			} else if (status.equalsIgnoreCase("OnReserve")){
+				goodstatus = InventoryItem.Status.OnReserve;
+			} else if (status.equalsIgnoreCase("Available")){
+				goodstatus = InventoryItem.Status.Available;
+			} else if (status.equalsIgnoreCase("Damaged")){
+				goodstatus = InventoryItem.Status.Damaged;
+			}
+			service.updateIventoryItemStatus(inventoryItem, goodstatus);
+		 }
+
+		 if (type != null){
+			InventoryItem.TypeOfItem typeOfItem = null;
+			if (type.equalsIgnoreCase("CD")){
+			   typeOfItem =  InventoryItem.TypeOfItem.CD;
+			} else if (type.equalsIgnoreCase("Movie")){
+			   typeOfItem =  InventoryItem.TypeOfItem.Movie;
+			} else if (type.equalsIgnoreCase("Book")){
+			   typeOfItem =  InventoryItem.TypeOfItem.Book;
+			} else if (type.equalsIgnoreCase("Newspaper")){
+			   typeOfItem =  InventoryItem.TypeOfItem.Newspaper;
+			} else if (type.equalsIgnoreCase("Archive")){
+			   typeOfItem =  InventoryItem.TypeOfItem.Archive;
+			}
+			service.updateIventoryItemType(inventoryItem, typeOfItem);
+		 }
+
+		 if (duplicates > 0){
+			 service.updateIventoryItemDuplicate(inventoryItem, duplicates);
+		 }
+		 if (name != null){
+			 service.updateIventoryItemName(inventoryItem, name);
+		 }
+		 if (author != null){
+			 service.updateIventoryItemAuthor(inventoryItem, author);
+		 }
+		 return convertToDto(inventoryItem);
+	 }
+
+
+
+	
+	
 
 	/*
 	 * MODEL TO DTO HELPER METHODS
 	 */
 
+	private InventoryItemDto convertToDto(InventoryItem inventoryItem){
+		if (inventoryItem == null){
+			throw new IllegalArgumentException("There is no such Inventory Item!");
+		}
+
+		InventoryItemDto inventoryItemDtos = new InventoryItemDto(inventoryItem.getInventoryItemID(), inventoryItem.getDuplicates(), inventoryItem.getName(), inventoryItem.getAuthor(), inventoryItem.getStatus(), inventoryItem.getType());
+		return inventoryItemDtos;
+	}
 	private HeadLibrarianTimeSlotDto convertToDto(HeadLibrarianTimeSlot hlts, HeadLibrarian hl) {
 		
 		if (hl == null) {
