@@ -46,6 +46,10 @@ public class InventoryItem
   // CONSTRUCTOR
   //------------------------
 
+  public InventoryItem(){
+	  
+  }
+
   public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType) {
 	
 	this.inventoryItemID = aInventoryItemID;
