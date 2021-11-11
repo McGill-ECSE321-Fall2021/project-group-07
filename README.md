@@ -34,8 +34,10 @@ Link to our [Project Management Resources For Deliverable 1!](https://github.com
 | Basel Elaghoury    | Developer, Designer, Tester  | 20 hours     |
 | Amelie Barsoum     | Developer and Designer, Project Manager  | 22 hours     |
 
-Link to [Testing Plan!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/General-Test-Plan-Outline)
+Link to our [Testing Plan!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/General-Test-Plan-Outline)
 
-Link to [Integration Tests!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Integration-Tests)
+Link to our [Integration Tests!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Integration-Tests)
+
+Link to our [Project Management Resources For Deliverable 2!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
 
 
