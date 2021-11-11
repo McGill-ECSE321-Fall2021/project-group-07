@@ -310,7 +310,7 @@ public class LibrarySystem07Service {
 	
 	// RESERVATION //
 	
-/**
+	/**
 	 * 
 	 * @return Iterable list of reservations.
 	 */
@@ -588,6 +588,10 @@ public class LibrarySystem07Service {
 		if (v == null) {
 			error += "Visitor is null.";
 		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
 		v.setBalance(v.getBalance() + amount);
 	}
 	
@@ -598,8 +602,16 @@ public class LibrarySystem07Service {
 	 */
 	@Transactional
 	public void deleteVisitor(int id) {
-		if (visitorRepository.findVisitorByLibraryCardID(id) == null) {
-			throw new IllegalArgumentException("Cannot delete visitor that is not in system!");
+		String error = "";
+		if (id < 0) {
+			error += "Visitor library card Id must be a positive number!";
+		}
+		else if (visitorRepository.findVisitorByLibraryCardID(id) == null) {
+			error += ("Cannot delete visitor that is not in system!");
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
 		}
 		Visitor v = visitorRepository.findVisitorByLibraryCardID(id);
 		visitorRepository.delete(v);
@@ -618,6 +630,9 @@ public class LibrarySystem07Service {
 	 */
 	@Transactional
 	public void deleteVisitor(Visitor v) {
+		if (v == null) {
+			throw new IllegalArgumentException("Cannot delete null visitor!");
+		}
 		if (visitorRepository.findVisitorByLibraryCardID(v.getLibraryCardID()) == null) {
 			throw new IllegalArgumentException("Cannot delete visitor that is not in system!");
 		}
@@ -651,7 +666,7 @@ public class LibrarySystem07Service {
 	@Transactional
 	public void updateHeadLibrarianAddress(HeadLibrarian h, String address) {
 		String error = "";
-		if (address.trim().length() == 0 || address == null) {
+		if (address == null || address.trim().length() == 0) {
 			error += "Address is invalid.";
 		}
 		if (h == null) {
@@ -839,7 +854,7 @@ public class LibrarySystem07Service {
 		if (librarian == null) {
 		 	error += "Librarian is null!";
 		}
-		if (address.trim().length() == 0 || address == null) {
+		if (address == null || address.trim().length() == 0) {
 			error += "Address is invalid!";
 		}
 		error = error.trim();

@@ -169,6 +169,89 @@ public class TestLibrarianService {
 		assertEquals("Librarian ID is invalid!", error);
 	}
 	
+	
+	/**
+	 * Test update librarian address with valid address
+	 */
+	@Test
+	public void testUpdateLibrarianAddress() {
+		Integer libraryCardId = 10;
+		String name = "Gina";
+		String username = "OscarTheGrouch33";
+		String address = "4568 av pins";
+		String error = "";
+		Librarian librarian = null;
+		try {
+			librarian = service.createLibrarian(name, username, address, libraryCardId);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNotNull(librarian);
+		
+		String newAddress = "100 McGill College, Montreal";
+		try {
+			service.updateLibrarianAddress(librarian, newAddress);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(0, error.trim().length());
+		assertEquals(newAddress, librarian.getAddress());
+	}
+	
+	/**
+	 * Update librarian address to invalid address.
+	 */
+	@Test
+	public void testUpdateLibrarianAddressEmpty() {
+		Integer libraryCardId = 10;
+		String name = "Gina";
+		String username = "OscarTheGrouch33";
+		String address = "4568 av pins";
+		String error = "";
+		Librarian librarian = null;
+		try {
+			librarian = service.createLibrarian(name, username, address, libraryCardId);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNotNull(librarian);
+		assertEquals(0, error.trim().length());
+
+		String newAddress = "";
+		try {
+			service.updateLibrarianAddress(librarian, newAddress);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals("Address is invalid!", error);
+	}
+	
+	@Test
+	public void testUpdateLibrarianAddressNull() {
+		Integer libraryCardId = 10;
+		String name = "Gina";
+		String username = "OscarTheGrouch33";
+		String address = "4568 av pins";
+		String error = "";
+		Librarian librarian = null;
+		try {
+			librarian = service.createLibrarian(name, username, address, libraryCardId);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNotNull(librarian);
+		assertEquals(0, error.trim().length());
+
+		String newAddress = null;
+		try {
+			service.updateLibrarianAddress(librarian, newAddress);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals("Address is invalid!", error);
+	}
+	
+	
 	@Test
 	public void testGetExistingLibrarian() {
 		assertEquals(LIBRARIAN_KEY, service.getLibrarian(LIBRARIAN_KEY).getLibraryCardID());

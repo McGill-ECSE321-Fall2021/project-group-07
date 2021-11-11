@@ -200,7 +200,78 @@ public class TestHeadLibrarianService {
 		assertEquals("A Head Librarian already exists!", error);
 	}
 	
+	/**
+	 * Update head librarian address to new valid address.
+	 */
+	@Test
+	public void testUpdateHeadLibrarianAddress() {
+		assertEquals(0, service.getAllHeadLibrarians().size());
 
+		Integer libraryCardId = HEAD_LIBRARIAN_KEY;
+		String name = "Nancy";
+		String username = "Nancy334";
+		String address = "746 Mont Royal";
+		HeadLibrarian headLibrarian = service.createHeadLibrarian(name, username, address, libraryCardId);
+		assertNotNull(headLibrarian);
+		
+		String newAddress = "400 University";
+		try {
+			service.updateHeadLibrarianAddress(headLibrarian, newAddress);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		
+		assertEquals(newAddress, headLibrarian.getAddress());
+	}
+	
+	/**
+	 * Update head librarian address to empty string.
+	 */
+	@Test
+	public void testUpdateHeadLibrarianAddressEmpty() {
+		assertEquals(0, service.getAllHeadLibrarians().size());
+
+		Integer libraryCardId = HEAD_LIBRARIAN_KEY;
+		String name = "Nancy";
+		String username = "Nancy334";
+		String address = "746 Mont Royal";
+		HeadLibrarian headLibrarian = service.createHeadLibrarian(name, username, address, libraryCardId);
+		assertNotNull(headLibrarian);
+		
+		String error = "";
+		String newAddress = "";
+		try {
+			service.updateHeadLibrarianAddress(headLibrarian, newAddress);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		
+		assertEquals("Address is invalid.", error);
+	}
+	
+
+	@Test
+	public void testUpdateHeadLibrarianAddressNull() {
+		assertEquals(0, service.getAllHeadLibrarians().size());
+
+		Integer libraryCardId = HEAD_LIBRARIAN_KEY;
+		String name = "Nancy";
+		String username = "Nancy334";
+		String address = "746 Mont Royal";
+		HeadLibrarian headLibrarian = service.createHeadLibrarian(name, username, address, libraryCardId);
+		assertNotNull(headLibrarian);
+		
+		String error = "";
+		String newAddress = null;
+		try {
+			service.updateHeadLibrarianAddress(headLibrarian, newAddress);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		
+		assertEquals("Address is invalid.", error);
+	}
+	
 	/*
 	 * testDeleteHeadLibrarian()
 	 * 
