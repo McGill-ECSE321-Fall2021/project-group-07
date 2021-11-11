@@ -50,8 +50,15 @@ public class InventoryItem
   //------------------------
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType, Library aLibrary) {
 =======
+=======
+  public InventoryItem(){
+	  
+  }
+
+>>>>>>> 1ba91abc45ee9364119a327d731763c3ae91231a
   public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType) {
 >>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 	

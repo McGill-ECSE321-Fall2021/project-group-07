@@ -16,6 +16,10 @@ public class InventoryItemDto {
     public InventoryItemDto(){
 
     }
+    // does not work yet
+    public InventoryItemDto(int aInventoryItemID){
+        this(aInventoryItemID, 0, "name", "author", Status.Available, TypeOfItem.Book);
+    }
 
     public InventoryItemDto(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType) {
 	
@@ -25,7 +29,6 @@ public class InventoryItemDto {
         this.author = aAuthor;
         this.status = aStatus;
         this.type = aType;
-        //this.library = aLibrary;
         
         if (type.equals(TypeOfItem.Archive) || type.equals(TypeOfItem.Newspaper) || type.equals(TypeOfItem.Magazine)) {
             isReservable = false;
@@ -35,35 +38,36 @@ public class InventoryItemDto {
         
       }
 
-      public int getInventoryItemID() {
-          return inventoryItemID;
+
+    public int getInventoryItemID() {
+          return this.inventoryItemID;
       }
       
       
       public int getDuplicates() {
-          return duplicates;
+          return this.duplicates;
       }
       
       
       public String getName() {
-          return name;
+          return this.name;
       }
       
       
       public String getAuthor() {
-          return author;
+          return this.author;
       }
       
       public Status getStatus() {
-          return status;
+          return this.status;
       }
       
       public TypeOfItem getType() {
-          return type;
+          return this.type;
       }
       
       public boolean isReservable() {
-          return isReservable;
+          return this.isReservable;
       }
 
 }

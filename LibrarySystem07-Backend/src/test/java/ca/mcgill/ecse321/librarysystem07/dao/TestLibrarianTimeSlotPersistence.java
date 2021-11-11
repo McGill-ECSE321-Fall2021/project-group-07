@@ -60,7 +60,7 @@ public class TestLibrarianTimeSlotPersistence {
 		
 		librarianTimeSlot = null;
 		
-		librarianTimeSlot = librarianTimeSlotRepository.findLibrarianTimeSlotByLibrarianTimeSlotId(librarianTimeSlotId);
+		librarianTimeSlot = librarianTimeSlotRepository.findLibrarianTimeSlotByTimeSlotID(librarianTimeSlotId);
 		assertNotNull(librarianTimeSlot);
 		assertEquals(librarianTimeSlot.getLibrarianTimeSlotId(), librarianTimeSlotId);
 		
