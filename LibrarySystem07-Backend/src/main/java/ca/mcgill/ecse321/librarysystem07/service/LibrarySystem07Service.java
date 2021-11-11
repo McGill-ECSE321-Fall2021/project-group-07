@@ -817,13 +817,21 @@ public class LibrarySystem07Service {
 	}
 
 
-	/* LIBRARIAN */
-
+	// LIBRARIAN //
+	
+	/**
+	 * @return iterable list of all librarians
+	 */
 	@Transactional
 	public List<Librarian> getAllLibrarians() {
 		return toList(librarianRepository.findAll());
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return librarian with LibraryCardId id
+	 */
 	@Transactional
 	public Librarian getLibrarian(Integer id) {
 		if (id == null || id < 0) {
@@ -832,7 +840,37 @@ public class LibrarySystem07Service {
 		Librarian l = librarianRepository.findLibrarianByLibraryCardID(id);
 		return l;
 	}
+	
+	/**
+	 * Update address in case of move.
+	 * @param librarian
+	 * @param address
+	 */
+	@Transactional
+	public void updateLibrarianAddress(Librarian librarian, String address) {
+		String error = "";
+		if (librarian == null) {
+		 	error += "Librarian is null!";
+		}
+		if (address.trim().length() == 0 || address == null) {
+			error += "Address is invalid!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		librarian.setAddress(address);
+	}
+	
 
+	/**
+	 * 
+	 * @param name
+	 * @param username
+	 * @param address
+	 * @param id
+	 * @return new librarian
+	 */
 	@Transactional
 	public Librarian createLibrarian(String name, String username, String address, Integer id) {
 		
@@ -861,6 +899,10 @@ public class LibrarySystem07Service {
 		return librarian;
 	}
 	
+	/**
+	 * Delete librarian from repository and set the librarian to null.
+	 * @param id
+	 */
 	@Transactional
 	public void deleteLibrarian(Integer id) {
 		
@@ -957,10 +999,7 @@ public class LibrarySystem07Service {
 		return hlts;
 	}
 	
-	/*
-	 * i added
-	 */
-	
+
 	@Transactional
 	public List<LibrarianTimeSlot> getLibrarianTimeSlotByLibrarian(Librarian librarian) {
 		List<LibrarianTimeSlot> librarianSchedule = new ArrayList<>();
