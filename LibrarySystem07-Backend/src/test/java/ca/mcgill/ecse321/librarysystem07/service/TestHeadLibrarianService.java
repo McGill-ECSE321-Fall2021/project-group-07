@@ -162,6 +162,44 @@ public class TestHeadLibrarianService {
 		assertEquals("Head Librarian ID is invalid!", error);
 	}
 	
+	/*
+	 * testCreateHeadLibrarianAlreadyExist()
+	 * 
+	 * if a head librarian is already exists in the system, there should
+	 * only be on existing at a time, (delete previous one first) and thus no object
+	 * will be created and an error will be thrown
+	 */
+	
+	@Test
+	public void testCreateHeadLibrarianAlreadyExist() {
+		
+		String error = null;
+		
+		Integer libraryCardId = HEAD_LIBRARIAN_KEY;
+		String name = "Nancy";
+		String username = "Nancy334";
+		String address = "746 Mont Royal";
+		
+		service.createHeadLibrarian(name, username, address, libraryCardId);
+		
+		lenient().when(headLibrarianDao.existsById(anyInt())).thenReturn(true);
+		
+		Integer libraryCardId2 = HEAD_LIBRARIAN_KEY + 1;
+		
+		when(headLibrarianDao.count()).thenReturn((long) 1);
+		
+		HeadLibrarian headLibrarian = null;
+		
+		try {
+			headLibrarian = service.createHeadLibrarian(name, username, address, libraryCardId2);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		
+		assertNull(headLibrarian);
+		assertEquals("A Head Librarian already exists!", error);
+	}
+	
 
 	/*
 	 * testDeleteHeadLibrarian()
