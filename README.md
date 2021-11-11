@@ -23,3 +23,18 @@ Link to our [Use Case Diagram and Descriptions!](https://github.com/McGill-ECSE3
 Link to our [Domain Model!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Domain-Model)
 
 Link to our [Project Management Resources For Deliverable 1!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
+
+**Deliverable 2**
+
+| Members            | Roles                   | Effort       |
+| ------------------ |:-----------------------:| ------------:|
+| Rebecca Mizrahi    | Developer, Designer, Tester  | 25 hours     |
+| Liamo Pennimpede   | Developer, UML Code Generation, Project Manager  | 20 hours     |
+| Samantha Handal    | Developer, Designer, Tester  | 25 hours     |
+| Basel Elaghoury    | Developer, Designer, Tester  | 20 hours     |
+| Amelie Barsoum     | Developer and Designer, Project Manager  | 22 hours     |
+
+Link to [Testing Plan]()
+Link 
+
+
