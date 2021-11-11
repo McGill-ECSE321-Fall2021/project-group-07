@@ -37,13 +37,20 @@ public class LibrarySystem07Service {
 	InventoryItemRepository inventoryItemRepository;
 
 
-	/* EVENT */
+	// EVENT //
 	
+	/**
+	 * @return Iterable list of events.
+	 */
 	@Transactional
 	public List<Event> getAllEvents() {
 		return toList(eventRepository.findAll());
 	}
-	
+
+	/**
+	 * @param id
+	 * @return Event with ID id.
+	 */
 	@Transactional
 	public Event getEvent(int id) {
 		if (id <0) {
@@ -51,7 +58,14 @@ public class LibrarySystem07Service {
 		}
 		return eventRepository.findEventByEventID(id);
 	}
-	
+
+	/**
+	 * 
+	 * @param Event name
+	 * @param eventID
+	 * @param Visitor booking event
+	 * @return New event
+	 */
 	@Transactional
 	public Event createEvent(String name, int eventID, Visitor visitor) {
 		String error = "";
@@ -68,11 +82,84 @@ public class LibrarySystem07Service {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Event e = new Event(name, eventID, visitor);
 		eventRepository.save(e);
 		return e;
 	}
+
+	/**
+	 * 
+	 * @param visitor
+	 * @return all events created by visitor
+	 */
+	@Transactional
+	public List<Event> getEventsOfVisitor(Visitor visitor) {
+		String error = "";
+		if (visitor == null) {
+			error += "Visitor is null.";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		List<Event> events = new ArrayList<Event>();
+		for (Event e : getAllEvents()) {
+			if (e.getVisitor().equals(visitor)) {
+				events.add(e);
+			}
+		}
+		return events;
+	}
+	
+	/**
+	 * Gives event a new name.
+	 * @param e
+	 * @param name
+	 */
+	@Transactional
+	public void updateEventName(Event e, String name) {
+		String error = "";
+		if (name.trim().length() == 0 || name ==null) {
+			error += "Invalid name!";
+		}
+		if (e == null) {
+			error += "Event is null!";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		e.setName(name);
+	}
+
+	/**
+	 * Deletes event from the event repository and sets its attributes to null.
+	 * @param eventId
+	 */
+	@Transactional
+	public void deleteEvent(int eventId) {
+		Event e = eventRepository.findEventByEventID(eventId);
+		eventRepository.delete(e);
+		e.setName(null);
+		e.setVisitor(null);
+		e.setEventID(-1);
+	}
+
+	/**
+	 * 
+	 * @param Event e
+	 */
+	@Transactional
+	public void deleteEvent(Event e) {
+		eventRepository.delete(e);
+		e.setName(null);
+		e.setVisitor(null);
+		e.setEventID(-1);
+		e = null;
+	}
+	
 	
 	// INVENTORY ITEM //
 
@@ -211,6 +298,9 @@ public class LibrarySystem07Service {
 		if (type == null){
 			throw new IllegalArgumentException("Invalid type!");
 		}
+		if (item == null){
+			throw new IllegalArgumentException("Invalid item!");
+		}
 
 		item.setType(type);
 		inventoryItemRepository.save(item);
@@ -218,13 +308,23 @@ public class LibrarySystem07Service {
 	}
 
 	
-	/* RESERVATION */
+	// RESERVATION //
 	
+/**
+	 * 
+	 * @return Iterable list of reservations.
+	 */
 	@Transactional
 	public List<Reservation> getAllReservations() {
 		return toList(reservationRepository.findAll());
 	}
-	
+
+	/**
+	 * 
+	 * @param item
+	 * @param visitor
+	 * @return reservation for Visitor visitor with InventoryItem item
+	 */
 	@Transactional
 	public Reservation getReservation(InventoryItem item, Visitor visitor) {
 		if (item == null) {
@@ -235,10 +335,36 @@ public class LibrarySystem07Service {
 		}
 		return reservationRepository.findByInventoryItemAndVisitor(item, visitor);
 	}
-	
+
+	/**
+	 * 
+	 * @param visitor
+	 * @return all reservations for visitor
+	 */
+	@Transactional
+	public List<Reservation> getReservationsForVisitor(Visitor visitor) {
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		for (Reservation r : getAllReservations()) {
+			if (r.getVisitor().equals(visitor)) {
+				reservations.add(r);
+			}
+		}
+		return reservations;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @param startDate
+	 * @param endDate
+	 * @param visitor
+	 * @param inventoryItem
+	 * @return new reservation for Visitor
+	 */
 	@Transactional
 	public Reservation createReservation(int id, Date startDate, Date endDate, 
-			Visitor aVisitor, InventoryItem aInventoryItem) {
+			Visitor visitor, InventoryItem inventoryItem) {
+
 		String error = "";
 		if (id < 0) {
 			error += "ID is invalid!";
@@ -252,30 +378,107 @@ public class LibrarySystem07Service {
 		if (endDate != null && startDate != null && endDate.before(startDate)) {
 			error = error + "End date cannot be before start date!";
 		}
-		if (aVisitor == null) {
+		if (visitor == null) {
 			error += "Visitor is invalid!";
 		}
-		if (aInventoryItem == null) {
+		if (inventoryItem == null) {
+
 			error+= "Inventory item is invalid!";
 		}
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
-		Reservation r = new Reservation(id, startDate, endDate, aVisitor, aInventoryItem);
+
+		Reservation r = new Reservation(id, startDate, endDate, visitor, inventoryItem);
 		reservationRepository.save(r);
 		return r;
 	}
+
+	/**
+	 * Delete reservation from repository and set the object's attributes to null.
+	 * @param reservationId
+	 */
+	@Transactional
+	public void deleteReservation(int reservationId) {
+		Reservation r = reservationRepository.findReservationByReservationID(reservationId);
+		reservationRepository.delete(r);
+		r.setEndDate(null);
+		r.setStartDate(null);
+		r.setInventoryItem(null);
+		r.setReservationID(-1);
+		r.setVisitor(null);
+		r = null;
+	}
+
+	@Transactional
+	public void deleteReservation(Reservation r) {
+		reservationRepository.delete(r);
+		r.setEndDate(null);
+		r.setStartDate(null);
+		r.setInventoryItem(null);
+		r.setReservationID(-1);
+		r.setVisitor(null);
+		r = null;
+	}
+
+	@Transactional
+	public void deleteReservation(Visitor v, InventoryItem i) {
+		Reservation r = reservationRepository.findByInventoryItemAndVisitor(i, v);
+		reservationRepository.delete(r);
+		r.setEndDate(null);
+		r.setStartDate(null);
+		r.setInventoryItem(null);
+		r.setReservationID(-1);
+		r.setVisitor(null);
+		r = null;
+	}
+
+	@Transactional
+	public void deleteAllReservations(Visitor v) {
+		List<Reservation> reservation = reservationRepository.findReservationsByVisitor(v);
+		for (Reservation r : reservation) {
+			reservationRepository.delete(r);
+			r.setEndDate(null);
+			r.setStartDate(null);
+			r.setInventoryItem(null);
+			r.setReservationID(-1);
+			r.setVisitor(null);
+			r = null;
+		}
+	}
+	
+	@Transactional
+	public void deleteAllReservations(InventoryItem i) {
+		List<Reservation> reservation = reservationRepository.findReservationByInventoryItem(i);
+		for (Reservation r : reservation) {
+			reservationRepository.delete(r);
+			r.setEndDate(null);
+			r.setStartDate(null);
+			r.setInventoryItem(null);
+			r.setReservationID(-1);
+			r.setVisitor(null);
+			r = null;
+		}
+	}
 	
 	
-	/* VISITOR */
+	// VISITOR //
 	
+	/**
+	 * 
+	 * @return Iterable list of visitors
+	 */
 	@Transactional
 	public List<Visitor> getAllVisitors() {
 		return toList(visitorRepository.findAll());
 	}
-	
+
+	/**
+	 * 
+	 * @param id
+	 * @return Visitor with Library Card Id id.
+	 */
 	@Transactional
 	public Visitor getVisitor(int id) {
 		if (id < 0) {
@@ -283,10 +486,19 @@ public class LibrarySystem07Service {
 		}
 		return visitorRepository.findVisitorByLibraryCardID(id);
 	}
-	
+
+	/**
+	 * 
+	 * @param name
+	 * @param username
+	 * @param address
+	 * @param libraryCardID
+	 * @param demeritPoints
+	 * @return new visitor
+	 */
 	public Visitor createVisitor(String name, String username, String address, int libraryCardID, int demeritPoints) {
 		String error = "";
-		
+
 		if (name == null || name.trim().length() == 0) {
 			error += "Name is invalid!";
 		}
@@ -306,20 +518,165 @@ public class LibrarySystem07Service {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		Visitor v = new Visitor(name, username, address, libraryCardID, demeritPoints);
 		visitorRepository.save(v);
 		return v;
-		
+
+	}
+
+	/**
+	 * Updates visitor address in case of move.
+	 * @param v
+	 * @param address
+	 */
+	@Transactional
+	public void updateVisitorAddress(Visitor v, String address) {
+		String error = "";
+		if (v == null) {
+			error += "Visitor is null.";
+		}
+		if (address.trim().length() == 0 || address == null) {
+			error += "Address is invalid.";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		v.setAddress(address);
 	}
 	
-	/* HEAD LIBRARIAN */
+	/**
+	 * Update visitor's demerit points.
+	 * @param v
+	 * @param points
+	 */
+	@Transactional
+	public void updateVisitorDemeritPoints(Visitor v, int points) {
+		String error = "";
+		if (v == null) {
+			error += "Visitor is null.";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		v.setDemeritPoints(points);
+	}
+	
+	/**
+	 * Update visitor balance.
+	 * @param v
+	 * @param balance
+	 */
+	@Transactional
+	public void updateVisitorBalance(Visitor v, float balance) {
+		String error = "";
+		if (v == null) {
+			error += "Visitor is null.";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		v.setBalance(balance);
+	}
+	
+	@Transactional
+	public void addToVisitorBalance(Visitor v, float amount) {
+		String error = "";
+		if (v == null) {
+			error += "Visitor is null.";
+		}
+		v.setBalance(v.getBalance() + amount);
+	}
+	
+	
+	/**
+	 * Delete visitor from repository and set visitor to null.
+	 * @param id
+	 */
+	@Transactional
+	public void deleteVisitor(int id) {
+		if (visitorRepository.findVisitorByLibraryCardID(id) == null) {
+			throw new IllegalArgumentException("Cannot delete visitor that is not in system!");
+		}
+		Visitor v = visitorRepository.findVisitorByLibraryCardID(id);
+		visitorRepository.delete(v);
+		v.setAddress(null);
+		v.setBalance(-1);
+		v.setDemeritPoints(-1);
+		v.setLibraryCardID(-1);
+		v.setName(null);
+		v.setUsername(null);
+		v = null;
+	}
+	
+	/**
+	 * Deletes a visitor if they exist in the repository.
+	 * @param v
+	 */
+	@Transactional
+	public void deleteVisitor(Visitor v) {
+		if (visitorRepository.findVisitorByLibraryCardID(v.getLibraryCardID()) == null) {
+			throw new IllegalArgumentException("Cannot delete visitor that is not in system!");
+		}
+		visitorRepository.delete(v);
+		v.setAddress(null);
+		v.setBalance(-1);
+		v.setDemeritPoints(-1);
+		v.setLibraryCardID(-1);
+		v.setName(null);
+		v.setUsername(null);
+		v = null;
+	}
+	
+	
+	// HEAD LIBRARIAN //
 
+	/**
+	 * 
+	 * @param id
+	 * @return head librarian with libraryCardId id.
+	 */
+	@Transactional
+	public HeadLibrarian getHeadLibrarian(Integer id) {
+		if (id == null || id < 0) {
+			throw new IllegalArgumentException("ID is invalid!");
+		}
+		HeadLibrarian l = headLibrarianRepository.findHeadLibrarianByLibraryCardID(id);
+		return l;
+	}
+
+	/**
+	 * @return list of all head librarians. Should be list of 1 head librarian.
+	 */
 	@Transactional
 	public List<HeadLibrarian> getAllHeadLibrarians() {
 		return toList(headLibrarianRepository.findAll());
 	}
 
+	/**
+	 * Update address of head librarian in case of move.
+	 * @param h
+	 * @param address
+	 */
+	@Transactional
+	public void updateHeadLibrarianAddress(HeadLibrarian h, String address) {
+		String error = "";
+		if (address.trim().length() == 0 || address == null) {
+			error += "Address is invalid.";
+		}
+		if (h == null) {
+			error += "Head librarian is null.";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		h.setAddress(address);
+	}
+	
 	@Transactional
 	public HeadLibrarian createHeadLibrarian(String name, String username, String address, Integer id) {
 		
@@ -370,7 +727,7 @@ public class LibrarySystem07Service {
 	}
 
 
-	/* HEAD LIBRARIAN TIMESLOT */
+	// HEAD LIBRARIAN TIMESLOT //
 
 	@Transactional
 	public List<HeadLibrarianTimeSlot> getAllHeadLibrarianTimeSlots() {
@@ -728,50 +1085,6 @@ public class LibrarySystem07Service {
 		reservationRepository.deleteAll();
 
 		
-	}
-	
-	/**
-	 * Update start date of reservation
-	 * @param r
-	 * @param startDate
-	 */
-	
-	@Transactional
-	public void updateReservationStartDate(Reservation r, Date startDate) {
-		String error = "";
-		if (r == null) {
-			error += "Reservation is null.";
-		}
-		if (r.getEndDate().before(startDate)) {
-			error+="Start date cannot be after end date.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		r.setStartDate(startDate);
-	}
-	
-	/**
-	 * Update end date of reservation
-	 * @param r
-	 * @param endDate
-	 */
-	
-	@Transactional
-	public void updateReservationEndDate(Reservation r, Date endDate) {
-		String error = "";
-		if (r == null) {
-			error += "Reservation is null.";
-		}
-		if (r.getStartDate().after(endDate)) {
-			error+="Start date cannot be after end date.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		r.setEndDate(endDate);
 	}
 	
 	
