@@ -94,6 +94,23 @@ public class LibrarySystem07Controller {
 	}
 	
 	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/headLibrarian?address={String}
+	 * 
+	 * Using put methods, we can update a head librarian address with a new input address
+	 * no need for id since there is only one head librarian in system
+	 * 
+	 * @param String address, address of residence (within city or outside?)
+	 */
+	
+	@PutMapping(value = { "/headLibrarian", "/headLibrarian/" })
+	public void updateHeadLibrarianAddress(@RequestParam(name = "address") String address) 
+		throws IllegalArgumentException {
+		service.updateHeadLibrarianAddress(service.getAllHeadLibrarians().get(0), address);
+	}
+	
+	/*
 	 * librarian controllers
 	 */
 	
@@ -194,6 +211,25 @@ public class LibrarySystem07Controller {
 	}
 	
 	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/librarians/{libraryCardID}?address={String}
+	 * 
+	 * Using put methods, we can update a librarian address with a new input address
+	 * We can find the librarian by their ID and update from there.
+	 * 
+	 * @param Integer libraryCardID, primary identifier for librarian
+	 * @param String address, address of residence (within city or outside?)
+	 */
+	
+	@PutMapping(value = { "/librarians/{libraryCardID}", "/librarians/{libraryCardID}/" })
+	public void updateLibrarianAddress(@PathVariable("libraryCardID") Integer libraryCardID,
+			@RequestParam(name = "address") String address) 
+		throws IllegalArgumentException {
+		service.updateLibrarianAddress(service.getLibrarian(libraryCardID), address);
+	}
+	
+	/*
 	 * headlibrarianTimeSlot controllers
 	 */
 	
@@ -291,6 +327,113 @@ public class LibrarySystem07Controller {
 	public HeadLibrarianTimeSlotDto getheadLibrarianTimeSlotsByHeadLibrarianTimeSlotsId(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId) 
 			throws IllegalArgumentException {
 			return convertToDto(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId), service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId).getHeadLibrarian());
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/headLibrarianTimeSlots/{headLibrarianTimeSlotId}
+	 * 
+	 * Using delete query method, we delete the head librarian time slot from the library system.
+	 * 
+	 * @param Integer headLibrarianTimeSlotId, id of the head librarian time slot
+	 */
+	
+	@DeleteMapping(value = { "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}", "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}/" })
+	public void deleteHeadLibrarianTimeSlot(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId) 
+		throws IllegalArgumentException {
+		
+		service.deleteHeadLibrarianTimeSlot(headLibrarianTimeSlotId);
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/headLibrarianTimeSlots
+	 * 
+	 * Using delete query method, we delete all the head librarian time slots from the library system.
+	 */
+	
+	@DeleteMapping(value = { "/headLibrarianTimeSlots", "/headLibrarianTimeSlots/" })
+	public void deleteAllHeadLibrarianTimeSlots() 
+		throws IllegalArgumentException {
+		service.deleteAllHeadLibrarianTimeSlots();
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/headLibrarianTimeSlots/{headLibrarianTimeSlotId}?startTime={HH:mm}
+	 * 
+	 * Using put methods, we can update a head librarian time slot start time with a new start time
+	 * We can find the head librarian time slot by it's ID and update from there.
+	 * 
+	 * @param Integer headLibrarianTimeSlotId, primary identifier for librarian
+	 * @param LocalTime startTime, time we wish to update
+	 */
+	
+	@PutMapping(value = { "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}", "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}/" })
+	public void updateHeadLibrarianTimeSlotStartTime(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime) 
+		throws IllegalArgumentException {
+		service.updateHeadLibrarianTimeSlotStartTime(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId),Time.valueOf(startTime));
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/headLibrarianTimeSlots/{headLibrarianTimeSlotId}?endTime={HH:mm}
+	 * 
+	 * Using put methods, we can update a head librarian time slot end time with a new end time
+	 * We can find the head librarian time slot by it's ID and update from there.
+	 * 
+	 * @param Integer headLibrarianTimeSlotId, primary identifier for librarian
+	 * @param LocalTime endTime, time we wish to update
+	 */
+	
+	@PutMapping(value = { "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}", "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}/" })
+	public void updateHeadLibrarianTimeSlotEndTime(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime) 
+		throws IllegalArgumentException {
+		service.updateHeadLibrarianTimeSlotEndTime(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId),Time.valueOf(endTime));
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/librarianTimeSlots/{librarianTimeSlotId}?dayOfWeek={String}
+	 * 
+	 * Using put methods, we can update a librarian time slot day of the week with a new weekday
+	 * We can find the librarian time slot by it's ID and update from there.
+	 * 
+	 * @param Integer librarianTimeSlotId, primary identifier for librarian
+	 * @param String dayOfWeek, weekday we wish to update, then transformed into enum type
+	 */
+	
+	@PutMapping(value = { "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}", "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}/" })
+	public void updateHeadLibrarianTimeSlotDay(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
+			@RequestParam(name = "dayOfWeek") String dayOfWeek) 
+		throws IllegalArgumentException {
+		
+		DayOfTheWeek weekDay;
+		
+		if (dayOfWeek.equalsIgnoreCase("monday")) {
+			weekDay = DayOfTheWeek.Monday;
+		} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
+			weekDay = DayOfTheWeek.Tuesday;
+		} else if (dayOfWeek.equalsIgnoreCase("wednesday")) {
+			weekDay = DayOfTheWeek.Wednesday;
+		} else if (dayOfWeek.equalsIgnoreCase("thursday")) {
+			weekDay = DayOfTheWeek.Thursday;
+		} else if (dayOfWeek.equalsIgnoreCase("friday")) {
+			weekDay = DayOfTheWeek.Friday;
+		} else if (dayOfWeek.equalsIgnoreCase("saturday")) {
+			weekDay = DayOfTheWeek.Saturday;
+		} else {
+			weekDay = DayOfTheWeek.Sunday;
+		}
+		
+		service.updateHeadLibrarianTimeSlotDayOfWeek(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId), weekDay);
 	}
 	
 	/*
@@ -460,6 +603,101 @@ public class LibrarySystem07Controller {
 		
 		Librarian librarian = convertToDomainObject(lDto);
 		service.deleteLibrarianSchedule(librarian);
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/librarianTimeSlots/{librarianTimeSlotId}?startTime={HH:mm}
+	 * 
+	 * Using put methods, we can update a librarian time slot start time with a new start time
+	 * We can find the librarian time slot by it's ID and update from there.
+	 * 
+	 * @param Integer librarianTimeSlotId, primary identifier for librarian
+	 * @param LocalTime startTime, time we wish to update
+	 */
+	
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	public void updateLibrarianTimeSlotStartTime(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime) 
+		throws IllegalArgumentException {
+		service.updateLibrarianTimeSlotStartTime(service.getLibrarianTimeSlot(librarianTimeSlotId),Time.valueOf(startTime));
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/librarianTimeSlots/{librarianTimeSlotId}?endTime={HH:mm}
+	 * 
+	 * Using put methods, we can update a librarian time slot end time with a new end time
+	 * We can find the librarian time slot by it's ID and update from there.
+	 * 
+	 * @param Integer librarianTimeSlotId, primary identifier for librarian
+	 * @param LocalTime endTime, time we wish to update
+	 */
+	
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	public void updateLibrarianTimeSlotEndTime(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime) 
+		throws IllegalArgumentException {
+		service.updateLibrarianTimeSlotEndTime(service.getLibrarianTimeSlot(librarianTimeSlotId),Time.valueOf(endTime));
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/librarianTimeSlots/{librarianTimeSlotId}?dayOfWeek={String}
+	 * 
+	 * Using put methods, we can update a librarian time slot day of the week with a new weekday
+	 * We can find the librarian time slot by it's ID and update from there.
+	 * 
+	 * @param Integer librarianTimeSlotId, primary identifier for librarian
+	 * @param String dayOfWeek, weekday we wish to update, then transformed into enum type
+	 */
+	
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	public void updateLibrarianTimeSlotDay(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
+			@RequestParam(name = "dayOfWeek") String dayOfWeek) 
+		throws IllegalArgumentException {
+		
+		ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek weekDay;
+		
+		if (dayOfWeek.equalsIgnoreCase("monday")) {
+			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Monday;
+		} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
+			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Tuesday;
+		} else if (dayOfWeek.equalsIgnoreCase("wednesday")) {
+			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Wednesday;
+		} else if (dayOfWeek.equalsIgnoreCase("thursday")) {
+			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Thursday;
+		} else if (dayOfWeek.equalsIgnoreCase("friday")) {
+			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Friday;
+		} else if (dayOfWeek.equalsIgnoreCase("saturday")) {
+			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Saturday;
+		} else {
+			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Sunday;
+		}
+		
+		service.updateLibrarianTimeSlotDayOfWeek(service.getLibrarianTimeSlot(librarianTimeSlotId), weekDay);
+	}
+	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/librarianTimeSlots/{librarianTimeSlotId}?librarian={Integer}
+	 * 
+	 * Using put methods, we can update a librarian time slot assigned librarian with a new librarian
+	 * We can find the librarian time slot by it's ID and update from there.
+	 * 
+	 * @param Integer librarianTimeSlotId, primary identifier for librarian
+	 * @param LibrarianDto lDto, new librarian for time slot
+	 */
+	
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	public void updateLibrarianTimeSlotLibrarian(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
+			@RequestParam(name = "librarian") LibrarianDto lDto) 
+		throws IllegalArgumentException {
+		service.updateLibrarianTimeSlotLibrarian(service.getLibrarianTimeSlot(librarianTimeSlotId), convertToDomainObject(lDto));
 	}
 	
 	/*
