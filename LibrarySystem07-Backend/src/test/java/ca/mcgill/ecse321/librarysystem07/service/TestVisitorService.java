@@ -138,6 +138,60 @@ public class TestVisitorService {
 		// check error
 		assertEquals("Name is invalid!", error);
 	}
+	
+	@Test
+	public void testCreateVisitorNegative() {
+		String name = "Bob";
+		String username = "Bobob";
+		String address = "1 Montreal";
+		Integer libraryCardId = -1;
+		String error = null;
+		Visitor visitor = null;
+		try {
+			visitor = service.createVisitor(name, username, address, libraryCardId, 0);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(visitor);
+		// check error
+		assertEquals("Library card ID invalid", error);
+	}
+	
+	@Test
+	public void testCreateVisitorEmptyAddress() {
+		String name = "Bob";
+		String username = "Bobob";
+		String address = "";
+		Integer libraryCardId = 11;
+		String error = null;
+		Visitor visitor = null;
+		try {
+			visitor = service.createVisitor(name, username, address, libraryCardId, 0);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(visitor);
+		// check error
+		assertEquals("Address is invalid", error);
+	}
+	
+	@Test
+	public void testCreateVisitorEmptyUsername() {
+		String name = "Bob";
+		String username = "";
+		String address = "15 University";
+		Integer libraryCardId = 11;
+		String error = null;
+		Visitor visitor = null;
+		try {
+			visitor = service.createVisitor(name, username, address, libraryCardId, 0);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(visitor);
+		// check error
+		assertEquals("Username is invalid!", error);
+	}
 
 	//Create a visitor that lives outside the library city of montreal
 	//No error; instead, balance should be 10, the fee for being a library member if not living in the library's city
@@ -163,7 +217,7 @@ public class TestVisitorService {
 	public void testCreateVisitorInsideCity() {
 		String name = "Bob";
 		String username = "Bobob";
-		String address = "1 Montreal";
+		String address = "1 Fleet, Montreal, Quebec";
 		Integer libraryCardId = 100;
 		Visitor visitor = null;
 		try {
@@ -175,6 +229,9 @@ public class TestVisitorService {
 		assertEquals(0, visitor.getBalance());
 	}
 	
+	/**
+	 * Update visitor balance with new valid balance.
+	 */
 	@Test
 	public void testUpdateVisitorBalance() {
 		String error = null;
@@ -188,6 +245,42 @@ public class TestVisitorService {
 		service.updateVisitorBalance(visitor, newBalance);
 		
 		assertEquals(15, visitor.getBalance());
+	}
+	
+	@Test
+	public void testUpdateNullVisitorBalance() {
+		String error = "";
+		Visitor v = null;
+		float newBalance = 15;
+		try {
+			service.updateVisitorBalance(v, newBalance);
+		} catch(IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		
+		assertEquals("Visitor is null.", error);
+	}
+	
+	
+	/**
+	 * Testing increase balance of a visitor.
+	 */
+	@Test
+	public void testAddToVisitorBalance() {
+		String error = null;
+		Integer libraryCardId = 215;
+		String name = "Bob";
+		String username = "Bobob";
+		String address = "1 Montreal";
+		float oldBalance = -10;
+		float newBalance = 15;
+
+		Visitor visitor = service.createVisitor(name, username, address, libraryCardId, 0);
+		service.updateVisitorBalance(visitor, oldBalance);
+		assertEquals(oldBalance, visitor.getBalance());
+		
+		service.addToVisitorBalance(visitor, newBalance); //doesn't throw error, takes any float
+		assertEquals(newBalance+oldBalance, visitor.getBalance());
 	}
 	
 	//Update visitor address to a valid address
@@ -209,9 +302,6 @@ public class TestVisitorService {
 	
 	@Test
 	public void testDeleteVisitor() {
-		String name = "Bob";
-		String username = "Bobob";
-		String address = "1 Montreal";
 		Visitor v = service.getVisitor(VISITOR_KEY);
 		try {
 			service.deleteVisitor(v);
@@ -220,6 +310,29 @@ public class TestVisitorService {
 		}
 		//verify(visitorDao, times(1)).deleteById(anyInt());		
 		verify(visitorDao, times(1)).delete(any(Visitor.class));
+	}
+	
+	@Test
+	public void testDeleteNullVisitor() {
+		Visitor v = service.getVisitor(NONEXISTING_VISITOR_KEY);
+		String error = "";
+		try {
+			service.deleteVisitor(v);
+		} catch(IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals("Cannot delete null visitor!", error);
+	}
+	
+	@Test
+	public void testDeleteVisitorNegativeId() {
+		String error = "";
+		try {
+			service.deleteVisitor(-1);
+		} catch(IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals("Visitor library card Id must be a positive number!", error);
 	}
 	
 	@Test
