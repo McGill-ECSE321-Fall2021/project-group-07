@@ -662,24 +662,27 @@ public class LibrarySystem07Service {
 	}
 
 	/**
-	 * Update address of head librarian in case of move.
-	 * @param h
+	 * Update address in case of move.
+	 * @param headLibrarian
 	 * @param address
 	 */
 	@Transactional
-	public void updateHeadLibrarianAddress(HeadLibrarian h, String address) {
+	public void updateHeadLibrarianAddress(HeadLibrarian headLibrarian, String address) {
+		
 		String error = "";
-		if (address == null || address.trim().length() == 0) {
-			error += "Address is invalid.";
+		
+		if (headLibrarian == null) {
+		 	error += "Head Librarian is null! ";
 		}
-		if (h == null) {
-			error += "Head librarian is null.";
+		
+		if (address == null || address.trim().length() == 0) {
+			error += "Address is invalid! ";
 		}
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		h.setAddress(address);
+		headLibrarian.setAddress(address);
 	}
 	
 	@Transactional
@@ -819,6 +822,99 @@ public class LibrarySystem07Service {
 		}
 		
 		headLibrarianTimeSlotRepository.deleteAll();
+	}
+	
+		/**
+	 * Update end time of librarian time slot
+	 * @param lts
+	 * @param endTime
+	 */
+	
+	@Transactional
+	public void updateHeadLibrarianTimeSlotEndTime(HeadLibrarianTimeSlot hlts, Time endTime) {
+		
+		String error = "";
+		
+		if (hlts == null) {
+			error += "Head Librarian time slot is null.";
+			throw new IllegalArgumentException(error);
+		}
+				
+		if (endTime == null || hlts.getEndTime().equals(endTime)) {
+			error += "Nothing to update!";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (hlts.getStartTime().after(endTime)) {
+			error+="End time cannot be before start time.";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		hlts.setEndTime(endTime);
+	}
+	
+	/**
+	 * Update start time of librarian time slot
+	 * @param lts
+	 * @param endTime
+	 */
+	
+	@Transactional
+	public void updateHeadLibrarianTimeSlotStartTime(HeadLibrarianTimeSlot hlts, Time startTime) {
+		
+		String error = "";
+		
+		if (hlts == null) {
+			error += "Head Librarian time slot is null.";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (startTime == null || hlts.getStartTime().equals(startTime)) {
+			error += "Nothing to update!";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (hlts.getEndTime().before(startTime)) {
+			error+="Start time cannot be after end time. ";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		hlts.setStartTime(startTime);
+	}
+	
+	/**
+	 * Update dayofweek of librarian time slot
+	 * @param lts
+	 * @param day
+	 */
+	
+	@Transactional
+	public void updateHeadLibrarianTimeSlotDayOfWeek(HeadLibrarianTimeSlot hlts, ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWeek day) {
+		String error = "";
+		
+		if (hlts == null) {
+			error += "Head Librarian time slot is null.";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (day == null || hlts.getDayOfTheWeek().equals(day)) {
+			error += "Nothing to update! ";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		hlts.setDayOfTheWeek(day);
 	}
 
 
@@ -1064,6 +1160,129 @@ public class LibrarySystem07Service {
 		for (LibrarianTimeSlot lts : librarianTimeSlotRepository.findLibrarianTimeSlotByLibrarian(librarian)) {
 			librarianTimeSlotRepository.delete(lts);
 		}
+	}
+	
+		/**
+	 * Update end time of librarian time slot
+	 * @param lts
+	 * @param endTime
+	 */
+	
+	@Transactional
+	public void updateLibrarianTimeSlotEndTime(LibrarianTimeSlot lts, Time endTime) {
+		
+		String error = "";
+		
+		if (lts == null) {
+			error += "Librarian time slot is null.";
+			throw new IllegalArgumentException(error);
+		}
+				
+		if (endTime == null || lts.getEndTime().equals(endTime)) {
+			error += "Nothing to update!";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (lts.getStartTime().after(endTime)) {
+			error+="End time cannot be before start time.";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		lts.setEndTime(endTime);
+	}
+	
+	/**
+	 * Update start time of librarian time slot
+	 * @param lts
+	 * @param endTime
+	 */
+	
+	@Transactional
+	public void updateLibrarianTimeSlotStartTime(LibrarianTimeSlot lts, Time startTime) {
+		
+		String error = "";
+		
+		if (lts == null) {
+			error += "Librarian time slot is null.";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (startTime == null || lts.getStartTime().equals(startTime)) {
+			error += "Nothing to update!";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (lts.getEndTime().before(startTime)) {
+			error+="Start time cannot be after end time. ";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		lts.setStartTime(startTime);
+	}
+	
+	/**
+	 * Update dayofweek of librarian time slot
+	 * @param lts
+	 * @param day
+	 */
+	
+	@Transactional
+	public void updateLibrarianTimeSlotDayOfWeek(LibrarianTimeSlot lts, ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek day) {
+		String error = "";
+		
+		if (lts == null) {
+			error += "Librarian time slot is null.";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (day == null || lts.getDayOfTheWeek().equals(day)) {
+			error += "Nothing to update! ";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		lts.setDayOfTheWeek(day);
+	}
+	
+	/**
+	 * Update librarian of librarian time slot
+	 * @param lts
+	 * @param librarian
+	 */
+	@Transactional
+	public void updateLibrarianTimeSlotLibrarian(LibrarianTimeSlot lts, Librarian librarian) {
+		
+		String error = "";
+		
+		if (lts == null) {
+			error += "Librarian time slot is null.";
+			throw new IllegalArgumentException(error);
+		}
+		
+		if (librarian == null) {
+			error += "Nothing to update! ";
+		} else if (!headLibrarianRepository.existsById(librarian.getLibraryCardID())) {
+			error += "Librarian does not exist in the system! ";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		
+		lts.setLibrarian(librarian);
+		
 	}
 	
 	private <T> List<T> toList(Iterable<T> iterable){
