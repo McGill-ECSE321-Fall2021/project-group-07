@@ -69,7 +69,7 @@ public class LibrarySystem07Service {
 	@Transactional
 	public Event createEvent(String name, int eventID, Visitor visitor) {
 		String error = "";
-		if (name.trim().length() == 0 || name == null) {
+		if (name == null || name.trim().length() == 0) {
 			error += "Name is invalid! ";
 		}
 		if (eventID < 0) {
@@ -153,6 +153,9 @@ public class LibrarySystem07Service {
 	 */
 	@Transactional
 	public void deleteEvent(Event e) {
+		if (e == null) {
+			throw new IllegalArgumentException("Event is null!");
+		}
 		eventRepository.delete(e);
 		e.setName(null);
 		e.setVisitor(null);
