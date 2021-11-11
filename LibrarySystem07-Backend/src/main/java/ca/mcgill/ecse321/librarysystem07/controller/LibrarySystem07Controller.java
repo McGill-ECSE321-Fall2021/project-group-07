@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -504,7 +505,7 @@ public class LibrarySystem07Controller {
 	 * @param VisitorDto vDto
 	 * @return List<ReservationDto> of all reservations for visitor vDto
 	 */
-	@GetMapping(value = { "/reservations/visitor/{libraryCardId}", "/reservation/visitor/{libraryCardId}/" })
+	@GetMapping(value = { "/reservations/visitor/{libraryCardId}", "/reservations/visitor/{libraryCardId}/" })
 	public List<ReservationDto> getReservationsOfVisitor(@PathVariable("libraryCardId") VisitorDto vDto) {
 		Visitor v = convertToDomainObject(vDto);
 		return createReservationDtosForVisitor(v);
@@ -522,6 +523,39 @@ public class LibrarySystem07Controller {
 	}
 	
 	/**
+	 * Update address of visitor.
+	 * @param visitorId
+	 * @param address
+	 */
+	@PutMapping(value="/visitors/{visitorId}")
+	public void updateVisitorAddress(@PathVariable("visitorId") int visitorId, @RequestParam(name="address") String address) {
+		Visitor v = service.getVisitor(visitorId);
+		service.updateVisitorAddress(v, address);
+	}
+	
+	/**
+	 * Update balance of visitor.
+	 * @param visitorId
+	 * @param balance
+	 */
+	@PutMapping(value="/visitors/{visitorId}")
+	public void updateVisitorBalance(@PathVariable("visitorId") int visitorId, @RequestParam(name="balance") float balance) {
+		Visitor v = service.getVisitor(visitorId);
+		service.updateVisitorBalance(v, balance);
+	}
+	
+	/**
+	 * Update number of demerit points of visitor.
+	 * @param visitorId
+	 * @param demeritPoints
+	 */
+	@PutMapping(value="/visitors/{visitorId}")
+	public void updateVisitorDemeritPoints(@PathVariable("visitorId") int visitorId, @RequestParam(name="demeritPoints") int points) {
+		Visitor v = service.getVisitor(visitorId);
+		service.updateVisitorDemeritPoints(v, points);
+	}
+	
+	/**
 	 * 
 	 * Delete mapping method to delete a visitor from system
 	 * 
@@ -533,7 +567,9 @@ public class LibrarySystem07Controller {
 	}
 
 
-	/* Event controller methods */
+	/*
+	 * * * * * * * * * * * * * * * * Event controller methods * * * * * * * * * * * * * * * *
+	 * /
 
 	/**
 	 * 
@@ -574,7 +610,7 @@ public class LibrarySystem07Controller {
 	}
 
 
-	/* Reservation controller methods */
+	/* * * * * * * * * * * * * * * * Reservation controller methods * * * * * * * * * * * * * * * */
 
 	/**
 	 * 
@@ -637,6 +673,16 @@ public class LibrarySystem07Controller {
 		}
 		return eventsDto;
 	}
+	
+	/**
+	 * Update (for example, extend) the end date of a reservation.
+	 * @param reservationId
+	 * @param endDate
+	 */
+	@PutMapping(value="/reservations/{reservationId}")
+	public void updateReservation(@PathVariable("reservationId") int reservationId, @RequestParam(name="endDate") Date endDate) {
+		service.updateReservationEndDate(service.getReservation(reservationId), endDate);
+	}
 
 	/**
 	 * Delete mapping for deleting a reservation from system
@@ -648,11 +694,14 @@ public class LibrarySystem07Controller {
 	}
 	
 	
-	
 	/*
 	 * * * * * * * * * * * * * * * Inventory Item controllers * * * * * * * * * * * * * * 
 	 */
 	
+	/**
+	 * 
+	 * @return list of all inventory items as DTOs
+	 */
 	 @GetMapping(value = { "/inventoryitem", "/inventoryitem/"})
 	 public List<InventoryItemDto> getAllInventoryItems(){
 		 List<InventoryItemDto> inventoryItemDtos = new ArrayList<>();
@@ -662,6 +711,17 @@ public class LibrarySystem07Controller {
 		 return inventoryItemDtos;
 	 }
 
+	 /**
+	  * 
+	  * @param InventoryItemID
+	  * @param duplicates
+	  * @param name
+	  * @param author
+	  * @param status
+	  * @param type
+	  * @return new inventory item
+	  * @throws IllegalArgumentException
+	  */
 	 @PostMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
 	 public InventoryItemDto createInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam int duplicates, @RequestParam String name, @RequestParam String author, @RequestParam("status") String status, @RequestParam("type") String type) throws IllegalArgumentException{
 		 InventoryItem.TypeOfItem typeOfItem = null;
@@ -693,6 +753,12 @@ public class LibrarySystem07Controller {
 		
 	 }
 
+	 /**
+	  * 
+	  * @param inventoryItemID
+	  * @return inventory item with id matching parameter.
+	  * @throws IllegalArgumentException
+	  */
 	 @GetMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
 	 public InventoryItemDto getInventoryItemByInventoryItemID(@PathVariable("inventoryItemID") int inventoryItemID) throws IllegalArgumentException {
 		 return convertToDto(service.getInventoryItem(inventoryItemID));
@@ -704,8 +770,19 @@ public class LibrarySystem07Controller {
 		 service.deleteInventoryItem(inventoryItem);
 	 }
 
+	 /**
+	  * 
+	  * @param InventoryItemID
+	  * @param duplicates
+	  * @param name
+	  * @param author
+	  * @param status
+	  * @param type
+	  * @return inventory item with id InventoryItemID with updated attributes
+	  * @throws IllegalArgumentException
+	  */
 	 @PatchMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
-	 public InventoryItemDto editInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam(required = false) int duplicates, @RequestParam(required = false) String name, @RequestParam(required = false) String author, @RequestParam(required = false) String status, @RequestParam(required = false) String type) throws IllegalArgumentException{
+	 public InventoryItemDto updateInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam(required = false) int duplicates, @RequestParam(required = false) String name, @RequestParam(required = false) String author, @RequestParam(required = false) String status, @RequestParam(required = false) String type) throws IllegalArgumentException{
 		 InventoryItem inventoryItem = service.getInventoryItem(InventoryItemID);
 		 if (status != null){
 			InventoryItem.Status goodstatus = null;
@@ -750,9 +827,6 @@ public class LibrarySystem07Controller {
 	 }
 
 
-
-	
-	
 
 	/*
 	 * MODEL TO DTO HELPER METHODS
