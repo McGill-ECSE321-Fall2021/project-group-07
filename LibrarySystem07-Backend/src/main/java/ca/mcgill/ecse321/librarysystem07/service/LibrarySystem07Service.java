@@ -1269,7 +1269,7 @@ public class LibrarySystem07Service {
 		
 		if (librarian == null) {
 			error += "Nothing to update! ";
-		} else if (!headLibrarianRepository.existsById(librarian.getLibraryCardID())) {
+		} else if (!librarianRepository.existsById(librarian.getLibraryCardID())) {
 			error += "Librarian does not exist in the system! ";
 		}
 		
