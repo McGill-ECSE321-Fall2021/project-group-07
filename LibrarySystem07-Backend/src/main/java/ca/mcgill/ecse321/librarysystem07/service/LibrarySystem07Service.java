@@ -74,21 +74,37 @@ public class LibrarySystem07Service {
 		return e;
 	}
 	
-	/* INVENTORY ITEM */
-	
+	// INVENTORY ITEM //
+
+	/**
+	 * 
+	 * @return Iterable list of inventory items.
+	 */
 	@Transactional
 	public List<InventoryItem> getAllInventoryItems() {
-		return toList(inventoryItemRepository.findAll());
+		return toList(inventoryItemRepository.findAll()); //ask about to list
 	}
-	
+
+	/**
+	 * 
+	 * @param id
+	 * @return Inventory item with ID = id.
+	 */
 	@Transactional
 	public InventoryItem getInventoryItem(int id) {
-		if (id < 0) {
-			throw new IllegalArgumentException("ID is invalid!");
-		}
 		return inventoryItemRepository.findInventoryItemByInventoryItemID(id);
 	}
-	
+
+	/**
+	 * 
+	 * @param id
+	 * @param duplicates
+	 * @param name
+	 * @param author
+	 * @param status
+	 * @param type
+	 * @return new inventory item.
+	 */
 	@Transactional
 	public InventoryItem createInventoryItem(int id, int duplicates, String name, 
 			String author, Status status, TypeOfItem type) {
@@ -97,13 +113,13 @@ public class LibrarySystem07Service {
 			error += "ID must be an integer above 0. ";
 		}
 		if (duplicates < 0) {
-			error += "Invalid number of duplicates.";
+			error += "Invalid number of duplicates. ";
 		}
-		if (name.trim().length() == 0 || name == null) {
-			error += "Invalid name!";
+		if (name == null || name.trim().length() == 0) {
+			error += "Invalid name! ";
 		}
-		if (author.trim().length() == 0 || author == null) {
-			error += "Invalid author!";
+		if (author == null || author.trim().length() == 0) {
+			error += "Invalid author! ";
 		}
 		if (status == null) {
 			error += "Invalid status! ";
@@ -111,16 +127,96 @@ public class LibrarySystem07Service {
 		if (type == null) {
 			error += "Invalid type! ";
 		}
-		
+
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		
+
 		InventoryItem item = new InventoryItem(id, duplicates, name, author, status, type);
+		//talk abt this
+		item.setInventoryItemID(id);
+		item.setDuplicates(duplicates);
+		item.setName(name);
+		item.setAuthor(author);
+		item.setStatus(status);
+		item.setType(type);
 		inventoryItemRepository.save(item);
 		return item;
 	}
+	
+	/**
+	 * Delete inventory item from the repository and set its attributes to null.
+	 * @param id
+	 */
+	@Transactional
+	public InventoryItem deleteInventoryItem(InventoryItem item){
+		if (item == null){
+				throw new IllegalArgumentException("Inventory Item must not be null.");
+			}
+			inventoryItemRepository.delete(item);
+			item = null;
+			return item;
+		
+	}
+
+	@Transactional
+	public InventoryItem updateIventoryItemDuplicate(InventoryItem item, int duplicates){
+		if (duplicates < 0){
+			throw new IllegalArgumentException("Invalid number of duplicates.");
+		}
+
+		item.setDuplicates(duplicates);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
+	@Transactional
+	public InventoryItem updateIventoryItemName(InventoryItem item, String name){
+		if (name == null ||  name.trim().length() == 0){
+			throw new IllegalArgumentException("Invalid name!");
+		}
+
+		item.setName(name);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
+	@Transactional
+	public InventoryItem updateIventoryItemAuthor(InventoryItem item, String author){
+		if (author == null ||  author.trim().length() == 0){
+			throw new IllegalArgumentException("Invalid author!");
+		}
+
+		item.setAuthor(author);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
+	
+
+	@Transactional
+	public InventoryItem updateIventoryItemStatus(InventoryItem item, Status status){
+		if (status == null){
+			throw new IllegalArgumentException("Invalid status!");
+		}
+
+		item.setStatus(status);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
+	@Transactional
+	public InventoryItem updateIventoryItemType(InventoryItem item, TypeOfItem type){
+		if (type == null){
+			throw new IllegalArgumentException("Invalid type!");
+		}
+
+		item.setType(type);
+		inventoryItemRepository.save(item);
+		return item;
+	}
+
 	
 	/* RESERVATION */
 	
