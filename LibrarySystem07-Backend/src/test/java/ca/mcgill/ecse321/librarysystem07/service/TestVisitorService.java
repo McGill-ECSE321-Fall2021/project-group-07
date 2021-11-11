@@ -138,6 +138,60 @@ public class TestVisitorService {
 		// check error
 		assertEquals("Name is invalid!", error);
 	}
+	
+	@Test
+	public void testCreateVisitorNegative() {
+		String name = "Bob";
+		String username = "Bobob";
+		String address = "1 Montreal";
+		Integer libraryCardId = -1;
+		String error = null;
+		Visitor visitor = null;
+		try {
+			visitor = service.createVisitor(name, username, address, libraryCardId, 0);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(visitor);
+		// check error
+		assertEquals("Library card ID invalid", error);
+	}
+	
+	@Test
+	public void testCreateVisitorEmptyAddress() {
+		String name = "Bob";
+		String username = "Bobob";
+		String address = "";
+		Integer libraryCardId = 11;
+		String error = null;
+		Visitor visitor = null;
+		try {
+			visitor = service.createVisitor(name, username, address, libraryCardId, 0);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(visitor);
+		// check error
+		assertEquals("Address is invalid", error);
+	}
+	
+	@Test
+	public void testCreateVisitorEmptyUsername() {
+		String name = "Bob";
+		String username = "";
+		String address = "15 University";
+		Integer libraryCardId = 11;
+		String error = null;
+		Visitor visitor = null;
+		try {
+			visitor = service.createVisitor(name, username, address, libraryCardId, 0);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(visitor);
+		// check error
+		assertEquals("Username is invalid!", error);
+	}
 
 	//Create a visitor that lives outside the library city of montreal
 	//No error; instead, balance should be 10, the fee for being a library member if not living in the library's city
@@ -163,7 +217,7 @@ public class TestVisitorService {
 	public void testCreateVisitorInsideCity() {
 		String name = "Bob";
 		String username = "Bobob";
-		String address = "1 Montreal";
+		String address = "1 Fleet, Montreal, Quebec";
 		Integer libraryCardId = 100;
 		Visitor visitor = null;
 		try {
