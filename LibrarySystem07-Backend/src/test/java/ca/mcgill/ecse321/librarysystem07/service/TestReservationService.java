@@ -120,7 +120,7 @@ public class TestReservationService {
 		assertNotNull(reservation);
 		assertEquals(reservationId, reservation.getReservationID());
 		assertEquals(startDate, reservation.getStartDate());
-		assertEquals(endDate, reservation.getEndData());
+		assertEquals(endDate, reservation.getEndDate());
 		assertEquals(inventoryItem, reservation.getInventoryItem());
 		
 	}

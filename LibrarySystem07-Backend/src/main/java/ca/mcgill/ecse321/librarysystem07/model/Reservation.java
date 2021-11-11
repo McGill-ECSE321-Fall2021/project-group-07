@@ -20,7 +20,7 @@ public class Reservation
 
   //Reservation Attributes
   private Date startDate;
-  private Date endData;
+  private Date endDate;
 
   //Reservation Associations
   private Visitor visitor;
@@ -37,7 +37,7 @@ public class Reservation
   {
 	  this.reservationID = aReservationID;
 	  this.startDate = aStartDate;
-	  this.endData = aEndData;
+	  this.endDate = aEndData;
 	  this.visitor = aVisitor;
 	  this.inventoryItem = aInventoryItem;
     
@@ -51,12 +51,12 @@ public class Reservation
 		this.startDate = startDate;
 	}
 	
-	public Date getEndData() {
-		return endData;
+	public Date getEndDate() {
+		return endDate;
 	}
 	
-	public void setEndData(Date endData) {
-		this.endData = endData;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
 	@ManyToOne(optional=false)

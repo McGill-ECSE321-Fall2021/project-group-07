@@ -401,7 +401,7 @@ public class LibrarySystem07Service {
 	 */
 	@Transactional
 	public void deleteReservation(int reservationId) {
-		Reservation r = reservationRepository.findReservationByReservationID(reservationId);
+		Reservation r = reservationRepository.findReservationByReservationId(reservationId);
 		reservationRepository.delete(r);
 		r.setEndDate(null);
 		r.setStartDate(null);
@@ -1069,7 +1069,7 @@ public class LibrarySystem07Service {
 	}
 	
 	@Transactional
-	public void deleteReservation(Integer id) {
+	public void deleteReservationById(Integer id) {
 		
 		String error = "";
 		
@@ -1237,7 +1237,7 @@ public class LibrarySystem07Service {
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
-		lts.getLibrarian().delete();
+		//lts.getLibrarian().delete();
 		lts.setLibrarian(librarian);
 	}
 	
@@ -1331,8 +1331,5 @@ public class LibrarySystem07Service {
 		hlts.setHeadLibrarian(headLibrarian);
 	}
 	
-	
-	
 }
 
-}

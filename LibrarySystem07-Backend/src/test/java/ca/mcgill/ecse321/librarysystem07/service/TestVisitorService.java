@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.librarysystem07;
+package ca.mcgill.ecse321.librarysystem07.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

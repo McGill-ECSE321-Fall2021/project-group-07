@@ -8,6 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.lenient;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
 
@@ -161,7 +162,7 @@ public class TestLibrarySystem07Service {
 	 */
 	
 	@Test
-	public void testCreateLibrarianNegative() {
+	public void testCreateLibrarianNegativeId() {
 		
 		Integer libraryCardId = -1;
 		String name = "Gina";
@@ -1352,7 +1353,7 @@ public class TestLibrarySystem07Service {
 		assertNotNull(reservation);
 		assertEquals(reservationId, reservation.getReservationID());
 		assertEquals(startDate, reservation.getStartDate());
-		assertEquals(endDate, reservation.getEndData());
+		assertEquals(endDate, reservation.getEndDate());
 		assertEquals(inventoryItem, reservation.getInventoryItem());
 		
 	}
@@ -1526,7 +1527,7 @@ public class TestLibrarySystem07Service {
 		int numOfReservationsBefore = service.getAllReservations().size();
 		
 		try {
-			service.deleteReservation(null);
+			service.deleteReservationById(null);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -1749,9 +1750,4 @@ public class TestLibrarySystem07Service {
 		assertEquals("Reservation end date cannot be before reservation start date!", error);
 	}
 	
-
-	
-}
-
-
 }
