@@ -392,7 +392,7 @@ public class LibrarySystem07Controller {
 	 */
 	
 	@PutMapping(value = { "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}", "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}/" })
-	public void updateHeadLibrarianTimeSlotStartTime(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
+	public void updateHeadLibrarianTimeSlot(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime updateTime,
 			@RequestParam(required = false, name = "type") String startOrEnd,
 			@RequestParam(required = false, name = "dayOfWeek") String dayOfWeek)
@@ -628,7 +628,7 @@ public class LibrarySystem07Controller {
 	 */
 	
 	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
-	public void updateLibrarianTimeSlotStartTime(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
+	public void updateLibrarianTimeSlot(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime updateTime,
 			@RequestParam(required = false, name = "type") String startOrEnd,
 			@RequestParam(required = false, name = "dayOfWeek") String dayOfWeek,
