@@ -703,7 +703,7 @@ public class LibrarySystem07Controller {
 	@PostMapping(value = { "/visitors/{libraryCardId}", "/visitor/{libraryCardId}/" })
 	public VisitorDto createVisitor(@PathVariable("libraryCardId") int libraryCardId,
 			@RequestParam String name, 
-			@RequestParam String username, @RequestParam String address, @RequestParam int demeritPoints)
+			@RequestParam String username, @RequestParam String address, @RequestParam Integer demeritPoints)
 					throws IllegalArgumentException {
 		Visitor visitor = service.createVisitor(name, username, address, libraryCardId, demeritPoints);
 		return convertToDto(visitor);
@@ -883,7 +883,7 @@ public class LibrarySystem07Controller {
 	 * @param endDate
 	 */
 	@PutMapping(value="/reservations/{reservationId}")
-	public void updateReservation(@PathVariable("reservationId") int reservationId, @RequestParam(name="endDate") Date endDate) {
+	public void updateReservation(@PathVariable("reservationId") Integer reservationId, @RequestParam(name="endDate") Date endDate) {
 		service.updateReservationEndDate(service.getReservation(reservationId), endDate);
 	}
 
@@ -1022,7 +1022,7 @@ public class LibrarySystem07Controller {
 	  * @throws IllegalArgumentException
 	  */
 	 @PostMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
-	 public InventoryItemDto createInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam int duplicates, @RequestParam String name, @RequestParam String author, @RequestParam("status") String status, @RequestParam("type") String type) throws IllegalArgumentException{
+	 public InventoryItemDto createInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam Integer duplicates, @RequestParam String name, @RequestParam String author, @RequestParam("status") String status, @RequestParam("type") String type) throws IllegalArgumentException{
 		 InventoryItem.TypeOfItem typeOfItem = null;
 		 if (type.equalsIgnoreCase("CD")){
 			typeOfItem =  InventoryItem.TypeOfItem.CD;
@@ -1081,7 +1081,7 @@ public class LibrarySystem07Controller {
 	  * @throws IllegalArgumentException
 	  */
 	 @PatchMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
-	 public InventoryItemDto updateInventoryItem(@PathVariable("inventoryItemID") int InventoryItemID, @RequestParam(required = false) int duplicates, @RequestParam(required = false) String name, @RequestParam(required = false) String author, @RequestParam(required = false) String status, @RequestParam(required = false) String type) throws IllegalArgumentException{
+	 public InventoryItemDto updateInventoryItem(@PathVariable("inventoryItemID") Integer InventoryItemID, @RequestParam(required = false) Integer duplicates, @RequestParam(required = false) String name, @RequestParam(required = false) String author, @RequestParam(required = false) String status, @RequestParam(required = false) String type) throws IllegalArgumentException{
 		 InventoryItem inventoryItem = service.getInventoryItem(InventoryItemID);
 		 if (status != null){
 			InventoryItem.Status goodstatus = null;
