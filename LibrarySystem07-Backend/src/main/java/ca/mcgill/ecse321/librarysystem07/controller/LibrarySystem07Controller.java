@@ -607,6 +607,26 @@ public class LibrarySystem07Controller {
 		service.deleteLibrarianSchedule(librarian);
 	}
 	
+	/*
+	 * Calling RESTful service endpoints
+	 * 
+	 * http://localhost:8080/librarianTimeSlots/{librarianTimeSlotId}?updateTime={HH:mm}&type={String}&dayOfWeek={String}&librarianId={Integer}
+	 * 
+	 * Using put methods, we can update a librarian time slot start time, end time, day of week
+	 * and librarian. Done with optional parameters, for example can update dayOfWeek and Start time, but
+	 * not end time or librarian. Only restriction is only one time based parameter can be updated 
+	 * at a time (either start time or end time).
+	 * 
+	 * We can find the librarian time slot by it's ID and update from there.
+	 * 
+	 * @param Integer librarianTimeSlotId, primary identifier for librarian
+	 * @param LocalTime updateTime, time we wish to update
+	 * @param String startOrEnd, specify type of operation for time, ie update start time or end time
+	 * 							 only two parameters aloud are "start" or "end"
+	 * @param String dayOfWeek, weekday we wish to update, then transformed into enum type
+	 * @param Integer librarianId, id of the librarian we want reassign the timeslot to
+	 */
+	
 	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
 	public void updateLibrarianTimeSlotStartTime(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime updateTime,
@@ -1212,27 +1232,6 @@ public class LibrarySystem07Controller {
 		}
 	}
 	
-	
-	
-	
-	/*
-	 * since we do not test the library as a whole, there is no way of accessing schedule
-	 * for a specific librarian, store within LibrarianDto a attribute for list of time slots
-	 * do not have an attribute within head librarian Dto as there is only one head librarian,
-	 * and therefore only one schedule (one set of time slots)
-	 * 
-	 * @param a librarian
-	 * @return DTO time slots for a specific librarian
-	 */
-	
-	private List<LibrarianTimeSlotDto> createLibrarianTimeSlotDtosForLibrarian(Librarian l) {
-		List<LibrarianTimeSlot> librarianTimeSlotsForLibrarian = service.getLibrarianTimeSlotByLibrarian(l);
-		List<LibrarianTimeSlotDto> librarianTimeSlots = new ArrayList<>();
-		for (LibrarianTimeSlot timeslot : librarianTimeSlotsForLibrarian) {
-			librarianTimeSlots.add(convertToDto(timeslot, l));
-		}
-		return librarianTimeSlots;
-	}
 	
 	/*
 	 * helper method to convert from Dto object to model object
