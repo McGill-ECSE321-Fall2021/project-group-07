@@ -1185,7 +1185,6 @@ public class LibrarySystem07Controller {
 		}
 		
 		LibrarianDto librarianDto = new LibrarianDto(l.getLibraryCardID(), l.getName(), l.getUsername(), l.getAddress());
-		librarianDto.setLibrarianTimeSlots(createLibrarianTimeSlotDtosForLibrarian(l));
 		return librarianDto;
 	}
 	
