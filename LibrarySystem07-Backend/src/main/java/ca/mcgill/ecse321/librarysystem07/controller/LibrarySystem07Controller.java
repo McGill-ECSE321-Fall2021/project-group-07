@@ -1005,7 +1005,8 @@ public class LibrarySystem07Controller {
 	 */
 
 	/**
-	 *
+	 * http://localhost:8085/inventoryitem
+	 * Queries database location <inventoryitem>
 	 * @return list of all inventory items as DTOs
 	 */
 	 @GetMapping(value = { "/inventoryitem", "/inventoryitem/"})
@@ -1018,7 +1019,8 @@ public class LibrarySystem07Controller {
 	 }
 
 	 /**
-	  *
+	  * http://localhost:8085/inventoryitem/{inventoryItemID}?duplicates={Integer}&name={String}&author={String}&status={String}&type={String}
+	  * Creates a new inventory item with ID inventoryItemID and parameters mapped to requestparams.
 	  * @param InventoryItemID
 	  * @param duplicates
 	  * @param name
@@ -1060,7 +1062,7 @@ public class LibrarySystem07Controller {
 	 }
 
 	 /**
-	  *
+	  * http://localhost:8085/inventoryitem/{inventoryItemID}
 	  * @param inventoryItemID
 	  * @return inventory item with id matching parameter.
 	  * @throws IllegalArgumentException
@@ -1070,6 +1072,10 @@ public class LibrarySystem07Controller {
 		 return convertToDto(service.getInventoryItem(inventoryItemID));
 	 }
 
+	/**
+	* http://localhost:8085/inventoryitem/{inventoryItemID}
+	* Delete map method deletes the item with ID inventoryItemID from location <inventoryitem>
+	*/
 	 @DeleteMapping(value = {"/inventoryitem/{inventoryItemID}", "/inventoryitem/{inventoryItemID}/"})
 	 public void deleteInventoryItem(@PathVariable("inventoryItemID") Integer inventoryItemID) throws IllegalArgumentException{
 		 InventoryItem inventoryItem = service.getInventoryItem(inventoryItemID);
@@ -1077,6 +1083,7 @@ public class LibrarySystem07Controller {
 	 }
 
 	 /**
+	  * http://localhost:8085/inventoryitem/{inventoryItemID}?duplicates={Integer}&name={String}&author={String}&status={String}
 	  *
 	  * @param InventoryItemID
 	  * @param duplicates
