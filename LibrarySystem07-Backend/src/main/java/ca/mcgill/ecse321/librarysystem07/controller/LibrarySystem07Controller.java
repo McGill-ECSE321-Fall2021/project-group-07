@@ -681,7 +681,8 @@ public class LibrarySystem07Controller {
 
 
 	/**
-	 *
+	 * URL :  http://localhost:8085/visitors
+	 * Queries database for all visitors in location <visitors>
 	 * @return iterable list of all visitors
 	 */
 	@GetMapping(value = { "/visitors/", "/visitors/" })
@@ -690,7 +691,8 @@ public class LibrarySystem07Controller {
 	}
 
 	/**
-	 *
+	 * URL :  http://localhost:8085/visitors/{libraryCardId}
+	 * Queries database location <visitors> for the visitor with id {libraryCardId}
 	 *
 	 * @param libraryCardId
 	 * @param name
@@ -732,7 +734,8 @@ public class LibrarySystem07Controller {
 	}
 
 	/**
-	 * Update address of visitor.
+	 * URL :  http://localhost:8085/visitors/{visitorId}
+	 * Update address of visitor with the parameter requested.
 	 * @param visitorId
 	 * @param address
 	 * @param balance
@@ -759,8 +762,8 @@ public class LibrarySystem07Controller {
 	}
 
 	/**
-	 *
-	 * Delete mapping method to delete a visitor from system
+	 * URL :  http://localhost:8085/visitors/{visitorId}
+	 * Delete mapping method to delete a visitor with ID visitorId from system
 	 *
 	 * @param libraryCardId
 	 */
@@ -775,7 +778,8 @@ public class LibrarySystem07Controller {
 	 * /
 
 	/**
-	 *
+	 * URL :  http://localhost:8085/events
+	 * Fetches everything in location <events>
 	 * @return iterable list of all events
 	 */
 	@GetMapping(value = { "/events/", "/events/" })
@@ -788,7 +792,8 @@ public class LibrarySystem07Controller {
 	}
 
 	/**
-	 *
+	 * URL :  http://localhost:8085/events/{eventId}
+	 * Creates new event at location <events>.
 	 * @param eventId
 	 * @param name
 	 * @param visitor
@@ -804,7 +809,8 @@ public class LibrarySystem07Controller {
 	}
 
 	/**
-	 * Delete mapping method to delete event from system
+	 * URL :  http://localhost:8085/events/{eventId}
+	 * Delete mapping method to delete event from location <events? found by its ID {eventId}	 
 	 * @param eventId
 	 */
 	@DeleteMapping(value="/events/{eventId}")
