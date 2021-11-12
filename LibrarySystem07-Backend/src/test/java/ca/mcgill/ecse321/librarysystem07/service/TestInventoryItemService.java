@@ -57,6 +57,14 @@ public class TestInventoryItemService {
         });
     }  
 
+    /*
+	 * testCreateInventoryItem()
+	 * 
+	 * Test creating an Inventory, if successful, then service should successfully add
+	 * an InventoryItem to the system. 
+	 * Check to see if the object we created exists, if it's attributes where properly set.
+	 */
+    
     @Test
     public void testCreateInventoryItem(){
         assertEquals(0, inventoryItemService.getAllInventoryItems().size());
@@ -88,6 +96,13 @@ public class TestInventoryItemService {
 
     }
 
+    /*
+	 * testCreateInventoryItemNull()
+	 * 
+	 * if any of the fields of InventoryItem are null upon initialization,
+	 * creation of an INventoryItem will be terminated and corresponding error message 
+	 * will be thrown
+	 */
     @Test
     public void testCreateInventoryItemNull(){
         String error = "";
@@ -112,6 +127,12 @@ public class TestInventoryItemService {
 
     }
 
+    /*
+	 * testDeleteInventoryItem()
+	 * 
+	 * test delete specific inventory item, inventory item should no longer exist 
+	 * in the system.
+	 */
     @Test
     public void testDeleteInventoryItem(){
         InventoryItem inventoryItem = null;
@@ -136,6 +157,13 @@ public class TestInventoryItemService {
         assertNull(inventoryItem);
     }
 
+    /*
+	 *  testDeleteNullInventoryItem()
+	 * 
+	 * if inventory item is null when calling delete, then it will not be able to find
+	 * an associated inventory item to delete, and therefore no inventory item will be 
+	 * deleted and corresponding error message will be thrown
+	 */
     @Test
     public void testDeleteNullInventoryItem(){
         String error = "";
@@ -152,6 +180,11 @@ public class TestInventoryItemService {
         assertEquals("Inventory Item must not be null.", error);
     }
 
+    /*
+	 * testUpdateInventoryItemDuplicate()
+	 * 
+	 * test duplicates for specific inventory item
+	 */
     @Test
     public void testUpdateInventoryItemDuplicate(){
         int inventoryItemID = 12345; 
@@ -175,6 +208,11 @@ public class TestInventoryItemService {
         assertEquals(duplicates2, inventoryItem2.getDuplicates());
     }
 
+    /*
+	 * testUpdateInventoryItemDuplicateError()
+	 * 
+	 * test duplicates for specific inventory item, if duplicate invalid throw error
+	 */
     @Test
     public void testUpdateInventoryItemDuplicateError(){
         String error = "";
@@ -199,6 +237,11 @@ public class TestInventoryItemService {
         assertEquals("Invalid number of duplicates.", error);
     }
     
+     /*
+	 * testUpdateInventoryItemName()
+	 * 
+	 * test to update the name of specific inventory item.
+	 */
    @Test
    public void testUpdateInventoryItemName(){
        int inventoryItemID = 12345; 
@@ -223,6 +266,11 @@ public class TestInventoryItemService {
 
    }
 
+    /*
+	 * testUpdateInventoryItemNameError()
+	 * 
+	 * test to update the name of specific inventory item, if name is invalid an error message will be thrown
+	 */
    @Test
    public void testUpdateInventoryItemNameError(){
        String error = "";
@@ -248,6 +296,11 @@ public class TestInventoryItemService {
 
    }
   
+    /*
+	 * testUpdateInventoryItemAuthor()
+	 * 
+	 * test to update the author of specific inventory item.
+	 */
    @Test
    public void testUpdateInventoryItemAuthor(){
        int inventoryItemID = 12345; 
@@ -272,7 +325,11 @@ public class TestInventoryItemService {
 
    }
 
-
+    /*
+	 * testUpdateInventoryItemAuthorError()
+	 * 
+	 * test to update the author of specific inventory item, if author is invalid an error message will be thrown
+	 */
    @Test
    public void testUpdateInventoryItemAuthorError(){
        String error = "";
@@ -297,7 +354,12 @@ public class TestInventoryItemService {
        assertEquals("Invalid author!", error);
 
    }
-
+    
+    /*
+	 * testUpdateInventoryItemStatus()
+	 * 
+	 * test to update the status of specific inventory item.
+	 */
    @Test
    public void testUpdateInventoryItemStatus(){
        int inventoryItemID = 12345; 
@@ -321,7 +383,12 @@ public class TestInventoryItemService {
        assertEquals(status2, inventoryItem2.getStatus());
 
    }
-
+    
+    /*
+	 * testUpdateInventoryItemStatusError()
+	 * 
+	 * test to update the status of specific inventory item, if status is invalid an error message will be thrown
+	 */
    @Test
    public void testUpdateInventoryItemStatusError(){
        String error = "";
@@ -347,6 +414,11 @@ public class TestInventoryItemService {
 
    }
 
+     /*
+	 * testUpdateInventoryItemType()
+	 * 
+	 * test to update the type of specific inventory item.
+	 */
    @Test
    public void testUpdateInventoryItemType(){
     int inventoryItemID = 12345; 
@@ -370,6 +442,11 @@ public class TestInventoryItemService {
     assertEquals(type2, inventoryItem2.getType());
    }
 
+     /*
+	 * testUpdateInventoryItemTypeError()
+     *
+	 * test to update the type of specific inventory item, if type is invalid an error message will be thrown
+	 */
    @Test
    public void testUpdateInventoryItemTypeError(){
     String error = "";
@@ -394,11 +471,21 @@ public class TestInventoryItemService {
     assertEquals("Invalid type!", error);
    }
 
+    /*
+	 * testGetExistingInventoryItem()
+     *
+	 * test to retrieve an exisiting Inventory item
+	 */
    @Test
    public void testGetExistingInventoryItem(){
        assertEquals(inventoryItemID, inventoryItemService.getInventoryItem(inventoryItemID).getInventoryItemID());
    }
 
+    /*
+	 * testGetNonExistingInventoryItem()
+     *
+	 * test to make sure that when trying to retrieve a non exisiting inventory item, null is returned
+	 */
    @Test
    public void testGetNonExistingInventoryItem(){
        assertNull(inventoryItemService.getInventoryItem(nonExistinginventoryItemID));
