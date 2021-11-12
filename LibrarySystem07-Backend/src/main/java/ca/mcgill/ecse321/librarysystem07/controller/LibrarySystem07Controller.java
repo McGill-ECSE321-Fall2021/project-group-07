@@ -739,10 +739,10 @@ public class LibrarySystem07Controller {
 	 * @param demeritPoints
 	 */
 	@PutMapping(value="/visitors/{visitorId}")
-	public void updateVisitorAddress(@PathVariable("visitorId") int visitorId, 
+	public void updateVisitorAddress(@PathVariable("visitorId") Integer visitorId, 
 			@RequestParam(required = false, name="address") String address,
-			@RequestParam(required = false, name="balance") float balance,
-			@RequestParam(required = false, name="demeritPoints") int points) {
+			@RequestParam(required = false, name="balance") Float balance,
+			@RequestParam(required = false, name="demeritPoints") Integer points) {
 		Visitor v = service.getVisitor(visitorId);
 		
 		if (address != null) {
@@ -796,10 +796,10 @@ public class LibrarySystem07Controller {
 	 * @throws IllegalArgumentException
 	 */
 	@PostMapping(value = { "/events/{eventId}", "/events/{eventId}/" })
-	public EventDto createEvent(@PathVariable("eventId") int eventId, @RequestParam String name,
-			@RequestParam Visitor visitor)
+	public EventDto createEvent(@PathVariable("eventId") Integer eventId, @RequestParam String name,
+			@RequestParam Integer visitorId)
 					throws IllegalArgumentException {
-		Event event = service.createEvent(name, eventId, visitor);
+		Event event = service.createEvent(name, eventId, service.getVisitor(visitorId));
 		return convertToDto(event);
 	}
 
@@ -808,7 +808,7 @@ public class LibrarySystem07Controller {
 	 * @param eventId
 	 */
 	@DeleteMapping(value="/events/{eventId}")
-	public void deleteEvent(@PathVariable("eventId") int eventId) {
+	public void deleteEvent(@PathVariable("eventId") Integer eventId) {
 		service.deleteEvent(eventId);
 	}
 
