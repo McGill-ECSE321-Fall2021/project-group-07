@@ -203,7 +203,7 @@ public class TestVisitorService {
 		Integer libraryCardId = 100;
 		Visitor visitor = null;
 		try {
-			visitor = service.createVisitor(name, username, address, libraryCardId, 0);
+			visitor = service.createVisitor(name, username, address, libraryCardId, 10);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
