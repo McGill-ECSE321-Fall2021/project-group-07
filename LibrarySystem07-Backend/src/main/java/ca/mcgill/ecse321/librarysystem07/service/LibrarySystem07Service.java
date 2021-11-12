@@ -1162,7 +1162,7 @@ public class LibrarySystem07Service {
 		}
 	}
 	
-		/**
+	/**
 	 * Update end time of librarian time slot
 	 * @param lts
 	 * @param endTime
@@ -1391,160 +1391,9 @@ public class LibrarySystem07Service {
 		}
 		r.setEndDate(endDate);
 	}
+
 	
-	/**
-	 * LIBRARIAN TIMESLOT UPDATES
-	 */
-	
-	/**
-	 * Update end time of librarian time slot
-	 * @param lts
-	 * @param endTime
-	 */
-	
-	@Transactional
-	public void updateLibrarianTimeSlotEndTime(LibrarianTimeSlot lts, Time endTime) {
-		String error = "";
-		if (lts == null) {
-			error += "Librarian time slot is null.";
-		}
-		if (lts.getStartTime().after(endTime)) {
-			error+="Start time cannot be after end time.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		lts.setEndTime(endTime);
-	}
-	
-	/**
-	 * Update start time of librarian time slot
-	 * @param lts
-	 * @param endTime
-	 */
-	
-	@Transactional
-	public void updateLibrarianTimeSlotStartTime(LibrarianTimeSlot lts, Time startTime) {
-		String error = "";
-		if (lts == null) {
-			error += "Librarian time slot is null.";
-		}
-		if (lts.getEndTime().before(startTime)) {
-			error+="Start time cannot be after end time.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		lts.setStartTime(startTime);
-	}
-	
-	/**
-	 * Update dayofweek of librarian time slot
-	 * @param lts
-	 * @param day
-	 */
-	
-	@Transactional
-	public void updateLibrarianTimeSlotDayOfWeek(LibrarianTimeSlot lts, ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek day) {
-		String error = "";
-		if (lts == null) {
-			error += "Librarian time slot is null.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		lts.setDayOfTheWeek(day);
-	}
-	
-	/**
-	 * Update librarian of librarian time slot
-	 * @param lts
-	 * @param librarian
-	 */
-	@Transactional
-	public void updateLibrarianTimeSlotLibrarian(LibrarianTimeSlot lts, Librarian librarian) {
-		String error = "";
-		if (lts == null) {
-			error += "Librarian time slot is null.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		//lts.getLibrarian().delete();
-		lts.setLibrarian(librarian);
-	}
-	
-	/**
-	 * HEAD LIBRARIAN TIMESLOT UPDATES
-	 */
-	
-	/**
-	 * Update end time of librarian time slot
-	 * @param lts
-	 * @param endTime
-	 */
-	
-	@Transactional
-	public void updateHeadLibrarianTimeSlotEndTime(HeadLibrarianTimeSlot hlts, Time endTime) {
-		String error = "";
-		if (hlts == null) {
-			error += "Head Librarian time slot is null.";
-		}
-		if (hlts.getStartTime().after(endTime)) {
-			error+="Start time cannot be after end time.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		hlts.setEndTime(endTime);
-	}
-	
-	/**
-	 * Update start time of librarian time slot
-	 * @param lts
-	 * @param endTime
-	 */
-	
-	@Transactional
-	public void updateHeadLibrarianTimeSlotStartTime(HeadLibrarianTimeSlot hlts, Time startTime) {
-		String error = "";
-		if (hlts == null) {
-			error += "Head Librarian time slot is null.";
-		}
-		if (hlts.getEndTime().before(startTime)) {
-			error+="Start time cannot be after end time.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		hlts.setStartTime(startTime);
-	}
-	
-	/**
-	 * Update dayofweek of librarian time slot
-	 * @param lts
-	 * @param day
-	 */
-	
-	@Transactional
-	public void updateHeadLibrarianTimeSlotDayOfWeek(HeadLibrarianTimeSlot hlts, ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWeek day) {
-		String error = "";
-		if (hlts == null) {
-			error += "Head Librarian time slot is null.";
-		}
-		error = error.trim();
-		if (error.length() > 0) {
-			throw new IllegalArgumentException(error);
-		}
-		hlts.setDayOfTheWeek(day);
-	}
-	
+
 	/**
 	 * Update librarian of librarian time slot
 	 * @param lts
