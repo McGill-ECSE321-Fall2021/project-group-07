@@ -735,33 +735,27 @@ public class LibrarySystem07Controller {
 	 * Update address of visitor.
 	 * @param visitorId
 	 * @param address
-	 */
-	@PutMapping(value="/visitors/{visitorId}")
-	public void updateVisitorAddress(@PathVariable("visitorId") int visitorId, @RequestParam(name="address") String address) {
-		Visitor v = service.getVisitor(visitorId);
-		service.updateVisitorAddress(v, address);
-	}
-	
-	/**
-	 * Update balance of visitor.
-	 * @param visitorId
 	 * @param balance
-	 */
-	@PutMapping(value="/visitors/{visitorId}")
-	public void updateVisitorBalance(@PathVariable("visitorId") int visitorId, @RequestParam(name="balance") float balance) {
-		Visitor v = service.getVisitor(visitorId);
-		service.updateVisitorBalance(v, balance);
-	}
-	
-	/**
-	 * Update number of demerit points of visitor.
-	 * @param visitorId
 	 * @param demeritPoints
 	 */
 	@PutMapping(value="/visitors/{visitorId}")
-	public void updateVisitorDemeritPoints(@PathVariable("visitorId") int visitorId, @RequestParam(name="demeritPoints") int points) {
+	public void updateVisitorAddress(@PathVariable("visitorId") int visitorId, 
+			@RequestParam(required = false, name="address") String address,
+			@RequestParam(required = false, name="balance") float balance,
+			@RequestParam(required = false, name="demeritPoints") int points) {
 		Visitor v = service.getVisitor(visitorId);
-		service.updateVisitorDemeritPoints(v, points);
+		
+		if (address != null) {
+			service.updateVisitorAddress(v, address);
+		}
+		
+		if (balance > 0.0) {
+			service.updateVisitorBalance(v, balance);
+		}
+		
+		if (points > 0) {
+			service.updateVisitorDemeritPoints(v, points);
+		}
 	}
 	
 	/**
