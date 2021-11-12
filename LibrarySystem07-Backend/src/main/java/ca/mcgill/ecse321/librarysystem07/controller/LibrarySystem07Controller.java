@@ -77,6 +77,10 @@ public class LibrarySystem07Controller {
 	@GetMapping(value = { "/headLibrarian", "/headLibrarian/" })
 	public HeadLibrarianDto getHeadLibrarian() {
 		
+		if (service.getAllHeadLibrarians().isEmpty()) {
+			return null;
+		}
+		
 		return convertToDto(service.getAllHeadLibrarians().get(0));
 	}
 	
@@ -108,9 +112,15 @@ public class LibrarySystem07Controller {
 	 * @param String address, address of residence (within city or outside?)
 	 */
 	
-	@PutMapping(value = { "/headLibrarian", "/headLibrarian/" })
-	public void updateHeadLibrarianAddress(@RequestParam(name = "address") String address) 
+	@PutMapping(value = { "/headLibrarian/{libraryCardID}", "/headLibrarian/{libraryCardID}/" })
+	public void updateHeadLibrarianAddress(@PathVariable("libraryCardID") Integer libraryCardID,
+			@RequestParam(name = "address") String address) 
 		throws IllegalArgumentException {
+		
+		if (service.getAllHeadLibrarians().isEmpty()) {
+			return;
+		}
+		
 		service.updateHeadLibrarianAddress(service.getAllHeadLibrarians().get(0), address);
 	}
 	
@@ -193,7 +203,7 @@ public class LibrarySystem07Controller {
 	 * @param Integer libraryCardID, card of the librarian
 	 */
 	
-	@DeleteMapping(value = { "/librarian/{libraryCardID}", "/librarian/{libraryCardID}/" })
+	@DeleteMapping(value = { "/librarians/{libraryCardID}", "/librarians/{libraryCardID}/" })
 	public void deleteLibrarian(@PathVariable("libraryCardID") Integer libraryCardID) 
 		throws IllegalArgumentException {
 		
@@ -208,7 +218,7 @@ public class LibrarySystem07Controller {
 	 * Using delete query method, we delete all the librarians from the library system.
 	 */
 	
-	@DeleteMapping(value = { "/librarian/{libraryCardID}", "/librarian/{libraryCardID}/" })
+	@DeleteMapping(value = { "/librarians", "/librarians/" })
 	public void deleteLibrarian() 
 		throws IllegalArgumentException {
 		service.deleteAllLibrarians();
@@ -266,8 +276,7 @@ public class LibrarySystem07Controller {
 	public HeadLibrarianTimeSlotDto scheduleHeadLibrarian(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
 	@RequestParam(name = "dayOfWeek") String dayOfWeek,
 	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
-	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime, 
-	@RequestParam(name = "headLibrarian") HeadLibrarianDto headLibrarian)
+	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
 	throws IllegalArgumentException {
 		
 		DayOfTheWeek weekDay;
@@ -368,77 +377,61 @@ public class LibrarySystem07Controller {
 	/*
 	 * Calling RESTful service endpoints
 	 * 
-	 * http://localhost:8080/headLibrarianTimeSlots/{headLibrarianTimeSlotId}?startTime={HH:mm}
+	 * http://localhost:8080/headLibrarianTimeSlots/{headLibrarianTimeSlotId}?updateTime={HH:mm}&type={String}&dayOfWeek={String}
+	 * http://localhost:8080/headLibrarianTimeSlots/{headLibrarianTimeSlotId}?updateTime={HH:mm}&type={String}
+	 * http://localhost:8080/headLibrarianTimeSlots/{headLibrarianTimeSlotId}?dayOfWeek={String}
 	 * 
-	 * Using put methods, we can update a head librarian time slot start time with a new start time
+	 * Using put methods, we can update a head librarian time slot start time with a new start time, or end time, or day of week.
 	 * We can find the head librarian time slot by it's ID and update from there.
 	 * 
 	 * @param Integer headLibrarianTimeSlotId, primary identifier for librarian
-	 * @param LocalTime startTime, time we wish to update
+	 * @param LocalTime startOrEnd, time we wish to update
+	 * @param String startOrEnd, spesify weather start time or end time will be updated, only choice of input 
+	 *			     is "start" or "end"
+	 * @param Strign dayOfWeek, weekday we wish to update, then transformed into enum type
 	 */
 	
 	@PutMapping(value = { "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}", "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}/" })
 	public void updateHeadLibrarianTimeSlotStartTime(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
-			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime) 
-		throws IllegalArgumentException {
-		service.updateHeadLibrarianTimeSlotStartTime(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId),Time.valueOf(startTime));
-	}
-	
-	/*
-	 * Calling RESTful service endpoints
-	 * 
-	 * http://localhost:8080/headLibrarianTimeSlots/{headLibrarianTimeSlotId}?endTime={HH:mm}
-	 * 
-	 * Using put methods, we can update a head librarian time slot end time with a new end time
-	 * We can find the head librarian time slot by it's ID and update from there.
-	 * 
-	 * @param Integer headLibrarianTimeSlotId, primary identifier for librarian
-	 * @param LocalTime endTime, time we wish to update
-	 */
-	
-	@PutMapping(value = { "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}", "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}/" })
-	public void updateHeadLibrarianTimeSlotEndTime(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
-			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime) 
-		throws IllegalArgumentException {
-		service.updateHeadLibrarianTimeSlotEndTime(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId),Time.valueOf(endTime));
-	}
-	
-	/*
-	 * Calling RESTful service endpoints
-	 * 
-	 * http://localhost:8080/librarianTimeSlots/{librarianTimeSlotId}?dayOfWeek={String}
-	 * 
-	 * Using put methods, we can update a librarian time slot day of the week with a new weekday
-	 * We can find the librarian time slot by it's ID and update from there.
-	 * 
-	 * @param Integer librarianTimeSlotId, primary identifier for librarian
-	 * @param String dayOfWeek, weekday we wish to update, then transformed into enum type
-	 */
-	
-	@PutMapping(value = { "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}", "/headLibrarianTimeSlots/{headLibrarianTimeSlotId}/" })
-	public void updateHeadLibrarianTimeSlotDay(@PathVariable("headLibrarianTimeSlotId") Integer headLibrarianTimeSlotId,
-			@RequestParam(name = "dayOfWeek") String dayOfWeek) 
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime updateTime,
+			@RequestParam(required = false, name = "type") String startOrEnd,
+			@RequestParam(required = false, name = "dayOfWeek") String dayOfWeek)
 		throws IllegalArgumentException {
 		
-		DayOfTheWeek weekDay;
-		
-		if (dayOfWeek.equalsIgnoreCase("monday")) {
-			weekDay = DayOfTheWeek.Monday;
-		} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
-			weekDay = DayOfTheWeek.Tuesday;
-		} else if (dayOfWeek.equalsIgnoreCase("wednesday")) {
-			weekDay = DayOfTheWeek.Wednesday;
-		} else if (dayOfWeek.equalsIgnoreCase("thursday")) {
-			weekDay = DayOfTheWeek.Thursday;
-		} else if (dayOfWeek.equalsIgnoreCase("friday")) {
-			weekDay = DayOfTheWeek.Friday;
-		} else if (dayOfWeek.equalsIgnoreCase("saturday")) {
-			weekDay = DayOfTheWeek.Saturday;
-		} else {
-			weekDay = DayOfTheWeek.Sunday;
+		if (updateTime != null && startOrEnd != null) {
+			
+			if (startOrEnd.equalsIgnoreCase("start")) {
+				service.updateHeadLibrarianTimeSlotStartTime(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId),Time.valueOf(updateTime));
+			} 
+			
+			if (startOrEnd.equalsIgnoreCase("end")) {
+				service.updateHeadLibrarianTimeSlotEndTime(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId),Time.valueOf(updateTime));
+			}
 		}
 		
-		service.updateHeadLibrarianTimeSlotDayOfWeek(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId), weekDay);
+		if (dayOfWeek != null) {
+			
+			DayOfTheWeek weekDay;
+			
+			if (dayOfWeek.equalsIgnoreCase("monday")) {
+				weekDay = DayOfTheWeek.Monday;
+			} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
+				weekDay = DayOfTheWeek.Tuesday;
+			} else if (dayOfWeek.equalsIgnoreCase("wednesday")) {
+				weekDay = DayOfTheWeek.Wednesday;
+			} else if (dayOfWeek.equalsIgnoreCase("thursday")) {
+				weekDay = DayOfTheWeek.Thursday;
+			} else if (dayOfWeek.equalsIgnoreCase("friday")) {
+				weekDay = DayOfTheWeek.Friday;
+			} else if (dayOfWeek.equalsIgnoreCase("saturday")) {
+				weekDay = DayOfTheWeek.Saturday;
+			} else {
+				weekDay = DayOfTheWeek.Sunday;
+			}
+			
+			service.updateHeadLibrarianTimeSlotDayOfWeek(service.getHeadLibrarianTimeSlot(headLibrarianTimeSlotId), weekDay);
+		}
+
 	}
 	
 	/*
@@ -474,7 +467,7 @@ public class LibrarySystem07Controller {
 	@RequestParam(name = "dayOfWeek") String dayOfWeek,
 	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
 	@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime, 
-	@RequestParam(name = "librarian") LibrarianDto lDto)
+	@RequestParam(name = "librarianLibraryCardId") Integer librarianLibraryCardId)
 	throws IllegalArgumentException {
 		
 		ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek weekDay;
@@ -495,7 +488,7 @@ public class LibrarySystem07Controller {
 			weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Sunday;
 		}
 		
-		Librarian librarian = service.getLibrarian(lDto.getLibraryCardID());
+		Librarian librarian = service.getLibrarian(librarianLibraryCardId);
 		LibrarianTimeSlot librarianTimeSlot = service.createLibrarianTimeSlot(librarianTimeSlotId, librarian, Time.valueOf(startTime), Time.valueOf(endTime), weekDay);
 		return convertToDto(librarianTimeSlot, librarian);
 	}
@@ -557,9 +550,13 @@ public class LibrarySystem07Controller {
 	 */
 	
 	@GetMapping(value = { "/librarianTimeSlots/librarians/{libraryCardID}", "/librarianTimeSlots/librarians/{libraryCardID}/" })
-	public List<LibrarianTimeSlotDto> getLibrarianSchedule(@PathVariable("libraryCardID") LibrarianDto lDto) {
-		Librarian l = convertToDomainObject(lDto);
-		return createLibrarianTimeSlotDtosForLibrarian(l);
+	public List<LibrarianTimeSlotDto> getLibrarianSchedule(@PathVariable("libraryCardID") Integer libraryCardID) {
+		Librarian l = service.getLibrarian(libraryCardID);
+		List<LibrarianTimeSlotDto> libSched = new ArrayList<LibrarianTimeSlotDto>();
+		for (LibrarianTimeSlot lts : service.getLibrarianTimeSlotByLibrarian(l)) {
+			libSched.add(convertToDto(lts, l));
+		}
+		return libSched;
 	}
 	
 	/*
@@ -603,11 +600,58 @@ public class LibrarySystem07Controller {
 	 */
 	
 	@DeleteMapping(value = { "/librarianTimeSlots/librarians/{libraryCardID}", "/librarianTimeSlots/librarians/{libraryCardID}/" })
-	public void deleteLibrarianSchedule(@PathVariable("libraryCardID") LibrarianDto lDto) 
+	public void deleteLibrarianSchedule(@PathVariable("libraryCardID") Integer libraryCardID) 
 		throws IllegalArgumentException {
 		
-		Librarian librarian = convertToDomainObject(lDto);
+		Librarian librarian = service.getLibrarian(libraryCardID);
 		service.deleteLibrarianSchedule(librarian);
+	}
+	
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	public void updateLibrarianTimeSlotStartTime(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime updateTime,
+			@RequestParam(required = false, name = "type") String startOrEnd,
+			@RequestParam(required = false, name = "dayOfWeek") String dayOfWeek,
+			@RequestParam(required = false, name = "librarianId") Integer librarianId) 
+		throws IllegalArgumentException {
+		
+		if (updateTime != null && startOrEnd != null) {
+			
+			if (startOrEnd.equalsIgnoreCase("start")) {
+				service.updateLibrarianTimeSlotStartTime(service.getLibrarianTimeSlot(librarianTimeSlotId),Time.valueOf(updateTime));
+			} 
+			
+			if (startOrEnd.equalsIgnoreCase("end")) {
+				service.updateLibrarianTimeSlotEndTime(service.getLibrarianTimeSlot(librarianTimeSlotId),Time.valueOf(updateTime));
+			}
+		}
+		
+		if (dayOfWeek != null) {
+			
+			ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek weekDay;
+			
+			if (dayOfWeek.equalsIgnoreCase("monday")) {
+				weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Monday;
+			} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
+				weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Tuesday;
+			} else if (dayOfWeek.equalsIgnoreCase("wednesday")) {
+				weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Wednesday;
+			} else if (dayOfWeek.equalsIgnoreCase("thursday")) {
+				weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Thursday;
+			} else if (dayOfWeek.equalsIgnoreCase("friday")) {
+				weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Friday;
+			} else if (dayOfWeek.equalsIgnoreCase("saturday")) {
+				weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Saturday;
+			} else {
+				weekDay = ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek.Sunday;
+			}
+			
+			service.updateLibrarianTimeSlotDayOfWeek(service.getLibrarianTimeSlot(librarianTimeSlotId), weekDay);
+		}
+		
+		if (librarianId != null) {
+			service.updateLibrarianTimeSlotLibrarian(service.getLibrarianTimeSlot(librarianTimeSlotId), service.getLibrarian(librarianId));
+		}
 	}
 	
 	
