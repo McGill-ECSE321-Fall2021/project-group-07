@@ -752,11 +752,11 @@ public class LibrarySystem07Controller {
 			service.updateVisitorAddress(v, address);
 		}
 
-		if (balance > 0.0) {
+		if (balance != null) {
 			service.updateVisitorBalance(v, balance);
 		}
 
-		if (points > 0) {
+		if (points != null) {
 			service.updateVisitorDemeritPoints(v, points);
 		}
 	}
@@ -845,11 +845,12 @@ public class LibrarySystem07Controller {
 	 * @throws IllegalArgumentException
 	 */
 	@PostMapping(value = { "/reservations/{reservationId}", "/reservations/{reservationId}/" })
-	public ReservationDto createReservation(@PathVariable("evreservationIdentId") Integer reservationId,
-			@RequestParam Date startDate,
-			@RequestParam Date endDate, @RequestParam Visitor visitor, @RequestParam InventoryItem inventoryItem)
+	public ReservationDto createReservation(@PathVariable("reservationId") Integer reservationId, 
+			@RequestParam Date startDate, 
+			@RequestParam Date endDate, @RequestParam Integer visitorId, @RequestParam Integer inventoryItemId)
 					throws IllegalArgumentException {
-		Reservation r = service.createReservation(reservationId, startDate, endDate, visitor, inventoryItem);
+		Reservation r = service.createReservation(reservationId, startDate, endDate, 
+				service.getVisitor(visitorId), service.getInventoryItem(inventoryItemId));
 		return convertToDto(r);
 	}
 
@@ -1119,7 +1120,7 @@ public class LibrarySystem07Controller {
 			service.updateIventoryItemType(inventoryItem, typeOfItem);
 		 }
 
-		 if (duplicates > 0){
+		 if (duplicates != null){
 			 service.updateIventoryItemDuplicate(inventoryItem, duplicates);
 		 }
 		 if (name != null){
