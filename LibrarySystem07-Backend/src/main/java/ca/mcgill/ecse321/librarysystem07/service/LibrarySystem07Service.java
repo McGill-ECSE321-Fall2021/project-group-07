@@ -404,7 +404,7 @@ public class LibrarySystem07Service {
 	 */
 	@Transactional
 	public void deleteReservation(int reservationId) {
-		Reservation r = reservationRepository.findReservationByReservationId(reservationId);
+		Reservation r = reservationRepository.findReservationByReservationID(reservationId);
 		reservationRepository.delete(r);
 		r.setEndDate(null);
 		r.setStartDate(null);
@@ -1302,7 +1302,7 @@ public class LibrarySystem07Service {
 		if (reservationId == null || reservationId < 0) {
 			throw new IllegalArgumentException("Reservation id is invalid!");
 		}
-		return reservationRepository.findReservationByReservationId(reservationId);
+		return reservationRepository.findReservationByReservationID(reservationId);
 	}
 	
 	@Transactional
@@ -1314,7 +1314,7 @@ public class LibrarySystem07Service {
 			error += "Reservation ID is invalid! ";
 		}
 		
-		if (reservationRepository.findReservationByReservationId(id) == null) {
+		if (reservationRepository.findReservationByReservationID(id) == null) {
 			error += "No such Reservation! ";
 		}
 		

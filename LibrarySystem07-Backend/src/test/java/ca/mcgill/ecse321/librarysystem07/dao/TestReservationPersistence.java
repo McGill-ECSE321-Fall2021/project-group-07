@@ -74,7 +74,7 @@ public class TestReservationPersistence {
 		reservationRepository.save(res);
 		
 		res = null;
-		res = reservationRepository.findReservationByReservationId(reservationID);
+		res = reservationRepository.findReservationByReservationID(reservationID);
 		
 		assertNotNull(res);
 		assertEquals(reservationID, res.getReservationID());

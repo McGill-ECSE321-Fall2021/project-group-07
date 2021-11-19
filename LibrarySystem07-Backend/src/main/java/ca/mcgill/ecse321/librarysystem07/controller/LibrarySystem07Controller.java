@@ -526,7 +526,7 @@ public class LibrarySystem07Controller {
 	 * @return librarian time slot Dto with librarianTimeSlots id {librarianTimeSlotId}
 	 */
 
-	@GetMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}" })
+	@GetMapping(value = { "/librarianTimeSlots", "/librarianTimeSlots/{librarianTimeSlotId}" })
 	public LibrarianTimeSlotDto getLibrarianTimeSlotsByHeadLibrarianTimeSlotsId(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId)
 			throws IllegalArgumentException {
 			return convertToDto(service.getLibrarianTimeSlot(librarianTimeSlotId), service.getLibrarianTimeSlot(librarianTimeSlotId).getLibrarian());
@@ -954,8 +954,8 @@ public class LibrarySystem07Controller {
 	 * @param Integer librarianTimeSlotId, primary identifier for librarian
 	 * @param String dayOfWeek, weekday we wish to update, then transformed into enum type
 	 */
-
-	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+//TODO
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}/DayOfWeek", "/librarianTimeSlots/{librarianTimeSlotId}/" })
 	public void updateLibrarianTimeSlotDay(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam(name = "dayOfWeek") String dayOfWeek)
 		throws IllegalArgumentException {
@@ -993,7 +993,7 @@ public class LibrarySystem07Controller {
 	 * @param LibrarianDto lDto, new librarian for time slot
 	 */
 
-	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}/Librarian", "/librarianTimeSlots/{librarianTimeSlotId}/" })
 	public void updateLibrarianTimeSlotLibrarian(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam(name = "librarian") LibrarianDto lDto)
 		throws IllegalArgumentException {

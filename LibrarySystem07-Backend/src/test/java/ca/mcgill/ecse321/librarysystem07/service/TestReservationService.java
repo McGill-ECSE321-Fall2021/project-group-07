@@ -60,7 +60,7 @@ public class TestReservationService {
 
 	@BeforeEach
 	public void setMockOutput() {
-	    lenient().when(reservationDao.findReservationByReservationId(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
+	    lenient().when(reservationDao.findReservationByReservationID(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
 	        if(invocation.getArgument(0).equals(RESERVATION_KEY)) {
 	            Reservation reservation = new Reservation();
 	            reservation.setReservationID(RESERVATION_KEY);
