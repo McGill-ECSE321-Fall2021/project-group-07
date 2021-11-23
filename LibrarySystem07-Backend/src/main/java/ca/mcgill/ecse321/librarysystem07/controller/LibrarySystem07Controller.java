@@ -627,7 +627,7 @@ public class LibrarySystem07Controller {
 	 * @param Integer librarianId, id of the librarian we want reassign the timeslot to
 	 */
 
-	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}/update", "/librarianTimeSlots/{librarianTimeSlotId}/update/" })
 	public void updateLibrarianTimeSlot(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime updateTime,
 			@RequestParam(required = false, name = "type") String startOrEnd,
@@ -954,7 +954,7 @@ public class LibrarySystem07Controller {
 	 * @param Integer librarianTimeSlotId, primary identifier for librarian
 	 * @param String dayOfWeek, weekday we wish to update, then transformed into enum type
 	 */
-//TODO
+
 	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}/DayOfWeek", "/librarianTimeSlots/{librarianTimeSlotId}/DayOfWeek/" })
 	public void updateLibrarianTimeSlotDay(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam(name = "dayOfWeek") String dayOfWeek)
