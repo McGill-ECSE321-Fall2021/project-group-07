@@ -14,7 +14,7 @@ public interface ReservationRepository extends CrudRepository<Reservation, Integ
 
 	List<Reservation> findReservationByInventoryItem(InventoryItem reservableItem);
 
-	Reservation findReservationByReservationID(Integer reservationID);
+	Reservation findReservationByReservationID(Integer reservationId);
 
 	boolean existsByInventoryItemAndVisitor(InventoryItem reservableItem, Visitor visitor);
 

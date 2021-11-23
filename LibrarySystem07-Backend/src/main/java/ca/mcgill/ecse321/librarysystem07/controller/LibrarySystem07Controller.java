@@ -526,7 +526,7 @@ public class LibrarySystem07Controller {
 	 * @return librarian time slot Dto with librarianTimeSlots id {librarianTimeSlotId}
 	 */
 
-	@GetMapping(value = { "/librarianTimeSlots", "/librarianTimeSlots/{librarianTimeSlotId}" })
+	@GetMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}" })
 	public LibrarianTimeSlotDto getLibrarianTimeSlotsByHeadLibrarianTimeSlotsId(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId)
 			throws IllegalArgumentException {
 			return convertToDto(service.getLibrarianTimeSlot(librarianTimeSlotId), service.getLibrarianTimeSlot(librarianTimeSlotId).getLibrarian());
@@ -917,7 +917,7 @@ public class LibrarySystem07Controller {
 	 * @param LocalTime startTime, time we wish to update
 	 */
 
-	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}/StartTime", "/librarianTimeSlots/{librarianTimeSlotId}/StartTime/" })
 	public void updateLibrarianTimeSlotStartTime(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime)
 		throws IllegalArgumentException {
@@ -936,7 +936,7 @@ public class LibrarySystem07Controller {
 	 * @param LocalTime endTime, time we wish to update
 	 */
 
-	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}/EndTime", "/librarianTimeSlots/{librarianTimeSlotId}/EndTime/" })
 	public void updateLibrarianTimeSlotEndTime(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
 		throws IllegalArgumentException {
@@ -955,7 +955,7 @@ public class LibrarySystem07Controller {
 	 * @param String dayOfWeek, weekday we wish to update, then transformed into enum type
 	 */
 //TODO
-	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}/DayOfWeek", "/librarianTimeSlots/{librarianTimeSlotId}/" })
+	@PutMapping(value = { "/librarianTimeSlots/{librarianTimeSlotId}/DayOfWeek", "/librarianTimeSlots/{librarianTimeSlotId}/DayOfWeek/" })
 	public void updateLibrarianTimeSlotDay(@PathVariable("librarianTimeSlotId") Integer librarianTimeSlotId,
 			@RequestParam(name = "dayOfWeek") String dayOfWeek)
 		throws IllegalArgumentException {
