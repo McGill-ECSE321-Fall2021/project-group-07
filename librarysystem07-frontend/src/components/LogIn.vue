@@ -2,7 +2,7 @@
   <div id="login">
     <h2>Welcome!</h2>
     <h2>
-       <span v-if="message" style="color:navy">uifdskbj: {{message}} </span>
+       <span v-if="message" style="color:navy">dev message: {{message}} </span>
     </h2>
     <div class="row">
       <div class="column">
@@ -25,11 +25,6 @@
                   <button v-bind:disabled="!existingVisitor" @click="signIn(existingVisitor.username, existingVisitor.libraryCardId)">Log In</button>
               </td>
           </tr>
-          <!--tr>
-            <td v-for="visitor in visitorIds"  :key="visitor.libraryCardId">
-                {{ visitor.libraryCardId }}
-            </td>
-          </tr-->
         </table>
         <p>
           <span v-if="errorVisitor" style="color:navy">Error: {{errorVisitor}} </span>
@@ -75,7 +70,7 @@
   </div>
 </template>
 
-<script src="./testing.js">
+<script src="./login.js">
 </script>
 
 <style>
