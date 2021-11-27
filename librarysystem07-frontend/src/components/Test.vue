@@ -1,6 +1,9 @@
 <template>
   <div id="login">
     <h2>Welcome!</h2>
+    <h2>
+       <span v-if="message" style="color:navy">uifdskbj: {{message}} </span>
+    </h2>
     <div class="row">
       <div class="column">
         <table>

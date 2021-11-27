@@ -44,23 +44,26 @@ export default {
             },
             errorVisitor: '',
             errorNewVisitor: '',
+            message: '',
             response: []
+
         }
     },
 
     created: function () {
         //TEST DATA
-        const v1 = new VisitorDto("John", "John1", "Montreal", 0);
-        const v2 = new VisitorDto("Bob", "Bob1", "Montreal", 1);
+        const v1 = new VisitorDto("John", "John1", "Montreal", "0");
+        const v2 = new VisitorDto("Bob", "Bob1", "Montreal", "1");
+        this.visitors[0] = v1;
+        this.visitors[1] = v2;
 
-        this.visitors = [v1, v2]
         this.visitorIds = [
             {libraryCardId: v1.libraryCardId}, 
             {libraryCardId: v2.libraryCardId}
         ]
         this.visitorUsernames = [
-            {libraryCardId: v1.username}, 
-            {libraryCardId: v2.username}
+            {username: v1.username}, 
+            {username: v2.username}
         ]
 
         // Initializing persons from backend
@@ -76,7 +79,16 @@ export default {
 
       methods: {
         createVisitor: function (visitorName, visitorUsername, visitorAddress, visitorLibraryCardId) {
-            
+
+            if (this.visitors.includes(visitorLibraryCardId) || this.visitors.includes(visitorUsername)) {
+                this.errorNewVisitor("This ID is invalid")
+                return;
+            }
+            if (this.visitorIds.includes(visitorLibraryCardId) || this.visitorUsernames.includes(visitorUsername)) {
+                this.errorNewVisitor("This ID is invalid")
+                return;
+            }
+
             AXIOS.post('/visitors/'.concat(visitorLibraryCardId), {}, {params: {
                 libraryCardId: visitorLibraryCardId,
                 username: visitorUsername,
@@ -100,10 +112,12 @@ export default {
             })
 
             // Create a new person and add it to the list of people
-            var v = new VisitorDto(visitorName, visitorUsername, visitorAddress, visitorLibraryCardId)
-            this.visitors.push(v)
-            this.visitorIds.push(visitorLibraryCardId);
-            this.visitorUsernames.push(visitorUsername);
+            this.visitors.push(new VisitorDto(visitorName, visitorUsername, visitorAddress, visitorLibraryCardId))
+            this.visitorIds.push(visitorLibraryCardId)
+            this.visitorUsernames.push(visitorUsername)
+            if (this.visitors.length > 2) {
+                this.message = this.visitors[1].libraryCardId
+            }
             // Reset the name field for new people
             this.newVisitor.username = ''
             this.newVisitor.name = ''
@@ -112,19 +126,15 @@ export default {
           },
 
           signIn: function (visitorUsername, visitorLibraryCardId) {
-            let x = false;
-            for (visitor in visitors) {
-                if (visitor.libraryCardId == visitorLibraryCardId && visitor.username == visitorUsername) {
+            if (this.visitors.length > 2) {
+                this.message = this.visitors[2].libraryCardId
+            }
+            for (let i = 0; i < this.visitors.length; i++) {
+                if (this.visitors[i].username == visitorUsername) {
                     this.$router.push('/app'); 
-                    x = true;
                 }
             }
-            if (x == false) {
-                this.errorVisitor = "Username and ID do not match.";
-            }
-            else {
-                this.errorVisitor = "wo0hoo";
-            }
+            this.errorVisitor = "Username and ID do not match.";
           }
         }
 
