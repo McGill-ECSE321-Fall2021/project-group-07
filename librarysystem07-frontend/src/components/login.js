@@ -16,6 +16,7 @@ function VisitorDto (name, username, address, libraryCardId) {
     this.libraryCardId = libraryCardId;
     this.events = [];
     this.reservations = [];
+    this.demeritPoints = 0;
     if (address.includes("Montreal") || address.includes("montreal")) {
         this.balance = 0;
     }
@@ -32,7 +33,8 @@ export default {
             name: '',
             username: '',
             address: '',
-            libraryCardId: 0
+            libraryCardId: 0,
+            demeritPoints: 0
         },
         errorVisitor: '',
         events: [],
@@ -56,41 +58,41 @@ export default {
       },
 
       methods: {
-        createPerson: function (personName) {
-            AXIOS.post('/persons/'.concat(personName), {}, {})
-              .then(response => {
-              // JSON responses are automatically parsed.
-                this.persons.push(response.data)
-                this.errorPerson = ''
-                this.newPerson = ''
-              })
-              .catch(e => {
-                var errorMsg = e.response.data.message
-                console.log(errorMsg)
-                this.errorPerson = errorMsg
-              })
+          signIn: function (username, libraryCardId) {
+            if (visitors.get(libraryCardId).username == username) {
+                router.push("/visitors/".concat(libraryCardId).concat("/mainpage"))
+            }
           },
 
-          registerEvent: function (personName, eventName) {
-            var indexEv = this.events.map(x => x.name).indexOf(eventName)
-            var indexPart = this.persons.map(x => x.name).indexOf(personName)
-            var person = this.persons[indexPart]
-            var event = this.events[indexEv]
-            AXIOS.post('/register', {},
+          createVisitor: function (name, username, address, libraryCardId) {
+            var indexName = this.visitors.map(x => x.name).indexOf(name)
+            var indexUsername = this.visitors.map(x => x.username).indexOf(username)
+            var indexAddress = this.visitors.map(x => x.address).indexOf(address)
+            var indexLibraryCardId = this.visitors.map(x => x.libraryCardId).indexOf(libraryCardId)
+
+            var visitor = this.visitors[indexLibraryCardId]
+
+            AXIOS.post('/visitors'.concat(libraryCardId), {},
               {params: {
-                person: person.name,
-                event: event.name}})
+                name: visitor.name,
+                username: visitor.username,
+                address: visitor.address,
+                demeritPoints: visitor.demeritPoints
+            } })
             .then(response => {
               // Update appropriate DTO collections
-              person.events.push(event)
-              this.selectedPerson = ''
-              this.selectedEvent = ''
-              this.errorRegistration = ''
+                newVisitor.name.push(name)
+                newVisitor.username.push(username)
+                newVisitor.address.push(address)
+                newVisitor.libraryCardId.push(libraryCardId)
+                newVisitor.demeritPoints.push(demeritPoints)
+                this.visitors.push(response.data)
+                this.errorVisitor = ''
             })
             .catch(e => {
               var errorMsg = e
               console.log(errorMsg)
-              this.errorRegistration = errorMsg
+              this.errorVisitor = errorMsg
             })
           },
       }
