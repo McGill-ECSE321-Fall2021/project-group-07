@@ -27,9 +27,9 @@ export default {
     name: 'visitor',
     data () {
       return {
-          visitors: [],
-          visitorIds: [],
-          visitorUsernames: [],
+            visitors: [],
+            visitorIds: [],
+            visitorUsernames: [],
             newVisitor: {
                 name: '',
                 username: '',
@@ -37,6 +37,10 @@ export default {
                 libraryCardId: '',
                 demeritPoints: 0,
                 balance: 0
+            },
+            existingVisitor: {
+                username: '',
+                libraryCardId: ''
             },
             errorVisitor: '',
             errorNewVisitor: '',
@@ -117,6 +121,9 @@ export default {
             }
             if (x == false) {
                 this.errorVisitor = "Username and ID do not match.";
+            }
+            else {
+                this.errorVisitor = "wo0hoo";
             }
           }
         }

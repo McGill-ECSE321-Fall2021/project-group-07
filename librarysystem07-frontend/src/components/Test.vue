@@ -9,17 +9,17 @@
           </tr>
           <tr>
               <td>
-                  <input type="text" v-model="newVisitor.username" placeholder="Username">
+                  <input type="text" v-model="existingVisitor.username" placeholder="Username">
               </td>
           </tr>
           <tr>
               <td>
-                  <input type="text" v-model="newVisitor.libraryCardId" placeholder="Library Card ID">
+                  <input type="text" v-model="existingVisitor.libraryCardId" placeholder="Library Card ID">
               </td>
           </tr>
           <tr>
               <td>
-                  <button v-bind:disabled="!newVisitor" @click="signIn(newVisitor.username, newVisitor.libraryCardId)">Log In</button>
+                  <button v-bind:disabled="!existingVisitor" @click="signIn(existingVisitor.username, existingVisitor.libraryCardId)">Log In</button>
               </td>
           </tr>
           <!--tr>
