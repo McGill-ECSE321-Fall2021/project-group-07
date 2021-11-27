@@ -38,7 +38,6 @@ export default {
                 demeritPoints: 0,
                 balance: 0
             },
-            // newVisitor: '',
             errorVisitor: '',
             errorNewVisitor: '',
             response: []
@@ -46,11 +45,6 @@ export default {
     },
 
     created: function () {
-        AXIOS.get('/visitors')
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.persons = response.data
-        })
         //TEST DATA
         const v1 = new VisitorDto("John", "John1", "Montreal", 0);
         const v2 = new VisitorDto("Bob", "Bob1", "Montreal", 1);
@@ -65,20 +59,42 @@ export default {
             {libraryCardId: v2.username}
         ]
 
-    //     // Initializing persons from backend
-    //     AXIOS.get('/visitors')
-    //     .then(response => {
-    //         // JSON responses are automatically parsed.
-    //         this.visitors = response.data
-    //     })
-    //     .catch(e => {
-    //         this.errorVisitor = e
-    //     })
+        // Initializing persons from backend
+        AXIOS.get('/visitors')
+        .then(response => {
+            // JSON responses are automatically parsed.
+            this.visitors = response.data
+        })
+        .catch(e => {
+            this.errorVisitor = e
+        })
        },
 
       methods: {
         createVisitor: function (visitorName, visitorUsername, visitorAddress, visitorLibraryCardId) {
             
+            AXIOS.post('/visitors/'.concat(visitorLibraryCardId), {}, {params: {
+                libraryCardId: visitorLibraryCardId,
+                username: visitorUsername,
+                address: visitorAddress,
+                demeritPoints: 0
+            }})
+            .then(response => {
+            // JSON responses are automatically parsed.
+                this.visitors.push(response.data)
+                this.visitorUsernames.push(visitorUsername)
+                this.visitorIds.push(visitorLibraryCardId)
+                this.newVisitor.username = ''
+                this.newVisitor.name = ''
+                this.newVisitor.address = ''
+                this.newVisitor.libraryCardId = ''
+            })
+            .catch(e => {
+              var errorMsg = e.response.data.message
+              console.log(errorMsg)
+              this.errorNewVisitor = errorMsg
+            })
+
             // Create a new person and add it to the list of people
             var v = new VisitorDto(visitorName, visitorUsername, visitorAddress, visitorLibraryCardId)
             this.visitors.push(v)
@@ -92,31 +108,16 @@ export default {
           },
 
           signIn: function (visitorUsername, visitorLibraryCardId) {
-            for (id in visitorIds) {
-                this.errorVisitor = id;
-
-                if (id == visitorLibraryCardId) {
+            let x = false;
+            for (visitor in visitors) {
+                if (visitor.libraryCardId == visitorLibraryCardId && visitor.username == visitorUsername) {
+                    this.$router.push('/app'); 
+                    x = true;
                 }
             }
-
-            // let indexId = visitors.indexOf(id);
-            // let username = visitorUsernames.find(x => x.username === visitorUsername);
-            // let indexUsername = visitorUsernames.indexOf(username);
-            // if (indexId == indexUsername) {
-            //     this.$router.push('/app'); 
-            // }
-            // else {
-            //     this.errorVisitor = "nope";
-            // }
-            // if (this.visitors.includes(visitorLibraryCardId)) {
-            //     var indexOfVisitor = this.visitors.map(x => x.libraryCardId).indexOf(visitorLibraryCardId)
-                // if (this.visitorUsernames[indexOfVisitor] == visitorUsername) {
-                //     this.$router.push('/app'); 
-                // }
-            // }
-            // else {
-            //     this.errorVisitor = "Username and ID do not match.";
-            // }
+            if (x == false) {
+                this.errorVisitor = "Username and ID do not match.";
+            }
           }
         }
 
@@ -126,38 +127,4 @@ export default {
     //             router.push("/visitors/".concat(libraryCardId).concat("/mainpage"))
     //         }
     //       },
-
-    //       createVisitor: function (name, username, address, libraryCardId) {
-    //         var indexName = this.visitors.map(x => x.name).indexOf(name)
-    //         var indexUsername = this.visitors.map(x => x.username).indexOf(username)
-    //         var indexAddress = this.visitors.map(x => x.address).indexOf(address)
-    //         var indexLibraryCardId = this.visitors.map(x => x.libraryCardId).indexOf(libraryCardId)
-
-    //         var visitor = this.visitors[indexLibraryCardId]
-
-    //         AXIOS.post('/visitors'.concat(libraryCardId), {},
-    //           {params: {
-    //             name: visitor.name,
-    //             username: visitor.username,
-    //             address: visitor.address,
-    //             demeritPoints: visitor.demeritPoints
-    //         } })
-    //         .then(response => {
-    //           // Update appropriate DTO collections
-    //             newVisitor.name.push(name)
-    //             newVisitor.username.push(username)
-    //             newVisitor.address.push(address)
-    //             newVisitor.libraryCardId.push(libraryCardId)
-    //             newVisitor.demeritPoints.push(demeritPoints)
-    //             this.visitors.push(response.data)
-    //             this.errorVisitor = ''
-    //         })
-    //         .catch(e => {
-    //           var errorMsg = e
-    //           console.log(errorMsg)
-    //           this.errorVisitor = errorMsg
-    //         })
-    //       },
-    //   }
-  
 }
