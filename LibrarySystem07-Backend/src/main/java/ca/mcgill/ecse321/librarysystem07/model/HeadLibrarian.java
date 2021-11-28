@@ -10,9 +10,9 @@ import javax.persistence.Table;
 =======
 >>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 @Entity
-@Table(name = "head librarian")
 public class HeadLibrarian extends UserRole
 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 
   public HeadLibrarian(String aName, String aUsername, String aAddress, int aLibraryCardID, Library aLibrary)
@@ -24,6 +24,10 @@ public class HeadLibrarian extends UserRole
 
 }
 =======
+=======
+		
+	public HeadLibrarian() {}
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
   public HeadLibrarian(String aName, String aUsername, String aAddress, int aLibraryCardID)
   {
     super(aName, aUsername, aAddress, aLibraryCardID);

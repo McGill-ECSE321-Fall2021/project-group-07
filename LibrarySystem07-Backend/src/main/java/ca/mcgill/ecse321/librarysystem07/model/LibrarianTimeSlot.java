@@ -16,8 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+<<<<<<< HEAD
 @Table(name = "librarian time slot")
 >>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
+=======
+@Table(name = "librarian_timeslot")
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 public class LibrarianTimeSlot {
 
 	private Time startTime;
@@ -52,6 +56,10 @@ public class LibrarianTimeSlot {
 
 	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
+	public LibrarianTimeSlot() {
+		
+	}
+	
 	public LibrarianTimeSlot(int librarianTimeSlotId, Librarian aLibrarian, Time aStartTime, Time aEndTime, DayOfTheWeek aDayOfTheWeek)
 	{
 		setStartTime(aStartTime);

@@ -4,28 +4,34 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "visitor")
 public class Visitor extends UserRole {
 	
 	private float balance;
 	private int demeritPoints;
 	
+	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID) {
+		this(aName, aUsername, aAddress, aLibraryCardID, 0);
+
+	}
 	
 	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints) {
 
 		super(aName, aUsername, aAddress, aLibraryCardID);
 		this.balance = 0;
 		this.setDemeritPoints(aDemeritPoints);
-//		if (!aAddress.contains(library.getCity())) {
-//			setBalance(this.balance + 10);
-//		}
+		if (aAddress == null) {
+			setBalance(this.balance + 10);
+		}
+		else if (!(aAddress.contains("Montreal") || aAddress.contains("montreal"))) {
+			setBalance(this.balance + 10);
+		}
 	}
 
 	public float getBalance() {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 
@@ -36,6 +42,7 @@ public class Visitor extends UserRole {
 	public void setDemeritPoints(int demeritPoints) {
 		this.demeritPoints = demeritPoints;
 	}
+<<<<<<< HEAD
 
 //	public Library getLibrary() {
 //		return library;
@@ -50,3 +57,6 @@ public class Visitor extends UserRole {
 =======
 }
 >>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
+=======
+}
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3

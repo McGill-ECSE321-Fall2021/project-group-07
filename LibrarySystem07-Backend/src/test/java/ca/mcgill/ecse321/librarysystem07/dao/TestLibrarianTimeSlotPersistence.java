@@ -22,11 +22,11 @@ import ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek;
 public class TestLibrarianTimeSlotPersistence {
 	
 	@Autowired
-	private LibrarianRepository librarianRepository;
-	
-	@Autowired
 	private LibrarianTimeSlotRepository librarianTimeSlotRepository;
 	
+	@Autowired
+	private LibrarianRepository librarianRepository;
+		
 	@AfterEach
 	public void clearDatabase() {
 		librarianTimeSlotRepository.deleteAll();
@@ -44,12 +44,12 @@ public class TestLibrarianTimeSlotPersistence {
 		String name = "Nancy";
 		String username = "nancy";
 		String address = "240 test street";
-		int libraryCardId =  667;
+		int libraryCardId = 293;
 		
 		Librarian nancy = new Librarian(name, username, address, libraryCardId);
 		librarianRepository.save(nancy);
 		
-		int librarianTimeSlotId = 0;
+		int librarianTimeSlotId = 89;
 		Time startTime = new Time(8, 0, 0);
 		Time endTime = new Time(12, 0, 0);
 		DayOfTheWeek day = DayOfTheWeek.Monday;

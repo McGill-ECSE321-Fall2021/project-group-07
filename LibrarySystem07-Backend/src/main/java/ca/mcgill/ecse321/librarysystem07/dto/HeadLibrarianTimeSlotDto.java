@@ -17,12 +17,17 @@ public class HeadLibrarianTimeSlotDto {
 	private Time endTime;
 	private DayOfTheWeek dayOfTheWeek;
 	private HeadLibrarianDto headLibrarian;
+<<<<<<< HEAD
 	//private int headLibrarianTimeSlotId;
+=======
+	private Integer headLibrarianTimeSlotId;
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 	
 	public HeadLibrarianTimeSlotDto() {
 		
 	}
 	
+<<<<<<< HEAD
 	public HeadLibrarianTimeSlotDto(HeadLibrarianDto headLibrarian) {
 		
 		this(Time.valueOf("09:00:00"), Time.valueOf("17:00:00"), DayOfTheWeek.Monday, headLibrarian);
@@ -30,6 +35,16 @@ public class HeadLibrarianTimeSlotDto {
 	
 	public HeadLibrarianTimeSlotDto(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek, HeadLibrarianDto headLibrarian) {
 		
+=======
+	public HeadLibrarianTimeSlotDto(Integer headLibrarianTimeSlotId, HeadLibrarianDto headLibrarian) {
+		
+		this(headLibrarianTimeSlotId, Time.valueOf("09:00:00"), Time.valueOf("17:00:00"), DayOfTheWeek.Monday, headLibrarian);
+	}
+	
+	public HeadLibrarianTimeSlotDto(Integer headLibrarianTimeSlotId, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek, HeadLibrarianDto headLibrarian) {
+		
+		this.headLibrarianTimeSlotId = headLibrarianTimeSlotId;
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.dayOfTheWeek = dayOfTheWeek;
@@ -56,8 +71,14 @@ public class HeadLibrarianTimeSlotDto {
 		this.headLibrarian = headLibrarian;
 	}
 
+<<<<<<< HEAD
 //	public int getHeadLibrarianTimeSlotId() {
 //		return headLibrarianTimeSlotId;
 //	}
+=======
+	public Integer getHeadLibrarianTimeSlotId() {
+		return headLibrarianTimeSlotId;
+	}
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 
 }

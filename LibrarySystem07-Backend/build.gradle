@@ -17,19 +17,34 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 	
+<<<<<<< HEAD
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+=======
+		//test time
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine' // MAKE SURE TO IGNORE
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 	}
 	testImplementation 'org.mockito:mockito-core:2.+'
 	testImplementation 'org.mockito:mockito-junit-jupiter:2.18.3'
 
+<<<<<<< HEAD
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+=======
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2' // IMPORTANT VERSION
+	//testImplementation 'org.junit.platform:junit-platform-launcher:1.4.1'
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 
 	// extra lib
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
 	implementation group: 'com.h2database', name: 'h2', version: '1.4.200'
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 }
 
 test {

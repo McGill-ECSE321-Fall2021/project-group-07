@@ -16,13 +16,26 @@ public class HeadLibrarianDto {
 	private String name;
 	private String username;
 	private String address;
+<<<<<<< HEAD
 	private int libraryCardID;
+=======
+	private Integer libraryCardID;
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 	
 	public HeadLibrarianDto() {
 		
 	}
+<<<<<<< HEAD
 		
 	public HeadLibrarianDto(int libraryCardID, String name, String username, String address) {
+=======
+	
+	public HeadLibrarianDto(Integer libraryCardID) {
+		this(libraryCardID, "default", "default", "default");
+	}
+		
+	public HeadLibrarianDto(Integer libraryCardID, String name, String username, String address) {
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 		this.libraryCardID = libraryCardID;
 		this.username = username;
 		this.address = address;
@@ -41,8 +54,18 @@ public class HeadLibrarianDto {
 		return address;
 	}
 
+<<<<<<< HEAD
 	public int getLibraryCardID() {
 		return libraryCardID;
 	}
+=======
+	public Integer getLibraryCardID() {
+		return libraryCardID;
+	}
+	
+	public void setLibraryCardID(Integer libraryCardID) {
+		this.libraryCardID = libraryCardID;
+	}
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 
 }

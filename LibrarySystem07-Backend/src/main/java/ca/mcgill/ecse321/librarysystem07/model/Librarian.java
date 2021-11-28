@@ -6,7 +6,6 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "librarian")
 public class Librarian extends UserRole
 {
 
@@ -20,6 +19,7 @@ public class Librarian extends UserRole
   //------------------------
   // CONSTRUCTOR
   //------------------------
+	public Librarian() {}
 
   public Librarian(String aName, String aUsername, String aAddress, int aLibraryCardID)
 >>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda

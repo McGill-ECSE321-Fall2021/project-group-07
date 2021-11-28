@@ -34,7 +34,10 @@ public class Reservation
   //------------------------
   // CONSTRUCTOR
   //------------------------
-
+  public Reservation() {
+	  
+  }
+  
   public Reservation(int aReservationID, Date aStartDate, Date aEndData, Visitor aVisitor, InventoryItem aInventoryItem)
   {
 	  this.reservationID = aReservationID;
@@ -57,8 +60,13 @@ public class Reservation
 		return endDate;
 	}
 	
+<<<<<<< HEAD
 	public void setEndDate(Date endData) {
 		this.endDate = endData;
+=======
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 	}
 	
 	@ManyToOne(optional=false)

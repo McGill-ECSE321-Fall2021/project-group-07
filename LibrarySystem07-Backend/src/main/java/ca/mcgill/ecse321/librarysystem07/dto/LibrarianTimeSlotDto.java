@@ -17,11 +17,16 @@ public class LibrarianTimeSlotDto {
 	private Time endTime;
 	private DayOfTheWeek dayOfTheWeek;
 	private LibrarianDto librarian;
+<<<<<<< HEAD
+=======
+	private Integer librarianTimeSlotId;
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 	
 	public LibrarianTimeSlotDto() {
 		
 	}
 	
+<<<<<<< HEAD
 	public LibrarianTimeSlotDto(LibrarianDto librarian) {
 		
 		this(Time.valueOf("09:00:00"), Time.valueOf("17:00:00"), DayOfTheWeek.Monday, librarian);
@@ -30,6 +35,16 @@ public class LibrarianTimeSlotDto {
 	public LibrarianTimeSlotDto(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek, LibrarianDto librarian) {
 		
 		//this.librarianTimeSlotId = librarianTimeSlotId;
+=======
+	public LibrarianTimeSlotDto(Integer librarianTimeSlotId, LibrarianDto librarian) {
+		
+		this(librarianTimeSlotId, Time.valueOf("09:00:00"), Time.valueOf("17:00:00"), DayOfTheWeek.Monday, librarian);
+	}
+	
+	public LibrarianTimeSlotDto(Integer librarianTimeSlotId, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek, LibrarianDto librarian) {
+		
+		this.librarianTimeSlotId = librarianTimeSlotId;
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.dayOfTheWeek = dayOfTheWeek;
@@ -56,8 +71,18 @@ public class LibrarianTimeSlotDto {
 		this.librarian = librarian;
 	}
 
+<<<<<<< HEAD
 //	public int getLibrarianTimeSlotId() {
 //		return librarianTimeSlotId;
 //	}
+=======
+	public Integer getLibrarianTimeSlotId() {
+		return librarianTimeSlotId;
+	}
+	
+	public void setLibrarianTimeSlotId(Integer librarianTimeSlotId) {
+		this.librarianTimeSlotId = librarianTimeSlotId;
+	}
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 
 }

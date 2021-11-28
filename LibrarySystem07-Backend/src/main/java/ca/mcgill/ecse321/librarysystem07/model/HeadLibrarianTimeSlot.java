@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 >>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 
 @Entity
-@Table(name = "head librarian time slot")
+@Table(name = "head_librarian_timeslot")
 public class HeadLibrarianTimeSlot {
 	
 	private Time startTime;
@@ -25,6 +25,10 @@ public class HeadLibrarianTimeSlot {
 
 	public enum DayOfTheWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
+	public HeadLibrarianTimeSlot() {
+		
+	}
+	
 	public HeadLibrarianTimeSlot(int headLibrarianTimeSlotId, HeadLibrarian aLibrarian, Time aStartTime, Time aEndTime, DayOfTheWeek aDayOfTheWeek)
 	{
 		setStartTime(aStartTime);

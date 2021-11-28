@@ -16,7 +16,11 @@ public abstract class UserRole {
 	private int libraryCardID;
 	//private Library library;
 	//private int balance?
-
+	
+	public UserRole() {
+		
+	}
+	
 	public UserRole(String aName, String aUsername, String aAddress, int aLibraryCardID) {
 		this.name = aName;
 		this.username = aUsername;

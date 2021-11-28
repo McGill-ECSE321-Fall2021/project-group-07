@@ -12,8 +12,12 @@ public class EventDto {
         name = aName;
         eventID = aEventID;
         visitor = aVisitor;
+<<<<<<< HEAD
     }
     
+=======
+}
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
     public String getName() {
         return name;
     }
@@ -26,5 +30,9 @@ public class EventDto {
 	public Visitor getVisitor() {
 		return visitor;
 	}
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3

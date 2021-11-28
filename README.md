@@ -14,16 +14,42 @@ Our team decided to focus most of our attention on the design of our project, to
 | Basel Elaghoury    | Developer, Designer, Tester  | 20 hours     |
 | Amelie Barsoum     | Developer and Designer, Project Manager  | 20 hours     |
 
-**Requirements**
 
 Link to our [Requirements!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Requirements)
 
-**Use Case Diagram and Use Case Desciptions**
 
 Link to our [Use Case Diagram and Descriptions!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Use-Case-Page)
 
-**UML Diagram**
 Link to our [Domain Model!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Domain-Model)
 
-**Project Management Resources**
 Link to our [Project Management Resources For Deliverable 1!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
+
+**Deliverable 2**
+
+| Members            | Roles                   | Effort       |
+| ------------------ |:-----------------------:| ------------:|
+| Rebecca Mizrahi    | Developer, Designer, Tester  | 25 hours     |
+| Liamo Pennimpede   | Developer, UML Code Generation, Project Manager  | 20 hours     |
+| Samantha Handal    | Developer, Designer, Tester  | 25 hours     |
+| Basel Elaghoury    | Developer, Designer, Tester  | 20 hours     |
+| Amelie Barsoum     | Developer and Designer, Project Manager  | 22 hours     |
+
+Link to our [Testing Plan!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/General-Test-Plan-Outline)
+
+Link to our [Integration Tests!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Integration-Tests)
+
+Link to our [Project Management Resources For Deliverable 2!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
+
+**Deliverable 3**
+
+| Members            | Roles                   | Effort       |
+| ------------------ |:-----------------------:| ------------:|
+| Rebecca Mizrahi    | Developer, Designer, Tester  |  hours     |
+| Liamo Pennimpede   | Developer, UML Code Generation, Project Manager  |  hours     |
+| Samantha Handal    | Developer, Designer, Tester  |  hours     |
+| Basel Elaghoury    | Developer, Designer, Tester  |  hours     |
+| Amelie Barsoum     | Developer and Designer, Project Manager  |  hours     |
+
+Link to our [Architecture Diagram!]()
+
+Link to our [Project Management Resources For Deliverable 3!]()

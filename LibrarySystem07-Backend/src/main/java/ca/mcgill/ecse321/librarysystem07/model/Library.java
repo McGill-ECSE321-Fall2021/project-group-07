@@ -21,7 +21,10 @@ public class Library {
 	private List<InventoryItem> inventoryItems;
 	private List<UserRole> users;
 
-
+	public Library() {
+		
+	}
+	
 	public Library(String aName, String aCity, String aPhoneNumber)
 	{
 		setName(aName);
@@ -117,9 +120,24 @@ public class Library {
 	}
 	
 	public void addUser(UserRole user) {
+		
 		if (users.contains(user)) { return; }
+		
+		if (user.getClass().equals(HeadLibrarian.class)) {
+			
+			for (UserRole u : users) {
+				
+				if (u.getClass().equals(HeadLibrarian.class)) {
+					
+					removeUser(user);
+					return;
+				}
+			}
+		}
+		
 		users.add(user);
 	}
+	
 	public void removeUser(UserRole user) {
 		if (users.contains(user)) {
 			users.remove(user);

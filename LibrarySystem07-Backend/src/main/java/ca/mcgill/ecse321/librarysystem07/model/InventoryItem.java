@@ -51,6 +51,7 @@ public class InventoryItem
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType, Library aLibrary) {
 =======
 =======
@@ -59,6 +60,12 @@ public class InventoryItem
   }
 
 >>>>>>> 1ba91abc45ee9364119a327d731763c3ae91231a
+=======
+  public InventoryItem() {
+	  
+  }
+  
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
   public InventoryItem(int aInventoryItemID, int aDuplicates, String aName, String aAuthor, Status aStatus, TypeOfItem aType) {
 >>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
 	
@@ -75,9 +82,9 @@ public class InventoryItem
 >>>>>>> c5b769f778555a1335d3105b5a61456b4aa9abda
     
     if (type.equals(TypeOfItem.Archive) || type.equals(TypeOfItem.Newspaper) || type.equals(TypeOfItem.Magazine)) {
-    	isReservable = false;
+    	this.isReservable = false;
     } else {
-    	isReservable = true;
+    	this.isReservable = true;
     }
     
   }
@@ -148,14 +155,25 @@ public class InventoryItem
 	public void setType(TypeOfItem type) {
 		this.type = type;
 	}
-	
+
 	public boolean isReservable() {
 		return isReservable;
 	}
+
+	public void setReservable() {
+		
+	    if (type.equals(TypeOfItem.Archive) || type.equals(TypeOfItem.Newspaper) || type.equals(TypeOfItem.Magazine)) {
+	    	this.isReservable = false;
+	    } else {
+	    	this.isReservable = true;
+	    }
+	}
 	
 	public void setReservable(boolean isReservable) {
-		this.isReservable = isReservable;
+			    
+	    this.isReservable = isReservable;
 	}
+<<<<<<< HEAD
 	
 <<<<<<< HEAD
 	public Library getLibrary() {
@@ -166,6 +184,9 @@ public class InventoryItem
 		this.library = library;
 	}
 =======
+=======
+//		
+>>>>>>> 43c22ed296891f706c6d8f0a2870ff860b32dea3
 //	public Library getLibrary() {
 //		return library;
 //	}
