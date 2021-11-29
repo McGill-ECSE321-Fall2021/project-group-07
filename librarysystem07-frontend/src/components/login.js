@@ -14,12 +14,12 @@ function VisitorDto (name, username, address, libraryCardId) {
     this.username = username;
     this.address = address;
     this.libraryCardId = libraryCardId;
-    this.demeritPoints = 0;
+    this.demeritPoints = "0";
     if (address.includes("Montreal") || address.includes("montreal")) {
-        this.balance = 0;
+        this.balance = "0";
     }
     else {
-        this.balance = 15;
+        this.balance = "15";
     }
 }
 
@@ -35,8 +35,8 @@ export default {
                 username: '',
                 address: '',
                 libraryCardId: '',
-                demeritPoints: 0,
-                balance: 0
+                demeritPoints: "0",
+                balance: "0"
             },
             existingVisitor: {
                 username: '',
@@ -52,19 +52,19 @@ export default {
 
     created: function () {
         //TEST DATA
-        const v1 = new VisitorDto("John", "John1", "Montreal", "0");
-        const v2 = new VisitorDto("Bob", "Bob1", "Montreal", "1");
-        this.visitors[0] = v1;
-        this.visitors[1] = v2;
+        // const v1 = new VisitorDto("John", "John1", "Montreal", "0");
+        // const v2 = new VisitorDto("Bob", "Bob1", "Montreal", "1");
+        // this.visitors[0] = v1;
+        // this.visitors[1] = v2;
 
-        this.visitorIds = [
-            {libraryCardId: v1.libraryCardId}, 
-            {libraryCardId: v2.libraryCardId}
-        ]
-        this.visitorUsernames = [
-            {username: v1.username}, 
-            {username: v2.username}
-        ]
+        // this.visitorIds = [
+        //     {libraryCardId: v1.libraryCardId}, 
+        //     {libraryCardId: v2.libraryCardId}
+        // ]
+        // this.visitorUsernames = [
+        //     {username: v1.username}, 
+        //     {username: v2.username}
+        // ]
 
         // Initializing persons from backend
         AXIOS.get('/visitors')
@@ -79,7 +79,6 @@ export default {
 
       methods: {
         createVisitor: function (visitorName, visitorUsername, visitorAddress, visitorLibraryCardId) {
-
             if (this.visitors.includes(visitorLibraryCardId) || this.visitors.includes(visitorUsername)) {
                 this.errorNewVisitor("This ID is invalid")
                 return;
@@ -98,8 +97,8 @@ export default {
             .then(response => {
             // JSON responses are automatically parsed.
                 this.visitors.push(response.data)
-                this.visitorUsernames.push(visitorUsername)
-                this.visitorIds.push(visitorLibraryCardId)
+                this.visitorUsernames.push({username: visitorUsername})
+                this.visitorIds.push({libraryCardId: visitorLibraryCardId})
                 this.newVisitor.username = ''
                 this.newVisitor.name = ''
                 this.newVisitor.address = ''
@@ -113,11 +112,9 @@ export default {
 
             // Create a new person and add it to the list of people
             this.visitors.push(new VisitorDto(visitorName, visitorUsername, visitorAddress, visitorLibraryCardId))
-            this.visitorIds.push(visitorLibraryCardId)
-            this.visitorUsernames.push(visitorUsername)
-            if (this.visitors.length > 2) {
-                this.message = this.visitors[1].libraryCardId
-            }
+            this.visitorIds.push({libraryCardId: visitorLibraryCardId})
+            this.visitorUsernames.push({username: visitorUsername})
+
             // Reset the name field for new people
             this.newVisitor.username = ''
             this.newVisitor.name = ''
@@ -126,14 +123,31 @@ export default {
           },
 
           signIn: function (visitorUsername, visitorLibraryCardId) {
-            if (this.visitors.length > 2) {
-                this.message = this.visitors[2].libraryCardId
-            }
+       
             for (let i = 0; i < this.visitors.length; i++) {
-                if (this.visitors[i].username == visitorUsername) {
-                    this.$router.push('/app'); 
+
+
+                if (this.visitors[i].username == visitorUsername && this.visitors[i].libraryCardId == visitorLibraryCardId) {
+                    var CURRENT_USER_USERNAME = localStorage.setItem('USERNAME',visitorUsername);
+                    var CURRENT_USER_ID = localStorage.setItem('ID',visitorLibraryCardId);
+                    var CURRENT_USER_BALANCE = localStorage.setItem('BALANCE',this.visitors[i].balance);
+
+                    this.$router.push('/info'); 
                 }
             }
+                for (const [key1, value1] of Object.entries(this.visitorIds)) {
+                    for (const [key2, value2] of Object.entries(this.visitorUsernames)) {
+                        
+                        if (value1.libraryCardId == visitorLibraryCardId && value2 == visitorUsername.username) {
+                            var CURRENT_USER_USERNAME = localStorage.setItem('USERNAME',visitorUsername);
+                            var CURRENT_USER_ID = localStorage.setItem('ID',visitorLibraryCardId);
+                            var CURRENT_USER_BALANCE = localStorage.setItem('BALANCE',visitors[i].balance);
+        
+                            this.$router.push('/info'); 
+                        }
+                    }
+                }
+            
             this.errorVisitor = "Username and ID do not match.";
           }
         }

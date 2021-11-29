@@ -48,7 +48,7 @@
           </tr>
           <tr>
               <td>
-                  <input type="text" v-model="newVisitor.libraryCardId" placeholder="Library Card ID">
+                  <input type="number" v-model="newVisitor.libraryCardId" placeholder="Library Card ID">
               </td>
           </tr>
           <tr>
@@ -58,7 +58,7 @@
           </tr>
           <tr>
               <td>
-                  <button v-bind:disabled="!newVisitor" @click="createVisitor(newVisitor.name, newVisitor.username, newVisitor.libraryCardId, newVisitor.address)">Sign Up</button>
+                  <button v-bind:disabled="!newVisitor" @click="createVisitor(newVisitor.name, newVisitor.username, newVisitor.address, newVisitor.libraryCardId)">Sign Up</button>
               </td>
           </tr>
         </table>
