@@ -8,7 +8,7 @@
       <tr>
           <td>Name of event</td>
           <td>
-              <input type="text" placeholder="Event Name">
+              <input type="text" v-model="newEvent.name" placeholder="Event Name">
           </td>
       </tr>
       <tr>
@@ -16,9 +16,25 @@
           <td>
               <input type="text" placeholder="Visitor Name">
           </td>
+      </tr>
+      <tr>
+          <td>&nbsp; Description of event&nbsp; &nbsp; </td>
           <td>
-              <button @click="makeEvent(newEvent.name, newEvent.eventId, newEvent.visitor)">Create</button>
+              <textarea id="eventDescription" name="eventDescription" rows="4" cols="50" placeholder="Event Description">
+              
+              </textarea>
+
           </td>
+      </tr>
+      <tr>
+              <button v-bind:disabled="!newEvent" @click="createEvent(newEvent.name, newEvent.eventId, newEvent.visitor)">Create</button>
+      </tr>
+      <tr>
+          <ul>
+              <li v-for="event in events" :key="event.name">
+                  {{event.name}}
+              </li>
+          </ul> 
       </tr>
     </table>
     <p>

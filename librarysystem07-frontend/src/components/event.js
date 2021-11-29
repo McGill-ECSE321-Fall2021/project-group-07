@@ -39,10 +39,13 @@ export default {
               name:'',
               eventId: 0,
               visitor: null,
-              errorEvent: '',
-              events: [],
-              response: []
+            //   errorEvent: '',
+            //   events: [],
+            //   response: []
           },
+          errorEvent: '',
+          events: [],
+          response: []
         }
     },
           //errorEvent: '',
@@ -65,7 +68,7 @@ export default {
         this.eventIds = [{eventId: v2.eventId}]
         this.eventNames = [{name: v2.name}]  
         
-        // Initializing persons from backend
+        // Initializing events from backend
         AXIOS.get('/events')
         .then(response => {
             // JSON responses are automatically parsed.
@@ -77,31 +80,40 @@ export default {
       },
 
     methods: {
-        clearFields: function ClearFields() {
+        // clearFields: function ClearFields() {
 
-            document.getElementById("textfield1").value = "";
-            document.getElementById("textfield2").value = "";
-        },
+        //     document.getElementById("textfield1").value = "";
+        //     document.getElementById("textfield2").value = "";
+        // },
        
-        makeEvent: function (name, eventId, visitor) {
-            var indexName = this.events.map(x => x.name).indexOf(name)
-            var indexEventId = this.events.map(x => x.eventId).indexOf(eventId)
-            var indexVisitor = this.events.map(x => x.visitor).indexOf(visitor)
+        makeEvent: function (nameE) {//, eventId, visitor) {
+            //var indexName = this.events.map(x => x.name).indexOf(name)
+            //var indexEventId = this.events.map(x => x.eventId).indexOf(eventId)
+            //var indexVisitor = this.events.map(x => x.visitor).indexOf(visitor)
 
-            var event = this.events[eventId]
+            //var event = this.events[indexName]
 
-            AXIOS.post('/events'.concat(eventId), {},
-              {params: {
-                name: event.name,
-                eventId: event.eventId,
-                visitor: event.visitor,
-            } })
+            // AXIOS.post('/events'.concat(eventId), {},
+            //   {params: {
+            //     name: event.name,
+            //     eventId: event.eventId,
+            //     visitor: event.visitor,
+            // } })
+            AXIOS.post('/events'.concat(nameE), {},
+              //  {params: {
+              //      event: event.name,
+              //      name: nameE,
+            //     eventId: event.eventId, //generate random ID?
+            //     visitor: event.visitor, //smtg like get visitor?
+            //} 
+          {})
             .then(response => {
-                // Update appropriate DTO collections
-                newEvent.name.push(name)
-                newEvent.eventId.push(eventId)
-                newEvent.visitor.push(visitor)
-                this.events.push(response.data)
+                // Update appropriate DTO collections  
+                //newEvent.name.push(nameE)           !!!!
+                //newEvent.eventId.push(eventId)
+                //newEvent.visitor.push(visitor)
+                //this.events.push({nameE : response.data.name}) //was eventName : response.data.name   !!!
+                this.events.push({nameE : response.data.name}) 
                 this.errorEvent = ''
                 this.newEvent =''
               })
