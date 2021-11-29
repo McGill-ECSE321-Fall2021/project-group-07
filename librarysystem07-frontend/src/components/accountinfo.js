@@ -39,6 +39,12 @@ function InventoryItemDto (inventoryItemID, duplicates, name, author, status, ty
     this.author = author;
     this.status = status;
     this.type = typeOfItem;
+  
+  if (type.includes("archive") || type.includes("newspaper") || type.includes("magazine")) {
+      this.isReservable = false;
+  } else {
+      this.isReservable = true;
+  }
 }
 
 
@@ -56,7 +62,10 @@ export default {
             reservations: [],
             user_reservations: [],
             errorReservation: '',
-            response: [],            
+            response: [],    
+        
+            selectedItem: '',
+            inventoryItems: [],
         }
     },
 
@@ -88,6 +97,15 @@ export default {
         .catch(e => {
             this.errorReservation = e
         })
+      
+        AXIOS.get('/inventoryitem')
+         .then(response => {
+             // JSON responses are automatically parsed.
+             this.inventoryItems = response.data
+         })
+         .catch(e => {
+             this.errorVisitor = e
+         })
 
         this.user_reservations = this.reservations.filter(x => x.visitor.username == CURRENT_USER_USERNAME)
         this.reservations =[{ reservationID: reservation1.reservationID, reservationStartDate: reservation1.startDate,
@@ -133,6 +151,35 @@ export default {
                 x.style.display = "none";
                 y.style.display = "none";
             }
-        }
+        },
+        
+        reserveItem: function (itemId) {
+
+            //var indexItem = this.inventoryItems.map(x => x.inventoryItemId).indexOf(itemId)
+            //var invItem = this.inventoryItems[indexItem]
+            var today = new Date();
+            var currDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var returnDate = today.getFullYear()+'-'+(today.getMonth()+2)+'-'+today.getDate();
+            var id = Math.floor(Math.random() * 1000);
+
+            AXIOS.post('/reservations/'.concat(id), {},
+              {params: {
+                startDate: currDate,
+                endDate: returnDate,
+                visitorId: this.visitorLoggedIn.libraryCardId,
+                inventoryItemId: itemId
+                }})
+            .then(response => {
+              // Update appropriate DTO collections
+              visitor.reservations.push({startDate, endDate, id})
+              this.selectedItem = ''
+              this.errorReservation = ''
+            })
+            .catch(e => {
+              var errorMsg = e
+              console.log(errorMsg.message)
+              this.errorReservation = errorMsg
+            })
+          }
       }
 }
