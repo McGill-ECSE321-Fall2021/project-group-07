@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,6 +46,7 @@ public class LibrarySystem07Controller {
 	 * Using post methods, we can create a head librarian with a library card id, name,
 	 * username and address
 	 *
+
 	 * @param Integer libraryCardID, primary identifier for head librarian
 	 * @param String name, name of head librarian
 	 * @param String username, username for which the head librarian can use to enter the system
@@ -164,6 +166,7 @@ public class LibrarySystem07Controller {
 	 * @return list of librarian Dtos
 	 */
 
+
 	@GetMapping(value = { "/librarians", "/librarians/" })
 	public List<LibrarianDto> getAllLibrarians() {
 		List<LibrarianDto> librarianDtos = new ArrayList<>();
@@ -280,7 +283,7 @@ public class LibrarySystem07Controller {
 	throws IllegalArgumentException {
 
 		DayOfTheWeek weekDay;
-
+    
 		if (dayOfWeek.equalsIgnoreCase("monday")) {
 			weekDay = DayOfTheWeek.Monday;
 		} else if (dayOfWeek.equalsIgnoreCase("tuesday")) {
@@ -296,6 +299,7 @@ public class LibrarySystem07Controller {
 		} else {
 			weekDay = DayOfTheWeek.Sunday;
 		}
+
 
 		HeadLibrarian hldto = service.getAllHeadLibrarians().get(0);
 		HeadLibrarianTimeSlot headLibrarianTimeSlot = service.createHeadLibrarianTimeSlot(headLibrarianTimeSlotId, hldto, Time.valueOf(startTime), Time.valueOf(endTime), weekDay);
@@ -314,6 +318,7 @@ public class LibrarySystem07Controller {
 	 * @return list of headLibrarianTimeSlots Dto
 	 */
 
+
 	@GetMapping(value = { "/headLibrarianTimeSlots", "/headLibrarianTimeSlots/" })
 	public List<HeadLibrarianTimeSlotDto> getAllHeadLibrarianTimeSlots() {
 		List<HeadLibrarianTimeSlotDto> headLibrarianTimeSlotDtos = new ArrayList<>();
@@ -322,6 +327,7 @@ public class LibrarySystem07Controller {
 		}
 		return headLibrarianTimeSlotDtos;
 	}
+
 
 	/*
 	 * Calling RESTful service endpoints
@@ -1258,6 +1264,7 @@ public class LibrarySystem07Controller {
 		return null;
 	}
 
+
 	/*
 	 * helper methods for initializing dayOfTheWeek in LibrarianTimeSlotDto and HeadLibrarianTimeSlotDto
 	 * when creating DTO, we need to use the enum class within the DTO class and not the model
@@ -1269,6 +1276,7 @@ public class LibrarySystem07Controller {
 	private ca.mcgill.ecse321.librarysystem07.dto.LibrarianTimeSlotDto.DayOfTheWeek parseDayOfWeekL(ca.mcgill.ecse321.librarysystem07.model.LibrarianTimeSlot.DayOfTheWeek dayOfTheWeek) {
 
 		ca.mcgill.ecse321.librarysystem07.dto.LibrarianTimeSlotDto.DayOfTheWeek newTime;
+
 
 		if (dayOfTheWeek.toString().equalsIgnoreCase("monday")) {
 			newTime = ca.mcgill.ecse321.librarysystem07.dto.LibrarianTimeSlotDto.DayOfTheWeek.Monday;
@@ -1286,12 +1294,14 @@ public class LibrarySystem07Controller {
 			newTime = ca.mcgill.ecse321.librarysystem07.dto.LibrarianTimeSlotDto.DayOfTheWeek.Sunday;
 		}
 
+
 		return newTime;
 	}
 
 	private ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek parseDayOfWeekHL(ca.mcgill.ecse321.librarysystem07.model.HeadLibrarianTimeSlot.DayOfTheWeek dayOfTheWeek) {
 
 		ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek newTime = ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek.Sunday;
+
 
 		if (dayOfTheWeek.toString().equalsIgnoreCase("monday")) {
 			newTime = ca.mcgill.ecse321.librarysystem07.dto.HeadLibrarianTimeSlotDto.DayOfTheWeek.Monday;
@@ -1311,5 +1321,6 @@ public class LibrarySystem07Controller {
 
 		return newTime;
 	}
+
 
 }

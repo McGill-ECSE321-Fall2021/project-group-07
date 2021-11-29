@@ -50,13 +50,14 @@ public class Reservation
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
-	
+  
 	public Date getEndDate() {
 		return endDate;
 	}
 	
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+
 	}
 	
 	@ManyToOne(optional=false)

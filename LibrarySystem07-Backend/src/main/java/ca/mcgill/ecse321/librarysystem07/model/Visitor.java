@@ -8,6 +8,7 @@ public class Visitor extends UserRole {
 	
 	private float balance;
 	private int demeritPoints;
+
 	
 	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID) {
 		this(aName, aUsername, aAddress, aLibraryCardID, 0);
@@ -42,4 +43,5 @@ public class Visitor extends UserRole {
 	public void setDemeritPoints(int demeritPoints) {
 		this.demeritPoints = demeritPoints;
 	}
+
 }

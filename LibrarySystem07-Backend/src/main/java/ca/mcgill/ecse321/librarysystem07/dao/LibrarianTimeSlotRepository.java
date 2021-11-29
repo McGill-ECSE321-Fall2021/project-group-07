@@ -13,6 +13,5 @@ public interface LibrarianTimeSlotRepository extends CrudRepository<LibrarianTim
 
 	List<LibrarianTimeSlot> findLibrarianTimeSlotByLibrarian(Librarian Librarian);
 	LibrarianTimeSlot findLibrarianTimeSlotByLibrarianTimeSlotId(int librarianTimeSlotId);
-	//List<LibrarianTimeSlot> findLibrarianTimeSlotByDayOfTheWeek(DayOfTheWeek dayOfTheWeek);
 
 }

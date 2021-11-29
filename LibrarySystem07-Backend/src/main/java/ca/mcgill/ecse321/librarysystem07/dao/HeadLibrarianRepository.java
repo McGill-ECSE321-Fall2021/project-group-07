@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import ca.mcgill.ecse321.librarysystem07.model.HeadLibrarian;
 
-
 @Repository
 public interface HeadLibrarianRepository extends CrudRepository<HeadLibrarian, Integer>{
 	

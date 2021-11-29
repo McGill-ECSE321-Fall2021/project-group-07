@@ -37,20 +37,24 @@ public class LibrarySystem07Service {
 	InventoryItemRepository inventoryItemRepository;
 
 
+
 	// EVENT //
 	
 	/**
 	 * @return Iterable list of events.
 	 */
+
 	@Transactional
 	public List<Event> getAllEvents() {
 		return toList(eventRepository.findAll());
 	}
 
+
 	/**
 	 * @param id
 	 * @return Event with ID id.
 	 */
+
 	@Transactional
 	public Event getEvent(int id) {
 		if (id <0) {
@@ -58,6 +62,7 @@ public class LibrarySystem07Service {
 		}
 		return eventRepository.findEventByEventID(id);
 	}
+
 
 	/**
 	 * 
@@ -87,6 +92,7 @@ public class LibrarySystem07Service {
 		eventRepository.save(e);
 		return e;
 	}
+
 
 	/**
 	 * 
@@ -195,6 +201,7 @@ public class LibrarySystem07Service {
 	 * @param type
 	 * @return new inventory item.
 	 */
+
 	@Transactional
 	public InventoryItem createInventoryItem(int id, int duplicates, String name, 
 			String author, Status status, TypeOfItem type) {
@@ -203,6 +210,7 @@ public class LibrarySystem07Service {
 			error += "ID must be an integer above 0. ";
 		}
 		if (duplicates < 0) {
+
 			error += "Invalid number of duplicates. ";
 		}
 		if (name == null || name.trim().length() == 0) {
@@ -217,11 +225,11 @@ public class LibrarySystem07Service {
 		if (type == null) {
 			error += "Invalid type! ";
 		}
-
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
 		}
+
 
 		InventoryItem item = new InventoryItem(id, duplicates, name, author, status, type);
 		//talk abt this
@@ -317,10 +325,12 @@ public class LibrarySystem07Service {
 	 * 
 	 * @return Iterable list of reservations.
 	 */
+
 	@Transactional
 	public List<Reservation> getAllReservations() {
 		return toList(reservationRepository.findAll());
 	}
+
 
 	/**
 	 * 
@@ -328,6 +338,7 @@ public class LibrarySystem07Service {
 	 * @param visitor
 	 * @return reservation for Visitor visitor with InventoryItem item
 	 */
+
 	@Transactional
 	public Reservation getReservation(InventoryItem item, Visitor visitor) {
 		if (item == null) {
@@ -367,7 +378,6 @@ public class LibrarySystem07Service {
 	@Transactional
 	public Reservation createReservation(int id, Date startDate, Date endDate, 
 			Visitor visitor, InventoryItem inventoryItem) {
-
 		String error = "";
 		if (id < 0) {
 			error += "ID is invalid!";
@@ -385,7 +395,6 @@ public class LibrarySystem07Service {
 			error += "Visitor is invalid!";
 		}
 		if (inventoryItem == null) {
-
 			error+= "Inventory item is invalid!";
 		}
 		error = error.trim();
@@ -472,6 +481,7 @@ public class LibrarySystem07Service {
 	 * 
 	 * @return Iterable list of visitors
 	 */
+
 	@Transactional
 	public List<Visitor> getAllVisitors() {
 		return toList(visitorRepository.findAll());
@@ -482,6 +492,7 @@ public class LibrarySystem07Service {
 	 * @param id
 	 * @return Visitor with Library Card Id id.
 	 */
+
 	@Transactional
 	public Visitor getVisitor(int id) {
 		if (id < 0) {
@@ -489,6 +500,7 @@ public class LibrarySystem07Service {
 		}
 		return visitorRepository.findVisitorByLibraryCardID(id);
 	}
+
 
 	/**
 	 * 
@@ -501,7 +513,6 @@ public class LibrarySystem07Service {
 	 */
 	public Visitor createVisitor(String name, String username, String address, int libraryCardID, int demeritPoints) {
 		String error = "";
-
 		if (name == null || name.trim().length() == 0) {
 			error += "Name is invalid!";
 		}
@@ -656,6 +667,7 @@ public class LibrarySystem07Service {
 	/**
 	 * @return list of all head librarians. Should be list of 1 head librarian.
 	 */
+
 	@Transactional
 	public List<HeadLibrarian> getAllHeadLibrarians() {
 		return toList(headLibrarianRepository.findAll());
@@ -685,6 +697,7 @@ public class LibrarySystem07Service {
 		headLibrarian.setAddress(address);
 	}
 	
+
 	@Transactional
 	public HeadLibrarian createHeadLibrarian(String name, String username, String address, Integer id) {
 		
@@ -702,7 +715,6 @@ public class LibrarySystem07Service {
 		if (address == null || address.trim().length() == 0) {
 			error += "Address is invalid! ";
 		}
-		
 		if (headLibrarianRepository.count() >= 1) {
 			error += "A Head Librarian already exists! ";
 		}
@@ -723,6 +735,7 @@ public class LibrarySystem07Service {
 		String error = "";
 		
 		if (headLibrarianRepository.count() == 0) {
+
 			error += "Library has no Head Librarian!";
 		}
 		
@@ -735,7 +748,9 @@ public class LibrarySystem07Service {
 	}
 
 
+
 	// HEAD LIBRARIAN TIMESLOT //
+
 
 	@Transactional
 	public List<HeadLibrarianTimeSlot> getAllHeadLibrarianTimeSlots() {
@@ -751,6 +766,7 @@ public class LibrarySystem07Service {
 	}
 
 	@Transactional
+
 	public HeadLibrarianTimeSlot createHeadLibrarianTimeSlot(Integer headLibrarianTimeSlotId, HeadLibrarian headLibrarian, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek) {
 		
 		String error = "";
@@ -764,7 +780,7 @@ public class LibrarySystem07Service {
 		} else if (!headLibrarianRepository.existsById(headLibrarian.getLibraryCardID())) {
 			error += "Head Librarian does not exist in the system! ";
 		}
-		
+
 		if (startTime == null) {
 			error += "Timeslot start time is invalid! ";
 		}
@@ -933,6 +949,7 @@ public class LibrarySystem07Service {
 	 * @param id
 	 * @return librarian with LibraryCardId id
 	 */
+
 	@Transactional
 	public Librarian getLibrarian(Integer id) {
 		if (id == null || id < 0) {
@@ -941,6 +958,7 @@ public class LibrarySystem07Service {
 		Librarian l = librarianRepository.findLibrarianByLibraryCardID(id);
 		return l;
 	}
+
 	
 	/**
 	 * Update address in case of move.
@@ -1004,6 +1022,7 @@ public class LibrarySystem07Service {
 	 * Delete librarian from repository and set the librarian to null.
 	 * @param id
 	 */
+
 	@Transactional
 	public void deleteLibrarian(Integer id) {
 		
@@ -1020,8 +1039,10 @@ public class LibrarySystem07Service {
 			throw new IllegalArgumentException(error);
 		}
 		
+
 		Librarian librarian = librarianRepository.findLibrarianByLibraryCardID(id);
 		librarianRepository.delete(librarian);
+
 	}
 	
 	@Transactional
@@ -1104,6 +1125,7 @@ public class LibrarySystem07Service {
 		return librarianSchedule;
 	}
 	
+
 	@Transactional
 	public void deleteLibrarianTimeSlot(Integer librarianTimeSlotId) {
 		
@@ -1285,6 +1307,7 @@ public class LibrarySystem07Service {
 		
 	}
 	
+
 	private <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {
@@ -1292,6 +1315,7 @@ public class LibrarySystem07Service {
 		}
 		return resultList;
 	}
+
 	
 	/*
 	 * Extra methods for reservation tests
@@ -1418,4 +1442,3 @@ public class LibrarySystem07Service {
 	}
 	
 }
-

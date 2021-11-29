@@ -31,6 +31,7 @@ public class HeadLibrarianTimeSlotDto {
 	public HeadLibrarianTimeSlotDto(Integer headLibrarianTimeSlotId, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek, HeadLibrarianDto headLibrarian) {
 		
 		this.headLibrarianTimeSlotId = headLibrarianTimeSlotId;
+
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.dayOfTheWeek = dayOfTheWeek;
