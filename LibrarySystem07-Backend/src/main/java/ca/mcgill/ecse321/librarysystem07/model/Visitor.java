@@ -8,18 +8,24 @@ public class Visitor extends UserRole {
 	
 	private float balance;
 	private int demeritPoints;
-	//private Library library;
+
 	
-	public Visitor() {}
+	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID) {
+		this(aName, aUsername, aAddress, aLibraryCardID, 0);
+
+	}
 	
 	public Visitor(String aName, String aUsername, String aAddress, int aLibraryCardID, int aDemeritPoints) {
 
 		super(aName, aUsername, aAddress, aLibraryCardID);
 		this.balance = 0;
 		this.setDemeritPoints(aDemeritPoints);
-//		if (!aAddress.contains(library.getCity())) {
-//			setBalance(this.balance + 10);
-//		}
+		if (aAddress == null) {
+			setBalance(this.balance + 10);
+		}
+		else if (!(aAddress.contains("Montreal") || aAddress.contains("montreal"))) {
+			setBalance(this.balance + 10);
+		}
 	}
 
 	public float getBalance() {
@@ -38,12 +44,4 @@ public class Visitor extends UserRole {
 		this.demeritPoints = demeritPoints;
 	}
 
-//	public Library getLibrary() {
-//		return library;
-//	}
-//
-//	public void setLibrary(Library library) {
-//		this.library = library;
-//	}
-	
 }

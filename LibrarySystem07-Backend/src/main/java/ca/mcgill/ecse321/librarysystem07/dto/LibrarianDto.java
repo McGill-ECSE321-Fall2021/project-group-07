@@ -56,5 +56,8 @@ public class LibrarianDto {
 	public Integer getLibraryCardID() {
 		return libraryCardID;
 	}
-
+	
+	public void setLibraryCardID(Integer libraryCardID) {
+		this.libraryCardID = libraryCardID;
+	}
 }

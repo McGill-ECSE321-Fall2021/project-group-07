@@ -17,19 +17,20 @@ public class LibrarianTimeSlotDto {
 	private Time endTime;
 	private DayOfTheWeek dayOfTheWeek;
 	private LibrarianDto librarian;
+	private Integer librarianTimeSlotId;
 	
 	public LibrarianTimeSlotDto() {
 		
 	}
 	
-	public LibrarianTimeSlotDto(LibrarianDto librarian) {
+	public LibrarianTimeSlotDto(Integer librarianTimeSlotId, LibrarianDto librarian) {
 		
-		this(Time.valueOf("09:00:00"), Time.valueOf("17:00:00"), DayOfTheWeek.Monday, librarian);
+		this(librarianTimeSlotId, Time.valueOf("09:00:00"), Time.valueOf("17:00:00"), DayOfTheWeek.Monday, librarian);
 	}
 	
-	public LibrarianTimeSlotDto(Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek, LibrarianDto librarian) {
+	public LibrarianTimeSlotDto(Integer librarianTimeSlotId, Time startTime, Time endTime, DayOfTheWeek dayOfTheWeek, LibrarianDto librarian) {
 		
-		//this.librarianTimeSlotId = librarianTimeSlotId;
+		this.librarianTimeSlotId = librarianTimeSlotId;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.dayOfTheWeek = dayOfTheWeek;
@@ -56,8 +57,12 @@ public class LibrarianTimeSlotDto {
 		this.librarian = librarian;
 	}
 
-//	public int getLibrarianTimeSlotId() {
-//		return librarianTimeSlotId;
-//	}
+	public Integer getLibrarianTimeSlotId() {
+		return librarianTimeSlotId;
+	}
+	
+	public void setLibrarianTimeSlotId(Integer librarianTimeSlotId) {
+		this.librarianTimeSlotId = librarianTimeSlotId;
+	}
 
 }

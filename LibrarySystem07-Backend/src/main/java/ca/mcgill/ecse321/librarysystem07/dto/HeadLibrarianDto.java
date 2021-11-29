@@ -48,5 +48,9 @@ public class HeadLibrarianDto {
 	public Integer getLibraryCardID() {
 		return libraryCardID;
 	}
+	
+	public void setLibraryCardID(Integer libraryCardID) {
+		this.libraryCardID = libraryCardID;
+	}
 
 }
