@@ -46,24 +46,29 @@ export default {
     name: 'accountinfo',
     data () {
       return {
+            new_address:'',
             CURRENT_USER_USERNAME: localStorage.getItem('USERNAME'),
             CURRENT_USER_ID: localStorage.getItem('ID'),
-            CURRENT_USER_BALANCE: 0,
+            CURRENT_USER_BALANCE: localStorage.getItem('BALANCE'),
+            CURRENT_USER_ADDRESS: localStorage.getItem('ADDRESS'),
+
             current_user: [],
             reservations: [],
             user_reservations: [],
             errorReservation: '',
-            response: []
+            response: [],            
         }
     },
 
     created: function () {
-
-        //TEST DATA
-        const inventoryItem1 = new InventoryItemDto(5, 1, "penis", "raffi", "fuck", "die")
-        const reservation1 = new ReservationDto("12-11-2021", "12-12-2021", this.current_user, inventoryItem1, 10)
+      
         
-        this.reservations =[{reservationID: reservation1 }]
+        //TEST DATA
+        const inventoryItem1 = new InventoryItemDto(5, 1, "i am an item", "i am an author", "idk", "idk")
+        const reservation1 = new ReservationDto("12-11-2021", "12-12-2021", this.current_user, inventoryItem1, 10)
+        const reservation2 = new ReservationDto("12-12-2021", "12-15-2021", this.current_user, inventoryItem1, 11)
+
+        this.reservations =[{reservationID: reservation1 }, {reservationID: reservation2}]
 
         AXIOS.get('/visitors/'.concat(CURRENT_USER_ID))
         .then(response => {
@@ -84,63 +89,50 @@ export default {
             this.errorReservation = e
         })
 
+        this.user_reservations = this.reservations.filter(x => x.visitor.username == CURRENT_USER_USERNAME)
         this.reservations =[{ reservationID: reservation1.reservationID, reservationStartDate: reservation1.startDate,
         reservationEndDate: reservation1.endDate, reservationAuthor: reservation1.inventoryItem.author }]
-
-        this.user_reservations.push({id:
-            this.reservations.find(reservation => reservation.username == CURRENT_USER_USERNAME)})
-
 
        },
 
       methods: {
-        createVisitor: function (visitorName, visitorUsername, visitorAddress, visitorLibraryCardId) {
+        saveNewAddress: function (new_address) {
+           
 
-            if (this.visitors.includes(visitorLibraryCardId) || this.visitors.includes(visitorUsername)) {
-                this.errorNewVisitor("This ID is invalid")
-                return;
-            }
-            if (this.visitorIds.includes(visitorLibraryCardId) || this.visitorUsernames.includes(visitorUsername)) {
-                this.errorNewVisitor("This ID is invalid")
-                return;
-            }
-
-            AXIOS.post('/visitors/'.concat(visitorLibraryCardId), {}, {params: {
-                libraryCardId: visitorLibraryCardId,
-                username: visitorUsername,
-                address: visitorAddress,
-                demeritPoints: 0
+            AXIOS.put('/visitors/'.concat(this.CURRENT_USER_ID), {}, {params: {
+                address: this.new_address
             }})
             .then(response => {
             // JSON responses are automatically parsed.
-                this.visitors.push(response.data)
-                this.visitorUsernames.push(visitorUsername)
-                this.visitorIds.push(visitorLibraryCardId)
-                this.newVisitor.username = ''
-                this.newVisitor.name = ''
-                this.newVisitor.address = ''
-                this.newVisitor.libraryCardId = ''
+                
             })
             .catch(e => {
               var errorMsg = e.response.data.message
               console.log(errorMsg)
-              this.errorNewVisitor = errorMsg
+              this.errorVisitorAddress = errorMsg
             })
 
-            
-          },
-
-          signIn: function (visitorUsername, visitorLibraryCardId) {
-       
-            for (let i = 0; i < this.visitors.length; i++) {
-                if (this.visitors[i].username == visitorUsername) {
-                    var USER_USERNAME = localStorage.setItem('USERNAME',visitorUsername);
-                    var USER_ID = localStorage.setItem('ID',visitorLibraryCardId);
-
-                    this.$router.push('/app'); 
-                }
+            if (!this.errorVisitorAddress){
+                var x = document.getElementById("address_input");
+                var y = document.getElementById("save_button");
+                x.style.display = "none";
+                y.style.display = "none";
+    
+                this.CURRENT_USER_ADDRESS = new_address;
+                localStorage.setItem('ADDRESS', CURRENT_USER_ADDRESS);
             }
-            this.errorVisitor = "Username and ID do not match.";
-          }
+        },
+
+        updateAddress: function () {
+            var x = document.getElementById("address_input");
+            var y = document.getElementById("save_button");
+            if (x.style.display == "none") {
+                x.style.display = "block";
+                y.style.display = "block";
+            } else {
+                x.style.display = "none";
+                y.style.display = "none";
+            }
         }
+      }
 }

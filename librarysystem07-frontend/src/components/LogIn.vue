@@ -1,9 +1,6 @@
 <template>
   <div id="login">
     <h2>Welcome!</h2>
-    <h2>
-       <span v-if="message" style="color:navy">dev message: {{message}} </span>
-    </h2>
     <div class="row">
       <div class="column">
         <table>
@@ -112,7 +109,6 @@
     padding: -10px -24px -10px -25px;
     border: 2px solid #2c3e50;
     border-radius: 4px;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;

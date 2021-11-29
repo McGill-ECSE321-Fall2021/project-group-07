@@ -46,7 +46,6 @@ export default {
             errorNewVisitor: '',
             message: '',
             response: []
-
         }
     },
 
@@ -113,6 +112,8 @@ export default {
             // Create a new person and add it to the list of people
             this.visitors.push(new VisitorDto(visitorName, visitorUsername, visitorAddress, visitorLibraryCardId))
             this.visitorIds.push({libraryCardId: visitorLibraryCardId})
+
+            
             this.visitorUsernames.push({username: visitorUsername})
 
             // Reset the name field for new people
@@ -124,29 +125,17 @@ export default {
 
           signIn: function (visitorUsername, visitorLibraryCardId) {
        
+            
             for (let i = 0; i < this.visitors.length; i++) {
-
-
                 if (this.visitors[i].username == visitorUsername && this.visitors[i].libraryCardId == visitorLibraryCardId) {
                     var CURRENT_USER_USERNAME = localStorage.setItem('USERNAME',visitorUsername);
                     var CURRENT_USER_ID = localStorage.setItem('ID',visitorLibraryCardId);
                     var CURRENT_USER_BALANCE = localStorage.setItem('BALANCE',this.visitors[i].balance);
+                    var CURRENT_USER_ADDRESS = localStorage.setItem('ADDRESS',this.visitors[i].address);
 
                     this.$router.push('/info'); 
                 }
             }
-                for (const [key1, value1] of Object.entries(this.visitorIds)) {
-                    for (const [key2, value2] of Object.entries(this.visitorUsernames)) {
-                        
-                        if (value1.libraryCardId == visitorLibraryCardId && value2 == visitorUsername.username) {
-                            var CURRENT_USER_USERNAME = localStorage.setItem('USERNAME',visitorUsername);
-                            var CURRENT_USER_ID = localStorage.setItem('ID',visitorLibraryCardId);
-                            var CURRENT_USER_BALANCE = localStorage.setItem('BALANCE',visitors[i].balance);
-        
-                            this.$router.push('/info'); 
-                        }
-                    }
-                }
             
             this.errorVisitor = "Username and ID do not match.";
           }
