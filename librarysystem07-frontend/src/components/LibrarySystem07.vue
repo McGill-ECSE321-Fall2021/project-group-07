@@ -31,7 +31,7 @@
       </tr>
       <tr>
           <ul>
-              <li v-for="event in events" :key="event.name">
+              <li v-for="event in events" :key="event.nameE">
                   {{event.name.nameE}}
               </li>
           </ul> 
