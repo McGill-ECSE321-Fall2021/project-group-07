@@ -60,7 +60,14 @@ export default {
             reservations: [],
             CURRENT_USER: localStorage.getItem('USER'),
             errorItem: '',
-            response: []
+            response: [],
+            item: {
+                duplicates: '',
+                name: '',
+                author: '', 
+                status: '', 
+                type: ''
+            }
         }
     },
 
@@ -103,7 +110,39 @@ export default {
 
         
 
-      methods: {           
+      methods: {
+        createItem: function (duplicates, name, author, status, type) {
+            var inventoryItemId = this.inventoryItems.indexOf(x => x.name == itemName);
+ 
+            var isReservable = true;
+            if (type == "magazine" || type == "CD" || type == "archive") {
+                isReservable = false;
+            }
+
+            const i = new InventoryItemDto(inventoryItemId, duplicates, name, author, status, type);
+            this.inventoryItems.push({item: i});
+            AXIOS.post('/inventoryItem/'.concat(localStorage.getItem('ID')), {}, {params: {
+                inventoryItemID: inventoryItemId,
+                duplicates: duplicates,
+                name: name,
+                author: author,
+                status: status,
+                type: type,
+                reservable: isReservable
+            }})
+            .then(response => {
+            // JSON responses are automatically parsed.
+                this.inventoryItems.push(response.data)
+            })
+            .catch(e => {
+              var errorMsg = e.response.data.message
+              console.log(errorMsg)
+              this.errorItem = errorMsg
+            })
+
+            
+
+          },
           reserveItem: function (itemId) {
             var itemName = itemId.substring(0, itemId.lastIndexOf(" -"));
             const item = this.inventoryItems.find(x => x.name == itemName)

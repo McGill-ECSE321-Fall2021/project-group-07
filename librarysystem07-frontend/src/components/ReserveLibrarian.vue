@@ -27,14 +27,23 @@
                 <td>{{inventoryItem.item.status}}</td>
             </tr>
         </table>
-
+<h2>Reserve an item</h2>
         <select v-model="selectedItem">
             ​   <option disabled value="">Please select one</option>
        ​        <option v-for="inventoryItem in inventoryItems" :key="inventoryItem.item">
                      ​  <td>{{ inventoryItem.item.name }}  -  {{inventoryItem.item.author}}</td>
              ​  </option>
         </select>
+       
         <button @click="reserveItem(selectedItem)">Reserve</button>
+        <h2>Add an item to inventory</h2>
+        <input type="text" v-model="duplicates" placeholder="Duplicates">
+        <input type="text" v-model="name" placeholder="Name">
+        <input type="text" v-model="author" placeholder="Author">
+        <input type="text" v-model="status" placeholder="Status">
+        <input type="text" v-model="type" placeholder="Type">
+
+        <button @click="createItem(duplicates, name, author, status, type)">Create</button>
         <span v-if="errorVisitor" style="color:red">Error: {{ errorVisitorAddress }}</span>
         <!--audio controls autoplay>
             <source src="https://drive.google.com/file/d/1LErgvn2U9hoc5HsLukDkuHh9Ip_T2d_n/view?usp=sharing" preload="auto">
@@ -44,7 +53,7 @@
 </template>
 
 
-<script src="./browse.js">
+<script src="./browselibrarian.js">
 </script>
 
 
@@ -53,6 +62,9 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         color: #2c3e50;
         background: #f0efea;
+    }
+    h2 {
+        padding-top: 30px;
     }
     table {
         border-collapse: collapse;
@@ -70,22 +82,17 @@
         text-align: center;
         margin-top: 5px;
     }
-    select {
-        margin-top: 30px;
-        align-content: center;
-    }
+ 
     h3 {
         padding-top: 30px;
         margin-top: 10px;
     }
-    nav, h3, router-link {
+    nav, h3, router-link, #nav navbar-nav {
         background-color: whitesmoke;
     }
     button {
-        margin-top: 30px;
         margin-left: 30px;
         align-content: center;
-        padding: -10px -24px -10px -25px;
         border: 1px solid #2c3e50;
         border-radius: 2px;
         text-align: center;

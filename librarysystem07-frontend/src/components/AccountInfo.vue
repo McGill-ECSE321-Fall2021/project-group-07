@@ -31,13 +31,14 @@
             </tr>
             <tr>
                 <td>
+                    <p>Address: {{CURRENT_USER_ADDRESS}} </p> 
+                    <button id="update_button" v-bind:="!CURRENT_USER_ADDRESS" @click="updateAddress()">Edit</button>
+
                     <input id="address_input" type="text" v-model="new_address" placeholder="New Address">
                     <button id="save_button" v-bind:="!CURRENT_USER_ADDRESS" @click="saveNewAddress(new_address)">Save</button>
-                    <p>Address: {{CURRENT_USER_ADDRESS}} </p>  <button id="update_button" v-bind:="!CURRENT_USER_ADDRESS" @click="updateAddress()">Edit</button>
                 </td>
             </tr>
             <h2>My Reservations</h2>
-
         </table>
         <table v-for="reservation in reservations" :key="reservation.reservationID">
             <tr>
@@ -45,7 +46,7 @@
                     Start date of reservation: {{ reservation.reservationID.startDate }}  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  End date of reservation: {{ reservation.reservationID.endDate }}
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td>
                     {{ reservation.reservationID.inventoryItem.author }}  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  {{ reservation.reservationID.inventoryItem.name }}
                 </td>
@@ -54,6 +55,7 @@
                 <span v-if="errorReservation" style="color:navy">Error: {{errorReservation}} </span>
             </p>
         </table>
+
     </div>
 </template>
 <script src="./accountinfo.js">
@@ -69,19 +71,13 @@
         margin-top: 53px;
     }
     h3 {
-        padding-top: 20px;
-        margin-top: 20px;
-                display: block;
-
-
+        padding-top: 30px;
+        margin-top: 10px;
     }
-    router-link {
-        position: sticky;
-        display: block;
-        margin-left: 18px;
-        margin-right: 18px;
-        background-color: #dddddd;
+    nav, h3, router-link {
+        background-color: whitesmoke;
     }
+
     tr {
         align-content: center;
         margin-top: 2px;
@@ -89,11 +85,10 @@
 
     }
     #update_button {
-        position: relative;
         margin-top: 10px;
         margin-bottom: 10px;
+        margin-right: 25px;
         border: none;
-        text-align: left;
         text-decoration: none;
         display: inline-block;
         font-size: 11px;
@@ -102,12 +97,16 @@
         text-decoration: underline;
     }
     #address_input {
+        margin-left: 640px;
         display: none;
+        margin-top: 20px;
         align-self: center;
         overflow:hidden; 
         white-space:nowrap;
     }
     #save_button {
+        margin-left: 695px;
+        margin-top: 10px;
         display: none;
         align-self: center;
         overflow:hidden; 
