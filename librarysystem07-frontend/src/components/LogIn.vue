@@ -75,7 +75,7 @@
     box-sizing: border-box;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     color: #2c3e50;
-    background: #f1eaef;
+    background: #f1efe7;
   }
     .row {
     display: flex;

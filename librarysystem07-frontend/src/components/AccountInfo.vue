@@ -1,11 +1,11 @@
 <template>
     <div id="accountinfo">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-                <p class="navbar-brand">McLennon Library Online</p>
+                <h3 class="navbar-brand">McLennan Library Online</h3>
                 <!--div class="collapse navbar-collapse" id="navbarNavAltMarkup"-->
                     <div class="nav navbar-nav" routerLinkActive="active">
                         <router-link class="nav-item nav-link" to="/info"> My Account </router-link>
-                        <router-link class="nav-item nav-link" to="/reserve"> Reserve a Book </router-link> 
+                        <router-link class="nav-item nav-link" to="/browse"> Reserve a Book </router-link> 
                         <router-link class="nav-item nav-link" to="/event"> Request Event </router-link> 
                     </div>
         </nav>
@@ -64,10 +64,16 @@
         border-spacing: 0;
         width: 100%;
         align-content: center;
-
     }
     h2 {
-        padding-top: 13px;
+        margin-top: 53px;
+    }
+    h3 {
+        padding-top: 20px;
+        margin-top: 20px;
+                display: block;
+
+
     }
     router-link {
         position: sticky;

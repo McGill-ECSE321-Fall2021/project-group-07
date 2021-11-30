@@ -29,6 +29,7 @@ function VisitorDto (name, username, address, libraryCardId) {
     else {
         this.balance = "15";
     }
+    this.reservations = [];
 }
 
 function InventoryItemDto (inventoryItemID, duplicates, name, author, status, typeOfItem) 
@@ -52,9 +53,8 @@ export default {
             CURRENT_USER_BALANCE: localStorage.getItem('BALANCE'),
             CURRENT_USER_ADDRESS: localStorage.getItem('ADDRESS'),
 
-            current_user: [],
+            current_user: localStorage.getItem('USER'),
             reservations: [],
-            user_reservations: [],
             errorReservation: '',
             response: [],            
         }
@@ -68,13 +68,16 @@ export default {
         const reservation1 = new ReservationDto("12-11-2021", "12-12-2021", this.current_user, inventoryItem1, 10)
         const reservation2 = new ReservationDto("12-12-2021", "12-15-2021", this.current_user, inventoryItem1, 11)
 
-        this.reservations =[{reservationID: reservation1 }, {reservationID: reservation2}]
+        this.reservations =[{reservationID: reservation1}, {reservationID: reservation2}]
 
         AXIOS.get('/visitors/'.concat(CURRENT_USER_ID))
         .then(response => {
             // JSON responses are automatically parsed.
             this.current_user = response.data
             this.CURRENT_USER_BALANCE = response.data.balance
+            this.CURRENT_USER_ADDRESS = response.data.address
+            this.CURRENT_USER_ID = response.data.libraryCardId
+            this.CURRENT_USER_USERNAME = response.data.username
         })
         .catch(e => {
             this.errorReservation = e
@@ -89,9 +92,11 @@ export default {
             this.errorReservation = e
         })
 
-        this.user_reservations = this.reservations.filter(x => x.visitor.username == CURRENT_USER_USERNAME)
-        this.reservations =[{ reservationID: reservation1.reservationID, reservationStartDate: reservation1.startDate,
-        reservationEndDate: reservation1.endDate, reservationAuthor: reservation1.inventoryItem.author }]
+        this.reservations = this.reservations.filter(x => x.reservationID.visitor.username == CURRENT_USER_USERNAME)
+        this.current_user.reservations = this.reservations
+        localStorage.setItem('USER', this.current_user)
+        // this.reservations =[{ reservationID: reservation1.reservationID, reservationStartDate: reservation1.startDate,
+ //reservationEndDate: reservation1.endDate, reservationAuthor: reservation1.inventoryItem.author }]
 
        },
 
@@ -99,7 +104,7 @@ export default {
         saveNewAddress: function (new_address) {
            
 
-            AXIOS.put('/visitors/'.concat(this.CURRENT_USER_ID), {}, {params: {
+            AXIOS.put('/visitors/'.concat(this.current_user.libraryCardId), {}, {params: {
                 address: this.new_address
             }})
             .then(response => {
