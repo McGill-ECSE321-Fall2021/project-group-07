@@ -52,4 +52,4 @@ Link to our [Project Management Resources For Deliverable 2!](https://github.com
 
 Link to our [Architecture Diagram!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Architecture-Model)
 
-Link to our [Project Management Resources For Deliverable 3!]()
+Link to our [Project Management Resources For Deliverable 3!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
