@@ -50,6 +50,6 @@ Link to our [Project Management Resources For Deliverable 2!](https://github.com
 | Basel Elaghoury    | Developer, Designer, Tester  | 10 hours     |
 | Amelie Barsoum     | Developer and Designer, Project Manager  | 15 hours     |
 
-Link to our [Architecture Diagram!]()
+Link to our [Architecture Diagram!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Architecture-Model)
 
 Link to our [Project Management Resources For Deliverable 3!]()
