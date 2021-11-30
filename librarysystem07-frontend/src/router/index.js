@@ -4,9 +4,7 @@ import LogIn from '@/components/LogIn.vue'
 import AccountInfo from '@/components/AccountInfo.vue'
 import Reserve from '@/components/Reserve.vue'
 import ReserveLibrarian from '@/components/ReserveLibrarian.vue'
-
-//import Audio from '@/components/Club%20Penguin%20-%20Pizza%20Parlor%20Theme%20(Charlie%27s%20Here)%20%5BFULL%20High%20Quality%5D.mp3'
-
+import Event from '@/components/Event.vue'
 
 Vue.use(Router)
 
@@ -21,6 +19,10 @@ export default new Router({
       path: '/info',
       name: 'Info',
       component: AccountInfo
+    }, {
+      path: '/event',
+      name: 'Event',
+      component: Event
     },
     {
       path: '/browse-librarian',

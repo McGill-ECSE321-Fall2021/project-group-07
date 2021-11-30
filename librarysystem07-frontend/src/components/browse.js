@@ -9,6 +9,27 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
+function compareName(a, b) {
+    if ( a.name < b.name ){
+      return -1;
+    }
+    if ( a.name > b.name ){
+      return 1;
+    }
+    return 0;
+  }
+
+  function compareAuthor(a, b) {
+    if ( a.author < b.author ){
+      return -1;
+    }
+    if ( a.author > b.author ){
+      return 1;
+    }
+    return 0;
+  }
+  
+  
 function VisitorDto (name, username, address, libraryCardId) {
     this.name = name;
     this.username = username;
@@ -71,12 +92,12 @@ export default {
         const i2 = new InventoryItemDto(1, 1, "Fruits Magazine", "Shoichi Aoki", "available", "magazine");
         const i3 = new InventoryItemDto(0, 1, "The Great Gatsby", "F. Scott Fitzgerald", "available", "book");
         const i4 = new InventoryItemDto(0, 1, "Hamlet", "William Shakespeare", "available", "book");
-        this.inventoryItems.push({item: i1}, {item: i2}, {item: i3}, {item: i4});
+        this.inventoryItems.push({'item': i1}, {'item': i2}, {'item': i3}, {'item': i4});
 
         AXIOS.get('/inventoryItem')
         .then(response => {
             // JSON responses are automatically parsed.
-            this.inventoryItems = push({item: response.data})
+            this.inventoryItems = push({'item': response.data})
         })
         .catch(e => {
             this.errorItem = e
@@ -134,5 +155,20 @@ export default {
                           this.errorReservation = errorMsg
             })
         },
+        sortAuthor: function() {
+            this.inventoryItems['item'].sort(compareAuthor());
+            for (item in this.inventoryItems) {
+                console.log (item.name)
+            }
+        },
+        sortTitle: function() {
+            this.inventoryItems = Object.entries(this.inventoryItems).sort((a,b) => a[1].name-b[1].name);
+            // var sorting = [];
+            // for (var key in this.inventoryItems) {
+            //     sorting.push
+            // }
+            // this.inventoryItems.sort(compareName());
+
+        }
     }
 }

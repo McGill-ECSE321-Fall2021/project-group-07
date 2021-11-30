@@ -26,7 +26,13 @@
                 <td>{{inventoryItem.item.duplicates}}</td>
                 <td>{{inventoryItem.item.status}}</td>
             </tr>
+            <tr>
+                <p>Sort by: </p>
+                <button @click="sortAuthor()">Author</button>
+                 <button @click="sortTitle()">Title</button>
+            </tr>
         </table>
+
 <h2>Reserve an item</h2>
         <select v-model="selectedItem">
             ​   <option disabled value="">Please select one</option>
