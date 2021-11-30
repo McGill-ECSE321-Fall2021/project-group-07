@@ -9,10 +9,10 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
-function EventDto (name, eventId, visitor){
+function EventDto (name){//, eventId, visitor){
     this.name=name;
-    this.eventId=eventId;
-    this.visitor=visitor;
+    this.eventId= 0;//eventId;
+    this.visitor=null;//visitor;
 }
 
 function VisitorDto(name, username, address, libraryCardId) {
@@ -32,9 +32,12 @@ function VisitorDto(name, username, address, libraryCardId) {
 }
 
 export default {
-    name: 'librarysystem07',
+    name: 'event',
     data () {
       return {
+          events:[],
+          eventIds:[],
+          eventNames: [],
           newEvent: {
               name:'',
               eventId: 0,
@@ -44,7 +47,8 @@ export default {
             //   response: []
           },
           errorEvent: '',
-          events: [],
+          errorNewEvent: '',
+          message: '',
           response: []
         }
     },
@@ -58,14 +62,14 @@ export default {
 
     created: function () {
         const v1 = new VisitorDto("John", "John1", "Montreal", "0");
-        const v2 = new EventDto("book signing", "0" , v1 );
+        const v2 = new EventDto("book signing");//, "0" , v1 );
 
         this.visitors = [v1];
         this.visitorIds = [{libraryCardId: v1.libraryCardId}]
         this.visitorUsernames = [{username: v1.username}]
         
         this.events = [v2];
-        this.eventIds = [{eventId: v2.eventId}]
+        //this.eventIds = [{eventId: v2.eventId}]
         this.eventNames = [{name: v2.name}]  
         
         // Initializing events from backend
@@ -86,12 +90,16 @@ export default {
         //     document.getElementById("textfield2").value = "";
         // },
        
-        makeEvent: function (nameE) {//, eventId, visitor) {
+        createEvent: function (nameE) {//, eventId, visitor) {
             //var indexName = this.events.map(x => x.name).indexOf(name)
             //var indexEventId = this.events.map(x => x.eventId).indexOf(eventId)
             //var indexVisitor = this.events.map(x => x.visitor).indexOf(visitor)
 
             //var event = this.events[indexName]
+          if (this.eventNames.includes(nameE)) {
+            this.errorNewEvent("This name already exists")
+            return;
+          }
 
             // AXIOS.post('/events'.concat(eventId), {},
             //   {params: {
@@ -100,22 +108,32 @@ export default {
             //     visitor: event.visitor,
             // } })
             AXIOS.post('/events'.concat(nameE), {},
-              //  {params: {
-              //      event: event.name,
-              //      name: nameE,
-            //     eventId: event.eventId, //generate random ID?
-            //     visitor: event.visitor, //smtg like get visitor?
-            //} 
-          {})
+               {params: {
+                  name: nameE,
+                  eventId: 0, //generate random ID?
+                  visitor: null, //smtg like get visitor?
+           } 
+          })
             .then(response => {
                 // Update appropriate DTO collections  
-                //newEvent.name.push(nameE)           !!!!
+                newEvent.name.push(nameE)           //!!!!
                 //newEvent.eventId.push(eventId)
                 //newEvent.visitor.push(visitor)
                 //this.events.push({nameE : response.data.name}) //was eventName : response.data.name   !!!
-                this.events.push({nameE : response.data.name}) 
-                this.errorEvent = ''
-                this.newEvent =''
+                this.events.push(response.data);
+                this.eventNames.push({name: nameE})  //!!!!!!
+                this.name =''
+                this.eventId =''
+                this.visitor =''
+                //this.events.push(response.data);
+                //this.name=''
+                //this.eventId=''
+                //this.visitor=''
+                this.errorEvent = ''      //!!!
+                this.errorNewEvent = ''   
+                this.newEvent.name =''    
+                this.newEvent.eventId =''     
+                this.newEvent.visitor =''    
               })
             .catch(e => {
                 var errorMsg = e.response.data.message
@@ -123,6 +141,11 @@ export default {
                 this.errorEvent = errorMsg
               })
 
+              //this.newEvent=''
+
+              this.events.push(new EventDto(nameE))
+              this.eventNames.push({name: nameE})
+  
         },
 
     }
