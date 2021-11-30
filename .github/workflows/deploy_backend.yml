@@ -1,0 +1,17 @@
+name: Deploy Frontend and Backend
+
+on:
+  push:
+    branches: master
+    
+jobs:
+  backend:
+    runs-on: macos-11
+    steps:
+    - uses: actions/checkout@v2
+    - name: push backend
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_app_name: "librarysystem07-backend-ls07"
+        heroku_email: "samantha.handal@mail.mcgill.ca"
+        dontuseforce: false
