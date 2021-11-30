@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import LogIn from '@/components/LogIn.vue'
 import AccountInfo from '@/components/AccountInfo.vue'
+import Librarian from '@/components/LibrarianInfo.vue'
+
 import Reserve from '@/components/Reserve.vue'
 import ReserveLibrarian from '@/components/ReserveLibrarian.vue'
 import Event from '@/components/Event.vue'
@@ -19,7 +21,13 @@ export default new Router({
       path: '/info',
       name: 'Info',
       component: AccountInfo
-    }, {
+    },
+    {
+      path: '/info-librarian',
+      name: 'InfoLibrarian',
+      component: Librarian
+    },
+     {
       path: '/event',
       name: 'Event',
       component: Event

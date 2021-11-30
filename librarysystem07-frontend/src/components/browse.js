@@ -127,6 +127,7 @@ export default {
       methods: {           
           reserveItem: function (itemId) {
             var itemName = itemId.substring(0, itemId.lastIndexOf(" -"));
+            this.inventoryItems.find(x => x.name == itemName).status = "Reserved";
             const item = this.inventoryItems.find(x => x.name == itemName)
 
             var today = new Date();
