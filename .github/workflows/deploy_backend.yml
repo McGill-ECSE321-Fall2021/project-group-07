@@ -5,6 +5,10 @@ on:
     branches: master
     
 jobs:
+  installheroku:
+    runs-on: macos-11
+    steps:
+    - run: curl https://cli-assets.heroku.com/install.sh | sh
   backend:
     runs-on: macos-11
     steps:
