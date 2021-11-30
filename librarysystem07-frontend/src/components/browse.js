@@ -43,7 +43,6 @@ function InventoryItemDto(inventoryItemID, duplicates, name, author, status, typ
 }
 
 function ReservationDto(startDate, endDate, visitor, inventoryItem, reservationId) {
-
   this.startDate = startDate;
   this.endDate = endDate;
   this.visitor = visitor;
@@ -58,6 +57,7 @@ export default {
     data () {
       return {
             inventoryItems: [],
+            reservations: [],
             CURRENT_USER: localStorage.getItem('USER'),
             errorItem: '',
             response: []
@@ -73,7 +73,6 @@ export default {
         const i4 = new InventoryItemDto(0, 1, "Hamlet", "William Shakespeare", "available", "book");
         this.inventoryItems.push({item: i1}, {item: i2}, {item: i3}, {item: i4});
 
-        // Initializing persons from backend
         AXIOS.get('/inventoryItem')
         .then(response => {
             // JSON responses are automatically parsed.
@@ -81,12 +80,34 @@ export default {
         })
         .catch(e => {
             this.errorItem = e
-        })
-       },
+        }),
+
+        AXIOS.get('/visitors/'.concat(localStorage.getItem('ID')))
+           .then(response => {
+               // JSON responses are automatically parsed.
+               this.CURRENT_USER = response.data
+           })
+           .catch(e => {
+               this.errorItem = e
+           }),
+           
+           AXIOS.get('/reservations/')
+           .then(response => {
+               // JSON responses are automatically parsed.
+               this.reservations = response.data
+           })
+           .catch(e => {
+               this.errorItem = e
+           })
+        },
+
+        
 
       methods: {
         createItem: function (inventoryItemID, duplicates, name, author, status, type) {
-                //fix this stuff parameters
+            var inventoryItemId = this.inventoryItems.indexOf(x => x.name == itemName);
+ 
+            //fix this stuff parameters
             AXIOS.post('/inventoryItem/'.concat(visitorLibraryCardId), {}, {params: {
                 libraryCardId: visitorLibraryCardId,
                 username: visitorUsername,
@@ -107,18 +128,21 @@ export default {
 
           },
           reserveItem: function (itemId) {
+            var itemName = itemId.substring(0, itemId.lastIndexOf(" -"));
+            const item = this.inventoryItems.find(x => x.name == itemName)
 
-                        
             var today = new Date();
             var currDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
             var returnDate = today.getFullYear()+'-'+(today.getMonth()+2)+'-'+today.getDate();
-            var id = Math.floor(Math.random() * 1000);
-            
+            var id = this.reservations.length;
+            const res = new ReservationDto(currDate, returnDate, this.CURRENT_USER, item, id);
+            this.reservations.push(res);
+
             AXIOS.post('/reservations/'.concat(id), {},
                           {params: {
                             startDate: currDate,
                             endDate: returnDate,
-                            visitorId: CURRENT_USER.libraryCardId,
+                            visitorId: localStorage.getItem('ID'),
                             inventoryItemId: itemId
                             }})
                         .then(response => {
