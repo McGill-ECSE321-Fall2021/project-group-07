@@ -5,13 +5,10 @@ on:
     branches: master
     
 jobs:
-  installheroku:
-    runs-on: macos-11
-    steps:
-    - run: curl https://cli-assets.heroku.com/install.sh | sh
   backend:
     runs-on: macos-11
     steps:
+    - run: curl https://cli-assets.heroku.com/install.sh | sh
     - uses: actions/checkout@v2
     - name: push backend
       uses: akhileshns/heroku-deploy@v3.12.12
