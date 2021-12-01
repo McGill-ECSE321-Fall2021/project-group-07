@@ -5,6 +5,7 @@
                     <div class="nav navbar-nav" routerLinkActive="active">
                         <router-link class="nav-item nav-link" to="/info"> My Account </router-link>
                         <router-link class="nav-item nav-link" to="/browse-librarian"> Inventory </router-link> 
+                        <router-link class="nav-item nav-link" to="/headlibrariantimeslots"> Schedule </router-link> 
                         <router-link class="nav-item nav-link" to="/event"> Request Event </router-link> 
                     </div>
         </nav>
