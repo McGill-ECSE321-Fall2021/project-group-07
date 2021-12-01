@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import LogIn from '@/components/LogIn.vue'
 import AccountInfo from '@/components/AccountInfo.vue'
 import Librarian from '@/components/LibrarianInfo.vue'
-
 import Reserve from '@/components/Reserve.vue'
 import ReserveLibrarian from '@/components/ReserveLibrarian.vue'
 import Event from '@/components/Event.vue'
@@ -12,11 +11,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/audio',
-    //   name: 'Audio',
-    //   Audio: Audio
-    // },
+
     {
       path: '/info',
       name: 'Info',
@@ -46,6 +41,18 @@ export default new Router({
       path: '/',
       name: 'LogIn',
       component: LogIn
-    }
+    },
+    //pages that are not working:
+    // {
+    //   path: '/headlibrariantimeslots',
+    //   name: 'Head Librarian Time Slots',
+    //   component: headLibrarianTimeSlot
+    // },
+    
+    // {
+    //   path: '/librariantimeslots',
+    //   name: 'Librarian Time Slots',
+    //   component: LibrarianTimeSlot
+    // }
   ]
 })
