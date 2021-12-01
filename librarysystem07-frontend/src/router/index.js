@@ -6,6 +6,7 @@ import Librarian from '@/components/LibrarianInfo.vue'
 import Reserve from '@/components/Reserve.vue'
 import ReserveLibrarian from '@/components/ReserveLibrarian.vue'
 import Event from '@/components/Event.vue'
+import headLibrarianTimeSlot from '@/components/headLibrarianTimeSlot.vue'
 
 Vue.use(Router)
 
@@ -43,11 +44,11 @@ export default new Router({
       component: LogIn
     },
     //pages that are not working:
-    // {
-    //   path: '/headlibrariantimeslots',
-    //   name: 'Head Librarian Time Slots',
-    //   component: headLibrarianTimeSlot
-    // },
+    {
+      path: '/headlibrariantimeslots',
+      name: 'Head Librarian Time Slots',
+      component: headLibrarianTimeSlot
+    },
     
     // {
     //   path: '/librariantimeslots',
