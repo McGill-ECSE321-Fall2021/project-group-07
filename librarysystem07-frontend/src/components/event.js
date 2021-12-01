@@ -61,6 +61,8 @@ export default {
     //},
 
     created: function () {
+
+        //TEST DAta
         const v1 = new VisitorDto("John", "John1", "Montreal", "0");
         const v2 = new EventDto("book signing");//, "0" , v1 );
 
@@ -107,6 +109,8 @@ export default {
             //     eventId: event.eventId,
             //     visitor: event.visitor,
             // } })
+
+            //add event to backend
             AXIOS.post('/events'.concat(nameE), {},
                {params: {
                   name: nameE,

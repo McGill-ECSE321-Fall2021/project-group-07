@@ -71,18 +71,21 @@ export default {
 	},
 	
 	methods: {
+
 		createLibrarianTimeSLot: function(librarianTimeSlotId,startTime,endTime,aDayOfTheWeek,librarian) {
 			AXIOS.post('/librariantimeslots/'.concat(librarianTimeSlotId), {}, 
 			{params:{
-				librarianTimeSlotId: '',
-                librarian: '',
-			    aDayOfTheWeek: '',
-			    startTime: '',
-			    endTime: ''
+				librarianTimeSlotId: librarianTimeSlotId,
+                librarian: librarian,
+			    aDayOfTheWeek: aDayOfTheWeek,
+			    startTime: startTime,
+			    endTime: endTime
 			}})
 			
 			.then(response => {
+				//add new slot to list to be displayed
 				this.librarianTimeSlots.push(response.data)
+				//reset fields to empty
 				this.librarianTimeSlotId = '';
                 this.startTime = '';
                 this.endTime = '';
@@ -134,7 +137,6 @@ export default {
 				.then(response => {
 					AXIOS.get('/librariantimeslots')
 					.then(response => {
-						//JSON responses are automatically parsed
 						this.librarianTimeSlots = response.data
 						this.librarianTimeSlotId = '';
                         this.startTime = '';

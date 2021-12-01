@@ -48,6 +48,7 @@ export default {
     data () {
       return {
             new_address:'',
+            //get data from local storage when backend not working
             CURRENT_USER_USERNAME: localStorage.getItem('USERNAME'),
             CURRENT_USER_ID: localStorage.getItem('ID'),
             CURRENT_USER_BALANCE: localStorage.getItem('BALANCE'),
@@ -73,6 +74,7 @@ export default {
         AXIOS.get('/visitors/'.concat(CURRENT_USER_ID))
         .then(response => {
             // JSON responses are automatically parsed.
+            //if backend working, don't use local storage, just get current user info from backend
             this.current_user = response.data
             this.CURRENT_USER_BALANCE = response.data.balance
             this.CURRENT_USER_ADDRESS = response.data.address
@@ -83,6 +85,7 @@ export default {
             this.errorReservation = e
         })
 
+        //retrieve list of reservations
        AXIOS.get('/reservations')
         .then(response => {
             // JSON responses are automatically parsed.
@@ -91,24 +94,20 @@ export default {
         .catch(e => {
             this.errorReservation = e
         })
-
+        //filter reservations to this librarian
         this.reservations = this.reservations.filter(x => x.reservationID.visitor.username == CURRENT_USER_USERNAME)
         this.current_user.reservations = this.reservations
         localStorage.setItem('USER', this.current_user)
-        // this.reservations =[{ reservationID: reservation1.reservationID, reservationStartDate: reservation1.startDate,
- //reservationEndDate: reservation1.endDate, reservationAuthor: reservation1.inventoryItem.author }]
 
        },
 
       methods: {
         saveNewAddress: function (new_address) {
-           
-
-            AXIOS.put('/visitors/'.concat(this.current_user.libraryCardId), {}, {params: {
-                address: this.new_address
+            //update address parameter of 
+            AXIOS.put('/librarians/'.concat(this.current_user.libraryCardId), {}, {params: {
+                address: new_address
             }})
             .then(response => {
-            // JSON responses are automatically parsed.
                 
             })
             .catch(e => {
@@ -117,6 +116,7 @@ export default {
               this.errorVisitorAddress = errorMsg
             })
 
+            //hide save button and address input field when done updating
             if (!this.errorVisitorAddress){
                 var x = document.getElementById("address_input");
                 var y = document.getElementById("save_button");
@@ -128,6 +128,7 @@ export default {
             }
         },
 
+        //show the address input field and save button if user wants to update address
         updateAddress: function () {
             var x = document.getElementById("address_input");
             var y = document.getElementById("save_button");
