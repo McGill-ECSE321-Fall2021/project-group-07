@@ -1,5 +1,13 @@
 <template>
     <div id="headLibrarianTimeSlot">
+                <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+                <h3 class="navbar-brand">McLennan Library Online</h3>
+                    <div class="nav navbar-nav" routerLinkActive="active">
+                        <router-link class="nav-item nav-link" to="/info"> My Account </router-link>
+                        <router-link class="nav-item nav-link" to="/browse-librarian"> Inventory </router-link> 
+                        <router-link class="nav-item nav-link" to="/event"> Request Event </router-link> 
+                    </div>
+        </nav>
         <h2>Librarian Time Slot Manager</h2>
         <br>
         <table align="center">
@@ -95,4 +103,8 @@ th {
   text-align: center;
   padding: 8px;
 }
+   h3 {
+        padding-top: 27px;
+        margin-top: 8px;
+    }
 </style>
