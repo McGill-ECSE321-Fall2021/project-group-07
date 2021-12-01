@@ -13,11 +13,22 @@ export default new Router({
       name: 'Info',
       component: AccountInfo
     },
-  
+    
     {
       path: '/',
       name: 'LogIn',
       component: LogIn
+    },
+    {
+      path: '/headlibrariantimeslots',
+      name: 'Head Librarian Time Slots',
+      component: headLibrarianTimeSlot
+    },
+    
+    {
+      path: '/librariantimeslots',
+      name: 'Librarian Time Slots',
+      component: LibrarianTimeSlot
     }
   ]
 })
