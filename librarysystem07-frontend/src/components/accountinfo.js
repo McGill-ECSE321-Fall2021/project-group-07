@@ -62,7 +62,6 @@ export default {
 
     created: function () {
       
-        
         //TEST DATA
         const inventoryItem1 = new InventoryItemDto(5, 1, "i am an item", "i am an author", "idk", "idk")
         const reservation1 = new ReservationDto("12-11-2021", "12-12-2021", this.current_user, inventoryItem1, 10)
@@ -72,7 +71,7 @@ export default {
 
         AXIOS.get('/visitors/'.concat(CURRENT_USER_ID))
         .then(response => {
-            // JSON responses are automatically parsed.
+            // retrieve current user & their account info
             this.current_user = response.data
             this.CURRENT_USER_BALANCE = response.data.balance
             this.CURRENT_USER_ADDRESS = response.data.address
@@ -83,6 +82,7 @@ export default {
             this.errorReservation = e
         })
 
+        //retrieve list of reservations
        AXIOS.get('/reservations')
         .then(response => {
             // JSON responses are automatically parsed.
@@ -92,6 +92,7 @@ export default {
             this.errorReservation = e
         })
 
+        //filter reservations by logged in user
         this.reservations = this.reservations.filter(x => x.reservationID.visitor.username == CURRENT_USER_USERNAME)
         this.current_user.reservations = this.reservations
         localStorage.setItem('USER', this.current_user)
@@ -101,15 +102,14 @@ export default {
        },
 
       methods: {
+          //update new address with the save button
         saveNewAddress: function (new_address) {
-           
 
             AXIOS.put('/visitors/'.concat(this.current_user.libraryCardId), {}, {params: {
                 address: this.new_address
             }})
             .then(response => {
-            // JSON responses are automatically parsed.
-                
+            //no response
             })
             .catch(e => {
               var errorMsg = e.response.data.message
@@ -117,6 +117,7 @@ export default {
               this.errorVisitorAddress = errorMsg
             })
 
+            //hide button and address input field when address is saved successfully 
             if (!this.errorVisitorAddress){
                 var x = document.getElementById("address_input");
                 var y = document.getElementById("save_button");
@@ -128,6 +129,7 @@ export default {
             }
         },
 
+        //display hidden save button and address input field when edit button is pressed
         updateAddress: function () {
             var x = document.getElementById("address_input");
             var y = document.getElementById("save_button");

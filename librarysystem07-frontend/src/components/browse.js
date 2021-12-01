@@ -94,15 +94,17 @@ export default {
         const i4 = new InventoryItemDto(0, 1, "Hamlet", "William Shakespeare", "available", "book");
         this.inventoryItems.push({'item': i1}, {'item': i2}, {'item': i3}, {'item': i4});
 
+        //retrieve inventory items
         AXIOS.get('/inventoryItem')
         .then(response => {
-            // JSON responses are automatically parsed.
+            //Push key, value pair so view can access value with key
             this.inventoryItems = push({'item': response.data})
         })
         .catch(e => {
             this.errorItem = e
         }),
 
+        //find current user
         AXIOS.get('/visitors/'.concat(localStorage.getItem('ID')))
            .then(response => {
                // JSON responses are automatically parsed.
@@ -112,6 +114,7 @@ export default {
                this.errorItem = e
            }),
            
+           //retrieve user's reservations
            AXIOS.get('/reservations/')
            .then(response => {
                // JSON responses are automatically parsed.
@@ -126,17 +129,19 @@ export default {
 
       methods: {           
           reserveItem: function (itemId) {
+            //display DTO
             var itemName = itemId.substring(0, itemId.lastIndexOf(" -"));
             this.inventoryItems.find(x => x.name == itemName).status = "Reserved";
             const item = this.inventoryItems.find(x => x.name == itemName)
-
             var today = new Date();
             var currDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
             var returnDate = today.getFullYear()+'-'+(today.getMonth()+2)+'-'+today.getDate();
             var id = this.reservations.length;
             const res = new ReservationDto(currDate, returnDate, this.CURRENT_USER, item, id);
+            //push DTO to list being displayed
             this.reservations.push(res);
 
+            //save new reservation to backend
             AXIOS.post('/reservations/'.concat(id), {},
                           {params: {
                             startDate: currDate,
@@ -156,12 +161,15 @@ export default {
                           this.errorReservation = errorMsg
             })
         },
+
+        //sort items by author
         sortAuthor: function() {
-            this.inventoryItems['item'].sort(compareAuthor());
-            for (item in this.inventoryItems) {
-                console.log (item.name)
-            }
+            //use sort with compare function above
+            this.inventoryItems['item'].sort(compareAuthor()); //not functional
+ 
         },
+
+        //sort items by title
         sortTitle: function() {
             this.inventoryItems = Object.entries(this.inventoryItems).sort((a,b) => a[1].name-b[1].name);
             // var sorting = [];
