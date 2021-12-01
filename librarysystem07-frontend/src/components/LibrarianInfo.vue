@@ -1,15 +1,14 @@
 <template>
     <div id="accountinfo">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+          <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
                 <h3 class="navbar-brand">McLennan Library Online</h3>
-                <!--div class="collapse navbar-collapse" id="navbarNavAltMarkup"-->
                     <div class="nav navbar-nav" routerLinkActive="active">
                         <router-link class="nav-item nav-link" to="/info"> My Account </router-link>
                         <router-link class="nav-item nav-link" to="/browse-librarian"> Inventory </router-link> 
+                        <router-link class="nav-item nav-link" to="/headlibrariantimeslots"> Schedule </router-link> 
                         <router-link class="nav-item nav-link" to="/event"> Request Event </router-link> 
                     </div>
         </nav>
-
         <table>
             <tr>
                 <h2>Account Summary</h2>

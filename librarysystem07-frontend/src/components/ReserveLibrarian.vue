@@ -1,11 +1,11 @@
 <template>
     <div id="reserve">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+          <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
                 <h3 class="navbar-brand">McLennan Library Online</h3>
-                <!--div class="collapse navbar-collapse" id="navbarNavAltMarkup"-->
                     <div class="nav navbar-nav" routerLinkActive="active">
                         <router-link class="nav-item nav-link" to="/info"> My Account </router-link>
-                        <router-link class="nav-item nav-link" to="/browse"> Reserve a Book </router-link> 
+                        <router-link class="nav-item nav-link" to="/browse-librarian"> Inventory </router-link> 
+                        <router-link class="nav-item nav-link" to="/headlibrariantimeslots"> Schedule </router-link> 
                         <router-link class="nav-item nav-link" to="/event"> Request Event </router-link> 
                     </div>
         </nav>
@@ -25,11 +25,6 @@
                 <td>{{inventoryItem.item.type}}</td>
                 <td>{{inventoryItem.item.duplicates}}</td>
                 <td>{{inventoryItem.item.status}}</td>
-            </tr>
-            <tr>
-                <p>Sort by: </p>
-                <button @click="sortAuthor()">Author</button>
-                 <button @click="sortTitle()">Title</button>
             </tr>
         </table>
 
