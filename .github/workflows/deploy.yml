@@ -13,6 +13,7 @@ jobs:
     - name: push backend
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
+        heroku_api_key: 362888a7-4656-417e-bd00-18bdd40fb8d2
         heroku_app_name: "librarysystem07-backend-ls07"
         heroku_email: "samantha.handal@mail.mcgill.ca"
         dontuseforce: false
