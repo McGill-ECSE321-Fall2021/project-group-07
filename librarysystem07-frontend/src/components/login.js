@@ -21,6 +21,7 @@ function VisitorDto (name, username, address, libraryCardId) {
     else {
         this.balance = "15";
     }
+    this.reservations = [];
 }
 
 export default {
@@ -132,6 +133,7 @@ export default {
                     var CURRENT_USER_ID = localStorage.setItem('ID',visitorLibraryCardId);
                     var CURRENT_USER_BALANCE = localStorage.setItem('BALANCE',this.visitors[i].balance);
                     var CURRENT_USER_ADDRESS = localStorage.setItem('ADDRESS',this.visitors[i].address);
+                    var CURRENT_USER = localStorage.setItem('USER',this.visitors[i]);
 
                     this.$router.push('/info'); 
                 }

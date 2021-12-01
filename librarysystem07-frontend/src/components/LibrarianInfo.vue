@@ -5,7 +5,7 @@
                 <!--div class="collapse navbar-collapse" id="navbarNavAltMarkup"-->
                     <div class="nav navbar-nav" routerLinkActive="active">
                         <router-link class="nav-item nav-link" to="/info"> My Account </router-link>
-                        <router-link class="nav-item nav-link" to="/browse"> Reserve a Book </router-link> 
+                        <router-link class="nav-item nav-link" to="/browse-librarian"> Inventory </router-link> 
                         <router-link class="nav-item nav-link" to="/event"> Request Event </router-link> 
                     </div>
         </nav>
@@ -58,7 +58,7 @@
 
     </div>
 </template>
-<script src="./accountinfo.js">
+<script src="./accountinfolibrarian.js">
 </script>
 <style>
     table {
