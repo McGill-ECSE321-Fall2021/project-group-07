@@ -106,7 +106,7 @@ export default {
         saveNewAddress: function (new_address) {
 
             AXIOS.put('/visitors/'.concat(this.current_user.libraryCardId), {}, {params: {
-                address: this.new_address
+                address: new_address
             }})
             .then(response => {
             //no response

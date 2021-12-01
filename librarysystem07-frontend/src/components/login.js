@@ -78,6 +78,7 @@ export default {
        },
 
       methods: {
+          //sign up function
         createVisitor: function (visitorName, visitorUsername, visitorAddress, visitorLibraryCardId) {
             if (this.visitors.includes(visitorLibraryCardId) || this.visitors.includes(visitorUsername)) {
                 this.errorNewVisitor("This ID is invalid")
@@ -88,6 +89,7 @@ export default {
                 return;
             }
 
+            //add visitor to backend with AXIOS
             AXIOS.post('/visitors/'.concat(visitorLibraryCardId), {}, {params: {
                 libraryCardId: visitorLibraryCardId,
                 username: visitorUsername,
@@ -95,10 +97,11 @@ export default {
                 demeritPoints: 0
             }})
             .then(response => {
-            // JSON responses are automatically parsed.
+                //push response to visitor list displayed in view
                 this.visitors.push(response.data)
                 this.visitorUsernames.push({username: visitorUsername})
                 this.visitorIds.push({libraryCardId: visitorLibraryCardId})
+                //reset fields
                 this.newVisitor.username = ''
                 this.newVisitor.name = ''
                 this.newVisitor.address = ''
@@ -110,11 +113,9 @@ export default {
               this.errorNewVisitor = errorMsg
             })
 
-            // Create a new person and add it to the list of people
+            //Make a new visitor DTO and add it to display if backend doesn't work
             this.visitors.push(new VisitorDto(visitorName, visitorUsername, visitorAddress, visitorLibraryCardId))
-            this.visitorIds.push({libraryCardId: visitorLibraryCardId})
-
-            
+            this.visitorIds.push({libraryCardId: visitorLibraryCardId})            
             this.visitorUsernames.push({username: visitorUsername})
 
             // Reset the name field for new people
@@ -125,16 +126,16 @@ export default {
           },
 
           signIn: function (visitorUsername, visitorLibraryCardId) {
-       
-            
             for (let i = 0; i < this.visitors.length; i++) {
                 if (this.visitors[i].username == visitorUsername && this.visitors[i].libraryCardId == visitorLibraryCardId) {
+                    //save in local storage for if backend not working
                     var CURRENT_USER_USERNAME = localStorage.setItem('USERNAME',visitorUsername);
                     var CURRENT_USER_ID = localStorage.setItem('ID',visitorLibraryCardId);
                     var CURRENT_USER_BALANCE = localStorage.setItem('BALANCE',this.visitors[i].balance);
                     var CURRENT_USER_ADDRESS = localStorage.setItem('ADDRESS',this.visitors[i].address);
                     var CURRENT_USER = localStorage.setItem('USER',this.visitors[i]);
 
+                    //go to main page
                     this.$router.push('/info'); 
                 }
             }
