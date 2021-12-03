@@ -1,12 +1,17 @@
 package ca.mcgill.ecse321.librarysystem07;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import cz.msebera.android.httpclient.Header;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -14,11 +19,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import ca.mcgill.ecse321.librarysystem07.databinding.ActivityMainBinding;
+import cz.msebera.android.httpclient.HttpEntity;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     private String error = null;
@@ -65,17 +75,34 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View v) {
         error = "";
+
+        final EditText username = (EditText) findViewById(R.id.login_username);
+        final EditText id = (EditText) findViewById(R.id.login_id);
+
         boolean checked = ((CheckBox) findViewById(R.id.checkbox_librarian)).isChecked();
         if (checked) {
 
         }
 
-        HttpUtils.post("persons/" + tv.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+        HttpUtils.get("visitors/" + id.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                id.setText("");
+                username.setText("");
+                try {
+                    HttpEntity entity = response.getEntity();
+                    if (response.getJSONObject(response)) {
+                        startActivity(new Intent(MainActivity.this, BrowseActivity.class));
+                    } else {
+                        error += "Username and ID do not match.";
+                    }
+                } catch (Exception e) {
+                    error += e.getMessage();
+                }
                 refreshErrorMessage();
-                tv.setText("");
+
             }
+
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
