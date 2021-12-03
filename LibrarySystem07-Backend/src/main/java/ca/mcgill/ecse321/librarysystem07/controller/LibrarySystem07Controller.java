@@ -693,7 +693,13 @@ public class LibrarySystem07Controller {
 	/**
 	 * URL :  http://localhost:8085/visitors/{libraryCardId}
 	 * Queries database location <visitors> for the visitor with id {libraryCardId}
-	 *
+	 */
+	@GetMapping(value = { "/visitors/{libraryCardId}", "/visitor/{libraryCardId}/" })
+	public LibrarianDto getVisitorByLibraryCardId(@PathVariable("libraryCardId") Integer libraryCardId)
+			throws IllegalArgumentException {
+			return convertToDto(service.getVisitor(libraryCardId));
+	}
+	 /*
 	 * @param libraryCardId
 	 * @param name
 	 * @param username
