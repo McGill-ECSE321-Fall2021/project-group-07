@@ -9,4 +9,20 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="title">McLennan Library</string>
+
+
+    <string name="login_username_hint">Username</string>
+    <string name="login_id_hint">Library Card ID</string>
+    <string name="signup_name_hint">Full Name</string>
+    <string name="signup_username_hint">Username</string>
+    <string name="signup_id_hint">Library Card ID</string>
+    <string name="signup_address_hint">Address</string>
+
+    <string name="signup_button">Sign Up</string>
+    <string name="login_button">Log In</string>
+
+    <string name="librarian_check">I am a librarian</string>
+
 </resources>
