@@ -25,4 +25,8 @@
 
     <string name="librarian_check">I am a librarian</string>
 
+    <!-- inventory page -->
+    <string name="inventory_title">Browse Inventory</string>
+    <string name="reserve">Reserve</string>
+
 </resources>

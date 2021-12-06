@@ -18,7 +18,7 @@ public class InventoryItemBrowseActivity extends AppCompatActivity {
         setContentView(R.layout.browse);
 
         // Lookup the recyclerview in activity layout
-        RecyclerView inventoryItemsView = (RecyclerView) findViewById(R.id.inventoryItems);
+        RecyclerView inventory_items = (RecyclerView) findViewById(R.id.inventory_items);
 
         // Initialize contacts
         inventoryItems = new ArrayList<InventoryItemDto>();
@@ -29,9 +29,9 @@ public class InventoryItemBrowseActivity extends AppCompatActivity {
         // Create adapter passing in the sample user data
         InventoryAdapter adapter = new InventoryAdapter(inventoryItems);
         // Attach the adapter to the recyclerview to populate items
-        inventoryItemsView.setAdapter(adapter);
+        inventory_items.setAdapter(adapter);
         // Set layout manager to position the items
-        inventoryItemsView.setLayoutManager(new LinearLayoutManager(this));
+        inventory_items.setLayoutManager(new LinearLayoutManager(this));
         // That's all!
     }
 }
