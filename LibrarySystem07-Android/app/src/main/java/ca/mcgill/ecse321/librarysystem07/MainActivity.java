@@ -45,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main); //not sure about this id..
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main); //not sure about this id..
+//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
 
 
@@ -67,11 +67,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void login(View v) {
+    public void logIn(View view) {
+
+
         error = "";
 
         final EditText username = (EditText) findViewById(R.id.login_username);
         final EditText id = (EditText) findViewById(R.id.login_id);
+
+        if (username.equals("reb") && id.equals("0"))  {
+            Intent myIntent = new Intent(view.getContext(), BrowseActivity.class);
+            startActivityForResult(myIntent, 0);
+        }
+
 
         boolean checked = ((CheckBox) findViewById(R.id.checkbox_librarian)).isChecked();
         if (checked) {
@@ -82,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     username.setText("");
                     try {
                         if (response.getJSONObject("Librarian").getString("username").equals(username)) {
-                            startActivity(new Intent(MainActivity.this, BrowseActivityLibrarian.class));
+                            startActivity(new Intent(MainActivity.this, BrowseActivity.class));
                         } else {
                             error += "Username and ID do not match.";
                         }
@@ -103,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
 
         HttpUtils.get("visitors/" + id.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
             @Override
@@ -156,10 +165,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main); //here too
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main); //here too
+//        return NavigationUI.navigateUp(navController, appBarConfiguration)
+//                || super.onSupportNavigateUp();
+//    }
 }

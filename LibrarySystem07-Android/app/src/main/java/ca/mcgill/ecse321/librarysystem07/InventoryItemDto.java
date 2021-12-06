@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.librarysystem07;
 
+import java.util.ArrayList;
+
 public class InventoryItemDto {
 
     private int inventoryItemID;
@@ -35,6 +37,15 @@ public class InventoryItemDto {
 
     }
 
+    public static ArrayList<InventoryItemDto> createInventoryList(int num, ArrayList<String> names, ArrayList<String> authors) {
+        ArrayList<InventoryItemDto> items = new ArrayList<InventoryItemDto>();
+
+        for (int i = 0; i < num; i++) {
+            items.add(new InventoryItemDto(i, 0, names.get(i), authors.get(i), "Available", "Book"));
+        }
+
+        return items;
+    }
 
     public int getInventoryItemID() {
         return this.inventoryItemID;

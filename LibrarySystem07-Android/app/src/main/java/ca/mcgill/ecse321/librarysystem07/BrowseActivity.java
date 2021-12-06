@@ -17,6 +17,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import ca.mcgill.ecse321.librarysystem07.databinding.ActivityMainBinding;
 
@@ -29,24 +31,44 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class BrowseActivity extends AppCompatActivity {
     private String error = null;
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    ArrayList<InventoryItemDto> inventory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.browse);
 
+        // Lookup the recyclerview in activity layout
+        RecyclerView rv_inventory_items = (RecyclerView) findViewById(R.id.rv_inventory_items);
+
+        // Initialize items
+        ArrayList<String> names = new ArrayList<String>();
+        names.add("Hi");
+        names.add("fiohdsnk");
+        ArrayList<String> authors = new ArrayList<String>();
+        authors.add("nifoanksd");
+        authors.add("im an author");
+
+        inventory = InventoryItemDto.createInventoryList(2, names, authors);
+        // Create adapter passing in the sample user data
+        InventoryAdapter adapter = new InventoryAdapter(inventory);
+        // Attach the adapter to the recyclerview to populate items
+        rv_inventory_items.setAdapter(adapter);
+        // Set layout manager to position the items
+        rv_inventory_items.setLayoutManager(new LinearLayoutManager(this));
+        // That's all!
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.content_main); //not sure about this id..
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
 
         // initialize error message text view

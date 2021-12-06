@@ -60,7 +60,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/login_id_hint" />
 
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -76,7 +75,6 @@
             android:layout_height="27dp"
             android:layout_gravity="end"
             android:layout_marginRight="10dp"
-            android:onClick="onLibrarianCheckboxClicked"
             android:text="@string/librarian_check" />
 
         <EditText

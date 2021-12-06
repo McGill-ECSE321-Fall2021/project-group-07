@@ -28,5 +28,19 @@
     <!-- inventory page -->
     <string name="inventory_title">Browse Inventory</string>
     <string name="reserve">Reserve</string>
+    <string name="make_reservation">Create Reservation</string>
+    <string name="start_date">Start date:</string>
+    <string name="end_date">End date:</string>
+    <string name="date_input">DD/MM/YY</string>
+
+
+    <string name="item1_title">Hamlet</string>
+    <string name="item1_author">William Shakespeare</string>
+
+    <string name="item2_title">Romeo and Juliette</string>
+    <string name="item2_author">William Shakespeare</string>
+
+    <string name="item3_title">Jojo's Bizarre Adventure</string>
+    <string name="item3_author">Hirohiko Araki</string>
 
 </resources>
