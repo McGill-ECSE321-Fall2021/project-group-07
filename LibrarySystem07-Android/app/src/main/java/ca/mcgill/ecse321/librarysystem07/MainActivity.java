@@ -81,7 +81,33 @@ public class MainActivity extends AppCompatActivity {
 
         boolean checked = ((CheckBox) findViewById(R.id.checkbox_librarian)).isChecked();
         if (checked) {
+            HttpUtils.get("librarians/" + id.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    id.setText("");
+                    username.setText("");
+                    try {
+                        if (response.getJSONObject("Librarian").getString("username").equals(username)) {
+                            startActivity(new Intent(MainActivity.this, BrowseActivityLibrarian.class));
+                        } else {
+                            error += "Username and ID do not match.";
+                        }
+                    } catch (Exception e) {
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
 
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    try {
+                        error += errorResponse.get("message").toString();
+                    } catch (JSONException e) {
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+            });
         }
 
         HttpUtils.get("visitors/" + id.getText().toString(), new RequestParams(), new JsonHttpResponseHandler() {
@@ -90,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 id.setText("");
                 username.setText("");
                 try {
-                    HttpEntity entity = response.getEntity();
-                    if (response.getJSONObject(response)) {
+                    if (response.getJSONObject("Visitor").getString("username").equals(username)) {
                         startActivity(new Intent(MainActivity.this, BrowseActivity.class));
                     } else {
                         error += "Username and ID do not match.";
