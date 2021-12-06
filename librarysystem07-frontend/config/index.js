@@ -4,9 +4,9 @@ var path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
-    host: 'librarysystem07-frontend-ls07.herokuapp.com',
+    host: '/librarysystem07-frontend-ls07.herokuapp.com',
     port: 443,
-    backendHost: 'librarysystem07-frontend-ls07.herokuapp.com',
+    backendHost: '/librarysystem07-backend-ls07.herokuapp.com',
     backendPort: 443,
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),

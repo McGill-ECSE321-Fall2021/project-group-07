@@ -14,38 +14,58 @@ function VisitorDto (name, username, address, libraryCardId) {
     this.username = username;
     this.address = address;
     this.libraryCardId = libraryCardId;
-    this.events = [];
-    this.reservations = [];
-    this.demeritPoints = 0;
+    this.demeritPoints = "0";
     if (address.includes("Montreal") || address.includes("montreal")) {
-        this.balance = 0;
+        this.balance = "0";
     }
     else {
-        this.balance = 15;
+        this.balance = "15";
     }
+    this.reservations = [];
 }
 
 export default {
-    name: 'eventregistration',
+    name: 'visitor',
     data () {
       return {
-        newVisitor: {
-            name: '',
-            username: '',
-            address: '',
-            libraryCardId: 0,
-            demeritPoints: 0
-        },
-        errorVisitor: '',
-        events: [],
-        reservations: [],
-        errorVisitor: '',
-        visitors: [],
-        response: []
-      }
+            visitors: [],
+            visitorIds: [],
+            visitorUsernames: [],
+            newVisitor: {
+                name: '',
+                username: '',
+                address: '',
+                libraryCardId: '',
+                demeritPoints: "0",
+                balance: "0"
+            },
+            existingVisitor: {
+                username: '',
+                libraryCardId: ''
+            },
+            errorVisitor: '',
+            errorNewVisitor: '',
+            message: '',
+            response: []
+        }
     },
+
     created: function () {
-        
+        //TEST DATA
+        // const v1 = new VisitorDto("John", "John1", "Montreal", "0");
+        // const v2 = new VisitorDto("Bob", "Bob1", "Montreal", "1");
+        // this.visitors[0] = v1;
+        // this.visitors[1] = v2;
+
+        // this.visitorIds = [
+        //     {libraryCardId: v1.libraryCardId}, 
+        //     {libraryCardId: v2.libraryCardId}
+        // ]
+        // this.visitorUsernames = [
+        //     {username: v1.username}, 
+        //     {username: v2.username}
+        // ]
+
         // Initializing persons from backend
         AXIOS.get('/visitors')
         .then(response => {
@@ -55,45 +75,72 @@ export default {
         .catch(e => {
             this.errorVisitor = e
         })
-      },
+       },
 
       methods: {
-          signIn: function (username, libraryCardId) {
-            if (visitors.get(libraryCardId).username == username) {
-                router.push("/visitors/".concat(libraryCardId).concat("/mainpage"))
+          //sign up function
+        createVisitor: function (visitorName, visitorUsername, visitorAddress, visitorLibraryCardId) {
+            if (this.visitors.includes(visitorLibraryCardId) || this.visitors.includes(visitorUsername)) {
+                this.errorNewVisitor("This ID is invalid")
+                return;
             }
-          },
+            if (this.visitorIds.includes(visitorLibraryCardId) || this.visitorUsernames.includes(visitorUsername)) {
+                this.errorNewVisitor("This ID is invalid")
+                return;
+            }
 
-          createVisitor: function (name, username, address, libraryCardId) {
-            var indexName = this.visitors.map(x => x.name).indexOf(name)
-            var indexUsername = this.visitors.map(x => x.username).indexOf(username)
-            var indexAddress = this.visitors.map(x => x.address).indexOf(address)
-            var indexLibraryCardId = this.visitors.map(x => x.libraryCardId).indexOf(libraryCardId)
-
-            var visitor = this.visitors[indexLibraryCardId]
-
-            AXIOS.post('/visitors'.concat(libraryCardId), {},
-              {params: {
-                name: visitor.name,
-                username: visitor.username,
-                address: visitor.address,
-                demeritPoints: visitor.demeritPoints
-            } })
+            //add visitor to backend with AXIOS
+            AXIOS.post('/visitors/'.concat(visitorLibraryCardId), {}, {params: {
+                libraryCardId: visitorLibraryCardId,
+                username: visitorUsername,
+                address: visitorAddress,
+                demeritPoints: 0
+            }})
             .then(response => {
-              // Update appropriate DTO collections
-                newVisitor.name.push(name)
-                newVisitor.username.push(username)
-                newVisitor.address.push(address)
-                newVisitor.libraryCardId.push(libraryCardId)
-                newVisitor.demeritPoints.push(demeritPoints)
+                //push response to visitor list displayed in view
                 this.visitors.push(response.data)
-                this.errorVisitor = ''
+                this.visitorUsernames.push({username: visitorUsername})
+                this.visitorIds.push({libraryCardId: visitorLibraryCardId})
+                //reset fields
+                this.newVisitor.username = ''
+                this.newVisitor.name = ''
+                this.newVisitor.address = ''
+                this.newVisitor.libraryCardId = ''
             })
             .catch(e => {
-              var errorMsg = e
+              var errorMsg = e.response.data.message
               console.log(errorMsg)
-              this.errorVisitor = errorMsg
+              this.errorNewVisitor = errorMsg
             })
+
+            //Make a new visitor DTO and add it to display if backend doesn't work
+            this.visitors.push(new VisitorDto(visitorName, visitorUsername, visitorAddress, visitorLibraryCardId))
+            this.visitorIds.push({libraryCardId: visitorLibraryCardId})            
+            this.visitorUsernames.push({username: visitorUsername})
+
+            // Reset the name field for new people
+            this.newVisitor.username = ''
+            this.newVisitor.name = ''
+            this.newVisitor.address = ''
+            this.newVisitor.libraryCardId = ''
           },
-      }
-  }
+
+          signIn: function (visitorUsername, visitorLibraryCardId) {
+            for (let i = 0; i < this.visitors.length; i++) {
+                if (this.visitors[i].username == visitorUsername && this.visitors[i].libraryCardId == visitorLibraryCardId) {
+                    //save in local storage for if backend not working
+                    var CURRENT_USER_USERNAME = localStorage.setItem('USERNAME',visitorUsername);
+                    var CURRENT_USER_ID = localStorage.setItem('ID',visitorLibraryCardId);
+                    var CURRENT_USER_BALANCE = localStorage.setItem('BALANCE',this.visitors[i].balance);
+                    var CURRENT_USER_ADDRESS = localStorage.setItem('ADDRESS',this.visitors[i].address);
+                    var CURRENT_USER = localStorage.setItem('USER',this.visitors[i]);
+
+                    //go to main page
+                    this.$router.push('/info'); 
+                }
+            }
+            
+            this.errorVisitor = "Username and ID do not match.";
+          }
+        }
+}

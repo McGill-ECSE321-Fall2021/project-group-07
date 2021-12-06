@@ -1,9 +1,6 @@
 <template>
   <div id="login">
     <h2>Welcome!</h2>
-    <h2>
-       <span v-if="message" style="color:navy">uifdskbj: {{message}} </span>
-    </h2>
     <div class="row">
       <div class="column">
         <table>
@@ -25,11 +22,6 @@
                   <button v-bind:disabled="!existingVisitor" @click="signIn(existingVisitor.username, existingVisitor.libraryCardId)">Log In</button>
               </td>
           </tr>
-          <!--tr>
-            <td v-for="visitor in visitorIds"  :key="visitor.libraryCardId">
-                {{ visitor.libraryCardId }}
-            </td>
-          </tr-->
         </table>
         <p>
           <span v-if="errorVisitor" style="color:navy">Error: {{errorVisitor}} </span>
@@ -53,7 +45,7 @@
           </tr>
           <tr>
               <td>
-                  <input type="text" v-model="newVisitor.libraryCardId" placeholder="Library Card ID">
+                  <input type="number" v-model="newVisitor.libraryCardId" placeholder="Library Card ID">
               </td>
           </tr>
           <tr>
@@ -63,7 +55,7 @@
           </tr>
           <tr>
               <td>
-                  <button v-bind:disabled="!newVisitor" @click="createVisitor(newVisitor.name, newVisitor.username, newVisitor.libraryCardId, newVisitor.address)">Sign Up</button>
+                  <button v-bind:disabled="!newVisitor" @click="createVisitor(newVisitor.name, newVisitor.username, newVisitor.address, newVisitor.libraryCardId)">Sign Up</button>
               </td>
           </tr>
         </table>
@@ -75,7 +67,7 @@
   </div>
 </template>
 
-<script src="./testing.js">
+<script src="./login.js">
 </script>
 
 <style>
@@ -83,7 +75,7 @@
     box-sizing: border-box;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     color: #2c3e50;
-    background: #f1eaef;
+    background: #f1efe7;
   }
     .row {
     display: flex;
@@ -117,7 +109,6 @@
     padding: -10px -24px -10px -25px;
     border: 2px solid #2c3e50;
     border-radius: 4px;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
