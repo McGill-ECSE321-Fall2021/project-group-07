@@ -85,7 +85,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input1"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -101,7 +101,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input1"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -169,7 +169,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input2"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -185,7 +185,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input2"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -255,7 +255,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input3"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -271,7 +271,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input3"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -339,7 +339,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input4"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -355,7 +355,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input4"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -425,7 +425,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input5"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -441,7 +441,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input5"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -509,7 +509,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input6"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -525,7 +525,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input6"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -595,7 +595,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input7"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -611,7 +611,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input7"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -678,7 +678,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input8"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -694,7 +694,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input8"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -762,7 +762,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_input9"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -778,7 +778,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_input9"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -847,7 +847,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/start_date" />
         <EditText
-            android:id="@+id/start_date_input"
+            android:id="@+id/start_date_inputA"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"
@@ -863,7 +863,7 @@
             android:layout_marginRight="5dp"
             android:text="@string/end_date" />
         <EditText
-            android:id="@+id/send_date_input"
+            android:id="@+id/send_date_inputB"
             android:textSize="10dp"
             android:layout_marginRight="5dp"
             android:layout_gravity="center_vertical"

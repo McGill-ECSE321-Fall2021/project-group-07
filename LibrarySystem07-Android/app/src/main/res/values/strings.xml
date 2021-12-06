@@ -40,7 +40,7 @@
     <string name="item2_title">Romeo and Juliette</string>
     <string name="item2_author">William Shakespeare</string>
 
-    <string name="item3_title">Jojo's Bizarre Adventure</string>
+    <string name="item3_title">"Jojo\'s Bizarre Adventure"</string>
     <string name="item3_author">Hirohiko Araki</string>
 
 </resources>
