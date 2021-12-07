@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,15 +22,21 @@ public class HomePage extends AppCompatActivity {
     private String error = null;
 
     // access information from the user logged in
-    SharedPreferences userLoggedIn = getApplicationContext().getSharedPreferences("UserLoggedInDB", MODE_PRIVATE);
-    String typeOfAccount = userLoggedIn.getString("typeOfAccount", "null");
-    int cardId = userLoggedIn.getInt("cardId", 0);
+    SharedPreferences userLoggedIn;
+    //SharedPreferences userLoggedIn = getApplicationContext().getSharedPreferences("UserLoggedInDB", MODE_PRIVATE);
+    String typeOfAccount;
+    int cardId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        // Instanciate the shared preferances on create, this way it understands thread "this"
+        userLoggedIn = PreferenceManager.getDefaultSharedPreferences(this);
+        typeOfAccount = userLoggedIn.getString("typeOfAccount", "null");
+        cardId = userLoggedIn.getInt("cardId", 0);
 
         // fetching user logged in information
         String name = userLoggedIn.getString("name", "null");
@@ -43,10 +50,10 @@ public class HomePage extends AppCompatActivity {
         TextView viewId = findViewById(R.id.CardId);
 
         // setting the view to display user information
-        viewName.setText("Name: " + name);
-        viewUsername.setText("Username: " + username);
-        viewAddress.setText("Address: " + address);
-        viewId.setText("ID Card Number: " + cardId);
+        viewName.setText("Name:  " + name);
+        viewUsername.setText("Username:  " + username);
+        viewAddress.setText("Address:  " + address);
+        viewId.setText("ID Card Number:  " + cardId);
 
         if (typeOfAccount.equals("Visitor")) {
 
@@ -58,8 +65,8 @@ public class HomePage extends AppCompatActivity {
             TextView viewBalance = findViewById(R.id.Balance);
             TextView viewDemerit = findViewById(R.id.DemeritPoints);
 
-            viewBalance.setText("Balance: " + balance);
-            viewDemerit.setText("Demerit Points: " + demeritPoints);
+            viewBalance.setText("Balance:  " + balance + "$");
+            viewDemerit.setText("Demerit Points:  " + demeritPoints);
         }
 
         refreshErrorMessage();

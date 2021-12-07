@@ -11,16 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LibrarySystem07Android" >
+
         <activity
             android:name=".BrowseActivity"
             android:exported="false" />
         <activity
             android:name=".HomePage"
+            android:label="@string/app_name"
             android:exported="false" />
-        <activity
-            android:name=".Browse"
-            android:exported="false"
-            android:label="@string/title_activity_browse" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

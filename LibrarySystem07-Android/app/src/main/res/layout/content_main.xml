@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#A8001F"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <!--
@@ -24,14 +26,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_gravity="center"
             android:src="@drawable/logo" />
 
@@ -41,7 +46,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:text="@string/title"
-            android:textSize="34dp"
+            android:textSize="30dp"
             android:textStyle="bold" />
 
         <TextView
@@ -56,6 +61,7 @@
             android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:layout_marginTop="30dp"
             android:hint="@string/login_username_hint" />
 
@@ -63,50 +69,67 @@
             android:id="@+id/login_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:hint="@string/login_id_hint" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_toRightOf="@+id/checkbox_librarian"
-            app:background="#E90027"
-            android:backgroundTint="#A8001F"
-            android:onClick="logIn"
-            android:text="@string/login_button"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="-5dp" />
 
-        <CheckBox
-            android:id="@+id/checkbox_librarian"
-            android:layout_width="wrap_content"
-            android:layout_height="27dp"
-            android:layout_gravity="end"
-            android:layout_marginRight="10dp"
-            android:text="@string/librarian_check" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+            <!--
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            -->
+
+
+            <CheckBox
+                android:id="@+id/checkbox_librarian"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="top"
+                android:text="@string/librarian_check" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:backgroundTint="#A8001F"
+                android:onClick="logIn"
+                android:text="@string/login_button"
+                android:layout_marginLeft="135dp"
+                android:layout_marginBottom="-5dp" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/signup_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:textSize="15dp"
             android:hint="@string/signup_name_hint" />
 
         <EditText
             android:id="@+id/signup_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:hint="@string/signup_username_hint" />
 
         <EditText
             android:id="@+id/signup_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:hint="@string/signup_id_hint" />
 
         <EditText
             android:id="@+id/signup_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:hint="@string/signup_address_hint" />
 
         <Button
@@ -114,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:onClick="signup"
-            app:background="#E90027"
+
             android:backgroundTint="#A8001F"
             android:text="@string/signup_button"
             android:layout_marginRight="10dp" />

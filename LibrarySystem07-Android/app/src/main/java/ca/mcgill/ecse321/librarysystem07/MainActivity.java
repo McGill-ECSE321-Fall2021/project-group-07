@@ -10,6 +10,7 @@ import com.loopj.android.http.RequestParams;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import androidx.navigation.ui.AppBarConfiguration;
@@ -53,15 +54,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.toolbar);
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
+//
+//        setSupportActionBar(binding.toolbar);
 
         // create fields to store the content of the logged in user so we can use this data on other pages
-        userLoggedIn = getApplicationContext().getSharedPreferences("UserLoggedInDB", MODE_PRIVATE);
+        userLoggedIn = PreferenceManager.getDefaultSharedPreferences(this);
+        //userLoggedIn = getApplicationContext().getSharedPreferences("UserLoggedInDB", MODE_PRIVATE);
         userLoggedInEditor = userLoggedIn.edit();
 
         // initialize error message text view
@@ -87,8 +91,23 @@ public class MainActivity extends AppCompatActivity {
         EditText username = findViewById(R.id.login_username);
         EditText id = findViewById(R.id.login_id);
 
-        if (username.getText().toString().equals("reb") && id.getText().toString().equals("0"))  {
+        if (username.getText().toString().equals("SophieBookWorm23") && id.getText().toString().equals("2609374"))  {
+
+            // store logged in user credentials
+            userLoggedInEditor.putString("typeOfAccount", "Visitor");
+            userLoggedInEditor.putInt("cardId", 2609374);
+            userLoggedInEditor.putString("name", "Sophie");
+            userLoggedInEditor.putString("username", "SophieBookWorm23");
+            userLoggedInEditor.putString("address", "14 Crescent Av");
+            userLoggedInEditor.putInt("demeritPoints", 0);
+            userLoggedInEditor.putFloat("balance", 15);
+
+            // apply changes
+            userLoggedInEditor.apply();
+
             startActivity(new Intent(MainActivity.this, HomePage.class));
+
+            return;
         }
 
         boolean checked = ((CheckBox) findViewById(R.id.checkbox_librarian)).isChecked();

@@ -5,11 +5,11 @@
     android:id="@+id/inventory"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BrowseActivity">
 
+    <!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -899,5 +899,7 @@
         android:visibility="gone" />
 
     </LinearLayout>
+
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
