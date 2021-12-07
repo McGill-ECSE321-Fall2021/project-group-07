@@ -53,3 +53,17 @@ Link to our [Project Management Resources For Deliverable 2!](https://github.com
 Link to our [Architecture Diagram!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Architecture-Model)
 
 Link to our [Project Management Resources For Deliverable 3!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
+
+**Deliverable 4**
+
+| Members            | Roles                   | Effort       |
+| ------------------ |:-----------------------:| ------------:|
+| Rebecca Mizrahi    | Developer, Designer, Tester  |  9 hours     |
+| Liamo Pennimpede   | Developer, UML Code Generation, Project Manager  | 6 hours     |
+| Samantha Handal    | Developer, Designer, Tester  | 6 hours     |
+| Basel Elaghoury    | Developer, Designer, Tester  | 6 hours     |
+| Amelie Barsoum     | Developer and Designer, Project Manager  | 6 hours     |
+
+Link to our [User Guide!]()
+
+Link to our [Project Management Resources For Deliverable 4!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
