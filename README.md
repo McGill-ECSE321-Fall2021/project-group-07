@@ -64,6 +64,6 @@ Link to our [Project Management Resources For Deliverable 3!](https://github.com
 | Basel Elaghoury    | Developer, Designer, Tester  | 6 hours     |
 | Amelie Barsoum     | Developer and Designer, Project Manager  | 6 hours     |
 
-Link to our [User Guide!]()
+Link to our [User Documentation!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/User-Documentation)
 
 Link to our [Project Management Resources For Deliverable 4!](https://github.com/McGill-ECSE321-Fall2021/project-group-07/wiki/Meeting-Minutes-and-Success-Spectrum)
