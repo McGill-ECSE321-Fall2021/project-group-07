@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">LibrarySystem07-Android</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="upadateaddress_hint">enter new address</string>
+    <string name="upadateaddress_button">Update Address</string>
+    <string name="title_activity_account_info">AccountInfo</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- log in page -->
+    <string name="title">McLennan Library</string>
+
+    <string name="login_username_hint">Username</string>
+    <string name="login_id_hint">Library Card ID</string>
+    <string name="signup_name_hint">Full Name</string>
+    <string name="signup_username_hint">Username</string>
+    <string name="signup_id_hint">Library Card ID</string>
+    <string name="signup_address_hint">Address</string>
+
+    <string name="signup_button">Sign Up</string>
+    <string name="login_button">Log In</string>
+
+    <string name="librarian_check">I am a librarian</string>
+    <string name="title_activity_browse">Browse</string>
+
+    <!-- inventory page -->
+    <string name="inventory_title">Browse Inventory</string>
+    <string name="reserve">Reserve</string>
+    <string name="make_reservation">Create Reservation</string>
+    <string name="start_date">Start date:</string>
+    <string name="end_date">End date:</string>
+    <string name="date_input">DD/MM/YY</string>
+
+
+    <string name="item1_title">Hamlet</string>
+    <string name="item1_author">William Shakespeare</string>
+
+    <string name="item2_title">Romeo and Juliette</string>
+    <string name="item2_author">William Shakespeare</string>
+
+    <string name="item3_title">"Jojo\'s Bizarre Adventure"</string>
+    <string name="item3_author">Hirohiko Araki</string>
+</resources>
