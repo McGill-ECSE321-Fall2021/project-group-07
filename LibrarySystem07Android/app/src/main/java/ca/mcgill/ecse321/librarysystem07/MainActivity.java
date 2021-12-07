@@ -16,7 +16,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import ca.mcgill.ecse321.librarysystem07.databinding.ActivityMainBinding;
-import cz.msebera.android.httpclient.entity.mime.Header;
+//import cz.msebera.android.httpclient.entity.mime.Header;
+import cz.msebera.android.httpclient.Header;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Schedule XML template found at https://pastebin.com/jT4wQxeb
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
@@ -37,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private String error = null;
     private List<TimePickerFragment> librarianShifts = new ArrayList<>();
     private ArrayAdapter<TimePickerFragment> librarianShiftAdapter;
-    private List<TimePickerFragment> headLibrarianShifts = new ArrayList<>();
-    private ArrayAdapter<TimePickerFragment> headLibrarianShiftAdapter;
-    //private NavController R; //?????????????
+//    private List<TimePickerFragment> headLibrarianShifts = new ArrayList<>();
+//    private ArrayAdapter<TimePickerFragment> headLibrarianShiftAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +66,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Spinner personSpinner = (Spinner) findViewById(R.id.librarianshiftspinner);
-        Spinner eventSpinner = (Spinner) findViewById(R.id.headlibrarianshiftspinner);
+        Spinner librarianShiftSpinner = (Spinner) findViewById(R.id.librarianshiftspinner);
+        //Spinner headLibrarianShiftSpinner = (Spinner) findViewById(R.id.headlibrarianshiftspinner);
 
         librarianShiftAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, librarianShifts);
         librarianShiftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        personSpinner.setAdapter(librarianShiftAdapter);
+        librarianShiftSpinner.setAdapter(librarianShiftAdapter);
 
-        headLibrarianShiftAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, headLibrarianShifts);
-        headLibrarianShiftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        eventSpinner.setAdapter(headLibrarianShiftAdapter);
+//        headLibrarianShiftAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, headLibrarianShifts);
+//        headLibrarianShiftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        headLibrarianShiftSpinner.setAdapter(headLibrarianShiftAdapter);
 
         // Get initial content for spinners
         refreshLists(this.getCurrentFocus());
@@ -79,20 +83,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void refreshLists(View view) {
         refreshList(librarianShiftAdapter ,librarianShifts, "librarianShift");
-        refreshList(headLibrarianShiftAdapter, headLibrarianShifts, "headLibrarianShift");
+        //refreshList(headLibrarianShiftAdapter, headLibrarianShifts, "headLibrarianShift");
     }
 
     private void refreshList(final ArrayAdapter<TimePickerFragment> adapter, final List<TimePickerFragment> shifts, final String restFunctionName) {
         HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
-             
+
 
             //@Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                names.clear();
-                names.add("Please select...");
+                librarianShifts.clear();
+                librarianShifts.add("Please select...");
                 for( int i = 0; i < response.length(); i++){
                     try {
-                        names.add(response.getJSONObject(i).getString("name"));
+                        librarianShifts.add(response.getJSONObject(i).getString("name"));
                     } catch (Exception e) {
                         error += e.getMessage();
                     }

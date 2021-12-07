@@ -271,6 +271,40 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/librarianshiftspinner_label"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/librarian1"
+            android:textColor="@color/red"
+            android:textSize="15dp"/>
+
+        <Spinner
+            android:id="@+id/librarianshiftspinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:prompt="@string/name_prompt"
+            android:layout_margin="0dp"/>
+
+<!--        <Button-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:text="@string/librarianshift_button"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:onClick="addShift"/>-->
+
+    </LinearLayout>
+
+
     <View
         android:id="@+id/dividerView"
         android:layout_width="fill_parent"
@@ -491,16 +525,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/sundayRelativeLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2">
-
-                    <!--                    <include layout="@layout/calendar_zebra" />-->
-
-                </RelativeLayout>
-
-                <RelativeLayout
                     android:id="@+id/mondayRelativeLayout"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -513,9 +537,9 @@
                     android:id="@+id/tuesdayRelativeLayout"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2" >
+                    android:layout_weight="2">
 
-<!--                    <include layout="@layout/calendar_zebra" />-->
+                    <!--                    <include layout="@layout/calendar_zebra" />-->
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -582,6 +606,16 @@
                     android:background="@color/blue" />
 
                 <!--                monday-->
+                <RelativeLayout
+                    android:id="@+id/sundayRelativeLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <!--                    <include layout="@layout/calendar_zebra" />-->
+
+                </RelativeLayout>
+
                 <View
                     android:id="@+id/colored_bar_mon"
                     android:layout_width="50dp"
