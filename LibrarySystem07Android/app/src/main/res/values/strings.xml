@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">LibrarySystem07-Android</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="newperson_hint">Who?</string>
+    <string name="newperson_button">Add Person</string>
+    <string name="newevent_date_label">Date?</string>
+    <string name="personspinner_label">Person?</string>
+    <string name="eventspinner_label">Event?</string>
+    <string name="starttime_label">Start time?</string>
+    <string name="endtime_label">End time?</string>
+    <string name="newevent_date_first">01-01-2017</string>
+    <string name="newevent_button">Add Event</string>
+    <string name="starttime_first">10:00</string>
+    <string name="endtime_first">11:00</string>
+    <string name="register_button">Register</string>
+    <string name="newevent_hint">Event name?</string>
+    <string name="refresh_button">Refresh lists</string>
+    <string name="name_prompt">Select name</string>
+    <string name="sun">Sunday</string>
+    <string name="mon">Monday</string>
+    <string name="tue">Tuesday</string>
+    <string name="wed">Wednesday</string>
+    <string name="thu">Thursday</string>
+    <string name="fri">Friday</string>
+    <string name="sat">Saturday</string>
+    <string name="updating">Update</string>
+
+    <string name="time7am">7am</string>
+    <string name="time8am">8am</string>
+    <string name="time9am">9am</string>
+    <string name="time10am">10am</string>
+    <string name="time11am">11am</string>
+    <string name="time12pm">12pm</string>
+    <string name="time1pm">1pm</string>
+    <string name="time2pm">2pm</string>
+    <string name="time3pm">3pm</string>
+    <string name="time4pm">4pm</string>
+    <string name="time5pm">5pm</string>
+    <string name="time6pm">6pm</string>
+    <string name="time7pm">7pm</string>
+    <string name="time8pm">8pm</string>
+    <string name="time9pm">9pm</string>
+    <string name="time10pm">10pm</string>
+
+
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="fuchsia">#FF00FF</color>
+    <color name="red">#FF0000</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="gray">#808080</color>
+    <color name="olive">#808000</color>
+    <color name="purple">#800080</color>
+    <color name="maroon">#800000</color>
+    <color name="aqua">#00FFFF</color>
+    <color name="lime">#00FF00</color>
+    <color name="teal">#008080</color>
+    <color name="green">#008000</color>
+    <color name="blue">#0000FF</color>
+    <color name="navy">#000080</color>
+    <color name="black">#000000</color>
+
+
+</resources>
