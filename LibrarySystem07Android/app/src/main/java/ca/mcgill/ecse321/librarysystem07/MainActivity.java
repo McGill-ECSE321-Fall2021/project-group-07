@@ -20,16 +20,26 @@ import cz.msebera.android.httpclient.entity.mime.Header;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private String error = null;
+    private List<TimePickerFragment> librarianShifts = new ArrayList<>();
+    private ArrayAdapter<TimePickerFragment> librarianShiftAdapter;
+    private List<TimePickerFragment> headLibrarianShifts = new ArrayList<>();
+    private ArrayAdapter<TimePickerFragment> headLibrarianShiftAdapter;
+    //private NavController R; //?????????????
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,56 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        Spinner personSpinner = (Spinner) findViewById(R.id.librarianshiftspinner);
+        Spinner eventSpinner = (Spinner) findViewById(R.id.headlibrarianshiftspinner);
+
+        librarianShiftAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, librarianShifts);
+        librarianShiftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        personSpinner.setAdapter(librarianShiftAdapter);
+
+        headLibrarianShiftAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, headLibrarianShifts);
+        headLibrarianShiftAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        eventSpinner.setAdapter(headLibrarianShiftAdapter);
+
+        // Get initial content for spinners
+        refreshLists(this.getCurrentFocus());
+    }
+
+    public void refreshLists(View view) {
+        refreshList(librarianShiftAdapter ,librarianShifts, "librarianShift");
+        refreshList(headLibrarianShiftAdapter, headLibrarianShifts, "headLibrarianShift");
+    }
+
+    private void refreshList(final ArrayAdapter<TimePickerFragment> adapter, final List<TimePickerFragment> shifts, final String restFunctionName) {
+        HttpUtils.get(restFunctionName, new RequestParams(), new JsonHttpResponseHandler() {
+             
+
+            //@Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                names.clear();
+                names.add("Please select...");
+                for( int i = 0; i < response.length(); i++){
+                    try {
+                        names.add(response.getJSONObject(i).getString("name"));
+                    } catch (Exception e) {
+                        error += e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            //@Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
             }
         });
     }
