@@ -1,3 +1,7 @@
+/*
+* Adapter for RecyclerView
+* Note that this view is not displaying/functioning correctly, however the functionality for the dynamic display is included here.
+*/
 package ca.mcgill.ecse321.librarysystem07;
 
 import android.content.Context;
