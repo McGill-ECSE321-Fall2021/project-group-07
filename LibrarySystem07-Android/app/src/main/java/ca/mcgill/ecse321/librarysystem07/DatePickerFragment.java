@@ -1,4 +1,6 @@
-//from tutorial
+/**
+ * @author Tutorial Notes
+  */
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
