@@ -1,0 +1,41 @@
+ca/mcgill/ecse321/librarysystem07/BrowseActivity.java
+ ca.mcgill.ecse321.librarysystem07.BrowseActivity
+ca/mcgill/ecse321/librarysystem07/databinding/ActivityHomePageBinding.java
+ ca.mcgill.ecse321.librarysystem07.databinding.ActivityHomePageBinding
+ca/mcgill/ecse321/librarysystem07/databinding/ActivityMainBinding.java
+ ca.mcgill.ecse321.librarysystem07.databinding.ActivityMainBinding
+ca/mcgill/ecse321/librarysystem07/EventFragment.java
+ ca.mcgill.ecse321.librarysystem07.EventFragment
+ca/mcgill/ecse321/librarysystem07/HomePage.java
+ ca.mcgill.ecse321.librarysystem07.HomePage
+ ca.mcgill.ecse321.librarysystem07.HomePage$1
+ ca.mcgill.ecse321.librarysystem07.HomePage$2
+ca/mcgill/ecse321/librarysystem07/databinding/FragmentEventBinding.java
+ ca.mcgill.ecse321.librarysystem07.databinding.FragmentEventBinding
+ca/mcgill/ecse321/librarysystem07/databinding/FragmentAccountBinding.java
+ ca.mcgill.ecse321.librarysystem07.databinding.FragmentAccountBinding
+ca/mcgill/ecse321/librarysystem07/HttpUtils.java
+ ca.mcgill.ecse321.librarysystem07.HttpUtils
+ca/mcgill/ecse321/librarysystem07/BuildConfig.java
+ ca.mcgill.ecse321.librarysystem07.BuildConfig
+ca/mcgill/ecse321/librarysystem07/Profile.java
+ ca.mcgill.ecse321.librarysystem07.Profile
+ca/mcgill/ecse321/librarysystem07/databinding/ActivityBrowseBinding.java
+ ca.mcgill.ecse321.librarysystem07.databinding.ActivityBrowseBinding
+ca/mcgill/ecse321/librarysystem07/BrowseFragment.java
+ ca.mcgill.ecse321.librarysystem07.BrowseFragment
+ca/mcgill/ecse321/librarysystem07/databinding/ContentMainBinding.java
+ ca.mcgill.ecse321.librarysystem07.databinding.ContentMainBinding
+ca/mcgill/ecse321/librarysystem07/databinding/ActivityAfterLogInBinding.java
+ ca.mcgill.ecse321.librarysystem07.databinding.ActivityAfterLogInBinding
+ca/mcgill/ecse321/librarysystem07/databinding/FragmentBrowseBinding.java
+ ca.mcgill.ecse321.librarysystem07.databinding.FragmentBrowseBinding
+ca/mcgill/ecse321/librarysystem07/AccountFragment.java
+ ca.mcgill.ecse321.librarysystem07.AccountFragment
+ca/mcgill/ecse321/librarysystem07/AfterLogIn.java
+ ca.mcgill.ecse321.librarysystem07.AfterLogIn
+ ca.mcgill.ecse321.librarysystem07.AfterLogIn$1
+ca/mcgill/ecse321/librarysystem07/MainActivity.java
+ ca.mcgill.ecse321.librarysystem07.MainActivity
+ ca.mcgill.ecse321.librarysystem07.MainActivity$1
+ ca.mcgill.ecse321.librarysystem07.MainActivity$2
