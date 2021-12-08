@@ -74,12 +74,19 @@ public void addEvent(View v){
         rp.add("endTime",formatter.format(endHours)+":"+formatter.format(endMinutes));
 
         HttpUtils.post("events/"+name,rp,new JsonHttpResponseHandler(){
+
+/**
+ * @author Tutorial Notes
+  */         
 @Override
 public void onSuccess(int statusCode,Header[]headers,JSONObject response){
         refreshErrorMessage();
         ((TextView)findViewById(R.id.newevent_name)).setText("");
         }
 
+/**
+ * @author Tutorial Notes
+  */
 @Override
 public void onFailure(int statusCode,Header[]headers,Throwable throwable,JSONObject errorResponse){
         try{
@@ -93,7 +100,9 @@ public void onFailure(int statusCode,Header[]headers,Throwable throwable,JSONObj
         }
 
 
-//from tutorial
+/**
+ * @author Tutorial Notes
+  */
 private Bundle getTimeFromLabel(String text){
         Bundle rtn=new Bundle();
         String comps[]=text.toString().split(":");
@@ -110,7 +119,9 @@ private Bundle getTimeFromLabel(String text){
 
         return rtn;
         }
-
+/**
+ * @author Tutorial Notes
+  */
 private Bundle getDateFromLabel(String text){
         Bundle rtn=new Bundle();
         String comps[]=text.toString().split("-");
@@ -130,7 +141,9 @@ private Bundle getDateFromLabel(String text){
 
         return rtn;
         }
-
+/**
+ * @author Tutorial Notes
+  */
 public void showTimePickerDialog(View v){
         TextView tf=(TextView)v;
         Bundle args=getTimeFromLabel(tf.getText().toString());
@@ -140,7 +153,9 @@ public void showTimePickerDialog(View v){
         newFragment.setArguments(args);
         newFragment.show(getSupportFragmentManager(),"timePicker");
         }
-
+/**
+ * @author Tutorial Notes
+  */
 public void showDatePickerDialog(View v){
         TextView tf=(TextView)v;
         Bundle args=getDateFromLabel(tf.getText().toString());
@@ -150,12 +165,16 @@ public void showDatePickerDialog(View v){
         newFragment.setArguments(args);
         newFragment.show(getSupportFragmentManager(),"datePicker");
         }
-
+/**
+ * @author Tutorial Notes
+  */
 public void setTime(int id,int h,int m){
         TextView tv=(TextView)findViewById(id);
         tv.setText(String.format("%02d:%02d",h,m));
         }
-
+/**
+ * @author Tutorial Notes
+  */
 public void setDate(int id,int d,int m,int y){
         TextView tv=(TextView)findViewById(id);
         tv.setText(String.format("%02d-%02d-%04d",d,m+1,y));
