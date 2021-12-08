@@ -4,19 +4,32 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.2765625" />
+        <entry key="app/src/main/res/drawable/account.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_collections_bookmark_24.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/ic_baseline_event_available_24.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.27760416666666665" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/layout/activity_account_info.xml" value="0.1671875" />
+        <entry key="app/src/main/res/layout/activity_after_log_in.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_after_logg_in.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/activity_browse.xml" value="0.18125" />
         <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22146739130434784" />
+        <entry key="app/src/main/res/layout/content_after_logg_in.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_browse.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.22146739130434784" />
+        <entry key="app/src/main/res/layout/fragment_event.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18125" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.18125" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.17074275362318841" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.28229166666666666" />
       </map>
     </option>
   </component>

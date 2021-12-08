@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">LibrarySystem07-Android</string>
-    <string name="action_settings">Settings</string>
+
+    <!-- Strings used for top navigation -->
+    <string name="reserveItem">Reserve Items</string>
+    <string name="account">My Account</string>
+    <string name="event">Create Event</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -50,4 +55,5 @@
 
     <string name="item3_title">"Jojo\'s Bizarre Adventure"</string>
     <string name="item3_author">Hirohiko Araki</string>
+    <string name="title_activity_after_logg_in">AfterLoggIn</string>
 </resources>

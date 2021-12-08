@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -58,14 +57,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//
-//        setSupportActionBar(binding.toolbar);
-
         // create fields to store the content of the logged in user so we can use this data on other pages
         userLoggedIn = PreferenceManager.getDefaultSharedPreferences(this);
-        //userLoggedIn = getApplicationContext().getSharedPreferences("UserLoggedInDB", MODE_PRIVATE);
         userLoggedInEditor = userLoggedIn.edit();
 
         // initialize error message text view
@@ -73,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshErrorMessage() {
+
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.error);
         tvError.setText(error);
@@ -91,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
         EditText username = findViewById(R.id.login_username);
         EditText id = findViewById(R.id.login_id);
 
+        /*
+         * testing class to see if information / page changes functionality
+         * occur without need for backend
+         */
         if (username.getText().toString().equals("SophieBookWorm23") && id.getText().toString().equals("2609374"))  {
 
             // store logged in user credentials
@@ -105,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             // apply changes
             userLoggedInEditor.apply();
 
+            // switch views
             startActivity(new Intent(MainActivity.this, HomePage.class));
 
             return;
@@ -231,27 +230,5 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

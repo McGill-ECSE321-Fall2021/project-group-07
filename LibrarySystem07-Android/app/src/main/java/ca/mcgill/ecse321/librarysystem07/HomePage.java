@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -23,7 +22,6 @@ public class HomePage extends AppCompatActivity {
 
     // access information from the user logged in
     SharedPreferences userLoggedIn;
-    //SharedPreferences userLoggedIn = getApplicationContext().getSharedPreferences("UserLoggedInDB", MODE_PRIVATE);
     String typeOfAccount;
     int cardId;
 
@@ -102,6 +100,13 @@ public class HomePage extends AppCompatActivity {
             HttpUtils.put("visitors/" + cardId, rp, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                    // update view with new address
+                    TextView viewAddress = findViewById(R.id.Address);
+                    viewAddress.setText("Address:  " + tv.getText().toString());
+
+                    // refresh error message (hide any previous error messages)
+                    // reset default text
                     refreshErrorMessage();
                     tv.setText("");
                 }
@@ -121,6 +126,13 @@ public class HomePage extends AppCompatActivity {
             HttpUtils.put("librarians/" + cardId, rp, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                    // update view with new address
+                    TextView viewAddress = findViewById(R.id.Address);
+                    viewAddress.setText("Address:  " + tv.getText().toString());
+
+                    // refresh error message (hide any previous error messages)
+                    // reset default text
                     refreshErrorMessage();
                     tv.setText("");
                 }
