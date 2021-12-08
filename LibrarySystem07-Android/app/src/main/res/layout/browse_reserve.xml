@@ -1,3 +1,6 @@
+<!-- This is a STATIC GUI for the navigation & reserve page. The functionality is implemented in browse.xml with a dynamic view using RecyclerView, but browse.xml is not displaying properly. Here is an ideal example view.>
+<-->
+
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
