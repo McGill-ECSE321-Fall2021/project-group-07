@@ -56,4 +56,43 @@
     <string name="item3_title">"Jojo\'s Bizarre Adventure"</string>
     <string name="item3_author">Hirohiko Araki</string>
     <string name="title_activity_after_logg_in">AfterLoggIn</string>
+    
+     <!-- schedule page -->
+    
+    <string name="librarianshiftspinner_label">Shifts</string>
+    <string name="librarian1">&#160;&#160;Librarian1</string>
+    <string name="register_button">Register</string>
+    <string name="refresh_button">Refresh lists</string>
+    <string name="name_prompt">Select name</string>
+    <string name="sun">Sunday</string>
+    <string name="mon">Monday</string>
+    <string name="tue">Tuesday</string>
+    <string name="wed">Wednesday</string>
+    <string name="thu">Thursday</string>
+    <string name="fri">Friday</string>
+    <string name="sat">Saturday</string>
+    <string name="updating">Update</string>
+    
+    <string name="time7am">7am</string>
+    <string name="time8am">8am</string>
+    <string name="time9am">9am</string>
+    <string name="time10am">10am</string>
+    <string name="time11am">11am</string>
+    <string name="time12pm">12pm</string>
+    <string name="time1pm">1pm</string>
+    <string name="time2pm">2pm</string>
+    <string name="time3pm">3pm</string>
+    <string name="time4pm">4pm</string>
+    <string name="time5pm">5pm</string>
+    <string name="time6pm">6pm</string>
+    <string name="time7pm">7pm</string>
+    <string name="time8pm">8pm</string>
+    <string name="time9pm">9pm</string>
+    <string name="time10pm">10pm</string>
+
+    <color name="red">#FF0000</color>
+    <color name="gray">#808080</color>
+    <color name="blue">#0000FF</color>
+    <color name="black">#000000</color>
+    
 </resources>
